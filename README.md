@@ -18,13 +18,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/keman-ai/dsh-skin-pack">
-    <img src="https://img.shields.io/badge/%E5%A6%82%E6%9E%9C%E5%96%9C%E6%AC%A2-%E7%82%B9%E4%B8%AA%20Star%20%E2%AD%90-4D6BFE?style=for-the-badge&labelColor=24292f" alt="给个 Star">
-  </a>
-</p>
-
-<p align="center">
-  <b>28 套皮肤，全部免费开源</b>　·　Star 是我们判断该不该继续做下去的唯一信号
+  <b>如果喜欢就给个 Star 鼓励我们一下吧</b>
 </p>
 
 ## 怎么装
@@ -278,5 +272,5 @@ packages/<name>/     ← 包名固定是 dsh-<name>，脚本与集市数据都�
 ---
 
 <p align="center">
-  <sub>如果这些皮肤帮到了你，<a href="https://github.com/keman-ai/dsh-skin-pack">给个 Star ⭐</a> 就是最好的支持。</sub>
+  <sub>如果喜欢就给个 Star 鼓励我们一下吧</sub>
 </p>
