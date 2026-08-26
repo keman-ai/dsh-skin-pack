@@ -59,10 +59,20 @@ function checkPackaging(name, pkg) {
   }
 }
 
-/** 包名与目录名的映射必须可预测：目录 <x> ↔ 包 dsh-<x>，否则脚本和集市数据都得逐个特判。 */
+/**
+ * 目录名必须与包名逐字相同。
+ *
+ * 这一条把全链路上的名字钉成同一个：目录 `packages/dsh-niulai`、包名 `dsh-niulai`、
+ * Release tag `dsh-niulai-v0.1.0`、tarball `dsh-niulai-0.1.0.tgz`、集市里显示的标识。
+ * 早先目录不带前缀（`packages/niulai`），于是 tag 与文件名的前缀对不上，
+ * 每个读到它的人都要先在脑子里做一次映射。
+ */
 function checkNaming(name, pkg) {
-  if (pkg.name !== `dsh-${name}`) {
-    problems.push(`${name}: 包名 ${pkg.name} 不等于 dsh-${name}`)
+  if (pkg.name !== name) {
+    problems.push(`${name}: 包名 ${pkg.name} 与目录名不一致`)
+  }
+  if (!name.startsWith('dsh-')) {
+    problems.push(`${name}: 目录名要以 dsh- 开头`)
   }
 }
 

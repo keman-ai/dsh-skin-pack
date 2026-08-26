@@ -1,0 +1,64 @@
+{
+  "name": "dsh-night-flight-companion",
+  "version": "0.1.0",
+  "description": "夜航同行 —— DeepSeek Harness 的暗色皮肤：深夜蓝 + 月光青 + 一点暖米色，新会话页是一整幅夜空飞行横幅",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "skin",
+    "theme",
+    "night",
+    "companion",
+    "dark"
+  ],
+  "license": "MIT",
+  "author": "Science Roam Limited",
+  "homepage": "https://github.com/keman-ai/dsh-skin-pack/tree/main/packages/dsh-night-flight-companion#readme",
+  "bugs": {
+    "url": "https://github.com/keman-ai/dsh-skin-pack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keman-ai/dsh-skin-pack.git",
+    "directory": "packages/dsh-night-flight-companion"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "skin.json",
+    "preview",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "check": "tsc --noEmit",
+    "prepublishOnly": "tsdown"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

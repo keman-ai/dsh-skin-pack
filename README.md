@@ -38,162 +38,162 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 <table>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/ai-work-slogan"><img src="packages/ai-work-slogan/preview/dark.webp" alt="AI 工作模式" width="100%"></a><br><b>AI 工作模式</b> <sub>暗色</sub><br>
+<a href="packages/dsh-ai-work-slogan"><img src="packages/dsh-ai-work-slogan/preview/dark.webp" alt="AI 工作模式" width="100%"></a><br><b>AI 工作模式</b> <sub>暗色</sub><br>
 <sub>深海蓝渐变 + 毛玻璃面板 + 白色主操作，空屏是一句口号</sub><br>
-<sub><code>packages/ai-work-slogan</code></sub>
+<sub><code>packages/dsh-ai-work-slogan</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/blue-whale-ocean"><img src="packages/blue-whale-ocean/preview/dark.webp" alt="蓝鲸海洋" width="100%"></a><br><b>蓝鲸海洋</b> <sub>暗色</sub><br>
+<a href="packages/dsh-blue-whale-ocean"><img src="packages/dsh-blue-whale-ocean/preview/dark.webp" alt="蓝鲸海洋" width="100%"></a><br><b>蓝鲸海洋</b> <sub>暗色</sub><br>
 <sub>深海蓝打底、透明青蓝做描边与状态、冰白只做高光，新会话页是一整幅鲸鱼海面横幅</sub><br>
-<sub><code>packages/blue-whale-ocean</code></sub>
+<sub><code>packages/dsh-blue-whale-ocean</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/cosmic-exploration"><img src="packages/cosmic-exploration/preview/dark.webp" alt="宇宙探索" width="100%"></a><br><b>宇宙探索</b> <sub>暗色</sub><br>
+<a href="packages/dsh-cosmic-exploration"><img src="packages/dsh-cosmic-exploration/preview/dark.webp" alt="宇宙探索" width="100%"></a><br><b>宇宙探索</b> <sub>暗色</sub><br>
 <sub>深蓝太空底 + 冷蓝与星云紫，新会话页是一整幅宇宙探索封面</sub><br>
-<sub><code>packages/cosmic-exploration</code></sub>
+<sub><code>packages/dsh-cosmic-exploration</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/cosmic-opera"><img src="packages/cosmic-opera/preview/dark.webp" alt="宇宙歌剧" width="100%"></a><br><b>宇宙歌剧</b> <sub>暗色</sub><br>
+<a href="packages/dsh-cosmic-opera"><img src="packages/dsh-cosmic-opera/preview/dark.webp" alt="宇宙歌剧" width="100%"></a><br><b>宇宙歌剧</b> <sub>暗色</sub><br>
 <sub>深蓝太空底 + 紫/蓝/青三档强调，新会话页是一整幅旋涡星系封面</sub><br>
-<sub><code>packages/cosmic-opera</code></sub>
+<sub><code>packages/dsh-cosmic-opera</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/cyber-tao"><img src="packages/cyber-tao/preview/dark.webp" alt="赛博道观" width="100%"></a><br><b>赛博道观</b> <sub>暗色</sub><br>
+<a href="packages/dsh-cyber-tao"><img src="packages/dsh-cyber-tao/preview/dark.webp" alt="赛博道观" width="100%"></a><br><b>赛博道观</b> <sub>暗色</sub><br>
 <sub>黑曜石底、青铜描边、宣纸白文字，朱砂强调、玉石青状态，新会话页是一整幅山门主视觉</sub><br>
-<sub><code>packages/cyber-tao</code></sub>
+<sub><code>packages/dsh-cyber-tao</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/dark-xianxia"><img src="packages/dark-xianxia/preview/dark.webp" alt="天机阁·修仙版" width="100%"></a><br><b>天机阁·修仙版</b> <sub>暗色</sub><br>
+<a href="packages/dsh-dark-xianxia"><img src="packages/dsh-dark-xianxia/preview/dark.webp" alt="天机阁·修仙版" width="100%"></a><br><b>天机阁·修仙版</b> <sub>暗色</sub><br>
 <sub>墨青黑打底、古金做边与按钮、玉青只给运行中、朱砂只给危险，新会话页是一整幅召请天机主视觉</sub><br>
-<sub><code>packages/dark-xianxia</code></sub>
+<sub><code>packages/dsh-dark-xianxia</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/deepseek-fish-maid"><img src="packages/deepseek-fish-maid/preview/dark.webp" alt="大鱼娘 Deep Sea" width="100%"></a><br><b>大鱼娘 Deep Sea</b> <sub>暗色</sub><br>
+<a href="packages/dsh-deepseek-fish-maid"><img src="packages/dsh-deepseek-fish-maid/preview/dark.webp" alt="大鱼娘 Deep Sea" width="100%"></a><br><b>大鱼娘 Deep Sea</b> <sub>暗色</sub><br>
 <sub>深海蓝打底、冷青做描边与状态、DeepSeek 蓝做主操作，新会话页是一整幅深海主视觉</sub><br>
-<sub><code>packages/deepseek-fish-maid</code></sub>
+<sub><code>packages/dsh-deepseek-fish-maid</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/deepseek-twin-whale-maid"><img src="packages/deepseek-twin-whale-maid/preview/dark.webp" alt="双鲸女仆" width="100%"></a><br><b>双鲸女仆</b> <sub>暗色</sub><br>
+<a href="packages/dsh-deepseek-twin-whale-maid"><img src="packages/dsh-deepseek-twin-whale-maid/preview/dark.webp" alt="双鲸女仆" width="100%"></a><br><b>双鲸女仆</b> <sub>暗色</sub><br>
 <sub>深海蓝打底、冷青做描边与状态、DeepSeek 蓝做主操作，新会话页是一整幅双子女仆主视觉</sub><br>
-<sub><code>packages/deepseek-twin-whale-maid</code></sub>
+<sub><code>packages/dsh-deepseek-twin-whale-maid</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/emerald-megacity"><img src="packages/emerald-megacity/preview/dark.webp" alt="翡翠巨城" width="100%"></a><br><b>翡翠巨城</b> <sub>暗色</sub><br>
+<a href="packages/dsh-emerald-megacity"><img src="packages/dsh-emerald-megacity/preview/dark.webp" alt="翡翠巨城" width="100%"></a><br><b>翡翠巨城</b> <sub>暗色</sub><br>
 <sub>墨绿打底、翡翠做主操作、玉青只给运行中、暖金只做描边与强调</sub><br>
-<sub><code>packages/emerald-megacity</code></sub>
+<sub><code>packages/dsh-emerald-megacity</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/extreme-xianxia-light"><img src="packages/extreme-xianxia-light/preview/light.webp" alt="灰白仙境" width="100%"></a><br><b>灰白仙境</b> <sub>浅色</sub><br>
+<a href="packages/dsh-extreme-xianxia-light"><img src="packages/dsh-extreme-xianxia-light/preview/light.webp" alt="灰白仙境" width="100%"></a><br><b>灰白仙境</b> <sub>浅色</sub><br>
 <sub>纸白雾白打底、墨灰做文字、淡金做边与按钮、玉青只给运行中，新会话页是一整幅天机在握主视觉</sub><br>
-<sub><code>packages/extreme-xianxia-light</code></sub>
+<sub><code>packages/dsh-extreme-xianxia-light</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/forest-adventure"><img src="packages/forest-adventure/preview/dark.webp" alt="森林漫游" width="100%"></a><br><b>森林漫游</b> <sub>暗色</sub><br>
+<a href="packages/dsh-forest-adventure"><img src="packages/dsh-forest-adventure/preview/dark.webp" alt="森林漫游" width="100%"></a><br><b>森林漫游</b> <sub>暗色</sub><br>
 <sub>森林深绿打底、苔藓绿做主操作、溪水青只给运行中、日光黄只做点缀，新会话页是一整幅林间主视觉</sub><br>
-<sub><code>packages/forest-adventure</code></sub>
+<sub><code>packages/dsh-forest-adventure</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/forest-companion"><img src="packages/forest-companion/preview/dark.webp" alt="森林同行" width="100%"></a><br><b>森林同行</b> <sub>暗色</sub><br>
+<a href="packages/dsh-forest-companion"><img src="packages/dsh-forest-companion/preview/dark.webp" alt="森林同行" width="100%"></a><br><b>森林同行</b> <sub>暗色</sub><br>
 <sub>深森林绿 + 柔和米色 + 一点粉，新会话页是一整幅森林陪伴封面</sub><br>
-<sub><code>packages/forest-companion</code></sub>
+<sub><code>packages/dsh-forest-companion</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/mars-flight-deck"><img src="packages/mars-flight-deck/preview/dark.webp" alt="火星驾驶舱" width="100%"></a><br><b>火星驾驶舱</b> <sub>暗色</sub><br>
+<a href="packages/dsh-mars-flight-deck"><img src="packages/dsh-mars-flight-deck/preview/dark.webp" alt="火星驾驶舱" width="100%"></a><br><b>火星驾驶舱</b> <sub>暗色</sub><br>
 <sub>航天黑打底、冷蓝做遥测与描边、推进器橙做主操作、Nominal 绿只给成功，新会话页是一整幅驾驶舱主视觉</sub><br>
-<sub><code>packages/mars-flight-deck</code></sub>
+<sub><code>packages/dsh-mars-flight-deck</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/night-flight-companion"><img src="packages/night-flight-companion/preview/dark.webp" alt="夜航同行" width="100%"></a><br><b>夜航同行</b> <sub>暗色</sub><br>
+<a href="packages/dsh-night-flight-companion"><img src="packages/dsh-night-flight-companion/preview/dark.webp" alt="夜航同行" width="100%"></a><br><b>夜航同行</b> <sub>暗色</sub><br>
 <sub>深夜蓝 + 月光青 + 一点暖米色，新会话页是一整幅夜空飞行横幅</sub><br>
-<sub><code>packages/night-flight-companion</code></sub>
+<sub><code>packages/dsh-night-flight-companion</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/night-forest-companion"><img src="packages/night-forest-companion/preview/dark.webp" alt="夜林同伴" width="100%"></a><br><b>夜林同伴</b> <sub>暗色</sub><br>
+<a href="packages/dsh-night-forest-companion"><img src="packages/dsh-night-forest-companion/preview/dark.webp" alt="夜林同伴" width="100%"></a><br><b>夜林同伴</b> <sub>暗色</sub><br>
 <sub>月夜蓝打底、月光青做描边与状态、主操作走蓝，新会话页是一整幅夜林横幅</sub><br>
-<sub><code>packages/night-forest-companion</code></sub>
+<sub><code>packages/dsh-night-forest-companion</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/niulai"><img src="packages/niulai/preview/dark.webp" alt="牛来原野" width="100%"></a><br><b>牛来原野</b> <sub>暗色</sub><br>
+<a href="packages/dsh-niulai"><img src="packages/dsh-niulai/preview/dark.webp" alt="牛来原野" width="100%"></a><br><b>牛来原野</b> <sub>暗色</sub><br>
 <sub>暖黑原野配色 + 低模橙牛背景，一头牛站在你的对话底下</sub><br>
-<sub><code>packages/niulai</code></sub>
+<sub><code>packages/dsh-niulai</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/pearl-oracle"><img src="packages/pearl-oracle/preview/dark.webp" alt="珍珠神谕" width="100%"></a><br><b>珍珠神谕</b> <sub>暗色</sub><br>
+<a href="packages/dsh-pearl-oracle"><img src="packages/dsh-pearl-oracle/preview/dark.webp" alt="珍珠神谕" width="100%"></a><br><b>珍珠神谕</b> <sub>暗色</sub><br>
 <sub>暖灰石打底、珍珠白只做高光、银做描边、雾蓝是全场唯一的彩色</sub><br>
-<sub><code>packages/pearl-oracle</code></sub>
+<sub><code>packages/dsh-pearl-oracle</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/ponyo-water-orbit"><img src="packages/ponyo-water-orbit/preview/dark.webp" alt="波妞水面" width="100%"></a><br><b>波妞水面</b> <sub>暗色</sub><br>
+<a href="packages/dsh-ponyo-water-orbit"><img src="packages/dsh-ponyo-water-orbit/preview/dark.webp" alt="波妞水面" width="100%"></a><br><b>波妞水面</b> <sub>暗色</sub><br>
 <sub>海蓝打底、亮蓝做主操作、水青只给运行中、珊瑚色只做点缀</sub><br>
-<sub><code>packages/ponyo-water-orbit</code></sub>
+<sub><code>packages/dsh-ponyo-water-orbit</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/qitian-cosmic-monkey"><img src="packages/qitian-cosmic-monkey/preview/dark.webp" alt="齐天星海" width="100%"></a><br><b>齐天星海</b> <sub>暗色</sub><br>
+<a href="packages/dsh-qitian-cosmic-monkey"><img src="packages/dsh-qitian-cosmic-monkey/preview/dark.webp" alt="齐天星海" width="100%"></a><br><b>齐天星海</b> <sub>暗色</sub><br>
 <sub>深夜宇宙蓝打底、余烬金做边与主操作、星辉蓝只给运行中，新会话页是一整幅大圣星海主视觉</sub><br>
-<sub><code>packages/qitian-cosmic-monkey</code></sub>
+<sub><code>packages/dsh-qitian-cosmic-monkey</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/seaside-boutique"><img src="packages/seaside-boutique/preview/light.webp" alt="海边小铺" width="100%"></a><br><b>海边小铺</b> <sub>浅色</sub><br>
+<a href="packages/dsh-seaside-boutique"><img src="packages/dsh-seaside-boutique/preview/light.webp" alt="海边小铺" width="100%"></a><br><b>海边小铺</b> <sub>浅色</sub><br>
 <sub>海雾白打底、灰蓝做正文、天空蓝做主操作、蜜桃粉只做点缀</sub><br>
-<sub><code>packages/seaside-boutique</code></sub>
+<sub><code>packages/dsh-seaside-boutique</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/summer-hillside"><img src="packages/summer-hillside/preview/light.webp" alt="夏日山坡" width="100%"></a><br><b>夏日山坡</b> <sub>浅色</sub><br>
+<a href="packages/dsh-summer-hillside"><img src="packages/dsh-summer-hillside/preview/light.webp" alt="夏日山坡" width="100%"></a><br><b>夏日山坡</b> <sub>浅色</sub><br>
 <sub>草白打底、深草绿做正文、草绿做主操作、天蓝做强调、穗粉只做点缀</sub><br>
-<sub><code>packages/summer-hillside</code></sub>
+<sub><code>packages/dsh-summer-hillside</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/sunset-catbus"><img src="packages/sunset-catbus/preview/dark.webp" alt="夕阳猫巴士" width="100%"></a><br><b>夕阳猫巴士</b> <sub>暗色</sub><br>
+<a href="packages/dsh-sunset-catbus"><img src="packages/dsh-sunset-catbus/preview/dark.webp" alt="夕阳猫巴士" width="100%"></a><br><b>夕阳猫巴士</b> <sub>暗色</sub><br>
 <sub>深棕打底、夕阳橙做主操作、麦田金做描边与强调、冷蓝只给运行中，新会话页是一整幅黄昏横幅</sub><br>
-<sub><code>packages/sunset-catbus</code></sub>
+<sub><code>packages/dsh-sunset-catbus</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/twilight-city"><img src="packages/twilight-city/preview/dark.webp" alt="黄昏城市" width="100%"></a><br><b>黄昏城市</b> <sub>暗色</sub><br>
+<a href="packages/dsh-twilight-city"><img src="packages/dsh-twilight-city/preview/dark.webp" alt="黄昏城市" width="100%"></a><br><b>黄昏城市</b> <sub>暗色</sub><br>
 <sub>深蓝夜空打底、晚霞橙紫粉做氛围、暖黄只点亮按钮、天空蓝只给运行中，新会话页是一整幅黄昏城市主视觉</sub><br>
-<sub><code>packages/twilight-city</code></sub>
+<sub><code>packages/dsh-twilight-city</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/ultra-team-apocalypse"><img src="packages/ultra-team-apocalypse/preview/dark.webp" alt="奥特小队·末日" width="100%"></a><br><b>奥特小队·末日</b> <sub>暗色</sub><br>
+<a href="packages/dsh-ultra-team-apocalypse"><img src="packages/dsh-ultra-team-apocalypse/preview/dark.webp" alt="奥特小队·末日" width="100%"></a><br><b>奥特小队·末日</b> <sub>暗色</sub><br>
 <sub>焦黑暗红打底、火光橙做主操作、战斗红只给失败、能量青只给运行中，新会话页是一整幅末日小队主视觉</sub><br>
-<sub><code>packages/ultra-team-apocalypse</code></sub>
+<sub><code>packages/dsh-ultra-team-apocalypse</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/ultraman-cosmic-hero"><img src="packages/ultraman-cosmic-hero/preview/dark.webp" alt="宇宙英雄" width="100%"></a><br><b>宇宙英雄</b> <sub>暗色</sub><br>
+<a href="packages/dsh-ultraman-cosmic-hero"><img src="packages/dsh-ultraman-cosmic-hero/preview/dark.webp" alt="宇宙英雄" width="100%"></a><br><b>宇宙英雄</b> <sub>暗色</sub><br>
 <sub>深空蓝黑配彩色计时器三色，新会话页是一整幅宇宙英雄主视觉</sub><br>
-<sub><code>packages/ultraman-cosmic-hero</code></sub>
+<sub><code>packages/dsh-ultraman-cosmic-hero</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/whale-girl"><img src="packages/whale-girl/preview/light.webp" alt="鲸鱼娘海岸休息室" width="100%"></a><br><b>鲸鱼娘海岸休息室</b> <sub>浅色</sub><br>
+<a href="packages/dsh-whale-girl"><img src="packages/dsh-whale-girl/preview/light.webp" alt="鲸鱼娘海岸休息室" width="100%"></a><br><b>鲸鱼娘海岸休息室</b> <sub>浅色</sub><br>
 <sub>浅蓝、珍珠白与深海蓝的三级配色，新会话页是一整幅鲸鱼娘封面</sub><br>
-<sub><code>packages/whale-girl</code></sub>
+<sub><code>packages/dsh-whale-girl</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/whale-wave-banner"><img src="packages/whale-wave-banner/preview/dark.webp" alt="鲸跃横幅" width="100%"></a><br><b>鲸跃横幅</b> <sub>浅色</sub><br>
+<a href="packages/dsh-whale-wave-banner"><img src="packages/dsh-whale-wave-banner/preview/dark.webp" alt="鲸跃横幅" width="100%"></a><br><b>鲸跃横幅</b> <sub>浅色</sub><br>
 <sub>DeepSeek 蓝 + 白，新会话页是一张横幅封面，输入区独立在下方</sub><br>
-<sub><code>packages/whale-wave-banner</code></sub>
+<sub><code>packages/dsh-whale-wave-banner</code></sub>
 </td>
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/wukong-flame-mountain"><img src="packages/wukong-flame-mountain/preview/dark.webp" alt="黑神话悟空 · 焚山版" width="100%"></a><br><b>黑神话悟空 · 焚山版</b> <sub>暗色</sub><br>
+<a href="packages/dsh-wukong-flame-mountain"><img src="packages/dsh-wukong-flame-mountain/preview/dark.webp" alt="黑神话悟空 · 焚山版" width="100%"></a><br><b>黑神话悟空 · 焚山版</b> <sub>暗色</sub><br>
 <sub>黑墨、古金与余烬橙，新会话页是一整幅焚山主视觉</sub><br>
-<sub><code>packages/wukong-flame-mountain</code></sub>
+<sub><code>packages/dsh-wukong-flame-mountain</code></sub>
 </td>
 </tr>
 </table>

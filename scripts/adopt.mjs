@@ -12,7 +12,7 @@
  *     而 pnpm 默认不跑 git 源的构建脚本。monorepo 装不了 git 子目录，分发改走 Release
  *     tarball（npm pack 时 lib/ 已构建并按 files 打进包），提交它只会让仓库白白变大
  *
- * 用法：node scripts/adopt.mjs <包目录名>...
+ * 用法：node scripts/adopt.mjs <包目录名>...   （目录名 = 包名，如 dsh-niulai）
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'

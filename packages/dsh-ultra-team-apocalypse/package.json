@@ -1,0 +1,64 @@
+{
+  "name": "dsh-ultra-team-apocalypse",
+  "version": "0.1.0",
+  "description": "奥特小队·末日 —— DeepSeek Harness 的暗色皮肤：焦黑暗红 / 火光橙 / 战斗红 / 能量青配色 + 新会话页整幅末日小队主视觉",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "skin",
+    "theme",
+    "ultraman",
+    "apocalypse",
+    "dark"
+  ],
+  "license": "MIT",
+  "author": "Science Roam Limited",
+  "homepage": "https://github.com/keman-ai/dsh-skin-pack/tree/main/packages/dsh-ultra-team-apocalypse#readme",
+  "bugs": {
+    "url": "https://github.com/keman-ai/dsh-skin-pack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keman-ai/dsh-skin-pack.git",
+    "directory": "packages/dsh-ultra-team-apocalypse"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "skin.json",
+    "preview",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "check": "tsc --noEmit",
+    "prepublishOnly": "tsdown"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

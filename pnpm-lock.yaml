@@ -33,169 +33,169 @@ importers:
         specifier: ^5.7.0
         version: 5.9.3
 
-  packages/ai-work-slogan:
+  packages/dsh-ai-work-slogan:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/blue-whale-ocean:
+  packages/dsh-blue-whale-ocean:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/cosmic-exploration:
+  packages/dsh-cosmic-exploration:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/cosmic-opera:
+  packages/dsh-cosmic-opera:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/cyber-tao:
+  packages/dsh-cyber-tao:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/dark-xianxia:
+  packages/dsh-dark-xianxia:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/deepseek-fish-maid:
+  packages/dsh-deepseek-fish-maid:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/deepseek-twin-whale-maid:
+  packages/dsh-deepseek-twin-whale-maid:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/emerald-megacity:
+  packages/dsh-emerald-megacity:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/extreme-xianxia-light:
+  packages/dsh-extreme-xianxia-light:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/forest-adventure:
+  packages/dsh-forest-adventure:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/forest-companion:
+  packages/dsh-forest-companion:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/mars-flight-deck:
+  packages/dsh-mars-flight-deck:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/night-flight-companion:
+  packages/dsh-night-flight-companion:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/night-forest-companion:
+  packages/dsh-night-forest-companion:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/niulai:
+  packages/dsh-niulai:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/pearl-oracle:
+  packages/dsh-pearl-oracle:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/ponyo-water-orbit:
+  packages/dsh-ponyo-water-orbit:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/qitian-cosmic-monkey:
+  packages/dsh-qitian-cosmic-monkey:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/seaside-boutique:
+  packages/dsh-seaside-boutique:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/summer-hillside:
+  packages/dsh-summer-hillside:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/sunset-catbus:
+  packages/dsh-sunset-catbus:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/twilight-city:
+  packages/dsh-twilight-city:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/ultra-team-apocalypse:
+  packages/dsh-ultra-team-apocalypse:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/ultraman-cosmic-hero:
+  packages/dsh-ultraman-cosmic-hero:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/whale-girl:
+  packages/dsh-whale-girl:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/whale-wave-banner:
+  packages/dsh-whale-wave-banner:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/wukong-flame-mountain:
+  packages/dsh-wukong-flame-mountain:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
