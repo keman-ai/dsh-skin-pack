@@ -6,6 +6,11 @@
 </p>
 
 <p align="center">
+  <a href="https://dsh.a2hmarket.ai"><strong>dsh.a2hmarket.ai</strong></a>
+  —— 在集市里看效果、读说明、一键安装（免登录）
+</p>
+
+<p align="center">
   <a href="../../stargazers"><img src="https://img.shields.io/github/stars/keman-ai/dsh-skin-pack?style=flat&label=Star&color=4D6BFE" alt="Stars"></a>
   <a href="../../releases"><img src="https://img.shields.io/github/v/release/keman-ai/dsh-skin-pack?style=flat&label=release&color=08C" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/skins-28-4D6BFE?style=flat" alt="28 skins">
@@ -18,7 +23,9 @@
 
 ## 怎么装
 
-最省事的办法是先装一次[皮肤市场](https://github.com/keman-ai/dsh-skin-market)，之后所有皮肤都在 dsh 界面里点：
+先在 [DSH 皮肤集市](https://dsh.a2hmarket.ai) 上逛一遍——每套皮肤都有整屏预览图和设计说明，免登录。
+
+最省事的装法是先装一次[皮肤市场插件](https://github.com/keman-ai/dsh-skin-market)，之后所有皮肤都在 dsh 界面里搜索、安装、切换：
 
 ```sh
 dsh plugin --profile web add -w github:keman-ai/dsh-skin-market
