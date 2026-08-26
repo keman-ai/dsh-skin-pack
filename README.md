@@ -6,8 +6,14 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2EA44F?style=flat" alt="MIT License"></a>
+  <a href="../../stargazers"><img src="https://img.shields.io/github/stars/keman-ai/dsh-skin-pack?style=flat&label=Star&color=4D6BFE" alt="Stars"></a>
+  <a href="../../releases"><img src="https://img.shields.io/github/v/release/keman-ai/dsh-skin-pack?style=flat&label=release&color=08C" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/skins-28-4D6BFE?style=flat" alt="28 skins">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2EA44F?style=flat" alt="MIT License"></a>
+</p>
+
+<p align="center">
+  <sub>觉得好看就点个 ⭐ —— 这是我们判断该不该继续做下去的唯一信号。</sub>
 </p>
 
 ## 怎么装
@@ -232,6 +238,19 @@ packages/<name>/     ← 包名固定是 dsh-<name>，脚本与集市数据都�
 
 皮肤本身怎么写（主题注册、slot、装饰只在激活时存在、集市安装期的几道闸），见 [dsh-skin-dev](https://github.com/keman-ai/dsh-skin-dev)。
 
+## 想自己做一套？
+
+皮肤本身怎么写（主题注册、slot、装饰只在激活时存在、集市安装期的几道闸），
+见 [dsh-skin-dev](https://github.com/keman-ai/dsh-skin-dev) —— 那是从实际做完一整套皮肤踩出来的坑与流程。
+
+做好了欢迎上架到 [DSH 皮肤集市](https://dsh.a2hmarket.ai)，免登录就能浏览安装。
+
 ## License
 
 [MIT](LICENSE) © Science Roam Limited
+
+---
+
+<p align="center">
+  <sub>如果这些皮肤帮到了你，<a href="../../stargazers">给个 Star ⭐</a> 就是最好的支持。</sub>
+</p>
