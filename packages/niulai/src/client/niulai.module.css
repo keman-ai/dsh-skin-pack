@@ -1,0 +1,570 @@
+/**
+ * 牛来的装饰层。
+ *
+ * 🔴 <b>为什么不铺在 body 最底层</b>：第一版就是那么做的，结果牛完全看不见 ——
+ * harness 的内容容器有自己的不透明底色（`bg-base`），把身下的一切盖死。背景图必须
+ * 画在**内容容器自己身上**才透得出来：CSS 的 background-image 绘制在该元素的
+ * background-color 之上，而对话正文本身是透明的，于是牛从文字后面透出来。
+ *
+ * 🔴 <b>牛只出现在新会话页</b>。设计稿的 Component language 写死了这条：
+ * 「cow image only on New Session hero and tiny agent status identity」。
+ * 曾经做过一版对话区常驻水印，那是违规的 —— 牛铺在正文后面会跟每一行字抢注意力，
+ * 而设计稿要的是「进新会话时牛在那儿，干活时它退到状态标识里」。
+ *
+ * 挂载点只用 harness 的语义 data 属性 `[data-phase='hero']`（EmptyHero.tsx），
+ * 不碰 CSS module 的哈希类名，比 `[class*='sidebarCol']` 那种模糊匹配稳得多。
+ *
+ * 全部规则挂在 `body[data-dsh-niulai]` 下：属性由 client 半在主题激活时打上、
+ * 切走时摘掉，所以关掉皮肤等于这些规则整体失效，不留残迹。
+ */
+
+/*
+ * 新会话整屏封面。
+ *
+ * 这是设计稿里牛最主要的露出（`.cow-cover`）：空屏没有正文要读，牛可以放到
+ * 水印的三倍浓度，一进新会话就是一头牛站在原野上看着你。
+ */
+:global(body[data-dsh-niulai] [data-phase='hero'])::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--niulai-cow-cover);
+  /*
+   * 铺满，按设计稿：New Session 页牛就是整块画面的主体，不是背景装饰。
+   *
+   * 原图 1011×702 在大屏上会被放大，但低模 3D 没有细节纹理，放大不糊 —— 之前看着糊
+   * 是 q76 的块效应，那已经换成 q92 解决了。缩着显示反而丢掉了设计稿要的压迫感。
+   */
+  background-size: cover;
+  background-position: center 38%;
+  background-repeat: no-repeat;
+  /* 设计稿里牛几乎不透明；留一点点透让它坐在原野底色上，不像贴上去的一张图。 */
+  opacity: 0.92;
+}
+
+/*
+ * 文字与输入框压在牛身上，靠一层自下而上的暗幕保证可读性 —— 设计稿也是这么做的
+ * （标题和输入区所在的下半部分明显压暗）。放在 ::after 而不是调低牛的透明度：
+ * 牛的上半身要保持鲜亮。
+ */
+:global(body[data-dsh-niulai] [data-phase='hero'])::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(23, 25, 17, 0.32) 0%,
+    rgba(23, 25, 17, 0.1) 34%,
+    rgba(23, 25, 17, 0.72) 76%,
+    rgba(23, 25, 17, 0.94) 100%
+  );
+}
+
+/*
+ * 输入区贴底。
+ *
+ * 🔴 居中不是 composer 自己做的，是它的祖先干的：
+ *   .root[data-phase='hero'] .scrollBody { justify-content: center }
+ * 第一版去改 `.composerHero{margin-top:auto}` 没有任何效果 —— 那是孙元素，
+ * 越不过父级 flex 容器的 justify-content。改对地方才是一行的事。
+ *
+ * 类名是 CSS module 哈希（形如 `_1Onn0a_scrollBody`），只能包含匹配；
+ * 这是本皮肤仅有的两处模糊匹配之一，harness 改名会让贴底退回居中，
+ * 不报错、其余部分照常。
+ */
+:global(body[data-dsh-niulai] [data-phase='hero'] [data-conversation-scroll]) {
+  justify-content: flex-end;
+  /*
+   * hero 没有可滚的内容，牛应当铺满整屏。不关掉这两条就会：
+   * ① overflow-y: auto 在贴底后因内容溢出冒出一条滚动条；
+   * ② scrollbar-gutter: stable 恒定预留一条滚动条的宽度（harness 为让 composer
+   *    在 Chat 与 overlay 两种落位下左右不跳而设），hero 里没有滚动条要让位，
+   *    这段预留就变成了把整列往一边推的偏移 —— 看上去就是输入框没居中。
+   */
+  overflow: hidden;
+  scrollbar-gutter: auto;
+}
+
+/* 贴底后，居中态为浮空留的那 32px 底部内边距就成了多余的缝。 */
+:global(body[data-dsh-niulai] [data-phase='hero'] [class*='composerHero']) {
+  padding-bottom: 12px;
+}
+
+/*
+ * 🔴 输入区相对<b>整个窗口</b>居中，而不是相对中间列。
+ *
+ * 实测（playwright 量的，不是估的）：视口中心 800，而输入卡片中心 936 —— 偏右 136。
+ * 因为层级是 .centerCol → [data-phase=hero] → [data-conversation-scroll] →
+ * [data-composer-seat]，侧栏占掉左边 280px，「在 centerCol 里居中」＝在窗口里偏右。
+ * 牛是铺满整个窗口的（设计稿的 New Session 本就全屏无侧栏），两个中心必须重合。
+ *
+ * ⚠️ 试过 `margin-left: calc(50% - 50vw)`（横跨视口的常用写法），量下来 center
+ * 只从 936 挪到 940 —— 那个式子算的是「父列半宽 − 视口半宽」，成立的前提是父列本身
+ * 在视口里居中；这里父列是靠右的，需要的偏移量其实是「父列距视口左沿的距离」，
+ * 而 CSS 表达不出它。
+ *
+ * 所以直接 fixed：脱离父列，天然以视口为参照系。只在 hero 生效，Chat 阶段那份
+ * 贴底与滚动补偿逻辑完全不受影响。
+ */
+:global(body[data-dsh-niulai] [data-phase='hero'] [data-composer-seat]) {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  max-width: none;
+  margin-left: 0;
+  align-items: center;
+  /* 压在牛与暗幕之上。 */
+  z-index: 2;
+}
+
+:global(body[data-dsh-niulai] [data-phase='hero']) > * {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * 预设选择器 → 原型图里的深色胶囊 + 橙点。
+ *
+ * ⚠️ 上一版把它做成了米黄实心，<b>做反了</b>。完整原型图里米黄是<b>主操作</b>专用色
+ * （+ New Session、权限卡的「允许」、发送键），而顶栏的 `● Standard`、输入框下的
+ * `Standard ▾` 都是深色胶囊配一颗橙点 —— 橙点表示"当前预设在生效"，属于 run state
+ * 那套语言。次级控件铺米黄会把主操作的视觉位置抢掉。
+ *
+ * 选择器用 `_seat` 而非 `seat`：哈希形如 `_1Onn0a_seat`，对话区另有 `_composerSeat`，
+ * 属性选择器大小写敏感，只命中前者。
+ */
+:global(body[data-dsh-niulai] [class*='_seat']) {
+  /*
+   * 🔴 橙点用背景绘制，<b>不能用 ::before</b>。
+   *
+   * 上一版插了个伪元素当圆点，结果把控件里的文字挤出了可视区 —— 那个按钮是
+   * `overflow: hidden` 的固定宽度 flex 容器（实测 159×28），伪元素会真占掉 13px
+   * 的排版空间，用户看到的就是「模式选择器坏了/不见了」。背景不参与布局，配一段
+   * padding 给它让位即可，控件宽高与内部对齐一概不变。
+   */
+  background-color: var(--dsw-alias-bg-layer-2);
+  background-image: radial-gradient(
+    circle at 11px 50%,
+    var(--dsw-alias-state-business-primary) 0 3px,
+    transparent 3px
+  );
+  background-repeat: no-repeat;
+  padding-left: 21px;
+  color: var(--dsw-alias-label-primary);
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 999px;
+}
+
+:global(body[data-dsh-niulai] [class*='_seat']:hover) {
+  background-color: var(--dsw-alias-interactive-bg-hover-solid);
+}
+
+/*
+ * 对话页的预设选择器在会话标题栏里（`headerActions`），不含 `_seat` —— 实测对话页
+ * `[class*='_seat']` 命中 0。给它配同款胶囊，两处观感一致。
+ */
+:global(body[data-dsh-niulai] [class*='headerActions'] button) {
+  border-radius: 999px;
+}
+
+/*
+ * 工作区选择器（那个文件夹下拉）配成描边胶囊，与米黄那颗成一组。
+ * 设计稿里它不存在 —— 稿子的 "Code" 是预设名不是工作区 —— 但真实产品里它就在旁边，
+ * 放着不管会让一颗胶囊孤零零地立在一排方角控件中间。
+ */
+:global(body[data-dsh-niulai] [data-phase='hero'] [class*='workspace']) {
+  border-radius: 999px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  padding-inline: 12px;
+}
+
+/* ==========================================================================
+ * Agent 人格化文案 —— 设计稿 Appearance 面板「Agent copy states」那四条。
+ *
+ * harness 不允许第三方覆盖内置文案：`locale.register` 与 `slots.register` 对同名
+ * 重复注册都是直接抛错（只给"新增"不给"替换"）。所以走 CSS 伪元素这条路：
+ * 零 MutationObserver、零运行时开销，改版最多样式失配，不会报错也不会白屏。
+ *
+ * 锚点是 playwright 跑真实对话抓出来的，不是猜的：
+ *   [data-variant="think"][data-state="running"]  思考中
+ *   [data-variant="bash"|"read"|…][data-state]     每个工具各有自己的 variant
+ *   [data-state="error"]                           失败
+ * 字号也是量的：title 14px / line-height 24px / weight 400。
+ * ========================================================================== */
+
+/*
+ * Thinking → 牛来正在深潜……
+ *
+ * "Think" 本身就是个状态标签（harness 里是硬编码字符串，不走 locale），
+ * 整个换掉最自然。font-size: 0 让原文本不占位，伪元素显式给回量到的 14px。
+ * 只在 running 时换：思考完成后那行是可展开的历史记录，保留 "Think" 更好认。
+ */
+:global(body[data-dsh-niulai] [data-variant='think'][data-state='running'] [class*='_title']) {
+  font-size: 0;
+}
+
+:global(body[data-dsh-niulai] [data-variant='think'][data-state='running'] [class*='_title'])::after {
+  content: '牛来正在深潜……';
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/*
+ * Tool run → 牛来正在干活……
+ *
+ * 🔴 <b>这条做不到，位置留着说明原因</b>：harness 不渲染「工具运行中」这个中间态。
+ * playwright 跑真实对话抓下来的序列是 think(running) → think(ok) → bash(ok)，
+ * 工具行只在拿到 outcome 之后才出现，data-state 只有 ok / error 两种取值，
+ * 没有 running。全局唯一带 data-state="ongoing" 的元素在<b>侧边栏会话行</b>里
+ * （表示"这个会话在跑"），不在对话区，语义也不是某次工具调用。
+ *
+ * 所以没有可挂的锚点。硬造一个（比如猜某个 class 存在）只会得到一条永远不显示、
+ * 也永远不会报错提醒你的死规则。牛在干活时的表达由下面那颗小牛头承担。
+ */
+
+/*
+ * tiny agent status identity —— 设计稿 Component language 里那句
+ * 「cow image only on New Session hero and tiny agent status identity」的后半句。
+ *
+ * 落点就是上面说的那个 ongoing 指示点：会话正在跑时侧边栏亮的那颗点，换成牛脸。
+ * 这是整套皮肤里牛的第二处、也是最后一处露出，与设计稿的限定一致。
+ */
+:global(body[data-dsh-niulai] [data-state='ongoing']) {
+  background-image: var(--niulai-cow-avatar);
+  background-size: cover;
+  background-position: center 38%;
+  border-radius: 999px;
+  /* 盖住原本的 svg 图形，只留下这颗牛头。 */
+  color: transparent;
+}
+
+/*
+ * Error → 事情超出了牛来的预料
+ *
+ * 同样是追加：错误行原文带着 "Error: …" 的具体原因，那是排障唯一的线索，不能盖掉。
+ */
+:global(body[data-dsh-niulai] [data-state='error'] [class*='_title'])::after {
+  content: ' · 事情超出了牛来的预料';
+  font-weight: 400;
+  color: var(--dsw-alias-state-error-primary);
+}
+
+/*
+ * Permission → 牛来需要你拿个主意
+ *
+ * ⚠️ 唯一一条没能在真实对话里抓到锚点的：触发权限确认需要一次会改本地文件的操作，
+ * 探针跑的是只读任务。锚点取自 harness 源码里节点类型的取值（kind === 'approval'，
+ * 由 ChatNodeSeat 渲染成 data-chat-flow-kind），未经实测，失配的话这一条不显示，
+ * 不影响其余三条。
+ */
+:global(body[data-dsh-niulai] [data-chat-flow-kind='approval'] [class*='_title'])::before {
+  content: '牛来需要你拿个主意 · ';
+  font-weight: 600;
+  color: var(--dsw-alias-brand-primary);
+}
+
+/* ==========================================================================
+ * 右侧详情面板 —— 对齐设计稿的卡片语言。
+ *
+ * ⚠️ 先说清楚<b>没做什么</b>：设计稿那个 Details 是「运行概览」（Current run /
+ * Goal / Context files / Usage 四张卡片），而 harness 的详情面板是「某次工具调用
+ * 的详情」，只有 Input 与 Output 两段 —— 两者不是同一个东西，不是换皮的问题。
+ * 全部 29 个 slot 里与详情相关的只有 `conversation.details.tool`（渲染工具结果的
+ * 位置），没有"往面板加卡片"的口子，`data-slot="details"` 也已被官方组件占据。
+ * 所以这里只做视觉语言对齐，不伪造那四张卡片。
+ *
+ * 设计稿 Component language 的原文：Radius 8–12px · 1px low-contrast borders ·
+ * almost-flat surfaces。下面照此执行。
+ * ========================================================================== */
+
+/* Input / Output 两段升格成带描边的卡片，与设计稿的 Current run / Goal 同款。 */
+:global(body[data-dsh-niulai] [data-slot='details'] [class*='_section']) {
+  background: var(--dsw-alias-bg-layer-1);
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+/* 段标题：设计稿里是加粗小字，与正文拉开层级。 */
+:global(body[data-dsh-niulai] [data-slot='details'] [class*='_sectionLabel']) {
+  font-weight: 600;
+  color: var(--dsw-alias-label-primary);
+  margin-bottom: 8px;
+}
+
+/* 面板标题行：与卡片之间用一条低对比分隔，而不是留白硬断。 */
+:global(body[data-dsh-niulai] [data-slot='details'] [class*='_header']) {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}
+
+/*
+ * 空态与运行态的提示文字。
+ *
+ * 🔴 这两个态在 harness 里<b>共用同一个 `css.empty` 元素</b>，只有文本不同
+ * （`details.empty` / `details.running`），CSS 选不了文本，所以无法只给运行态
+ * 换成设计稿的「● 牛来正在干活」。要区分只能上 MutationObserver 读文本再替换，
+ * 那是全项目目前唯一还没用过的脏手段，没有业主点头不做。
+ * 这里只统一排版，不动文案。
+ */
+:global(body[data-dsh-niulai] [data-slot='details'] [class*='_empty']) {
+  color: var(--dsw-alias-label-tertiary);
+  padding: 18px 14px;
+  text-align: center;
+}
+
+/* ==========================================================================
+ * 原型图的质感层 —— 全是纯 CSS，不依赖 harness 的 DOM 结构，改版不会碎。
+ * ========================================================================== */
+
+/*
+ * 全局细纹理。
+ *
+ * 原型图 `.app:before`：3.5% 不透明度的横竖细线 + screen 混合。这层是"原野质感"
+ * 的关键 —— 没有它，牛来只是一套暖色色块；有了它才有旧显示器那点颗粒感。
+ *
+ * z-index 取原型图的 100 并 pointer-events: none：盖在所有内容之上才有统一的
+ * 蒙版效果，而 3.5% 的强度不影响任何文字可读性，也绝不拦截点击。
+ */
+:global(body[data-dsh-niulai])::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: screen;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.25) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 6px);
+}
+
+/*
+ * New Session 的状态胶囊：「● 牛来在这儿。给它一个任务。」
+ *
+ * 原型图 `.new-status`：圆角 999、半透明深底、8px 毛玻璃，浮在牛图之上、标题之前。
+ * 挂在 hero 的纵向 stack 上（`_stack`），它是标题与正文的共同父容器，::before 天然
+ * 落在最前面。
+ *
+ * 选择器用 `_stack` 而非 `stack`：对话区还有个 `composerStack`，大小写敏感下
+ * "composerStack" 不含 "_stack"，不会误伤。
+ */
+:global(body[data-dsh-niulai] [data-phase='hero'] [class*='_stack'])::before {
+  content: '● 牛来在这儿。给它一个任务。';
+  align-self: center;
+  margin-bottom: 12px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(19, 20, 14, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  font-size: 11px;
+  letter-spacing: 0.2px;
+  color: #e7e1d2;
+  /* 圆点用主橙：这是"牛在场"的信号，与 run state 同一套色语言。 */
+  text-shadow: none;
+}
+
+/*
+ * 输入区的自下而上遮罩。
+ *
+ * 原型图 `.composer-shell` 用 `linear-gradient(180deg, transparent, #191b13 20%)`
+ * 让消息滚到输入框附近自然淡出，而不是被硬边切断。
+ */
+:global(body[data-dsh-niulai] [data-composer-seat]) {
+  background: linear-gradient(180deg, rgba(23, 25, 17, 0) 0%, var(--dsw-alias-bg-base) 22%);
+}
+
+/*
+ * 加载指示：草绿底 + 橙色缺口。
+ *
+ * 原型图 `.spinner` 是 `1.5px solid #555a46` 配 `border-top-color: 主橙`。harness 的
+ * 转圈是 svg，拿不到 border，所以退一步只统一描边色调 —— 至少不再是中性灰。
+ */
+:global(body[data-dsh-niulai] [class*='spinner']),
+:global(body[data-dsh-niulai] [class*='Spinner']) {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/*
+ * 用户头像：橙色渐变圆。
+ *
+ * 原型图 `.avatar` 是 `linear-gradient(145deg, 主橙, #b84c0b)` 配浅橙字。
+ * ⚠️ 探针在当前页面没抓到 avatar 类名（要有对话消息才渲染），所以这条是<b>按类名
+ * 惯例写的、未经实测</b>；失配的话不显示，不影响其它。
+ */
+:global(body[data-dsh-niulai] [class*='avatar']:not(img)) {
+  background: linear-gradient(145deg, #ff7a14, #b84c0b);
+  color: #ffe1b5;
+}
+
+/* ==========================================================================
+ * 侧边栏 —— 对照完整原型图补的。锚点全部来自 playwright 实测的真实类名。
+ * ========================================================================== */
+
+/*
+ * `+ New Session` 是整个界面的<b>主操作</b>，原型图里它是唯一的米黄实心大按钮。
+ * harness 默认给它的是低调的次级样式，不改的话主操作反而没有视觉重量。
+ */
+/*
+ * 🔴 `:not([class*='_newSessionLabel'])` 不能省。
+ *
+ * 前缀匹配 `[class*='_newSession']` 会**同时命中按钮本身和它里面的文字节点**
+ *（harness 的类名是 `_newSession` 与 `_newSessionLabel`），于是渐变底与描边被画了两遍，
+ * 文字外面多出一个小方框。暗色皮肤上两层底色接近、几乎看不出来，浅色皮肤上一眼就是 bug。
+ * 同一个坑在 `_headline` / `_headlineText` 上踩过一次。
+ */
+:global(body[data-dsh-niulai] [class*='_newSession']:not([class*='_newSessionLabel'])) {
+  background: var(--dsw-alias-brand-primary);
+  color: var(--dsw-alias-label-primary-foreground);
+  border-color: transparent;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+:global(body[data-dsh-niulai] [class*='_newSession']:not([class*='_newSessionLabel']):hover) {
+  background: var(--dsw-alias-button-primary-hover);
+}
+
+/* 按钮内的图标与文字跟着走：harness 图标用 currentColor，父级换色即可。 */
+:global(body[data-dsh-niulai] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
+  color: inherit;
+}
+
+/*
+ * 会话列表的选中态：左侧一道橙色竖条。
+ *
+ * 原型图用它标"当前会话"，比单纯改底色更容易一眼扫到。用 inset box-shadow 画竖条
+ * 而不是 border-left —— 后者会改变盒宽，让选中行相对其它行错位 2px。
+ */
+:global(body[data-dsh-niulai] [class*='_sessionRow'][class*='_selected']) {
+  box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-business-primary);
+  border-radius: 8px;
+}
+
+/*
+ * 分组标题（TODAY / PREVIOUS 7 DAYS）：小号大写、字距拉开、压到三级文字色。
+ * 原型图用这个把时间分组降成背景信息，不与会话标题争注意力。
+ */
+:global(body[data-dsh-niulai] [class*='_groupSection'] > :first-child) {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: var(--dsw-alias-label-caption);
+}
+
+/*
+ * 侧边栏底色比主区更沉一档，让对话区显得往前浮 —— 原型图的三栏就是这个层次。
+ * token 里已经设过 `--dsw-specific-sidebar-fill`，这里补一条右侧分隔线收边。
+ */
+:global(body[data-dsh-niulai] [class*='_sidebarCol']) {
+  border-right: 1px solid var(--dsw-alias-border-l1);
+}
+
+/* ==========================================================================
+ * 对话流 —— 对照完整原型图。锚点是 playwright 跑真实对话 dump 出来的：
+ *   [data-chat-flow-kind='user']   用户消息
+ *   [data-chat-flow-kind='text']   助手正文
+ *   [data-chat-flow-kind='context'] 上下文注入
+ *   [data-chat-flow-kind='turn-error'] 本轮失败
+ * ========================================================================== */
+
+/*
+ * 助手正文旁的牛头像。
+ *
+ * 原型图里每段助手发言前面都有一颗橙色牛头方块，那是"牛来在说话"最直接的识别。
+ * harness <b>不渲染任何助手头像</b>（dump 过整棵对话流，没有 avatar 类的元素），
+ * 所以这里用伪元素造一颗，绝对定位到正文左侧的空白处。
+ *
+ * ⚠️ 一轮回复可能拆成多个 text 节点，那样会出现多颗牛头。宁可如此也不做
+ * 「只给每轮第一个加」—— CSS 选不出"每轮第一个"，硬凑要靠 JS 遍历 DOM，
+ * 那是本皮肤一直避免的耦合。
+ */
+:global(body[data-dsh-niulai] [data-chat-flow-kind='text']) {
+  position: relative;
+}
+
+:global(body[data-dsh-niulai] [data-chat-flow-kind='text'])::before {
+  content: '';
+  position: absolute;
+  left: -38px;
+  top: 1px;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background-image: var(--niulai-cow-avatar);
+  background-size: cover;
+  background-position: center 38%;
+  border: 1px solid rgba(240, 210, 138, 0.32);
+  /* 窄屏下左边没有 38px 富余，隐掉而不是把正文挤走。 */
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  :global(body[data-dsh-niulai] [data-chat-flow-kind='text'])::before {
+    display: none;
+  }
+}
+
+/*
+ * 用户消息气泡：原型图是低对比灰底 + 12px 圆角，靠右。
+ * harness 已有 bubble，这里只把圆角与底色对到原野色，不动布局。
+ */
+:global(body[data-dsh-niulai] [class*='_bubble']) {
+  border-radius: 12px;
+  background: var(--dsw-specific-bubble);
+  border: 1px solid var(--dsw-alias-border-l1);
+}
+
+/*
+ * 上下文注入行：原型图把它压成背景信息（灰、小、不抢眼），
+ * 因为它是每轮都出现的系统噪音，不是用户要读的内容。
+ */
+:global(body[data-dsh-niulai] [data-chat-flow-kind='context']) {
+  opacity: 0.62;
+  font-size: 12px;
+}
+
+:global(body[data-dsh-niulai] [data-chat-flow-kind='context']:hover) {
+  opacity: 1;
+}
+
+/*
+ * 本轮失败：原型图的错误态是红色描边卡片，与普通消息拉开距离。
+ * 这里补一条左侧红边，比纯文字更容易在长对话里扫到。
+ */
+:global(body[data-dsh-niulai] [data-chat-flow-kind='turn-error']) {
+  box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
+  border-radius: 8px;
+  padding-left: 10px;
+}
+
+/*
+ * Agent 预设页：「当前使用」徽章与当前卡片。
+ *
+ * harness 默认给徽章的是白底黑字，在这套暖色里像块补丁。按原型图的色彩分工，
+ * "这个正在生效"属于 run state 一侧，与预设胶囊上那颗橙点同源，所以用橙。
+ *
+ * 选择器限定在 `_cardActive` 之内 —— 源码里只有 `row.isDefault` 的卡片才带这个类
+ * （AgentPresetSection.tsx:254），而 `_badge` 本身还用在别处，不限定会误伤「内置」
+ * 那类标签。
+ */
+:global(body[data-dsh-niulai] [class*='_cardActive'] [class*='_badge']) {
+  background: var(--dsw-alias-state-business-primary);
+  color: var(--dsw-alias-label-primary-foreground);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+/* 当前卡片的描边跟着换成橙色，与徽章呼应，一眼看出哪张在生效。 */
+:global(body[data-dsh-niulai] [class*='_cardActive']) {
+  border-color: var(--dsw-alias-state-business-primary);
+}

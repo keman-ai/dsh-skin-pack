@@ -1,0 +1,24 @@
+{
+  "name": "dsh-skin-pack",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "build": "pnpm -r --filter \"./packages/*\" run build",
+    "check": "pnpm -r --filter \"./packages/*\" run check",
+    "verify": "node scripts/verify.mjs",
+    "release": "node scripts/release.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "~18.3.1",
+    "@types/react-dom": "~18.3.1",
+    "lightningcss": "^1.29.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsdown": "^0.15.6",
+    "typescript": "^5.7.0"
+  }
+}

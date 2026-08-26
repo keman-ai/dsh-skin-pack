@@ -1,0 +1,26 @@
+{
+  "id": "mars",
+  "name": "火星驾驶舱",
+  "nameEn": "Mars Flight Deck",
+  "author": "Science Roam Limited",
+  "tagline": "航天黑打底、冷蓝做遥测与描边、推进器橙做主操作、Nominal 绿只给成功，新会话页是一整幅驾驶舱主视觉",
+  "description": "配比是原型稿自己写死的一句数字：80% 航天黑与深蓝控制面板，10% 冷蓝遥测信息，6% 推进器橙色交互强调，3% Nominal 绿色状态，1% 红色异常态。\n\n底是接近纯黑的航天黑 #05080d，三级面板往上是深蓝；全场两条描边——冷蓝的 rgba(142,181,203,.12) 撑起全部分层（就是仪表盘上那些细线），橙的 rgba(255,122,46,.14) 只出现在需要强调的框上。\n\n三个色的分工一处都不串：推进器橙（#ff7a2e）是「你要做的事」——主操作、选中项；Nominal 绿（#73b89a）是「已经好了」；冷蓝（#7fb4d3）是「正在跑」和次要数据。驾驶舱里把橙和绿搞混，代价是看一眼仪表分不清该不该动手。\n\n顶部一团冷蓝、右上一团推进器橙的舱内光（原型 body 的两条 radial），让死黑的底像坐在亮着仪表的舱里。\n\n另一句同样写死在稿子里：New Mission 使用强驾驶舱场景，Console / Flight Path 回归低干扰工程界面。所以整幅封面只画在新会话页——舷窗、近距离的火星与整排仪表；进入对话与轨迹页后封面收起，三栏布局与信息密度一处不动。\n\n文案照稿子人格化：思考中是「Computing trajectory…」，失败是「Mission anomaly detected.」，需要你确认时前缀一句「Command authorization required」——原文照旧留着，那才是你做判断的依据。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。\n\n原型右栏「Systems」那五行 ONLINE、「Telemetry」里的 54,621 KM / 2.56 KM/S / 0.38 G、那张静态快捷键表，以及侧栏底部的「Compute Load 71%」都没做：harness 没有对应投影，不伪造。",
+  "tags": [
+    "暗色",
+    "太空",
+    "科幻",
+    "驾驶舱",
+    "封面"
+  ],
+  "accent": "#ff7a2e",
+  "bodyAttr": "data-dsh-mars",
+  "package": "dsh-mars-flight-deck",
+  "wiring": {
+    "id": "mars",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

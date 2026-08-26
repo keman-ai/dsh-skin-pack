@@ -1,0 +1,34 @@
+/**
+ * 站名的排版。尺寸取自原型稿的 `.brand strong` / `.brand small`
+ * （13px 主名、9px 副标、2px 上间距，副标是次级蓝灰）。
+ *
+ * 颜色全部走语义 token，即使用户切到别的主题也不会出现看不清的字。
+ */
+
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dsw-alias-label-primary);
+  /* 侧栏收窄时不要把副标顶出去，宁可省略号。 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--dsw-alias-label-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

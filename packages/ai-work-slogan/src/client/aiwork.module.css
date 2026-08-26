@@ -1,0 +1,315 @@
+/**
+ * AI 工作模式的装饰层。
+ *
+ * 全部规则挂在 `body[data-dsh-ai-work]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * 所以停用皮肤等于这些规则整体失效，不留残迹。
+ *
+ * 🔴 判据写成"没激活 = 插件不存在"，不写成"默认显示、靠皮肤规则去藏"。插件的 JS 要等 bundle
+ * 执行完才能给 body 打标记，而 harness 界面在那之前就渲染好了；默认可见的东西会在这段窗口里
+ * 闪出来。
+ */
+
+/* ==========================================================================
+ * 底：一整片渐变，不是一块实色。
+ *
+ * 原型稿的 `.app` 背景是
+ *   radial-gradient(circle at 50% -12%, rgba(67,132,255,.18), transparent 30%),
+ *   linear-gradient(180deg,#071936 0%,#0a2a60 62%,#2f79ef 100%)
+ * ——**越往下越亮**，跟常规暗色主题相反，配上顶部一团蓝光。所有面板都是半透明玻璃浮在它上面
+ *（见 tokens.ts 里那一堆 rgba）。
+ *
+ * 🔴 铺在**哪一层**是实测出来的，不是猜的。
+ *
+ * 第一版铺在根容器（`> div:first-of-type`）上，界面却是一片平的深蓝——探针一量才看到：
+ * 真正铺满视口、且画着不透明 `bg-base` 的是里面那层 `_frame`，它把根容器上的渐变整个盖住了。
+ * 所以渐变要画在 `_frame` 自己身上（`background-image` 画在 `background-color` 之上，天然覆盖）。
+ *
+ * 两条都写：`_frame` 是命中项，根容器那条是它改名后的兜底（那时至少不会全黑，只是层级不同）。
+ * ⚠️ `_frame` 是 CSS Module 哈希类名，属于降级区：宿主改版后渐变会退回平色 `bg-base`，
+ * 不报错、其余配色照常。
+ * ========================================================================== */
+:global(body[data-dsh-ai-work] > div:first-of-type),
+:global(body[data-dsh-ai-work] [class*='_frame']) {
+  background-image:
+    radial-gradient(circle at 50% -12%, rgba(67, 132, 255, 0.18), transparent 30%),
+    linear-gradient(180deg, #071936 0%, #0a2a60 62%, #2f79ef 100%);
+  background-attachment: fixed;
+}
+
+/*
+ * 🔴 让中间那列透出渐变。
+ *
+ * 第二次实测才找到的：`_frame` 上画好渐变之后界面**仍然是平的**——因为 ConversationRoot
+ *（也就是 `[data-phase]` 那个元素）自己又画了一整块不透明的 `bg-base`，1320×950 盖在中间列上。
+ * 把它设成透明，渐变才真的看得见。
+ *
+ * 锚点用语义属性 `[data-phase]` 而不是哈希类名：它是对外契约，比 `_1Onn0a_root` 稳。
+ */
+:global(body[data-dsh-ai-work] [data-phase]) {
+  background: transparent;
+}
+
+/*
+ * 侧栏与右栏：只加一条分隔线，**不做磨砂**。
+ *
+ * 🔴 这里原本是 `backdrop-filter: blur(14px)`，两次翻车后拿掉：
+ *
+ *   1. 挂在侧栏容器上时，它给 **fixed 定位的后代创建了包含块**（和 `filter`、`transform`
+ *      同一类行为）。「设置」按钮就在侧栏里，它打开的设置弹窗是 fixed 的——于是弹窗不再相对
+ *      视口定位，被钉进侧栏那 280px 的盒子，整个设置面板被压成左边一条竖排文字。
+ *   2. 改挂到 `::before` 伪元素后，弹窗正常了，但侧栏里**非直接子元素**（品牌行、底部那条）
+ *      仍然落在模糊层之下被糊掉——要救得逐个提层级，等于跟宿主的 DOM 结构较劲。
+ *
+ * 底色在 tokens 里已经是半透明 rgba，渐变照样透得出来，少的只是那层模糊。
+ * 用两个难查的定位/层级 bug 换一点点磨砂，不值。
+ */
+:global(body[data-dsh-ai-work] [class*='_sidebarCol']) {
+  border-right: 1px solid var(--dsw-alias-border-l2);
+}
+
+/* ==========================================================================
+ * 空屏的口号。
+ *
+ * 这套原型稿的主视觉**不是图，是一句话**——`<h1>工作你不干，有的是 AI 干</h1>` 配一行副标，
+ * 底下四张能力卡。所以这套皮肤的 hero 处理跟前几套完全不同：没有封面图要铺，要做的是把
+ * harness 那行标题**换成这句口号**。
+ *
+ * 🔴 harness 不允许第三方覆盖内置文案（`locale.register` 同名直接抛错，只给新增不给替换），
+ * 所以走伪元素：把原文 `font-size: 0` 收起来，用 `::after` 显示口号。代价是**所有语言**都会
+ * 看到这句中文——这套皮肤本来就是中文口号皮肤，接受；但要写在 README 里。
+ *
+ * 锚点是实测出来的（playwright 打的 DOM 树）：
+ *   .ZErCpa_headline > span.ZErCpa_headlineText   ← "探索未至之境"
+ *   .ZErCpa_headline ~ .ZErCpa_body               ← 标题下方的空容器，正好放副标
+ * 两个都是 CSS Module 哈希类名，属于降级区：改版会让口号退回宿主原文，不报错。
+ * ========================================================================== */
+/*
+ * ⚠️ 选择器要写成 `_headline` 但排除 `_headlineText`——子串匹配下前者会把后者一起选中
+ *（`ZErCpa_headlineText` 里就含 `_headline`）。第一版没排除，结果那颗状态胶囊在标题里画了一遍、
+ * 又在口号文字里画了一遍，后者被 `font-size: 0` 的窄盒子挤成了竖排的一条。
+ */
+
+/*
+ * 🔴 版式：标 → 口号 → 副标，**竖着排**。
+ *
+ * harness 的标题行是一条 flex 横排（标 · 文字 · 预览版徽标），所以第一版做出来是"小图标贴在
+ * 口号左边"，跟原型完全不是一回事——原型是一块 84px 的白方块**居中压在口号正上方**。
+ * 把这行改成 column 居中即可，DOM 一个都不用动。
+ */
+:global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headline']:not([class*='_headlineText'])) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/*
+ * 白方块放大到原型的量级。
+ *
+ * 宿主只给 34px，而这里要的是 84px 量级：`--mark-size` 由品牌位组件读取（见 Brand.tsx），
+ * 覆盖它就能放大，不必跟内联样式抢优先级。外面那层 hitbox 自带 34px 宽高，一并放开。
+ */
+:global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_fishHitbox']) {
+  --mark-size: clamp(56px, 5vw, 78px);
+  width: auto;
+  height: auto;
+}
+
+/*
+ * 口号：原型是 clamp(34px, 4.2vw, 68px)。
+ *
+ * ⚠️ 第一版收到了 clamp(22px,2.4vw,38px)，怕把输入框挤下去——结果是"字不够大"，
+ * 整屏没有重量。实测这块上方有 600px 以上的空间，放到 54px 完全放得下，
+ * 于是按原型的量级给回去，只把上限收一点点（原型是整页落地页，这里下面还有输入区）。
+ */
+:global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headlineText']) {
+  font-size: 0;
+}
+
+:global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headlineText'])::after {
+  content: '工作你不干，有的是 AI 干';
+  display: block;
+  font-size: clamp(32px, 3.6vw, 56px);
+  line-height: 1.04;
+  letter-spacing: -2px;
+  font-weight: 850;
+  white-space: nowrap;
+  color: var(--dsw-alias-label-primary);
+  text-shadow: 0 5px 24px rgba(0, 0, 0, 0.12);
+}
+
+/*
+ * 顶部那颗状态胶囊（原型 `.kicker`：一个绿点 + 「DeepSeek Harness · AI Work Mode」）。
+ * 挂在标题行的 `::before` 上，column 排版下它天然落在白方块之上。
+ */
+:global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headline']:not([class*='_headlineText']))::before {
+  content: '● DeepSeek Harness · AI Work Mode';
+  align-self: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  background: rgba(255, 255, 255, 0.06);
+  color: #dbe7f7;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* 副标：原型 `.sub` 那段"从深度调研、定时任务，到制作 PPT……"。 */
+:global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headline']:not([class*='_headlineText']) ~ [class*='_body'])::after {
+  content: '从深度调研、定时任务，到制作 PPT、处理文档表格、整理文件、调用工具与执行多步骤工作流，都交给 DeepSeek Harness。';
+  display: block;
+  max-width: 760px;
+  margin: 18px auto 0;
+  font-size: clamp(12px, 1.1vw, 15px);
+  line-height: 1.75;
+  color: #dce8f7;
+  text-align: center;
+}
+
+/*
+ * ⚠️ 原型 hero 底部那两颗 CTA（开始让 AI 干活 / 查看执行轨迹）与四张能力卡**没有做**。
+ * 在真实产品里那块位置属于输入框和工作区选择器：CTA 会和"发送"重复，四张静态卡会把主操作
+ * 挤下去，而且它们都不表达任何运行时状态。
+ */
+
+/* 预览版徽标跟着口号走，别停在原来那个字号上。 */
+:global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_previewBadge']) {
+  align-self: center;
+}
+
+/* ==========================================================================
+ * 组件语言：玻璃卡 + 白描边。
+ * 锚点用 harness 的 data-chat-flow-kind（对话流节点类型，实测过的对外属性）。
+ * ========================================================================== */
+
+/* 用户消息：白 8% 玻璃 + 12px 圆角（原型 `.userbox`）。 */
+:global(body[data-dsh-ai-work] [data-chat-flow-kind='user']) {
+  border-radius: 12px;
+}
+
+/* 上下文注入行：压成背景信息，悬停还原。 */
+:global(body[data-dsh-ai-work] [data-chat-flow-kind='context']) {
+  opacity: 0.62;
+}
+
+:global(body[data-dsh-ai-work] [data-chat-flow-kind='context']:hover) {
+  opacity: 1;
+}
+
+/* 本轮失败：左侧一道亮红——这套皮肤里红只用于错误。 */
+:global(body[data-dsh-ai-work] [data-chat-flow-kind='turn-error']) {
+  box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+/*
+ * 权限确认卡：琥珀玻璃。
+ *
+ * ⚠️ 锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里节点类型的
+ * `kind === 'approval'`。失配的话这一条不显示，不影响其余规则。
+ */
+:global(body[data-dsh-ai-work] [data-chat-flow-kind='approval']) {
+  background: var(--dsw-alias-state-warn-tertiary);
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  border-radius: 11px;
+  padding: 11px 12px;
+}
+
+/* 会话正在跑时侧边栏那颗指示点：亮青，在这片蓝里最跳。 */
+:global(body[data-dsh-ai-work] [data-state='ongoing']) {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/*
+ * 对话页：消息滚到输入框附近自然淡出，而不是被硬边切断。
+ *
+ * 🔴 限定在 `[data-phase='active']`，**不能**像前几套那样对所有阶段生效。
+ * 那几套的 hero 铺着一整张图，输入区压在图上，加不加这层淡出都看不出来；这套 hero 底下是
+ * 通透的渐变，一旦给输入区糊上 86% 的深蓝，就会在渐变中间切出一条笔直的暗带——
+ * 实测截图里那道横线就是这么来的。
+ */
+:global(body[data-dsh-ai-work] [data-phase='active'] [data-composer-seat]) {
+  background: linear-gradient(180deg, rgba(7, 25, 54, 0) 0%, rgba(7, 25, 54, 0.86) 30%);
+}
+
+/* ==========================================================================
+ * 降级区 —— 前缀匹配 CSS Module 哈希类名，改版会静默失配（观感退回默认，不报错）。
+ * ========================================================================== */
+
+/*
+ * 🔴 `＋ 新会话` 是**白底深蓝字**，不是蓝底白字。
+ *
+ * 原型的 `.new`、`.cta.primary`、顶栏的 `启动 Harness` 全是 `background:#fff; color:#16386c`
+ * ——在这片蓝渐变上，白是唯一比蓝更强的东西；拿蓝做主按钮会直接淹没在背景里。
+ * token 里 `--dsw-alias-brand-primary` 已经是白，这里补圆角、字重与投影。
+ */
+/*
+ * 🔴 `:not([class*='_newSessionLabel'])` 不能省。
+ *
+ * 前缀匹配 `[class*='_newSession']` 会**同时命中按钮本身和它里面的文字节点**
+ *（harness 的类名是 `_newSession` 与 `_newSessionLabel`），于是渐变底与描边被画了两遍，
+ * 文字外面多出一个小方框。暗色皮肤上两层底色接近、几乎看不出来，浅色皮肤上一眼就是 bug。
+ * 同一个坑在 `_headline` / `_headlineText` 上踩过一次。
+ */
+:global(body[data-dsh-ai-work] [class*='_newSession']:not([class*='_newSessionLabel'])) {
+  background: var(--dsw-alias-brand-primary);
+  color: var(--dsw-alias-label-primary-foreground);
+  border-color: transparent;
+  border-radius: 10px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+}
+
+:global(body[data-dsh-ai-work] [class*='_newSession']:not([class*='_newSessionLabel']):hover) {
+  background: var(--dsw-alias-button-primary-hover);
+}
+
+:global(body[data-dsh-ai-work] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
+  color: inherit;
+}
+
+/*
+ * 会话选中态：白 10% 底 + 左侧一道白竖条（原型 `.session.active` 的
+ * `box-shadow: inset 2px 0 #fff`）。用 inset 阴影而不是 border，避免改变盒宽让行错位。
+ */
+:global(body[data-dsh-ai-work] [class*='_sessionRow'][class*='_selected']) {
+  background: var(--dsw-specific-sidebar-nav-item-active);
+  box-shadow: inset 2px 0 0 0 #ffffff;
+  border-radius: 9px;
+}
+
+/* 分组标题：小号大写、字距拉开（原型 `.label` 的 letter-spacing: 1.2px）。 */
+:global(body[data-dsh-ai-work] [class*='_groupSection'] > :first-child) {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 9px;
+  color: var(--dsw-alias-label-caption);
+}
+
+/*
+ * 右侧详情栏的卡片语言：白 6% 玻璃 + 11px 圆角（原型 `.card`）。
+ *
+ * ⚠️ 没做的：原型右栏的「Harness Systems」五行 ONLINE 与「Work Modes」四张模式卡都是纯装饰，
+ * harness 没有对应投影，不伪造。真实状态由本皮肤自己那根状态台承担（见 StatusDock）；
+ * 官方这根详情栏只做视觉对齐——它装的是工具调用的 Input / Output，是排障唯一线索。
+ */
+:global(body[data-dsh-ai-work] [data-slot='details'] [class*='_section']) {
+  background: var(--dsw-alias-bg-layer-2);
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 11px;
+  padding: 12px;
+  margin-bottom: 9px;
+}
+
+:global(body[data-dsh-ai-work] [data-slot='details'] [class*='_sectionLabel']) {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-caption);
+  margin-bottom: 8px;
+}
+
+:global(body[data-dsh-ai-work] [data-slot='details'] [class*='_header']) {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}

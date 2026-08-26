@@ -1,0 +1,26 @@
+{
+  "id": "catbus",
+  "name": "夕阳猫巴士",
+  "nameEn": "Sunset Catbus",
+  "author": "Science Roam Limited",
+  "tagline": "深棕打底、夕阳橙做主操作、麦田金做描边与强调、冷蓝只给运行中，新会话页是一整幅黄昏横幅",
+  "description": "配色规则是原型稿自己写的：已将主题统一成夕阳橙、麦田金和深棕色；handoff 里写着 theme = warm orange / golden field / dark brown、mode = companion journey。\n\n⚠️ 底是深棕 #160d08，不是黑。这套的底带着黄昏的余温，换成中性黑，整张封面会像贴在另一个界面上——这是暖色皮肤最容易做塌的一处。面板往上是暖棕两级，全场一条带麦田金的暗描边 rgba(255,191,103,.16)，分层全靠它。\n\n夕阳橙（#f49a43）是主操作，麦田金（#ffd07a）是描边与强调——画里那片被夕阳照亮的麦子。金不做实心按钮：金色大按钮会跟封面抢光。\n\n这套是全暖色盘，所以「正在跑」反过来取冷：稿子里那个 #6ab6ff 是全场唯一的冷色，正好留给状态——在一片橙金里，冷色是唯一能一眼认出来的东西。警告也是个难题（整盘都是橙金，橙色警告根本浮不出来），所以取麦田金的高亮档、靠亮度而不是色相区分；错误取砖红（#e0674f），比夕阳橙更深更红，在暖色里仍然读得出「这是坏消息」。\n\n新会话页整张横幅：猫巴士、麦田与落日，16px 圆角配麦田金描边和很深的投影；输入区独立放在下方，两者不重叠；封面左上角留一枚身份角标。进入对话与轨迹页后横幅收起，回到干净的工作态。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。\n\n原型右栏的「Harness Systems」五行 ONLINE、「Journey Modes」四张模式卡、「Golden Hour Energy」那个 88%，以及封面右上角的「☀ GOLDEN HOUR」都没做：harness 没有对应投影，不伪造。这套稿子也没给 Agent copy 规范，所以宿主文案一句都不替换。",
+  "tags": [
+    "暗色",
+    "黄昏",
+    "治愈",
+    "吉卜力",
+    "封面"
+  ],
+  "accent": "#f49a43",
+  "bodyAttr": "data-dsh-catbus",
+  "package": "dsh-sunset-catbus",
+  "wiring": {
+    "id": "catbus",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

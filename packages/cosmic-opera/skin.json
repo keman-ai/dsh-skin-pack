@@ -1,0 +1,15 @@
+{
+  "id": "opera",
+  "name": "宇宙歌剧",
+  "nameEn": "Cosmic Opera",
+  "author": "Science Roam Limited",
+  "tagline": "深蓝太空底 + 紫/蓝/青三档强调，新会话页是一整幅旋涡星系封面",
+  "description": "史诗感全押在封面上，界面本身反而克制——这是原型稿 Theme rules 的原话：「视觉重心放在旋涡星系、行星弧面、深空光芒和探索叙事；但 New Mission 之外的界面密度仍然保持真实 Harness 产品结构」。\n\n底是深蓝太空（#050814），面板走三级蓝黑，描边分两路：大面积分层用冷蓝、强调边用星云紫。全局铺一层 14% 的星点。强调只有三档——紫（主操作）、蓝（数据与描边）、青绿（正在运行），暖色 #ffb775 只留给需要你注意的状态，不参与任何常规按钮。\n\n比起姊妹稿「宇宙探索」，这套多了一档青绿 #75d4cb：原型把它放在遥测数值上，这里落到「正在运行」，让运行态跟蓝色的数据、紫色的主操作三者都分得开。\n\n新会话页是一整幅全屏封面（两团星云光晕 + 左右与自下而上的压幕），输入框贴底压在画面上；进入对话与轨迹页后封面收起。身份化文案取原型 Agent copy 里能落地的两条：思考中 → Charting the unknown…，失败 → Navigation anomaly detected.\n\n对话页右侧常驻一根状态台，数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影。原型右栏的「Systems」六行 ONLINE/ACTIVE、「Next Waypoint」的 ETA、「Shortcuts」速查表，以及 hero 左侧那几格任务参数，都是写死的装饰，harness 没有对应投影，一律不做。",
+  "tags": ["暗色", "太空", "史诗", "星系", "封面"],
+  "accent": "#8e73ff",
+  "bodyAttr": "data-dsh-opera",
+  "package": "dsh-cosmic-opera",
+  "wiring": { "id": "opera", "bundleWired": true },
+  "preview": { "dark": "preview/dark.webp" },
+  "colorScheme": "dark"
+}

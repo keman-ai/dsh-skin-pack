@@ -1,0 +1,11 @@
+# 本包贡献的配置层：把皮肤插进 Loader 树。
+# profile 列出这个包时自动应用（见 apps/cli/reference：dsh.profile.bundles）。
+#
+# 没有这一层的话，`dsh plugin add` 只会把包装成普通依赖，插件永远不会被加载
+# —— dsh 会当场警告 “declares no dsh.bundle … not a profile layer”，
+# 皮肤集市则会判 NOT_A_BUNDLE 并把包卸回去。
+#
+# id 要与 skin.json 的 id、client 半的 THEME_ID 三处一致；name 必须是包名。
+- insert:
+    - id: emerald
+      name: dsh-emerald-megacity

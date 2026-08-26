@@ -1,0 +1,50 @@
+/**
+ * 白色方标与站名。尺寸取自原型稿的 `.hero-mark`（84px 方块 / 24px 圆角 / 柔投影）
+ * 与 `.brand strong` / `.brand small`（14px 主名、9px 副标）。
+ */
+
+.mark {
+  display: block;
+  flex: none;
+  /*
+   * 尺寸取 `--mark-size`（样式表可在祖先上覆盖），没有就退回宿主给的 `--mark-host-size`。
+   * 见 Brand.tsx 里那段说明：元素自己 style 上的变量，祖先是盖不过的。
+   */
+  width: var(--mark-size, var(--mark-host-size, 34px));
+  height: var(--mark-size, var(--mark-host-size, 34px));
+  /* 原型是 84px 方块配 24px 圆角、58px 图，约 0.29 与 0.7 两个比例。 */
+  border-radius: calc(var(--mark-size, var(--mark-host-size, 34px)) * 0.29);
+  background-color: rgba(255, 255, 255, 0.96);
+  background-size: calc(var(--mark-size, var(--mark-host-size, 34px)) * 0.7) auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* 白方块要"浮"在渐变上，投影比常规重一点才有厚度。 */
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dsw-alias-label-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--dsw-alias-label-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

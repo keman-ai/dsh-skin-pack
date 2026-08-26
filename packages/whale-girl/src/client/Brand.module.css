@@ -1,0 +1,35 @@
+/**
+ * 站名的排版。尺寸取自原型稿的 `.brand strong` / `.brand small`
+ * （15px 主名 + 9px 副标，副标 2px 上间距）。
+ *
+ * 颜色全部走语义 token：主名用品牌文字色、副标用三级文字色，所以用户切到别的主题
+ * （本组件在皮肤停用时会连同注册一起撤掉，这里只是双保险）也不会出现看不清的字。
+ */
+
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dsw-alias-brand-text);
+  /* 侧栏收窄时不要把副标顶出去，宁可省略号。 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--dsw-alias-label-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,26 @@
+{
+  "id": "ponyo",
+  "name": "波妞水面",
+  "nameEn": "Ponyo Water Orbit",
+  "author": "Science Roam Limited",
+  "tagline": "海蓝打底、亮蓝做主操作、水青只给运行中、珊瑚色只做点缀",
+  "description": "这套的底色比同类都亮：从 #061d3c 到 #0b4f8b，是一片有阳光的海，不是深海。所以层次不靠「越往上越黑」，靠蓝的深浅。\n\n亮蓝（#2b8ed8）做主操作——画里水面反光的那个蓝；水青（#6dd9ff）做描边、强调与「正在跑」，正是涟漪的高光。珊瑚粉（#d86698）与珊瑚橙（#f07b52）是画里那一头红发与裙子，两个暖色都只做点缀：粉给危险悬停，橙给警告。它们在画里也只占很小一块，铺开就把满屏的水盖掉了。\n\n新会话页整张水面横幅，16px 圆角配水青描边；输入区独立在下方。进入对话与轨迹页后横幅收起。\n\n封面是赛璐璐平涂：大片同色水面加硬边描线，最怕低质量编码——平涂处会起色带、描线会毛，所以按 q95 原生分辨率内联。",
+  "tags": [
+    "暗色",
+    "海洋",
+    "吉卜力",
+    "治愈",
+    "封面"
+  ],
+  "accent": "#6dd9ff",
+  "bodyAttr": "data-dsh-ponyo",
+  "package": "dsh-ponyo-water-orbit",
+  "wiring": {
+    "id": "ponyo",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

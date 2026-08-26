@@ -1,0 +1,286 @@
+/**
+ * 鲸鱼娘的装饰层。
+ *
+ * 全部规则挂在 `body[data-dsh-whale-girl]` 下：属性由 client 半在主题激活时打上、
+ * 切走时摘掉，所以停用皮肤等于这些规则整体失效，不留残迹。
+ *
+ * 🔴 判据写成"没激活 = 插件不存在"，不写成"默认显示、靠皮肤规则去藏"。插件的 JS 要等
+ * bundle 执行完才能给 body 打标记，而 harness 界面在那之前就渲染好了；默认可见的东西
+ * 会在这段窗口里闪出来，看着像跳进了别的页面。
+ *
+ * 锚点优先用 harness 的语义 `data-*` 属性（对外契约，改版不会碎）；确实没有属性可用的
+ * 地方才退到 `[class*='_xxx']` 前缀匹配 CSS Module 哈希类名——那些全部集中在文件末尾的
+ * 「降级区」，并逐条写清楚失配时会怎样。
+ */
+
+/* ==========================================================================
+ * 新会话页封面 —— 这套皮肤的主视觉。
+ *
+ * 🔴 原型稿的设计说明写死了它的作用域：「New Session 使用完整封面主视觉；
+ * Chat / Trajectory 回归真实 Harness 工作态」。所以封面**只画在 hero**，
+ * 不做对话区常驻水印——那会跟每一行字抢注意力。
+ *
+ * `data-phase` 是三态 `settling / hero / active`，不是两态。`settling` 表示会话还在
+ * 回放、落 hero 还是落对话页尚不可知，harness 这时把 composer 藏起来就是为了不猜；
+ * 这里跟着取同样的态度：**不抢先画**（抢画会闪一下再消失）。
+ *
+ * 背景图画在**内容容器自己身上**，不在 body 底下插元素——harness 的内容容器有自己的
+ * 不透明底色，会把身下的一切盖死。
+ * ========================================================================== */
+
+/*
+ * 🔴 先把 hero 变成定位祖先，再画封面。
+ *
+ * 实测踩过：`[data-phase='hero']` 本身**不是** positioned 元素，它的 `::before` 用
+ * `position: absolute` 会去找最近的定位祖先——一个都没有的话就落到初始包含块，也就是
+ * **整个视口**。表现是封面把左边的会话侧栏一起盖掉了（截图一看就是"整屏一张图"）。
+ *
+ * 而原型稿明确要求「保留 Harness 的真实产品结构：左侧负责历史会话，右侧负责状态与模式，
+ * 中心继续承担真实工作区」，末尾那段修正注释也写着 “Keep the actual Harness UI outside
+ * the cover image.”——封面只属于中间那一列。
+ */
+:global(body[data-dsh-whale-girl] [data-phase='hero']) {
+  position: relative;
+}
+
+:global(body[data-dsh-whale-girl] [data-phase='hero'])::before {
+  content: '';
+  position: absolute;
+  /*
+   * 原型稿的封面是一张**卡片**（`.home-wrap{padding:16px 18px}` + `.cover-card`
+   * 圆角 18px + 一层很淡的投影），不是贴边的整块背景。留出这圈边距，contain 造成的
+   * 上下留白就变成卡片外的底色，看着是"一张挂在墙上的画"而不是"没铺满的背景图"。
+   */
+  inset: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(55, 89, 170, 0.12);
+  box-shadow: 0 22px 55px rgba(61, 84, 148, 0.1);
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--whale-girl-cover);
+  /*
+   * 🔴 `contain` 而不是 `cover`。原型稿最后那段 “CLEAN CHARACTER COVER FIX” 把封面
+   * 从 `object-fit: cover` 改成了 `contain` 并配一块 #dce9fb 底，注释写着
+   * “Keep the actual Harness UI outside the cover image.”——两个角色分别站在画面左右两侧，
+   * cover 会从两边裁进去，正好切到人。另外原图上限 1672×941，cover 在宽屏上还会放大变糊。
+   */
+  background-size: contain;
+  background-position: center 42%;
+  background-repeat: no-repeat;
+  /* 图之外的留白：原型稿给封面卡片配的底色，让letterbox 不是一片死白。 */
+  background-color: #dce9fb;
+}
+
+/*
+ * 输入框压在封面下沿，靠一层自下而上的浅幕保证可读性。
+ *
+ * 浅色皮肤要压“白”不是压“黑”：压黑会把海洋的浅蓝洗成脏灰。
+ */
+:global(body[data-dsh-whale-girl] [data-phase='hero'])::after {
+  content: '';
+  position: absolute;
+  /* 跟封面卡片同一块区域，圆角也要对上，否则四角会露出直角的浅幕。 */
+  inset: 16px 18px;
+  border-radius: 18px;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 251, 255, 0) 0%,
+    rgba(248, 251, 255, 0) 58%,
+    rgba(240, 246, 255, 0.72) 84%,
+    rgba(237, 244, 255, 0.96) 100%
+  );
+}
+
+:global(body[data-dsh-whale-girl] [data-phase='hero']) > * {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * 输入区贴底。
+ *
+ * 🔴 居中不是 composer 自己做的，是它祖先的 `justify-content: center` 干的
+ *（`.root[data-phase='hero'] .scrollBody`）——去改 composer 自己的 margin 没有任何效果。
+ *
+ * 关掉 overflow / scrollbar-gutter 的原因：hero 没有可滚内容，`overflow-y: auto` 会在贴底后
+ * 因内容溢出冒出一条滚动条；`scrollbar-gutter: stable` 恒定预留一条滚动条宽度，在没有
+ * 滚动条的 hero 里就变成把整列往一边推的偏移，看上去是"输入框没居中"。
+ */
+:global(body[data-dsh-whale-girl] [data-phase='hero'] [data-conversation-scroll]) {
+  justify-content: flex-end;
+  overflow: hidden;
+  scrollbar-gutter: auto;
+}
+
+/*
+ * 输入区压在封面之上，但**留在中间列里**，不做"相对整个窗口居中"。
+ *
+ * ⚠️ 这跟另一套皮肤的做法相反，是原型稿决定的：那边 New Session 是全屏无侧栏，所以输入框
+ * 必须相对视口居中；这边原型的 `.composer-shell` 写的是 `left: var(--sidebar);
+ * right: var(--details)`——输入区就该在中间列里居中。把它 fixed 到视口反而会横跨侧栏。
+ */
+:global(body[data-dsh-whale-girl] [data-phase='hero'] [data-composer-seat]) {
+  align-items: center;
+  z-index: 2;
+}
+
+/* 对话页：消息滚到输入框附近自然淡出，而不是被硬边切断（原型 `.composer-shell` 的渐变）。 */
+:global(body[data-dsh-whale-girl] [data-composer-seat]) {
+  background: linear-gradient(180deg, rgba(234, 242, 255, 0) 0%, var(--dsw-alias-bg-base) 22%);
+}
+
+/* ==========================================================================
+ * 组件语言 —— 原型稿 Component language 那三条：
+ *   Radius 8–12px · 1px 低对比描边 · almost-flat（几乎不用阴影）
+ * 锚点用 harness 的 data-chat-flow-kind（对话流节点类型，实测过的对外属性）。
+ * ========================================================================== */
+
+/* 用户消息：白底 + 1px 描边 + 12px 圆角（原型 `.userbox`）。 */
+:global(body[data-dsh-whale-girl] [data-chat-flow-kind='user']) {
+  border-radius: 12px;
+}
+
+/*
+ * 上下文注入行：原型把它压成背景信息（小、淡、不抢眼）——它是每轮都出现的系统噪音，
+ * 不是用户要读的内容。悬停时还原，需要时仍然读得到。
+ */
+:global(body[data-dsh-whale-girl] [data-chat-flow-kind='context']) {
+  opacity: 0.62;
+}
+
+:global(body[data-dsh-whale-girl] [data-chat-flow-kind='context']:hover) {
+  opacity: 1;
+}
+
+/* 本轮失败：左侧一道珊瑚红，长对话里比纯文字更容易扫到。 */
+:global(body[data-dsh-whale-girl] [data-chat-flow-kind='turn-error']) {
+  box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
+  border-radius: 8px;
+  padding-left: 10px;
+}
+
+/*
+ * 权限确认卡：原型 `.permission` 是琥珀底 + 琥珀描边的一块提示区
+ *（“这个操作会修改文件。需要你的确认后才能继续。”）。
+ *
+ * ⚠️ 这条的锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里
+ * 节点类型的 `kind === 'approval'`（由 ChatNodeSeat 渲染成 data-chat-flow-kind）。
+ * 失配的话这一条不显示，不影响其余规则。
+ */
+:global(body[data-dsh-whale-girl] [data-chat-flow-kind='approval']) {
+  background: var(--dsw-alias-state-warn-tertiary);
+  border: 1px solid rgba(234, 171, 66, 0.22);
+  border-radius: 10px;
+  padding: 11px 12px;
+}
+
+/*
+ * 「正在深潜……」——把思考中的状态标签换成鲸鱼娘的说法。
+ *
+ * harness 不允许第三方覆盖内置文案（`locale.register` 同名直接抛错），所以走伪元素：
+ * 零 MutationObserver、零运行时开销，改版最多样式失配，不会报错也不会白屏。
+ * 只在 running 时换：思考完成后那行是可展开的历史记录，保留原文更好认。
+ */
+:global(body[data-dsh-whale-girl] [data-variant='think'][data-state='running'] [class*='_title']) {
+  font-size: 0;
+}
+
+:global(body[data-dsh-whale-girl] [data-variant='think'][data-state='running'] [class*='_title'])::after {
+  content: '鲸鱼娘正在深潜……';
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/* 会话正在跑时侧边栏那颗指示点：跟着"活动态"的海洋光走，而不是内置的中性色。 */
+:global(body[data-dsh-whale-girl] [data-state='ongoing']) {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/* ==========================================================================
+ * 降级区 —— 下面这些没有语义属性可挂，只能前缀匹配 CSS Module 的哈希类名
+ *（形如 `_1Onn0a_sidebarCol`）。harness 改版会让它们静默失配：观感退回默认，
+ * 不报错、不影响其余部分。加规则前先想清楚值不值得。
+ * ========================================================================== */
+
+/*
+ * 侧栏的竖向渐变（原型 `linear-gradient(180deg,#f7f9ff,#eef3ff)`）。
+ * token 只能给单色，渐变必须在样式表里补；`--dsw-specific-sidebar-fill` 已经把单色兜住，
+ * 这条失配也只是少一层渐变。
+ */
+:global(body[data-dsh-whale-girl] [class*='_sidebarCol']) {
+  background-image: linear-gradient(180deg, #f7f9ff 0%, #eef3ff 100%);
+  border-right: 1px solid var(--dsw-alias-border-l1);
+}
+
+/*
+ * `＋ 新建对话` 是整个界面的**主操作**，原型里它是唯一的蓝色实心大按钮（44px 高、10px 圆角）。
+ * harness 默认给它次级样式，不改的话主操作反而没有视觉重量。
+ */
+/*
+ * 🔴 `:not([class*='_newSessionLabel'])` 不能省。
+ *
+ * 前缀匹配 `[class*='_newSession']` 会**同时命中按钮本身和它里面的文字节点**
+ *（harness 的类名是 `_newSession` 与 `_newSessionLabel`），于是渐变底与描边被画了两遍，
+ * 文字外面多出一个小方框。暗色皮肤上两层底色接近、几乎看不出来，浅色皮肤上一眼就是 bug。
+ * 同一个坑在 `_headline` / `_headlineText` 上踩过一次。
+ */
+:global(body[data-dsh-whale-girl] [class*='_newSession']:not([class*='_newSessionLabel'])) {
+  background: var(--dsw-alias-brand-primary);
+  color: var(--dsw-alias-label-primary-foreground);
+  border-color: transparent;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+:global(body[data-dsh-whale-girl] [class*='_newSession']:not([class*='_newSessionLabel']):hover) {
+  background: var(--dsw-alias-button-primary-hover);
+}
+
+/* 图标跟着走：harness 的图标用 currentColor，父级换色即可。 */
+:global(body[data-dsh-whale-girl] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
+  color: inherit;
+}
+
+/*
+ * 分组标题（今天 / 过去 7 天）：小号大写、字距拉开、压到说明文字色。
+ * 原型用这个把时间分组降成背景信息，不与会话标题争注意力。
+ */
+:global(body[data-dsh-whale-girl] [class*='_groupSection'] > :first-child) {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: var(--dsw-alias-label-caption);
+}
+
+/*
+ * 右侧详情栏的卡片语言。
+ *
+ * ⚠️ 先说清楚**没做什么**：原型右栏是「会话状态 / Assistant Systems / 鲸鱼少女模式」
+ * 三张卡，而 harness 的详情栏是「某次工具调用的详情」，只有 Input / Output 两段——
+ * 两者不是同一个东西，不是换皮的问题。那五个系统的在线状态 harness 根本没有对应投影，
+ * 硬造就是假数据，所以这里只做视觉语言对齐，不伪造卡片。
+ *
+ * （`details` 这个 slot 现在其实**可以**用 `priority: -1` 接管，见 Brand.tsx 的说明；
+ * 但接管等于要自己造那三张卡的数据，没有数据来源就不做。）
+ */
+:global(body[data-dsh-whale-girl] [data-slot='details'] [class*='_section']) {
+  background: var(--dsw-alias-bg-layer-2);
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+:global(body[data-dsh-whale-girl] [data-slot='details'] [class*='_sectionLabel']) {
+  font-weight: 600;
+  color: var(--dsw-alias-label-primary);
+  margin-bottom: 8px;
+}
+
+:global(body[data-dsh-whale-girl] [data-slot='details'] [class*='_header']) {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}

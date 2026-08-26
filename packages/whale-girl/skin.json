@@ -1,0 +1,26 @@
+{
+  "id": "whale-girl",
+  "name": "鲸鱼娘海岸休息室",
+  "nameEn": "Whale Girl Lounge",
+  "author": "Science Roam Limited",
+  "tagline": "浅蓝、珍珠白与深海蓝的三级配色，新会话页是一整幅鲸鱼娘封面",
+  "description": "把 DeepSeek Harness 换成一间海底休息室：底色是浅蓝（#eaf2ff）与珍珠白（#f8fbff）的两级纸面，主操作沿用 DeepSeek Blue（#5369ef），描边压在 1px 低对比，整体柔和、清爽、不做赛博朋克。绿色被保留给在线与成功态，琥珀留给需要确认的操作。\n\n新建会话时中间是一整幅鲸鱼娘封面，输入框贴底以免压住画面；进入对话与轨迹页后封面收起，回到真实的工作态——主视觉只出现在空屏，这是设计稿写死的规则。侧栏与新会话页的品牌标换成鲸鱼轮廓与 Whale Girl Lounge 副标。\n\n对话页右侧常驻一根状态台：缩小版封面 + 会话状态（就绪/正在执行的工具、模型、上下文占用）、用量（输入/输出/缓存命中/耗时/轮次）、待办进度，可一键收起。数字全部取自 harness 自己的 token-meter / session-stats / todos 投影，与输入框下方那行同源，不伪造任何状态；也不占用官方的工具详情栏，两者并存。\n\n配色走 harness 的 --dsw-alias-* 语义层，装饰只挂在自有的 body 属性上，品牌位用 slot 影子化（皮肤停用即刻还原官方标），不钩任何 harness 内部类名 —— 所以宿主改版时这套皮肤不会碎。",
+  "tags": [
+    "浅色",
+    "海洋",
+    "二次元",
+    "清爽",
+    "封面"
+  ],
+  "accent": "#5369ef",
+  "bodyAttr": "data-dsh-whale-girl",
+  "package": "dsh-whale-girl",
+  "wiring": {
+    "id": "whale-girl",
+    "bundleWired": true
+  },
+  "preview": {
+    "light": "preview/light.webp"
+  },
+  "colorScheme": "light"
+}

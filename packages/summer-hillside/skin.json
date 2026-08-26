@@ -1,0 +1,26 @@
+{
+  "id": "hillside",
+  "name": "夏日山坡",
+  "nameEn": "Summer Hillside",
+  "author": "Science Roam Limited",
+  "tagline": "草白打底、深草绿做正文、草绿做主操作、天蓝做强调、穗粉只做点缀",
+  "description": "一套浅色皮肤（colorScheme: light）。原型的 :root 全是这幅画里的东西。\n\n底是草白 #edf6f0，带一点绿——是草地反上来的光。正文用深草绿 #284b3e 而不是黑：画里最深的地方是草的暗部，也只是深绿。草绿（#4a9a66）做主操作与「正在跑」，就是那面山坡；天蓝（#14759a）做强调——画里那片天只占上面一条，所以这里也只做描边与链接；穗粉（#e8a3b4）在画里只有那几支狗尾草，所以只给警告一处。\n\n新会话页整幅山坡横幅，进入对话与轨迹页后收起。文案人格化：思考中「正在望天……」，失败「风把它吹跑了，请再试一次。」，需要确认时前缀「这一步要你点头」。\n\n封面是赛璐璐平涂加大片同色天空，低质量编码会在天上起色带、把草叶的硬边压毛，所以按 q95 原生分辨率内联。",
+  "tags": [
+    "浅色",
+    "夏天",
+    "草地",
+    "吉卜力",
+    "封面"
+  ],
+  "accent": "#4a9a66",
+  "bodyAttr": "data-dsh-hillside",
+  "package": "dsh-summer-hillside",
+  "wiring": {
+    "id": "hillside",
+    "bundleWired": true
+  },
+  "preview": {
+    "light": "preview/light.webp"
+  },
+  "colorScheme": "light"
+}

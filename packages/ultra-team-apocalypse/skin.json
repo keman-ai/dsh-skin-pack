@@ -1,0 +1,26 @@
+{
+  "id": "ultrateam",
+  "name": "奥特小队·末日",
+  "nameEn": "Ultra Team Apocalypse",
+  "author": "Science Roam Limited",
+  "tagline": "焦黑暗红打底、火光橙做主操作、战斗红只给失败、能量青只给运行中，新会话页是一整幅末日小队主视觉",
+  "description": "这套稿子没有 Theme rules 那一节（不像同批的其它几套写死了配比），只给了一组 :root 变量。所以配比是从它实际怎么用这些变量里读出来的。\n\n底与面板是烧焦的暗红黑（#120909 / #1a1010），不是中性黑——整套界面的八成是它；全场只有一条描边 rgba(255,151,85,.16)，带火光橙，分层全靠它。正文米白偏暖（#fff2e6），次要文字 #b08f7b，都带一点烟熏的暖，跟这片火光是同一套光；放中性灰会像贴上去的。\n\n火光橙（#ff7b2c）是主操作，战斗红（#ef3b2f）是危险与失败——两者不共用。这套画面本身就是一片火，橙红再混在一起，界面会变成「哪里都在烧」，真出错时反而看不见。能量青（#57d9ff）留给「正在跑」：全场唯一的冷色，在这片火里最容易被认出来。\n\n新会话页整幅横幅：五个人站在燃烧的废墟里，15px 圆角配橙描边和大投影；输入区贴在卡片下沿，压幕在底部多压一段保证读得清。进入对话与轨迹页后横幅收起，三栏布局与信息密度一处不动。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。\n\n原型右栏的「Harness Systems」五行 ONLINE、「Team Modes」两张模式卡、「Energy Matrix / Matrix State: STABLE」，以及封面上的「TEAM COVER ONLINE」「SYSTEM READY」都没做：harness 没有对应投影，不伪造。这套稿子也没给 Agent copy 规范，所以宿主文案一句都不替换——没有依据的人格化文案是自己加戏。",
+  "tags": [
+    "暗色",
+    "特摄",
+    "末日",
+    "热血",
+    "封面"
+  ],
+  "accent": "#ff7b2c",
+  "bodyAttr": "data-dsh-ultrateam",
+  "package": "dsh-ultra-team-apocalypse",
+  "wiring": {
+    "id": "ultrateam",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

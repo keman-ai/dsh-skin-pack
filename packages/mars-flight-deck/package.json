@@ -1,0 +1,65 @@
+{
+  "name": "dsh-mars-flight-deck",
+  "version": "0.1.0",
+  "description": "火星驾驶舱 —— DeepSeek Harness 的暗色皮肤：航天黑 / 深蓝面板 / 冷蓝遥测 / 推进器橙配色 + 新会话页整幅驾驶舱主视觉",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "skin",
+    "theme",
+    "space",
+    "mars",
+    "cockpit",
+    "dark"
+  ],
+  "license": "MIT",
+  "author": "Science Roam Limited",
+  "homepage": "https://github.com/keman-ai/dsh-skin-pack/tree/main/packages/mars-flight-deck#readme",
+  "bugs": {
+    "url": "https://github.com/keman-ai/dsh-skin-pack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keman-ai/dsh-skin-pack.git",
+    "directory": "packages/mars-flight-deck"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "skin.json",
+    "preview",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "check": "tsc --noEmit",
+    "prepublishOnly": "tsdown"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "night-flight",
+  "name": "夜航同行",
+  "nameEn": "Night Flight Companion",
+  "author": "Science Roam Limited",
+  "tagline": "深夜蓝 + 月光青 + 一点暖米色，新会话页是一整幅夜空飞行横幅",
+  "description": "一套安静的皮肤。底色压到接近黑的深夜蓝（#06101c），面板是夜蓝，所有描边都带一点月光青（rgba(141,198,255,.16)）——夜里的界面全靠这条细线分层。\n\n整套只有一个暖色：月光米色（#ded0ae）。原型只把它用在能量条渐变的末端，像画里那盏被夜色包住的灯，所以这里也只给它一个位置——上下文占用条的末端。铺开就不再是「一点暖」了。\n\n新会话页是一整幅夜空飞行横幅（16px 圆角、月光青描边、很深的投影），输入区独立放在下方，两者不重叠；封面左上角留一枚身份角标。进入对话与轨迹页后横幅收起，回到干净的工作态。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。\n\n原型右栏的「Harness Systems」四行 ONLINE、「Flight Modes」四张模式卡、「Moonlight Energy」那个 85%，以及封面右上角那枚「☾ MOONLIGHT ONLINE」，都是写死的装饰——harness 没有对应投影，一律不做：装饰可以，假状态不行。\n\n配色走 harness 的 --dsw-alias-* 语义层，装饰只挂在自有的 body 属性上，品牌位用 slot 影子化（皮肤停用即刻还原官方标），不钩任何 harness 内部类名。",
+  "tags": [
+    "暗色",
+    "夜空",
+    "治愈",
+    "陪伴",
+    "封面"
+  ],
+  "accent": "#73d5ff",
+  "bodyAttr": "data-dsh-night-flight",
+  "package": "dsh-night-flight-companion",
+  "wiring": {
+    "id": "night-flight",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

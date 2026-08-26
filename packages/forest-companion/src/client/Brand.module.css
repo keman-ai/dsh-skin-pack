@@ -1,0 +1,41 @@
+/**
+ * 品牌标与站名。尺寸取自原型稿的 `.brand-mark` / `.brand-main` / `.brand-sub`
+ * （34px 方标配 12px 圆角与淡蓝投影；13px 主名、9px 副标）。
+ */
+
+.mark {
+  display: block;
+  flex: none;
+  /* 原型 `.logo` 那圈林间光斑：米色芯 → 灰绿环 → 深林底。 */
+  background: radial-gradient(circle at 50% 45%, #e9e0c5 0 16%, #6d8178 17% 45%, #19392e 46% 100%);
+  /* 绿色辉光，原型是 `box-shadow: 0 0 22px rgba(103,204,162,.14)`。 */
+  box-shadow: 0 0 22px rgba(103, 204, 162, 0.14);
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--dsw-alias-brand-text);
+  /* 侧栏收窄时不要把副标顶出去，宁可省略号。 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--dsw-alias-label-caption);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

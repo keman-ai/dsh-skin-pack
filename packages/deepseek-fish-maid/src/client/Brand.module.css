@@ -1,0 +1,49 @@
+/**
+ * 品牌标与站名。尺寸取自原型稿的 `.brand-mark` / `.brand-main` / `.brand-sub`
+ * （34px 方标配 12px 圆角与淡蓝投影；13px 主名、9px 副标）。
+ */
+
+.mark {
+  flex: none;
+  /*
+   * 原型 `.brand-logo` 是一枚 15px 圆角的方标，底是 `linear-gradient(135deg,#0b3b63,#0a2947)`
+   * 加一圈冷青内描边，里面放一个鲸鱼字形。这里照抄底与描边，字形交给 Brand.tsx 里的 svg。
+   */
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(155, 232, 255, 0.22), transparent 58%),
+    linear-gradient(135deg, #0b3b63, #0a2947);
+  /* 冷青辉光，原型是 `box-shadow: 0 0 24px rgba(94,215,255,.16)`。 */
+  box-shadow:
+    inset 0 0 0 1px rgba(94, 215, 255, 0.2),
+    0 0 24px rgba(94, 215, 255, 0.16);
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--dsw-alias-brand-text);
+  /* 侧栏收窄时不要把副标顶出去，宁可省略号。 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--dsw-alias-label-caption);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

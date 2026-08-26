@@ -1,0 +1,26 @@
+{
+  "id": "ai-work",
+  "name": "AI 工作模式",
+  "nameEn": "AI Work Mode",
+  "author": "Science Roam Limited",
+  "tagline": "深海蓝渐变 + 毛玻璃面板 + 白色主操作，空屏是一句口号",
+  "description": "这套皮肤没有插画：它的视觉全靠渐变、玻璃和字。\n\n底是一整片从深海蓝到亮蓝的竖向渐变（#071936 → #0a2a60 → #2f79ef，顶部还有一团蓝光）——**越往下越亮**，跟常规暗色主题相反。侧栏、状态台、卡片全部是半透明玻璃（白 6%–10% + 14px 背景模糊）浮在渐变上，描边是白色半透明的细线。\n\n主操作是**白底深蓝字**，不是蓝底白字：在这片蓝上，白是唯一比蓝更强的东西，蓝色按钮会直接淹没在背景里。红只留给错误，绿只留给就绪与成功。\n\n新会话页把宿主标题换成原型稿的口号「工作你不干，有的是 AI 干」，下面跟一行说明；品牌位是原型那块白色圆角方块 + DeepSeek 鲸鱼标。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源，不伪造任何状态——原型右栏那五行「Harness Systems ONLINE」与四张「Work Modes」卡都是装饰，没有对应投影，就不做。\n\n⚠️ 口号是用 CSS 替换宿主标题实现的，所以**切到英文界面也会看到这句中文**——这是一套中文口号皮肤，介意的话可以只用它的配色。",
+  "tags": [
+    "暗色",
+    "渐变",
+    "毛玻璃",
+    "口号",
+    "极简"
+  ],
+  "accent": "#4284ff",
+  "bodyAttr": "data-dsh-ai-work",
+  "package": "dsh-ai-work-slogan",
+  "wiring": {
+    "id": "ai-work",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

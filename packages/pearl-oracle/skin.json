@@ -1,0 +1,26 @@
+{
+  "id": "pearl",
+  "name": "珍珠神谕",
+  "nameEn": "Pearl Oracle",
+  "author": "Science Roam Limited",
+  "tagline": "暖灰石打底、珍珠白只做高光、银做描边、雾蓝是全场唯一的彩色",
+  "description": "这套的用色只有三样：石灰的底、珍珠的光、一点雾蓝。\n\n底是带绿灰的暖石色 #11181a——不是纯黑也不是蓝黑，画里那片褶皱的岩布就是这个色，换成中性黑会把整张封面顶出来。银（#bfc8ca）做描边与次要文字，正是那些珠子的反光；珍珠白（#e8e0cf）是这套里唯一「亮」的东西，所以只给最需要被看见的那几处。雾蓝（#6f8fb9）做主操作与「正在跑」——画里那件衣服的蓝，全场唯一的彩色。\n\n新会话页整张横幅：戴珠冠的人与满地珠子，16px 圆角配珍珠白描边和很深的投影；输入区独立在下方。进入对话与轨迹页后横幅收起。\n\n对话页右侧常驻状态台，工具调用、上下文注入与用量全部取自 harness 自己的投影。",
+  "tags": [
+    "暗色",
+    "时装",
+    "珍珠",
+    "质感",
+    "封面"
+  ],
+  "accent": "#6f8fb9",
+  "bodyAttr": "data-dsh-pearl",
+  "package": "dsh-pearl-oracle",
+  "wiring": {
+    "id": "pearl",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

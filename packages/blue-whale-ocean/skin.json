@@ -1,0 +1,26 @@
+{
+  "id": "bwhale",
+  "name": "蓝鲸海洋",
+  "nameEn": "Blue Whale Ocean",
+  "author": "Science Roam Limited",
+  "tagline": "深海蓝打底、透明青蓝做描边与状态、冰白只做高光，新会话页是一整幅鲸鱼海面横幅",
+  "description": "配色是原型稿写的：深海蓝、透明青蓝与冰白高光。底是接近黑的 #051c33，面板两级往上抬；全场一条带青蓝的暗描边 rgba(173,226,255,.15)，深色界面的分层全靠它。透明青蓝（#79dfff）是描边、强调与「正在跑」——水面透下来的那层光；冰白（#d9f3ff）只给最需要被看见的一两处，铺开就不是高光了。主操作走中蓝渐变，不用青：青在这套里是「描边与状态」的语言，实心铺开会把海面的通透压没。\n\n新会话页整张横幅：从空中俯看的鲸鱼与它的尾迹，16px 圆角配青蓝描边和很深的投影；输入区独立放在下方，两者不重叠。进入对话与轨迹页后横幅收起。\n\n对话页右侧常驻状态台，工具调用、上下文注入与用量全部取自 harness 自己的投影。原型右栏写死的 ONLINE 行、模式卡与固定能量值一概不做。",
+  "tags": [
+    "暗色",
+    "海洋",
+    "鲸鱼",
+    "通透",
+    "封面"
+  ],
+  "accent": "#79dfff",
+  "bodyAttr": "data-dsh-bwhale",
+  "package": "dsh-blue-whale-ocean",
+  "wiring": {
+    "id": "bwhale",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

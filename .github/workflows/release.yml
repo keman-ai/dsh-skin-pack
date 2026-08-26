@@ -1,0 +1,66 @@
+name: Build & Release
+
+# 皮肤之间零依赖，全量构建 28 个包只要 ~3 秒，所以不做增量构建 ——
+# 增量的复杂度换不来什么。真正需要「只动改过的」的是发布：
+# scripts/release.mjs 按「版本号有没有对应的 Release tag」决定发谁，
+# 没 bump version 的包一律跳过。
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 建 Release 要写权限
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # 一致性闸放在构建之前：id 对不上、files 漏了入口这类问题，
+      # 构建是发现不了的，要等用户装上去才暴露成「装了但切不过去」。
+      - name: Verify
+        run: pnpm verify
+
+      - name: Type check
+        run: pnpm check
+
+      - name: Build
+        run: pnpm build
+
+      # 构建产物齐不齐，直接决定装上去会不会被集市回滚，所以单独验一道
+      - name: Assert build outputs
+        run: |
+          missing=0
+          for dir in packages/*/; do
+            for entry in lib/index.js lib/client.js; do
+              if [ ! -f "$dir$entry" ]; then
+                echo "::error::${dir}${entry} 不存在"
+                missing=1
+              fi
+            done
+          done
+          exit $missing
+
+      - name: Release changed packages
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm release
