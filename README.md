@@ -243,12 +243,11 @@ packages/<name>/     ← 包名固定是 dsh-<name>，脚本与集市数据都�
 
 `lib/` 不提交是与独立仓时代最大的区别：那时皮肤靠 `github:owner/repo` 安装，装的就是仓库里的产物，不提交别人装到的是空壳。改走 Release tarball 之后 `npm pack` 会把构建好的 `lib/` 按 `files` 打进包，提交它只会让仓库白白变大。
 
-皮肤本身怎么写（主题注册、slot、装饰只在激活时存在、集市安装期的几道闸），见 [dsh-skin-dev](https://github.com/keman-ai/dsh-skin-dev)。
 
 ## 想自己做一套？
 
-皮肤本身怎么写（主题注册、slot、装饰只在激活时存在、集市安装期的几道闸），
-见 [dsh-skin-dev](https://github.com/keman-ai/dsh-skin-dev) —— 那是从实际做完一整套皮肤踩出来的坑与流程。
+照着 `packages/` 里任意一套改最快 —— 每套的结构都一样，
+`skin.json` / `cordis.patch.yml` / `src/client/tokens.ts` 三个文件就是全部入口。
 
 做好了欢迎上架到 [DSH 皮肤集市](https://dsh.a2hmarket.ai)，免登录就能浏览安装。
 
