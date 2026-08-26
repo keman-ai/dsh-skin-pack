@@ -136,7 +136,7 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 </tr>
 <tr>
 <td width="33%" valign="top">
-<b>夜色秋千</b> <sub>暗色</sub><br>
+<a href="packages/dsh-night-swing"><img src="packages/dsh-night-swing/preview/dark.webp" alt="夜色秋千" width="100%"></a><br><b>夜色秋千</b> <sub>暗色</sub><br>
 <sub>雨夜蓝打底、战斗红做主操作、霓虹青只给运行中、描边不带色</sub><br>
 <sub><code>packages/dsh-night-swing</code></sub>
 </td>
@@ -163,7 +163,7 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 <sub><code>packages/dsh-qitian-cosmic-monkey</code></sub>
 </td>
 <td width="33%" valign="top">
-<b>玫瑰梦境</b> <sub>浅色</sub><br>
+<a href="packages/dsh-rose-dream"><img src="packages/dsh-rose-dream/preview/light.webp" alt="玫瑰梦境" width="100%"></a><br><b>玫瑰梦境</b> <sub>浅色</sub><br>
 <sub>粉白打底、玫瑰褐做正文、玫瑰粉做主操作、薄荷绿只给成功</sub><br>
 <sub><code>packages/dsh-rose-dream</code></sub>
 </td>
