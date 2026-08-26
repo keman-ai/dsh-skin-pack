@@ -1,0 +1,268 @@
+/**
+ * 夜色秋千的装饰层。
+ *
+ * 全部规则挂在 `body[data-dsh-swing]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * 所以停用皮肤等于这些规则整体失效，不留残迹。
+ *
+ * 🔴 判据写成"没激活 = 插件不存在"，不写成"默认显示、靠皮肤规则去藏"。插件的 JS 要等 bundle
+ * 执行完才能给 body 打标记，而 harness 界面在那之前就渲染好了；默认可见的东西会在这段窗口里
+ * 闪出来，看着像跳进了别的页面。
+ *
+ * ⚠️ 这套原型稿**没有** Agent 文案规范，所以这里**不替换任何宿主文案**——没有依据的人格化
+ * 文案是自己加戏。
+ */
+
+/* ==========================================================================
+ * 新会话页横幅。
+ *
+ * 🔴 原型稿自己在对话里把规则写清楚了：
+ *   「New Session 以**整张雨夜封面为主视觉**，**输入区独立放在下方**；三栏骨架一处不动。」handoff 里也写着 `composer = below hero`。
+ * 它的 `#home` 也是 `flex-direction: column` + `.hero { flex: 1 }` + 下方独立的 `.composer`。
+ *
+ * 所以横幅吃掉输入区以上的全部高度，输入区在它下面，两者不重叠；封面上除了两枚角标之外
+ * 不压任何文案。
+ *
+ * `data-phase` 是三态 `settling / hero / active`。`settling` 表示会话还在回放、落 hero 还是
+ * 落对话页尚不可知，harness 这时把 composer 藏起来就是为了不猜；这里跟着取同样的态度：
+ * **不抢先画**。对话页与轨迹页不铺横幅——主视觉只属于空屏。
+ * ========================================================================== */
+
+/*
+ * 🔴 先把 hero 变成定位祖先，再画横幅。
+ *
+ * `[data-phase='hero']` 本身不是 positioned 元素，它的 `::before` 用 `position: absolute` 会去找
+ * 最近的定位祖先——一个都没有就落到初始包含块，也就是**整个视口**，把左边的会话侧栏一起盖掉。
+ * 这个坑在前面的皮肤上实测踩过。
+ */
+:global(body[data-dsh-swing] [data-phase='hero']) {
+  position: relative;
+}
+
+:global(body[data-dsh-swing] [data-phase='hero'])::before {
+  content: '';
+  position: absolute;
+  /* 只占上半部分：贴着 hero 顶部，宽度撑满，高度由横幅自己的比例决定。 */
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  /*
+   * 高度 = hero 高度减去输入区那一块。
+   *
+   * 288px 是量出来的：`[data-composer-seat]` 连同它上面的标题行、工作区与模式两颗 chip
+   * 一共 258px（playwright 实测，1600×950），再留 14px 外边距和一点呼吸。
+   *
+   * ⚠️ 一开始写的是 `aspect-ratio: 2.5/1`——横幅按原图比例走，结果它比可用空间矮，
+   * 封面和输入区之间空出一大条，看着像没加载完。原型的 `.home` 是
+   * `grid-template-rows: minmax(0,1fr) auto`：封面**吃掉全部剩余高度**，图用 `object-fit: cover`
+   * 裁掉多出来的部分。所以这里也填满 + `background-size: cover`，与原型一致。
+   */
+  height: calc(100% - 288px);
+  /* 窗口很矮时兜底，别让封面缩成一条线。 */
+  min-height: 150px;
+  z-index: 0;
+  pointer-events: none;
+  /* 原型 `.hero`：16px 圆角、霓虹青描边、一层很深的投影（夜里的对比全靠它）。 */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.44);
+  background-image: var(--swing-cover);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #050d18;
+}
+
+/*
+ * 封面左上角那枚身份角标（原型 `.badge.leftb`：毛玻璃胶囊 + 「DeepSeek Harness / Night Flight」）。
+ *
+ * ⚠️ 右上角那枚「★ ACTION MODE」**没有做**：它写死了一个"在线"状态，而 harness 并没有
+ * 对应的东西可读——真实状态在右侧状态台里，那里每个数字都有出处。装饰可以，假状态不行。
+ */
+:global(body[data-dsh-swing] [data-phase='hero'])::after {
+  content: 'DeepSeek Harness / Night Swing';
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  z-index: 1;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(193, 228, 255, 0.17);
+  background: rgba(5, 14, 24, 0.6);
+  backdrop-filter: blur(12px);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  color: #c8ebff;
+  pointer-events: none;
+}
+
+/*
+ * 输入区落在横幅下方。
+ *
+ * 🔴 居中不是 composer 自己做的，是它祖先的 `justify-content: center` 干的
+ *（`.root[data-phase='hero'] .scrollBody`）——去改 composer 自己的 margin 没有任何效果。
+ *
+ * 关掉 overflow / scrollbar-gutter 的原因：hero 没有可滚内容，`overflow-y: auto` 会在贴底后
+ * 因内容溢出冒出一条滚动条；`scrollbar-gutter: stable` 恒定预留一条滚动条宽度，在没有滚动条的
+ * hero 里就变成把整列往一边推的偏移，看上去是"输入框没居中"。
+ */
+:global(body[data-dsh-swing] [data-phase='hero'] [data-conversation-scroll]) {
+  justify-content: flex-end;
+  overflow: hidden;
+  scrollbar-gutter: auto;
+}
+
+:global(body[data-dsh-swing] [data-phase='hero'] [data-composer-seat]) {
+  align-items: center;
+  z-index: 2;
+  padding-bottom: 14px;
+}
+
+:global(body[data-dsh-swing] [data-phase='hero']) > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 对话页：消息滚到输入框附近自然淡出，而不是被硬边切断（原型 `.composer-shell` 的渐变）。 */
+:global(body[data-dsh-swing] [data-composer-seat]) {
+  background: linear-gradient(180deg, rgba(6, 17, 31, 0) 0%, var(--dsw-alias-bg-base) 30%);
+}
+
+/* ==========================================================================
+ * 组件语言 —— 原型的圆角比前几套都大：卡片 14–16px、封面 20px、主按钮 13px。
+ * 锚点用 harness 的 data-chat-flow-kind（对话流节点类型，实测过的对外属性）。
+ * ========================================================================== */
+
+/* 用户消息：夜蓝卡 + 霓虹青描边 + 12px 圆角（原型 `.userbox`）。 */
+:global(body[data-dsh-swing] [data-chat-flow-kind='user']) {
+  border-radius: 12px;
+}
+
+/*
+ * 上下文注入行：压成背景信息（小、淡、不抢眼）——它是每轮都出现的系统噪音，不是用户要读的
+ * 内容。悬停时还原，需要时仍然读得到。
+ */
+:global(body[data-dsh-swing] [data-chat-flow-kind='context']) {
+  opacity: 0.62;
+}
+
+:global(body[data-dsh-swing] [data-chat-flow-kind='context']:hover) {
+  opacity: 1;
+}
+
+/* 本轮失败：左侧一道低饱和红——这套皮肤最不该有刺眼的东西，红也压过。 */
+:global(body[data-dsh-swing] [data-chat-flow-kind='turn-error']) {
+  box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+/*
+ * 权限确认卡：淡琥珀。原型稿里没有这个态（它只画了正常流程），颜色是按"轻、干净"的基调推的，
+ * 出现频率也低。
+ *
+ * ⚠️ 锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里节点类型的
+ * `kind === 'approval'`（由 ChatNodeSeat 渲染成 data-chat-flow-kind）。失配的话这一条不显示。
+ */
+:global(body[data-dsh-swing] [data-chat-flow-kind='approval']) {
+  background: var(--dsw-alias-state-warn-tertiary);
+  border: 1px solid rgba(224, 166, 62, 0.24);
+  border-radius: 12px;
+  padding: 11px 12px;
+}
+
+/* 会话正在跑时侧边栏那颗指示点：跟着品牌蓝的亮一档走，这套皮肤不引入第五种颜色。 */
+:global(body[data-dsh-swing] [data-state='ongoing']) {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/* ==========================================================================
+ * 降级区 —— 下面这些没有语义属性可挂，只能前缀匹配 CSS Module 的哈希类名
+ *（形如 `_1Onn0a_sidebarCol`）。harness 改版会让它们静默失配：观感退回默认，
+ * 不报错、不影响其余部分。
+ * ========================================================================== */
+
+/* 侧栏：竖向渐变 + 霓虹青分隔线（原型 `.left` 是 #091827 → #06111d）。 */
+:global(body[data-dsh-swing] [class*='_sidebarCol']) {
+  background-image: linear-gradient(180deg, #081a2e 0%, #06111f 100%);
+  border-right: 1px solid var(--dsw-alias-border-l2);
+}
+
+/*
+ * `＋ 新会话`：43px 高、10px 圆角、135° 夜蓝渐变（原型 `.new`）。
+ * harness 默认给它次级样式，不改的话主操作没有视觉重量。
+ */
+/*
+ * 🔴 `:not([class*='_newSessionLabel'])` 不能省。
+ *
+ * 前缀匹配 `[class*='_newSession']` 会**同时命中按钮本身和它里面的文字节点**
+ *（harness 的类名是 `_newSession` 与 `_newSessionLabel`），于是渐变底与描边被画了两遍，
+ * 文字外面多出一个小方框。暗色皮肤上两层底色接近、几乎看不出来，浅色皮肤上一眼就是 bug。
+ * 同一个坑在 `_headline` / `_headlineText` 上踩过一次。
+ */
+:global(body[data-dsh-swing] [class*='_newSession']:not([class*='_newSessionLabel'])) {
+  background: linear-gradient(135deg, #e44649, #b4302f);
+  border-color: transparent;
+  border-radius: 10px;
+  color: var(--dsw-alias-label-primary-foreground);
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(228, 70, 73, 0.2);
+}
+
+:global(body[data-dsh-swing] [class*='_newSession']:not([class*='_newSessionLabel']):hover) {
+  background: linear-gradient(135deg, #f05a5c, #c53a39);
+}
+
+/* 按钮内的图标跟着走：harness 图标用 currentColor，父级换色即可。 */
+:global(body[data-dsh-swing] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
+  color: inherit;
+}
+
+/*
+ * 会话选中态：横向渐变 + 左侧一道霓虹青竖条（原型 `.session.active` 的
+ * `linear-gradient(90deg,#142f50,#0c2037)` + `box-shadow: inset 2px 0 var(--cyan)`）。
+ * 用 inset 阴影而不是 border，避免改变盒宽让选中行相对其它行错位。
+ */
+:global(body[data-dsh-swing] [class*='_sessionRow'][class*='_selected']) {
+  background-image: linear-gradient(90deg, #16324f, #0a1a2c);
+  box-shadow: inset 2px 0 0 0 var(--dsw-alias-state-business-primary);
+  border-radius: 9px;
+}
+
+/*
+ * 分组标题（今天 / 过去 7 天）：小号大写、字距拉开、压到说明文字色。
+ * 原型 `.label` 用这个把分组降成背景信息，不与会话标题争注意力。
+ */
+:global(body[data-dsh-swing] [class*='_groupSection'] > :first-child) {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+  color: var(--dsw-alias-label-caption);
+}
+
+/*
+ * 右侧详情栏的卡片语言：竖向渐变卡 + 11px 圆角 + 霓虹青描边（原型 `.card`）。
+ *
+ * ⚠️ 先说清楚**没做什么**：原型右栏是「Current Session / Harness Systems / Ocean Modes /
+ * Deep Energy」四张卡。后三张全是写死的装饰——几行 ONLINE、几张模式卡、一个固定的能量值，
+ * harness 都没有对应投影，不伪造。真实状态由本皮肤自己那根状态台承担（见 StatusDock）；
+ * 官方这根详情栏只做视觉语言对齐——它装的是工具调用的 Input / Output，是排障唯一线索。
+ */
+:global(body[data-dsh-swing] [data-slot='details'] [class*='_section']) {
+  background-image: linear-gradient(180deg, #132b46, #0d1f35);
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 11px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+:global(body[data-dsh-swing] [data-slot='details'] [class*='_sectionLabel']) {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-caption);
+  margin-bottom: 8px;
+}
+
+:global(body[data-dsh-swing] [data-slot='details'] [class*='_header']) {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}

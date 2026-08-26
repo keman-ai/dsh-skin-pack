@@ -123,6 +123,12 @@ importers:
         specifier: '>=4.0.0'
         version: 4.0.1
 
+  packages/dsh-night-swing:
+    dependencies:
+      '@deepseek-ai/cordis':
+        specifier: '>=4.0.0'
+        version: 4.0.1
+
   packages/dsh-niulai:
     dependencies:
       '@deepseek-ai/cordis':
@@ -142,6 +148,12 @@ importers:
         version: 4.0.1
 
   packages/dsh-qitian-cosmic-monkey:
+    dependencies:
+      '@deepseek-ai/cordis':
+        specifier: '>=4.0.0'
+        version: 4.0.1
+
+  packages/dsh-rose-dream:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'

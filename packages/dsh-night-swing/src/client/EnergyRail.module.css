@@ -1,0 +1,60 @@
+/**
+ * 能量槽的样式。挂在侧栏底部，宽窄两态。
+ *
+ * 🔴 与状态台同样的判据：皮肤没激活时整条不显示。这个组件注册在官方的
+ * `sidebar.footer.action` 上，皮肤停用后 slot 条目才被撤销，中间那一帧不该露出来。
+ */
+
+.rail {
+  display: none;
+}
+
+:global(body[data-dsh-swing]) .rail {
+  display: block;
+  padding: 6px 10px 8px;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--dsw-alias-label-caption);
+}
+
+.value {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+/* 轨道：2px 的细条。侧栏收窄时只剩它，宽度跟着列走。 */
+.track {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--dsw-alias-bg-layer-3);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--dsw-alias-brand-primary);
+  transition: width 320ms ease-out, background 320ms ease-out;
+}
+
+/* 见底与告急：换色而不是加动效——侧栏底部闪烁的东西会一直勾着余光。 */
+.rail[data-level='warn'] .fill {
+  background: var(--dsw-alias-state-warn-primary);
+}
+
+.rail[data-level='critical'] .fill {
+  background: var(--dsw-alias-state-error-primary);
+}

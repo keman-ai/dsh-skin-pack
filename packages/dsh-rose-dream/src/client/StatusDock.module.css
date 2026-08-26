@@ -1,0 +1,421 @@
+/**
+ * 右侧状态台。宽度取原型稿的 `--details: 300px`。
+ *
+ * 🔴 默认不可见，只有皮肤真的激活了才现身。
+ *
+ * 反过来写（默认显示、靠皮肤规则去藏）会漏掉一段窗口：插件的 JS 要等 bundle 执行完才能把
+ * `data-dsh-rose` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * 照常显示、主区照常让位，屏幕上就是"harness 原生配色 + 右边一根侧栏"，而窗口长短随机 ——
+ * 表现就是"刷新几次两种界面来回切"。
+ *
+ * 所以判据放在这里：皮肤没激活 = 这个插件在界面上不存在。
+ */
+
+.dock {
+  display: none;
+}
+
+:global(body[data-dsh-rose]) .dock {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: stretch;
+  /* 收起态只占把手的宽度，不挡任何东西。 */
+  width: auto;
+  pointer-events: none;
+}
+
+.dock > * {
+  pointer-events: auto;
+}
+
+/* 把手：收起时是唯一可见的部分，够得着又不抢眼。 */
+.handle {
+  align-self: center;
+  width: 18px;
+  height: 56px;
+  margin-right: -1px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 140ms ease-out, color 140ms ease-out;
+}
+
+.handle:hover {
+  background: var(--dsw-alias-interactive-bg-hover-solid);
+  color: var(--dsw-alias-label-primary);
+}
+
+/* 原型稿的 details 是一条竖栏；瞬间开合会让人分不清是收起了还是崩了，给一点过渡。 */
+.body {
+  width: 334px;
+  display: flex;
+  flex-direction: column;
+  background: var(--dsw-alias-bg-layer-1);
+  border-left: 1px solid var(--dsw-alias-border-l2);
+  animation: rose-dock-in 180ms ease-out;
+}
+
+.header {
+  flex: none;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--dsw-alias-label-primary);
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}
+
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+}
+
+/*
+ * 缩小版主视觉。
+ *
+ * 这里用 `cover`（与 hero 一致）：图是"巨像居中、两侧雪山"，按侧栏宽度裁掉的正是两侧雪山，
+ * 主体反而更突出。3/2 的比例跟原型稿的 hero 一致。
+ */
+.cover {
+  aspect-ratio: 3 / 2;
+  border-radius: 12px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  background-color: #f2f1ed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.coverName {
+  position: absolute;
+  left: 8px;
+  bottom: 7px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(250, 249, 246, 0.78);
+  color: #6b5433;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+
+/* 原型稿的卡片语言：12px 圆角、1px 低对比描边、几乎不用阴影。 */
+.card {
+  background: var(--dsw-alias-bg-layer-2);
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 6px 18px rgba(48, 73, 135, 0.04);
+}
+
+.cardTitle {
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-tertiary);
+  margin-bottom: 8px;
+}
+
+.line {
+  display: flex;
+  min-height: 26px;
+  align-items: center;
+  gap: 8px;
+}
+
+.key {
+  width: 76px;
+  flex: none;
+  font-size: 10px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.value {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  color: var(--dsw-alias-label-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px;
+}
+
+/* 绿色在这套皮肤里保留给"在线 / 成功"，就绪态正好是它。 */
+.ok {
+  color: var(--dsw-alias-state-success-primary);
+}
+
+/* 运行中走 business（活动态）那档语义色，与官方 spinner 同源。 */
+.busy {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/* 上下文占用条，对应原型稿 profile 卡里那根进度条的海洋渐变。 */
+.progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--dsw-alias-bg-base);
+  margin: 6px 0 2px;
+  overflow: hidden;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #6d948d, #c8ad7c, #b18a50);
+}
+
+/*
+ * 「等你拿主意」用琥珀卡：这套皮肤里琥珀专门留给"需要你确认的操作"（原型稿的权限卡就是
+ * 这个色），跟绿色的在线态、海洋色的运行态区分得开，扫一眼就知道是哪一类。
+ */
+.alert {
+  background: var(--dsw-alias-state-warn-tertiary);
+  border-color: rgba(234, 171, 66, 0.34);
+}
+
+.alert .cardTitle {
+  color: var(--dsw-alias-state-warn-label);
+}
+
+/* 上下文构成：三段堆叠条，颜色跟下面的图例文字同源。 */
+.stack {
+  display: flex;
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--dsw-alias-bg-base);
+  margin: 8px 0 6px;
+}
+
+.stack span {
+  display: block;
+  height: 100%;
+}
+
+.stack span[data-part='system'] {
+  background: #d4b681;
+}
+
+.stack span[data-part='tools'] {
+  background: #b18a50;
+}
+
+.stack span[data-part='message'] {
+  background: #6d948d;
+}
+
+/*
+ * 图例：一颗小方块 + 文字。方块用 `::before` 而不是给整行上底色——底色会把这行变成一块
+ * 色带，跟上面的堆叠条抢视觉；这里它只是个索引。
+ */
+.legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--dsw-alias-label-primary);
+}
+
+.legend::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.legend[data-part='system']::before {
+  background: #d4b681;
+}
+
+.legend[data-part='tools']::before {
+  background: #b18a50;
+}
+
+.legend[data-part='message']::before {
+  background: #6d948d;
+}
+
+.hint {
+  margin: 6px 0 0;
+  font-size: 9.5px;
+  line-height: 1.55;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.todo {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-secondary);
+}
+
+.footnote {
+  margin: 2px 2px 8px;
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--dsw-alias-label-caption);
+}
+
+/*
+ * 展开时把主区让出等宽的空间。
+ *
+ * 挤压 harness 的根容器而不是给 body 加 padding：body 上有 fixed 定位的浮层（模态、菜单），
+ * 给 body 加内边距不会影响它们，反而会让固定层与内容错位。这里只推真正承载布局的那一层。
+ *
+ * 同样必须带 `[data-dsh-rose]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * 右边空一条、内容却还是原生配色。
+ */
+:global(body[data-dsh-rose][data-rose-dock-open] > div:first-of-type) {
+  padding-right: 334px;
+  box-sizing: border-box;
+}
+
+@keyframes rose-dock-in {
+  from { width: 0; opacity: 0; }
+  to { width: 334px; opacity: 1; }
+}
+
+/*
+ * 新会话页收起状态台。
+ *
+ * hero 已经是一整幅封面主视觉，旁边再杵一根缩小版封面属于重复；何况新会话还没有任何
+ * "状态"可看（没有模型、没有用量、没有待办）。
+ *
+ * 🔴 `settling` 也要一起收起。harness 的阶段是**三**态 `settling / hero / active`，settling 是
+ * "会话还在回放、落 hero 还是落对话页尚不可知"。早先只认 hero 的话，刷新后的 settling 窗口里
+ * 状态台会先冒出来、主区先让出 300px，看起来像已经进了对话页，然后又跳回 hero。
+ * 跟着 harness 取中立：未知就什么都不主张。
+ *
+ * 逗号分组写不进 `:global()`（lightningcss 会在 Comma 处报错），所以两个阶段各写一条。
+ */
+:global(body[data-dsh-rose]:has([data-phase='hero'])) [data-rose-dock] {
+  display: none;
+}
+
+:global(body[data-dsh-rose][data-rose-dock-open]:has([data-phase='hero']) > div:first-of-type) {
+  padding-right: 0;
+}
+
+:global(body[data-dsh-rose]:has([data-phase='settling'])) [data-rose-dock] {
+  display: none;
+}
+
+:global(body[data-dsh-rose][data-rose-dock-open]:has([data-phase='settling']) > div:first-of-type) {
+  padding-right: 0;
+}
+
+/* 窄屏没有 300px 富余，整根收起，别把对话挤成一条缝。 */
+@media (max-width: 1180px) {
+  :global(body[data-dsh-rose]) [data-rose-dock] {
+    display: none;
+  }
+
+  :global(body[data-dsh-rose][data-rose-dock-open] > div:first-of-type) {
+    padding-right: 0;
+  }
+}
+/* ==========================================================================
+ * 流水列表 —— 工具调用与经卷注入两张卡共用。
+ *
+ * 每行是「名字 + 右侧一小段元信息」，名字长了用省略号收掉：右栏只有 300px 宽，
+ * 让工具名换行会把这张卡撑成一面墙。
+ * ========================================================================== */
+
+.log {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.logRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 16px;
+  /* 左边一道 2px 的状态条：不占宽度、不改行高，扫一眼就知道哪次挂了。 */
+  padding-left: 8px;
+  border-left: 2px solid var(--dsw-alias-border-l2);
+}
+
+.logRow[data-state='running'] {
+  border-left-color: var(--dsw-alias-state-business-primary);
+}
+
+.logRow[data-state='error'] {
+  border-left-color: var(--dsw-alias-state-error-primary);
+}
+
+.logRow[data-state='ok'] {
+  border-left-color: var(--dsw-alias-state-success-primary);
+}
+
+/* 从别的会话捞回来的上下文（role=recall）单独标一下：它不是本会话产生的。 */
+.logRow[data-role='recall'] {
+  border-left-color: var(--dsw-alias-state-warn-primary);
+}
+
+.logName {
+  flex: 1;
+  min-width: 0;
+  color: var(--dsw-alias-label-primary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logMeta {
+  flex: none;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.logRow[data-state='running'] .logMeta {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+.logRow[data-state='error'] .logMeta {
+  color: var(--dsw-alias-state-error-primary);
+}
+
+/* 形态徽标（instructions / catalog / snapshot…）：小、淡、不与来源名争。 */
+.logTag {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  color: var(--dsw-alias-label-caption);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
