@@ -69,13 +69,13 @@ importers:
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/dsh-deepseek-fish-maid:
+  packages/dsh-deepseek-deep-sea:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'
         version: 4.0.1
 
-  packages/dsh-deepseek-twin-whale-maid:
+  packages/dsh-deepseek-twin-whale:
     dependencies:
       '@deepseek-ai/cordis':
         specifier: '>=4.0.0'

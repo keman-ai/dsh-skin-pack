@@ -78,14 +78,14 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 </tr>
 <tr>
 <td width="33%" valign="top">
-<a href="packages/dsh-deepseek-fish-maid"><img src="packages/dsh-deepseek-fish-maid/preview/dark.webp" alt="大鱼娘 Deep Sea" width="100%"></a><br><b>大鱼娘 Deep Sea</b> <sub>暗色</sub><br>
+<a href="packages/dsh-deepseek-deep-sea"><img src="packages/dsh-deepseek-deep-sea/preview/dark.webp" alt="鲸鱼娘 Deep Sea" width="100%"></a><br><b>鲸鱼娘 Deep Sea</b> <sub>暗色</sub><br>
 <sub>深海蓝打底、冷青做描边与状态、DeepSeek 蓝做主操作，新会话页是一整幅深海主视觉</sub><br>
-<sub><code>packages/dsh-deepseek-fish-maid</code></sub>
+<sub><code>packages/dsh-deepseek-deep-sea</code></sub>
 </td>
 <td width="33%" valign="top">
-<a href="packages/dsh-deepseek-twin-whale-maid"><img src="packages/dsh-deepseek-twin-whale-maid/preview/dark.webp" alt="双鲸女仆" width="100%"></a><br><b>双鲸女仆</b> <sub>暗色</sub><br>
-<sub>深海蓝打底、冷青做描边与状态、DeepSeek 蓝做主操作，新会话页是一整幅双子女仆主视觉</sub><br>
-<sub><code>packages/dsh-deepseek-twin-whale-maid</code></sub>
+<a href="packages/dsh-deepseek-twin-whale"><img src="packages/dsh-deepseek-twin-whale/preview/dark.webp" alt="双胞胎鲸鱼娘" width="100%"></a><br><b>双胞胎鲸鱼娘</b> <sub>暗色</sub><br>
+<sub>深海蓝打底、冷青做描边与状态、DeepSeek 蓝做主操作，新会话页是一整幅双子鲸鱼娘主视觉</sub><br>
+<sub><code>packages/dsh-deepseek-twin-whale</code></sub>
 </td>
 <td width="33%" valign="top">
 <a href="packages/dsh-emerald-megacity"><img src="packages/dsh-emerald-megacity/preview/dark.webp" alt="翡翠巨城" width="100%"></a><br><b>翡翠巨城</b> <sub>暗色</sub><br>
