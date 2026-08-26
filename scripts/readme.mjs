@@ -53,7 +53,14 @@ table.push('</table>')
 
 const section = [BEGIN, `<sub>共 ${rows.length} 套皮肤，本段由 \`scripts/readme.mjs\` 生成，请勿手改。</sub>`, '', ...table, END].join('\n')
 
-const readme = readFileSync('README.md', 'utf8')
+let readme = readFileSync('README.md', 'utf8')
+
+// 顺手把徽章里的数量也改掉。写死一个数字，加一套皮肤就过期了 ——
+// 而这个脚本本来就数过，没有理由让它跟截图墙对不上。
+readme = readme
+  .replace(/badge\/skins-\d+-/, `badge/skins-${rows.length}-`)
+  .replace(/alt="\d+ skins"/, `alt="${rows.length} skins"`)
+
 const start = readme.indexOf(BEGIN)
 const stop = readme.indexOf(END)
 if (start < 0 || stop < 0) {

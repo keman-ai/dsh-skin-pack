@@ -13,7 +13,7 @@
 <p align="center">
   <a href="https://github.com/keman-ai/dsh-skin-pack"><img src="https://img.shields.io/github/stars/keman-ai/dsh-skin-pack?style=flat&label=Star&color=4D6BFE" alt="Stars"></a>
   <a href="https://github.com/keman-ai/dsh-skin-pack/releases"><img src="https://img.shields.io/github/v/release/keman-ai/dsh-skin-pack?style=flat&label=release&color=08C" alt="Latest release"></a>
-  <img src="https://img.shields.io/badge/skins-28-4D6BFE?style=flat" alt="28 skins">
+  <img src="https://img.shields.io/badge/skins-30-4D6BFE?style=flat" alt="30 skins">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2EA44F?style=flat" alt="MIT License"></a>
 </p>
 
@@ -41,7 +41,7 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 
 > `-w` 不能省：profile 目录自带 `pnpm-workspace.yaml`，pnpm 因此认定它是 workspace 根并以 `ERR_PNPM_ADDING_TO_ROOT` 拒绝安装。这个 flag 就是「我确实要装到根」。
 
-**为什么不是 `github:keman-ai/dsh-skin-pack`**：pnpm 没有「从 git 仓库子目录安装」这回事，指向本仓库的 git spec 会把 28 套皮肤当成一个包装进你的 profile。所以这里发的是每套皮肤各自的 tarball。
+**为什么不是 `github:keman-ai/dsh-skin-pack`**：pnpm 没有「从 git 仓库子目录安装」这回事，指向本仓库的 git spec 会把整个仓库当成一个包装进你的 profile。所以这里发的是每套皮肤各自的 tarball。
 
 ## 皮肤一览
 
@@ -228,7 +228,7 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 pnpm install
 pnpm verify   # 一致性闸：三处 id 对齐、files 覆盖入口、主题 id 不撞
 pnpm check    # 类型检查
-pnpm build    # 全量构建（28 个包约 3 秒）
+pnpm build    # 全量构建（每个包约 0.1 秒，全仓几秒钟）
 ```
 
 皮肤之间零依赖，所以不做增量构建——全量太快了，增量的复杂度换不来什么。
