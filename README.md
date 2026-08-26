@@ -11,14 +11,14 @@
 </p>
 
 <p align="center">
-  <a href="../../stargazers"><img src="https://img.shields.io/github/stars/keman-ai/dsh-skin-pack?style=flat&label=Star&color=4D6BFE" alt="Stars"></a>
-  <a href="../../releases"><img src="https://img.shields.io/github/v/release/keman-ai/dsh-skin-pack?style=flat&label=release&color=08C" alt="Latest release"></a>
+  <a href="https://github.com/keman-ai/dsh-skin-pack"><img src="https://img.shields.io/github/stars/keman-ai/dsh-skin-pack?style=flat&label=Star&color=4D6BFE" alt="Stars"></a>
+  <a href="https://github.com/keman-ai/dsh-skin-pack/releases"><img src="https://img.shields.io/github/v/release/keman-ai/dsh-skin-pack?style=flat&label=release&color=08C" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/skins-28-4D6BFE?style=flat" alt="28 skins">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2EA44F?style=flat" alt="MIT License"></a>
 </p>
 
 <p align="center">
-  <a href="../../stargazers">
+  <a href="https://github.com/keman-ai/dsh-skin-pack">
     <img src="https://img.shields.io/badge/%E5%A6%82%E6%9E%9C%E5%96%9C%E6%AC%A2-%E7%82%B9%E4%B8%AA%20Star%20%E2%AD%90-4D6BFE?style=for-the-badge&labelColor=24292f" alt="给个 Star">
   </a>
 </p>
@@ -39,7 +39,7 @@ dsh plugin --profile web add -w github:keman-ai/dsh-skin-market
 
 重启一次 dsh，打开**设置 → 皮肤市场**，搜索、安装、切换，全部不用再回终端。
 
-也可以直接装单个皮肤——在 [Releases](../../releases) 里找到对应版本，复制那个 `.tgz` 的地址：
+也可以直接装单个皮肤——在 [Releases](https://github.com/keman-ai/dsh-skin-pack/releases) 里找到对应版本，复制那个 `.tgz` 的地址：
 
 ```sh
 dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releases/download/<tag>/<包名>-<版本>.tgz
@@ -278,5 +278,5 @@ packages/<name>/     ← 包名固定是 dsh-<name>，脚本与集市数据都�
 ---
 
 <p align="center">
-  <sub>如果这些皮肤帮到了你，<a href="../../stargazers">给个 Star ⭐</a> 就是最好的支持。</sub>
+  <sub>如果这些皮肤帮到了你，<a href="https://github.com/keman-ai/dsh-skin-pack">给个 Star ⭐</a> 就是最好的支持。</sub>
 </p>
