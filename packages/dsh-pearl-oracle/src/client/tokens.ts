@@ -1,5 +1,5 @@
 /**
- * 珍珠神谕的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Pearl Oracle's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
@@ -15,7 +15,7 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const PEARL_PALETTE = {
-  /** 岩布底，带绿灰的暖石色。 */
+  /** The rock-and-cloth ground: a warm stone with green-grey in it. */
   bg: '#11181a',
   bg2: '#0d1315',
   /** Two panel levels. */
@@ -28,13 +28,13 @@ export const PEARL_PALETTE = {
   muted: '#9da9aa',
   muted2: '#8a9698',
 
-  /** 雾蓝：主操作与"正在跑"。全场唯一的彩色。 */
+  /** Misty blue: the primary action and running. The only chromatic colour anywhere. */
   blue: '#6f8fb9',
   blue2: '#7f9fc8',
   blueDeep: '#54708f',
-  /** 银：描边与次要文字，珠子的反光。 */
+  /** Silver: borders and secondary text — the sheen off the pearls. */
   cyan: '#bfc8ca',
-  /** 珍珠白：强调与高光，只给最该被看见的几处。 */
+  /** Pearl white: emphasis and highlights, given only to the few places that most need to be seen. */
   ice: '#e8e0cf',
   /** Online green. */
   green: '#77c69a',
@@ -66,7 +66,7 @@ export const PEARL_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(238, 234, 219, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(238,234,219,.14)`——**带珍珠白的暗描边**，正是那些珠子的反光。分层全靠它。
+  // The prototype uses exactly one, `--line: rgba(238,234,219,.14)` — **a dark border tinted pearl white**, the sheen off those pearls. All layering rests on it.
   '--dsw-alias-border-l1': 'rgba(238, 234, 219, 0.1)',
   '--dsw-alias-border-l2': 'rgba(238, 234, 219, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(238, 234, 219, 0.12)',

@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的雨夜封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced rainy-night cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
@@ -187,7 +187,7 @@ export function SwingStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 正在出动' : '● 就绪 READY'}
+                  {busy ? '● OUT ON A CALL' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -214,20 +214,20 @@ export function SwingStatusDock() {
             </section>
 
             {/*
-              出动记录 —— 原型稿右栏那张卡的真数据版。
+              Call log — the real-data version of that card in the prototype's right column.
               The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>出动记录</div>
+                <div className={css.cardTitle}>Call log</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `出动中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `out on a call · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
                             ? call.ms === undefined ? 'missed' : `missed · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'arrived' : `arrived · ${formatDuration(call.ms)}`}
@@ -235,7 +235,7 @@ export function SwingStatusDock() {
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 次更早的出动`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier call(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.

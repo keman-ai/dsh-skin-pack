@@ -11,7 +11,7 @@ A dark skin for DeepSeek Harness (dsh): deep forest green, soft cream and a touc
 | Palette | A full set of `--dsw-alias-*` / `--dsw-specific-*` semantic tokens on the dark base, with every border a 1px line tinted grass green |
 | New session | The cover takes all the height above the composer (a 16px radius, a grass-green border, a deep shadow), the composer sits separately below, and an identity badge occupies the top-left corner |
 | Brand slots | The sidebar and new-session marks are a pure-CSS **shaft of forest light** (a cream core, a grey-green ring, a deep-forest ground and a green glow), with the subtitle `Forest Companion Skin` |
-| 右侧状态台 | 对话页常驻：缩小版封面 + 六类真实状态，可收起（记住选择） |
+| Status dock | Always present on the chat page: a reduced cover plus six kinds of real state, collapsible (the choice is remembered) |
 
 ### The palette is the prototype's own three words
 
@@ -85,7 +85,7 @@ switching away lasts only for that session. To change permanently, set `autoAppl
 ## Version requirements
 
 Requires **dsh 0.1.1-rc.2 or newer** (the brand-slot takeover relies on slot `priority` shadowing; older versions simply fall back to
-官方品牌标，配色与横幅照常）。
+the official brand mark, with the palette and banner working as usual).
 
 ## Assets
 

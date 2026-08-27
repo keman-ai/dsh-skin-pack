@@ -11,7 +11,7 @@ A dark skin for DeepSeek Harness (dsh): black ink, old gold and ember orange, wi
 | Palette | A full set of `--dsw-alias-*` / `--dsw-specific-*` semantic tokens on the dark base, plus a global 170px warp-and-weft texture |
 | New session | A full landscape visual of the flame-haired Wukong with the composer at the bottom. **Strong character visuals appear on the empty screen only** — they collapse on entering a conversation |
 | Brand slots | The sidebar and new-session marks become a gold seal bearing the character 悟, with the subtitle `Black Myth Wukong · Flame Mountain` |
-| 右侧状态台 | 对话页常驻：缩小版主视觉 + 六类真实状态，可收起（记住选择） |
+| Status dock | Always present on the chat page: a reduced hero visual plus six kinds of real state, collapsible (the choice is remembered) |
 | Identity copy | Thinking → "Thinking…", failure → "Execution failed, please retry." |
 
 ### 🔴 The ratios are fixed by the draft

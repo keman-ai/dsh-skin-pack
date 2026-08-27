@@ -30,7 +30,7 @@ interface BrandMarkProps {
  * The gold-ring mark.
  *
  * The mark is reproduced with a pure CSS radial gradient rather than cropping the banner — the banner's subject sits in the left third, and a small square crop would only
- * 得到一团星海。圆角按 size 等比给（原型 35px 配 11px 圆角，约 0.31 倍），侧栏的 24px 与
+ * yields a field of stars. The radius scales with size (the prototype's 35px carries an 11px radius, about 0.31×), so the sidebar's 24px and
  * so the hero's 34px is the same shape.
  *
  * @param props - Size and class name from the host.

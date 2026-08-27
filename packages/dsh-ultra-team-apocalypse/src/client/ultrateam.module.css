@@ -110,7 +110,7 @@
 }
 
 /* ==========================================================================
- * 组件语言 —— 原型的卡片/气泡：9–11px 圆角、1px 火光橙低对比描边、面板用两级竖向渐变。
+ * The component language — the prototype's cards and bubbles: a 9–11px radius, a low-contrast 1px firelight-orange border and panels on a two-step vertical gradient.
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
@@ -152,7 +152,7 @@
   padding: 11px 12px;
 }
 
-/* 会话正在跑时侧边栏那颗指示点：跟着能量青走：这片火里唯一的冷色，最容易被认出来。 */
+/* The sidebar dot while a session runs follows the energy cyan: the only cool colour in all this fire, and the easiest to recognise. */
 :global(body[data-dsh-ultrateam] [data-state='ongoing']) {
   color: var(--dsw-alias-state-business-primary);
 }
@@ -164,7 +164,7 @@
  * ========================================================================== */
 
 /*
- * 侧栏：竖向渐变 + 橙调分隔线（原型 `.sidebar` 底是 #1a0c0b → #120909）。
+ * Sidebar: a vertical gradient with an orange-toned divider (the prototype's `.sidebar` runs #1a0c0b → #120909).
  * `--dsw-specific-sidebar-fill` already covers the solid colour, so a mismatch here costs only a gradient and an edge.
  */
 :global(body[data-dsh-ultrateam] [class*='_sidebarCol']) {
@@ -173,7 +173,7 @@
 }
 
 /*
- * `＋ 新会话`：42px 高、10px 圆角、135° 橙红渐变（原型 `.new` 的
+ * New session: 42px tall, a 10px radius and a 135° orange-red gradient (the prototype's `.new`:
  * `linear-gradient(135deg,#f0522d,#bb251f)`）。
  * The harness styles it as secondary by default, leaving the primary action without visual weight unless changed.
  */
@@ -204,7 +204,7 @@
 }
 
 /*
- * 会话选中态：左侧一道火光橙竖条 + 一层横向渐变（原型 `.session.active`）。
+ * Selected session: a firelight-orange stripe on the left over a horizontal gradient (the prototype's `.session.active`).
  * The stripe is an inset box-shadow rather than a border-left — the latter changes the box width and shifts the selected row against the others.
  */
 :global(body[data-dsh-ultrateam] [class*='_sessionRow'][class*='_selected']) {
@@ -225,7 +225,7 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：两级竖向渐变 + 橙描边（原型 `.card`）。
+ * The details rail's card language: a two-step vertical gradient with an orange border (the prototype's `.card`).
  *
  * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Mission / Harness Systems / Hero Modes /
  * Energy Core — of which the five ONLINE rows under `Harness Systems` and the two `Hero Modes` cards are pure

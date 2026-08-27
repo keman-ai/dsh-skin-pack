@@ -1,7 +1,7 @@
 /**
- * 夜色秋千的装饰层。
+ * The Night Swing decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-swing]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-swing]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -16,7 +16,7 @@
  * The new-session banner.
  *
  * 🔴 The prototype states the rule plainly in its own notes:
- *   「New Session 以**整张雨夜封面为主视觉**，**输入区独立放在下方**；三栏骨架一处不动。」handoff 里也写着 `composer = below hero`。
+ *   New Session uses **the whole rainy-night cover as the hero visual** with **the composer separately below**, leaving the three-column skeleton untouched. The handoff also says `composer = below hero`.
  * its `#home` is likewise `flex-direction: column` plus `.hero { flex: 1 }` with a separate `.composer` below.
  *
  * So the banner takes all the height above the composer, which sits below it without overlap; apart from the two corner badges the cover
@@ -61,7 +61,7 @@
   min-height: 150px;
   z-index: 0;
   pointer-events: none;
-  /* 原型 `.hero`：16px 圆角、霓虹青描边、一层很深的投影（夜里的对比全靠它）。 */
+  /* The prototype's `.hero`: a 16px radius, a neon-cyan border and a very deep shadow — all the contrast in the dark comes from it. */
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.44);
@@ -75,7 +75,7 @@
 /*
  * The identity badge in the cover's top-left corner (the prototype's `.badge.leftb`: a frosted pill reading "DeepSeek Harness / Night Flight").
  *
- * ⚠️ 右上角那枚「★ ACTION MODE」**没有做**：它写死了一个"在线"状态，而 harness 并没有
+ * ⚠️ The "★ ACTION MODE" badge in the top-right corner is **not implemented**: it hardcodes an online state, and the harness has no
  * has nothing to read against — real state lives in the right-hand dock, where every number has a source. Decoration is fine; fake state is not.
  */
 :global(body[data-dsh-swing] [data-phase='hero'])::after {
@@ -132,7 +132,7 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：夜蓝卡 + 霓虹青描边 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: a night-blue card with a neon-cyan border and a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-swing] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -181,7 +181,7 @@
  * without an error and without affecting anything else.
  * ========================================================================== */
 
-/* 侧栏：竖向渐变 + 霓虹青分隔线（原型 `.left` 是 #091827 → #06111d）。 */
+/* Sidebar: a vertical gradient with a neon-cyan divider (the prototype's `.left` runs #091827 → #06111d). */
 :global(body[data-dsh-swing] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #081a2e 0%, #06111f 100%);
   border-right: 1px solid var(--dsw-alias-border-l2);
@@ -218,7 +218,7 @@
 }
 
 /*
- * 会话选中态：横向渐变 + 左侧一道霓虹青竖条（原型 `.session.active` 的
+ * Selected session: a horizontal gradient with a neon-cyan stripe on the left (the prototype's `.session.active`
  * `linear-gradient(90deg,#142f50,#0c2037)` + `box-shadow: inset 2px 0 var(--cyan)`）。
  * An inset shadow rather than a border, so the box width is unchanged and the selected row does not shift against the others.
  */
@@ -240,7 +240,7 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：竖向渐变卡 + 11px 圆角 + 霓虹青描边（原型 `.card`）。
+ * The details rail's card language: a vertical gradient card with an 11px radius and a neon-cyan border (the prototype's `.card`).
  *
  * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Session / Harness Systems / Ocean Modes /
  * Deep Energy. The last three are hardcoded decoration — a few ONLINE rows, some mode cards, a fixed energy value —

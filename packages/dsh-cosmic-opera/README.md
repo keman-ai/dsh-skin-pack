@@ -13,7 +13,7 @@ A skin for DeepSeek Harness (dsh): a deep blue space ground with three accent st
 | New session | A full-screen spiral-galaxy cover: two nebula glows, scrims left and right and a darkening from the bottom up, with the composer pinned to the bottom over the image |
 | Brand slots | The sidebar and new-session marks become a mission badge (a deep blue gradient square, a cool blue border and the monospace code `DH`), subtitled `Cosmic Opera` |
 | Persona copy | Thinking → `Charting the unknown…`; failure → `Navigation anomaly detected.` |
-| 右侧状态台 | 对话页常驻：缩小版封面 + 六类真实状态，可收起（记住选择） |
+| Status dock | Always present on the chat page: a reduced cover plus six kinds of real state, collapsible (the choice is remembered) |
 
 ### All the epic weight goes on the cover; the interface stays restrained
 

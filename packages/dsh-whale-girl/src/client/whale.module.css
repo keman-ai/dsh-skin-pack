@@ -20,12 +20,12 @@
  * return to the real Harness working state. So the cover is painted **on the hero only**,
  * never as a permanent watermark in the conversation — that would compete with every line of text.
  *
- * `data-phase` 是三态 `settling / hero / active`，不是两态。`settling` 表示会话还在
- * 回放、落 hero 还是落对话页尚不可知，harness 这时把 composer 藏起来就是为了不猜；
- * 这里跟着取同样的态度：**不抢先画**（抢画会闪一下再消失）。
+ * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still replaying
+ * and it is not yet known whether it lands on the hero or the chat page; the harness hides the composer precisely so as not to guess,
+ * and the same stance is taken here: **draw nothing early** (drawing early flashes once and then disappears).
  *
- * 背景图画在**内容容器自己身上**，不在 body 底下插元素——harness 的内容容器有自己的
- * 不透明底色，会把身下的一切盖死。
+ * The background is painted **on the content container itself** rather than by inserting an element beneath body — the harness's content container has its own
+ * opaque ground, which would bury anything underneath it.
  * ========================================================================== */
 
 /*

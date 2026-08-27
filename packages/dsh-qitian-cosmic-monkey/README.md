@@ -8,7 +8,7 @@ A skin for DeepSeek Harness (dsh): a midnight cosmic blue ground, ember gold for
 
 - **A full set of semantic tokens**: a cosmic blue ground `#070b13` with three blue-black panel levels above it, and exactly one dark border tinted ember gold
   `rgba(240,188,112,.14)`, with warm-toned text `#efe9dc`. About 80 `--dsw-alias-*` /
-  `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
+  `--dsw-specific-*` variables change at once, and every layer of the interface follows.
 - **A full banner on the new-session page**: the Monkey King, the starscape and a sunrise over a sea of clouds, with a 14px radius, a gold border and a deep shadow;
   the composer sits separately below without overlapping. The banner collapses on entering a conversation or the trajectory.
 - **Brand takeover**: the sidebar and hero marks both become a gold-ring mark, with the subtitle "Qitian Starscape".

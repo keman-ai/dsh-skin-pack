@@ -1,5 +1,5 @@
 /**
- * AI Work Mode · 浏览器半。
+ * AI Work Mode · browser half.
  *
  * It does four things, in decreasing order of robustness, hence kept separate:
  *

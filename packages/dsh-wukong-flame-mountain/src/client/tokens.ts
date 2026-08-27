@@ -2,8 +2,8 @@
  * Flame Mountain Wukong's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。harness 改版
- * 会动 class 名和布局，但不会动语义 token 的含义，所以这层能长期活着。
+ * Inline variables are written onto body, changing the interface's ground, hierarchy, borders, text and state colours wholesale. A harness redesign
+ * moves class names and layout but never the meaning of the semantic tokens, which is why this layer survives.
  *
  * 🔴 The prototype fixes the **ratios**: 72% black ink / 14% dark brown surface / 8% old gold / 3% bronze / 2% ember orange /
  * 1% danger red. This is not a swatch but a **usage constraint** — old gold is an accent, and ember orange rarer still. So:

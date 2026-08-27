@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的珍珠封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced pearl cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
@@ -187,7 +187,7 @@ export function PearlStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 正在聆听' : '● 就绪 READY'}
+                  {busy ? '● LISTENING' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -214,28 +214,28 @@ export function PearlStatusDock() {
             </section>
 
             {/*
-              神谕记录 —— 原型稿右栏那张卡的真数据版。
+              Oracle log — the real-data version of that card in the prototype's right column.
               The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>神谕记录</div>
+                <div className={css.cardTitle}>Oracle log</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `聆听中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `listening · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '失灵' : `失灵 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '应验' : `应验 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'silent' : `silent · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'fulfilled' : `fulfilled · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 条更早的神谕`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier oracle(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.

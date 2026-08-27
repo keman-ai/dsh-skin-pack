@@ -8,7 +8,7 @@
  *   then base64-encoded into a data URI written into this file
  *
  * Why inline rather than a remote image host: a skin's look must not depend on whether some host still exists, and it has to work offline or on an intranet.
- * 为什么是 q92：q76 在大屏上有肉眼可见的块状伪影（前一个皮肤被当场指出过）。
+ * Why q92: at q76 the blocking artefacts are visible to the naked eye on a large screen (an earlier skin was called out for exactly that).
  *
  * The source tops out at 1672×941. The composition is a colossus centred between snow peaks, so the stylesheet uses
  * background-size: cover (the prototype's .hero img is object-fit: cover too) — what gets cropped is the peaks, never the subject.

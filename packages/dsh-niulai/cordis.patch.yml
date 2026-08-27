@@ -2,7 +2,7 @@
 # Applied automatically when a profile lists this package (see apps/cli/reference: dsh.profile.bundles).
 #
 # Without this layer, `dsh plugin add` installs the package as a plain dependency and the plugin is never loaded
-# —— dsh 会当场警告 “declares no dsh.bundle … not a profile layer”。
+# — dsh warns on the spot: "declares no dsh.bundle … not a profile layer".
 - insert:
     - id: niulai
       name: dsh-niulai

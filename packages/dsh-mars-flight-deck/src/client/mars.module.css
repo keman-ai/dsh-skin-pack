@@ -14,7 +14,7 @@
 
 /* ==========================================================================
  * Global cabin light — cool blue along the top and thruster orange at the top right, matching the two radials on the prototype's `body`:
- * `radial-gradient(circle at 50% 0%, rgba(44,89,121,.16), transparent 26%)` 与
+ * `radial-gradient(circle at 50% 0%, rgba(44,89,121,.16), transparent 26%)` and
  * `radial-gradient(circle at 88% 8%, rgba(255,122,46,.09), transparent 24%)`。
  *
  * without it the interface is just dead black; with those two washes it feels like sitting in a cabin with the instruments lit.

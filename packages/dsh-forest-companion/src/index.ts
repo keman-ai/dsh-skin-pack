@@ -1,5 +1,5 @@
 /**
- * 森林同行皮肤 · host 半。
+ * The Forest Companion skin · host half.
  *
  * All of the skin's behaviour lives in the browser (registering the theme, spreading the cover, taking over the
  * brand slots); this host half is only the Loader's mount point. `cordis.patch.yml` inserts this package into
@@ -68,5 +68,5 @@ export function apply(ctx: Context, config: Config = {}): void {
   }), `forest: ${COVER_ROUTE}`)
 
   const mode = config.autoApply === false ? 'select it manually under Settings → Appearance' : 'applied automatically'
-  ctx.logger.info('[forest] 森林同行已挂载（%s）', mode)
+  ctx.logger.info('[forest] Forest Companion mounted (%s)', mode)
 }

@@ -1,7 +1,7 @@
 /**
  * The Twin Whale Girl cover · build output (do not edit by hand).
  *
- * 原图 1672x941，一刀不裁：
+ * The source is 1672×941 and needs no crop:
  *   cwebp -q 95 cover.png -o cover.webp
  *
  * ⚠️ This is a **light** illustration (a white background, blue hair and bubbles everywhere), the exact opposite of its sibling Whale Girl.

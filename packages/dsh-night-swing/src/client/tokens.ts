@@ -1,5 +1,5 @@
 /**
- * 夜色秋千的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Night Swing's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
@@ -15,7 +15,7 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const SWING_PALETTE = {
-  /** 雨夜底，近黑的夜蓝。 */
+  /** The rainy-night ground: a night blue close to black. */
   bg: '#06111f',
   bg2: '#040b16',
   /** Two panel levels. */
@@ -28,13 +28,13 @@ export const SWING_PALETTE = {
   muted: '#8ea7ba',
   muted2: '#7b93a6',
 
-  /** 战斗红：主操作与强调。 */
+  /** Combat red: the primary action and emphasis. */
   blue: '#e44649',
   blue2: '#ff6b64',
   blueDeep: '#b4302f',
-  /** 霓虹青：正在跑。 */
+  /** Neon cyan: running. */
   cyan: '#69d4ff',
-  /** 冷蓝：次级信息按钮。 */
+  /** Cool blue: secondary information buttons. */
   ice: '#2477b8',
   /** Online green. */
   green: '#6bd59f',
@@ -66,7 +66,7 @@ export const SWING_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(255, 255, 255, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(255,255,255,.115)`——**中性白描边，不带色**。雨夜里所有颜色都在发光，描边再带色会跟着一起亮。
+  // The prototype uses exactly one, `--line: rgba(255,255,255,.115)` — **a neutral white border with no tint**. Everything glows on a rainy night, and a tinted border would glow along with it.
   '--dsw-alias-border-l1': 'rgba(255, 255, 255, 0.1)',
   '--dsw-alias-border-l2': 'rgba(255, 255, 255, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(255, 255, 255, 0.12)',

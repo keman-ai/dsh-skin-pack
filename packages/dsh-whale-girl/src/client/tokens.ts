@@ -114,7 +114,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   // ── Brand and primary button ──
   // 🔴 <b>The primary action is DeepSeek Blue, not Ocean Cyan and not green.</b> Solid blue appears in the prototype
   // only on three primary actions — + New chat, Allow and Send — while green is explicitly <b>reserved for online and
-  // （五个 Assistant Systems 的"在线"、工具调用的 ✓）。拿绿做按钮会让"成功"和"可以点"
+  // (the five Assistant Systems showing online, the ✓ on tool calls). Using green for buttons would blur success with clickable
   // "you may click" one visual language, leaving state unreadable.
   '--dsw-alias-brand-primary': p.blue,
   '--dsw-alias-brand-text': '#3953c9',

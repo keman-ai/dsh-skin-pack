@@ -1,5 +1,5 @@
 /**
- * 珍珠神谕皮肤 · host 半。
+ * The Pearl Oracle skin · host half.
  *
  * All of the skin's behaviour lives in the browser (registering the theme, spreading the cover, taking over the
  * brand slots); this host half is only the Loader's mount point. `cordis.patch.yml` inserts this package into
@@ -44,7 +44,7 @@ export const THEME_ID = 'pearl'
 /** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
-   * 装上就切到珍珠神谕，默认开。关掉则只注册、不应用，等用户自己去「设置 → 外观」选。
+   * Switch to Pearl Oracle on install; on by default. Turned off, it only registers without applying, leaving the user to pick it under Settings → Appearance.
    *
    * On by default because the harness's third-party theme ids never enter the built-in settings schema, so the
    * choice is not persisted: without auto-apply, every dsh start would need reselecting.
@@ -68,5 +68,5 @@ export function apply(ctx: Context, config: Config = {}): void {
   }), `pearl: ${COVER_ROUTE}`)
 
   const mode = config.autoApply === false ? 'select it manually under Settings → Appearance' : 'applied automatically'
-  ctx.logger.info('[pearl] 珍珠神谕已挂载（%s）', mode)
+  ctx.logger.info('[pearl] Pearl Oracle mounted (%s)', mode)
 }

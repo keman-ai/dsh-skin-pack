@@ -1,7 +1,7 @@
 /**
  * The Twilight City cover · build output (do not edit by hand).
  *
- * 原图 2048x1137，是一张干净的插画（稿子里没有把 UI 一起截进来），只按 hero 的宽高比裁一刀：
+ * The source is 2048×1137, a clean illustration (the draft did not screenshot the UI along with it), so a single crop at the hero's aspect ratio is all it needs:
  *   cwebp -q 95 -crop 234 0 1580 1137 cover.png -o cover.webp
  *
  * a 1580×1137 frame (≈1.39) matching the hero area's measured size (about 1320×950). Under `background-size: cover`

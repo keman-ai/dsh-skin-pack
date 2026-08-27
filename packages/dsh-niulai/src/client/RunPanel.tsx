@@ -87,8 +87,8 @@ export function NiulaiRunPanel() {
   // Context composition: all three are estimates, used only for proportions and never for a total.
   const ctx = [
     { key: 'system', label: 'System', tokens: usage.ctxSystemTokens },
-    { key: 'tools', label: '工具 schema', tokens: usage.ctxToolsTokens },
-    { key: 'message', label: '对话', tokens: usage.ctxMessageTokens },
+    { key: 'tools', label: 'Tool schema', tokens: usage.ctxToolsTokens },
+    { key: 'message', label: 'Conversation', tokens: usage.ctxMessageTokens },
   ].filter((part): part is { key: string, label: string, tokens: number } => part.tokens !== undefined)
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 

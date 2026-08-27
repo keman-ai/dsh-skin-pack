@@ -12,7 +12,7 @@ new-session page and the composer sitting separately below it.
 | Palette | A full set of `--dsw-alias-*` / `--dsw-specific-*` semantic tokens on the light base, with every border a pale 1px line tinted blue |
 | New session | **The banner takes only the upper half**, as a card with a 20px radius; the composer sits separately below, the two never overlap, and no copy is laid over the cover |
 | Brand slots | The sidebar and new-session marks are the banner cropped square (reusing the same inlined image), with the subtitle `Whale Wave Theme` |
-| 右侧状态台 | 对话页常驻：缩小版横幅 + 六类真实状态，可收起（记住选择） |
+| Status dock | Always present on the chat page: a reduced banner plus six kinds of real state, collapsible (the choice is remembered) |
 
 ### 🔴 This skin does the opposite of the others
 
@@ -99,7 +99,7 @@ npm run check   # tsc --noEmit
 npm run build   # produces lib/index.js (host half) and lib/client.js (browser half)
 ```
 
-`lib/` **要提交进仓库**：皮肤靠 `github:owner/repo` 安装，装的是仓库里的构建产物。
+`lib/` **must be committed**: skins install via `github:owner/repo`, which installs the build output from the repository.
 
 ## License
 

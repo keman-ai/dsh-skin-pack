@@ -14,7 +14,7 @@
 
 /* ==========================================================================
  * Global skylight — warm yellow at the top left and sky blue at the top right, matching the two radials on the prototype's `body`:
- * `radial-gradient(circle at 20% 0%, rgba(241,181,111,.14), transparent 26%)` 与
+ * `radial-gradient(circle at 20% 0%, rgba(241,181,111,.14), transparent 26%)` and
  * `radial-gradient(circle at 80% 8%, rgba(91,123,228,.15), transparent 24%)`。
  *
  * one warm and one cool, exactly the sky at that moment of dusk — without it the interface is just an even field of deep blue.

@@ -44,7 +44,7 @@ export const THEME_ID = 'wukong'
 /** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
-   * 装上就切到焚山版，默认开。关掉则只注册、不应用，等用户自己去皮肤集市里选。
+   * Switch to Flame Mountain on install; on by default. Turned off, it only registers without applying, leaving the user to pick it in the skin market.
    *
    * On by default because third-party theme ids never enter the built-in settings schema and the choice is not
    * persisted, while Settings → Appearance lists only light / dark / follow system: without auto-apply, every start would need reselecting.
@@ -68,5 +68,5 @@ export function apply(ctx: Context, config: Config = {}): void {
   }), `wukong: ${COVER_ROUTE}`)
 
   const mode = config.autoApply === false ? 'select it manually under Settings → Skin Market' : 'applied automatically'
-  ctx.logger.info('[wukong] 黑神话悟空 · 焚山版已挂载（%s）', mode)
+  ctx.logger.info('[wukong] Black Myth Wukong · Flame Mountain mounted (%s)', mode)
 }

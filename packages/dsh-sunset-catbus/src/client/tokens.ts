@@ -87,7 +87,7 @@ export const CATBUS_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-inverted': p.panel2,
 
   // ── Brand and primary button ──
-  // 主操作是那条夜蓝渐变（原型 `.new` / `.send` 的 `linear-gradient(135deg,#4b7fe8,#24507a)`）。
+  // The primary action is that night-blue gradient (the prototype's `.new` / `.send`: `linear-gradient(135deg,#4b7fe8,#24507a)`).
   // Wheat gold is never a solid button: here it is the language of borders and emphasis, and a large gold button would compete with the cover for light.
   '--dsw-alias-brand-primary': p.orange,
   '--dsw-alias-brand-text': p.gold,
