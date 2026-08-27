@@ -1,7 +1,7 @@
 /**
- * 宇宙歌剧的装饰层。
+ * The Cosmic Opera decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-opera]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-opera]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -13,9 +13,9 @@
  */
 
 /* ==========================================================================
- * 全局星点 —— 原型稿 `body:before` 的四颗散点，14% 不透明度。
+ * Global starfield — the four scattered points from the prototype's `body:before`, at 14% opacity.
  *
- * 没有它，界面只是一片深蓝；有了它才有"在太空里"的感觉。强度低到不影响任何文字可读性，
+ * Without it the interface is just a field of deep blue; with it you feel out in space. It is faint enough not to affect the legibility of any text,
  * `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-opera])::before {
@@ -36,9 +36,9 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿 Theme rules 写的是「视觉重心放在旋涡星系、行星弧面、深空光芒和探索叙事；
- * 但 **New Mission 之外的界面密度仍然保持真实 Harness 产品结构**」——史诗感全押在封面上，
- * 界面本身要克制。所以封面**只画在 hero**，对话页与轨迹页一点不铺。
+ * 🔴 The prototype's Theme rules say the visual weight sits on the spiral galaxy, the planetary arc, the deep-space glow and the narrative of exploration,
+ * **while outside New Mission the interface keeps the real Harness product structure and density** — all the epic weight goes on the cover,
+ * and the interface itself stays restrained. So the cover is drawn **on the hero only**, with none of it on the chat or trajectory pages.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
  * replaying and it is unknown whether it lands on hero or the conversation; the harness hides the composer then
@@ -148,7 +148,7 @@
 /*
  * Thinking → Charting the unknown…
  *
- * 原型 Appearance 面板的 Agent copy 给了六条，这里做能找到锚点的两条（思考中、失败）；
+ * The Agent copy in the prototype's Appearance panel gives six lines; the two with an anchor are built here (thinking and failure);
  * Tool / Context / Success have no mount point in the harness (a tool row has only ok and error,
  * with no running state), and nothing is forced.
  *
@@ -242,8 +242,8 @@
 }
 
 /*
- * `＋ 新会话` 在这套设计里**不是**紫色实心：原型的 `.new-session` 是「深蓝渐变底 + 冷蓝描边」，
- * 真正的紫色实心只留给 hero 上那颗 `START EXPLORATION →`（也就是发送）。
+ * New session is **not** a solid violet here: the prototype's `.new-session` is a deep blue gradient with a cool blue border,
+ * and true solid violet is reserved for the hero's `START EXPLORATION →` (that is, send).
  * An accent spread wide stops being the one most important touch.
  */
 /*

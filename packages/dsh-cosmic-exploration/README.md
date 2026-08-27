@@ -8,11 +8,11 @@ DeepSeek Harness（dsh）的皮肤：深蓝太空底 + 冷蓝与星云紫，新�
 
 | Surface | Content |
 |---|---|
-| 配色 | 深蓝太空底（#050814）+ 三级蓝黑面板；描边分两路——大面积分层用冷蓝、强调边用星云紫 |
+| Palette | A deep blue space ground (#050814) with three blue-black panel levels; borders split two ways — cool blue for broad layering and nebula violet for emphasis |
 | 全局 | 一层 14% 的星点（原型 `body:before` 的四颗散点）。没有它，界面只是一片深蓝 |
 | 新会话页 | 一整幅全屏封面：两团星云光晕 + 左右压幕 + 自下而上的暗幕，输入框贴底压在画面上 |
 | 品牌位 | 侧栏与新会话页的标换成任务徽标（深蓝渐变方块 + 冷蓝描边 + 等宽代号 `CX`），副标 `Cosmic Exploration` |
-| 身份化文案 | 思考中 → `Charting the unknown…`、失败 → `Navigation anomaly detected.` |
+| Persona copy | Thinking → `Charting the unknown…`; failure → `Navigation anomaly detected.` |
 | 右侧状态台 | 对话页常驻：缩小版封面 + 六类真实状态，可收起（记住选择） |
 
 ### 🔴 暖色只给状态，不给按钮
@@ -55,11 +55,11 @@ harness 没有对应投影，一律不做——**装饰可以，假状态不行*
 
 - 「Ship Systems」五行 `ONLINE` / `SYNCED` / `STANDBY`
 - 「Telemetry」里的 Signal 97.2%、Route score 82
-- 「Shortcuts」那张静态快捷键速查表
+- the static shortcut cheat sheet under Shortcuts
 - hero 左侧那四格任务参数（Mission / Sector / Signal Strength / Jump Window）
 
-Agent copy 六条里也只做了能找到锚点的两条：`Tool / Context / Success` 在 harness 里没有可挂的
-中间态（工具行只有 ok / error 两态，没有 running），不硬凑。
+Of the six agent-copy lines only the two with an anchor are built: `Tool / Context / Success` have no intermediate state to attach to in the harness
+(a tool row has only ok and error, with no running), and nothing is forced.
 
 ## Install
 

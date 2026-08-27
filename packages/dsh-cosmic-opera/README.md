@@ -1,6 +1,6 @@
-# dsh-cosmic-opera · 宇宙歌剧
+# dsh-cosmic-opera · Cosmic Opera
 
-DeepSeek Harness（dsh）的皮肤：深蓝太空底 + 紫/蓝/青三档强调，新会话页是一整幅旋涡星系封面
+A skin for DeepSeek Harness (dsh): a deep blue space ground with three accent steps in violet, blue and teal, and a full spiral-galaxy cover on the new-session page.
 
 ![New session](preview/dark.webp)
 
@@ -8,41 +8,41 @@ DeepSeek Harness（dsh）的皮肤：深蓝太空底 + 紫/蓝/青三档强调�
 
 | Surface | Content |
 |---|---|
-| 配色 | 深蓝太空底（#050814）+ 三级蓝黑面板；描边分两路——大面积分层用冷蓝、强调边用星云紫 |
-| 全局 | 一层 14% 的星点。没有它，界面只是一片深蓝 |
-| 新会话页 | 一整幅全屏旋涡星系封面：两团星云光晕 + 左右压幕 + 自下而上的暗幕，输入框贴底压在画面上 |
-| 品牌位 | 侧栏与新会话页的标换成任务徽标（深蓝渐变方块 + 冷蓝描边 + 等宽代号 `DH`），副标 `Cosmic Opera` |
-| 身份化文案 | 思考中 → `Charting the unknown…`、失败 → `Navigation anomaly detected.` |
+| Palette | A deep blue space ground (#050814) with three blue-black panel levels; borders split two ways — cool blue for broad layering and nebula violet for emphasis |
+| Global | A 14% starfield layer. Without it the interface is just a field of deep blue |
+| New session | A full-screen spiral-galaxy cover: two nebula glows, scrims left and right and a darkening from the bottom up, with the composer pinned to the bottom over the image |
+| Brand slots | The sidebar and new-session marks become a mission badge (a deep blue gradient square, a cool blue border and the monospace code `DH`), subtitled `Cosmic Opera` |
+| Persona copy | Thinking → `Charting the unknown…`; failure → `Navigation anomaly detected.` |
 | 右侧状态台 | 对话页常驻：缩小版封面 + 六类真实状态，可收起（记住选择） |
 
-### 史诗感全押在封面上，界面反而克制
+### All the epic weight goes on the cover; the interface stays restrained
 
-原型稿 Theme rules 的原话：「这是偏**宇宙歌剧 / 史诗感**的方案：视觉重心放在旋涡星系、行星弧面、
-深空光芒和探索叙事；但 **New Mission 之外的界面密度仍然保持真实 Harness 产品结构**。」
+The prototype's Theme rules put it directly: this leans **cosmic opera and the epic** — the visual weight sits on the spiral galaxy, the planetary arc,
+the deep-space glow and the narrative of exploration, **while outside New Mission the interface keeps the real Harness product structure and density**.
 
-所以强调只有三档，各有各的位置：
+So there are only three accent steps, each with its own place:
 
-- **紫**（#8e73ff）= 主操作实心，`＋ 新会话` 则是深蓝渐变 + 冷蓝描边；
-- **蓝**（#79c2ff）= 描边与数据；
-- **青绿**（#75d4cb）= 正在运行。原型把它放在遥测数值上，这里落到运行态，
-  好让"在跑"跟蓝色的数据、紫色的主操作三者都分得开；
-- 暖色 #ffb775 **只给需要你注意的状态**，不参与任何常规按钮。
+- **violet** (#8e73ff) = the solid primary action, while New session is a deep blue gradient with a cool blue border;
+- **blue** (#79c2ff) = borders and data;
+- **teal** (#75d4cb) = running. The prototype puts it on telemetry values; here it lands on the running state
+  so that running stays clear of both the blue data and the violet primary action;
+- the warm #ffb775 is **reserved for states that need your attention** and never appears on an ordinary button.
 
-封面只画在 hero，对话页与轨迹页一点不铺。
+The cover is drawn on the hero only, with none of it on the chat or trajectory pages.
 
-### 🔴 封面是从 UI 概念稿里裁出来的
+### 🔴 The cover is cropped out of a UI concept mockup
 
-原型给的那张"封面"**本身是一整套 UI 概念稿的截图**（1536×1024，里面有假侧栏、假任务面板、
-还有印在画上的 "New Mission" 标题）。直接拿它当 hero 背景会出现**界面里套界面**——实测截图
-就是两层 UI 叠在一起。
+The cover the prototype supplies **is itself a screenshot of a whole UI concept** (1536×1024, containing a fake sidebar, a fake mission panel
+and a "New Mission" title printed onto the art). Using it directly as the hero background gives you **an interface inside an interface** — the screenshot
+really does show two layers of UI stacked on each other.
 
-所以这里裁掉稿子的外壳，只留画面：
+So the mockup's shell is cropped away, leaving only the art:
 
 ```bash
 cwebp -q 92 -crop 665 0 600 700 cover.png -o cover.webp
 ```
 
-第一版从 x=600 起裁，左边缘还留着那行 "UNDERSTAND." 的尾巴，往右再挪 65px 才干净。
+The first pass cropped from x=600 and still left the tail of the "UNDERSTAND." line on the left edge; moving 65px further right finally cleared it.
 
 ### What the status dock shows
 
@@ -65,16 +65,16 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏那四张卡里只有 `Mission` 能对上真实数据，其余全是写死的装饰，harness 没有对应投影，
-一律不做——**装饰可以，假状态不行**：
+Of the four cards in the prototype's right column only `Mission` maps to real data; the rest are hardcoded decoration with no matching projection in the harness,
+and none are built — **decoration is fine; fake state is not**:
 
-- 「Systems」六行 `ONLINE` / `ACTIVE`
-- 「Next Waypoint」的 `ETA 02:14:36`
-- 「Shortcuts」那张静态快捷键速查表
-- 顶栏那三格 Universe Time / Coordinates / Signal Status
+- the six `ONLINE` / `ACTIVE` rows under Systems
+- the `ETA 02:14:36` under Next Waypoint
+- the static shortcut cheat sheet under Shortcuts
+- the three top-bar cells, Universe Time / Coordinates / Signal Status
 
-Agent copy 六条里也只做了能找到锚点的两条：`Tool / Context / Success` 在 harness 里没有可挂的
-中间态（工具行只有 ok / error 两态，没有 running），不硬凑。
+Of the six agent-copy lines only the two with an anchor are built: `Tool / Context / Success` have no intermediate state to attach to in the harness
+(a tool row has only ok and error, with no running), and nothing is forced.
 
 ## Install
 
@@ -86,7 +86,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-cosmic-opera
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-cosmic-opera 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-cosmic-opera to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -108,7 +108,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面裁自原型那张 1536×1110 的 UI 概念稿（只取画面区域），压成 webp（q92，93 KB）内联进 bundle。裁法与分辨率上限写在 `src/client/cover.generated.ts` 的头部注释里。
+The cover is cropped from the prototype's 1536×1110 UI concept (taking the art area only), compressed to webp (q92, 93 KB) and inlined into the bundle. The crop and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development
 

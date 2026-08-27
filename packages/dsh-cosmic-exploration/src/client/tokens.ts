@@ -10,12 +10,12 @@
  * 不参与任何常规按钮。
  */
 
-/** 原型稿 `:root` 与 Appearance 色卡的原始色。 */
+/** The raw colours from the prototype's `:root` and its Appearance swatches. */
 export const COSMIC_PALETTE = {
-  /** Space：深蓝太空，最底。 */
+  /** Space: deep blue space, the lowest ground. */
   bg: '#050814',
   bg2: '#091126',
-  /** 三级抬升面。 */
+  /** The three raised surfaces. */
   surface: '#0b1329',
   surface2: '#101b36',
   /** Panel Blue。 */
@@ -25,17 +25,17 @@ export const COSMIC_PALETTE = {
   text2: '#b8c4d8',
   text3: '#7482a1',
 
-  /** Telemetry：冷蓝，用于描边与数据。 */
+  /** Telemetry: cool blue, used for borders and data. */
   blue: '#72b8ff',
   blue2: '#9bd6ff',
-  /** Nebula Violet：<b>主操作色</b>。 */
+  /** Nebula Violet: <b>the primary action colour</b>. */
   violet: '#8c74ff',
   violet2: '#b08cff',
-  /** 主按钮实心用的那一档紫。 */
+  /** The step of violet used solid on the primary button. */
   violetSolid: '#796eeb',
   /** Glow：星云辉光，用于"正在运行"。 */
   glow: '#61d0ff',
-  /** 🔴 暖色：只给重要状态，不做常规按钮。 */
+  /** 🔴 Warm: important states only, never an ordinary button. */
   amber: '#ffb772',
 
   ok: '#70c6a0',
@@ -56,7 +56,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface3,
   '--dsw-alias-bg-multi-select': '#152248',
 
-  // 遮罩压向太空蓝，不压纯黑——纯黑会把星云的蓝紫洗成灰。
+  // The scrim darkens towards space blue rather than pure black — black would wash the nebula's blue-violet to grey.
   '--dsw-alias-bg-mask-1': 'rgba(2, 5, 12, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(2, 5, 12, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(2, 5, 12, 0.62)',
@@ -65,8 +65,8 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(155, 214, 255, 0.08)',
 
   // ── Borders ──
-  // 原型有两条线：冷蓝 `rgba(130,170,255,.12)` 与星云紫 `rgba(176,140,255,.14)`。
-  // 低两级走冷蓝（大部分分层），高两级走紫（强调边）。
+  // The prototype has two lines: a cool blue `rgba(130,170,255,.12)` and a nebula violet `rgba(176,140,255,.14)`.
+  // The lower two levels take cool blue (most of the layering) and the upper two take violet (emphasis borders).
   '--dsw-alias-border-l1': 'rgba(130, 170, 255, 0.09)',
   '--dsw-alias-border-l2': 'rgba(130, 170, 255, 0.12)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(130, 170, 255, 0.1)',
@@ -83,14 +83,14 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-label-tertiary': p.text3,
   '--dsw-alias-label-caption': '#71809d',
   '--dsw-alias-label-dimmed': '#71809d',
-  // 紫底上压深色字（原型 `.hero-send` 的 `color:#0d0a21`）。
+  // Dark text sits on the violet ground (the prototype's `.hero-send` uses `color:#0d0a21`).
   '--dsw-alias-label-primary-foreground': '#0d0a21',
   '--dsw-alias-label-primary-inverted': p.surface3,
 
   // ── Brand and primary button ──
-  // 🔴 主操作是**星云紫**，不是暖色。规则原文：「少量暖色只用于重要状态与任务按钮」——
-  // 这里的"任务按钮"在原型里指的是 hero 上那颗 START EXPLORATION，而它用的是紫渐变；
-  // 真正的暖色只出现在 telemetry 与警告态上。拿暖色铺主按钮会让"该注意了"失效。
+  // 🔴 The primary action is **nebula violet**, not the warm tone. The rule reads: a small amount of warm colour, for important states and the mission button only —
+  // and that mission button is the hero's START EXPLORATION, which the prototype draws with the violet gradient;
+  // the warm tone appears only on telemetry and warnings. Spreading it across the primary button would destroy its meaning of "look here".
   '--dsw-alias-brand-primary': p.violetSolid,
   '--dsw-alias-brand-text': p.violet2,
   '--dsw-alias-brand-primary-invert': '#0d0a21',
@@ -122,7 +122,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-state-success-primary': p.ok,
   '--dsw-alias-state-success-secondary': p.ok,
   '--dsw-alias-state-success-tertiary': '#10281f',
-  // 🔴 暖色的正当用途：需要你注意的状态。
+  // 🔴 The warm tone's legitimate use: states that need your attention.
   '--dsw-alias-state-warn-primary': p.warn,
   '--dsw-alias-state-warn-secondary': p.amber,
   '--dsw-alias-state-warn-label': '#ffd3a4',

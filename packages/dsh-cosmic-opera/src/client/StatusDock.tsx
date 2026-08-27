@@ -1,10 +1,10 @@
 /**
- * 右侧状态台：缩小版的宇宙歌剧封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced Cosmic Opera cover plus this session's real state.
  *
- * 原型稿的右栏是「Mission / Systems / Next Waypoint / Shortcuts」四张卡。这里做
+ * The prototype's right column has four cards — Mission / Systems / Next Waypoint / Shortcuts. What is built here
  * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
- * 待办进度。`Systems` 那六行 ONLINE / ACTIVE、`Next Waypoint` 的 ETA 02:14:36、`Shortcuts` 那张静态速查表——
- * harness 都没有对应投影，一律不伪造。
+ * is todo progress. The six ONLINE / ACTIVE rows under `Systems`, the ETA 02:14:36 under `Next Waypoint` and the static `Shortcuts` cheat sheet
+ * all have no matching projection in the harness, and none are faked.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1
@@ -160,7 +160,7 @@ export function OperaStatusDock() {
           <div className={css.scroll}>
             {/*
               A reduced cover, using the same inline image (adding no size), centre-cropped with `cover` —
-              这张图是旋涡星系与行星弧面的大景，裁掉两侧不影响主体。
+              The image is a wide view of the spiral galaxy and the planetary arc, so cropping the sides leaves the subject untouched.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--opera-cover)' }}>
               <span className={css.coverName}>Cosmic Opera</span>

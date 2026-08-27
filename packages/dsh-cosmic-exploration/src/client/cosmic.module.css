@@ -13,9 +13,9 @@
  */
 
 /* ==========================================================================
- * 全局星点 —— 原型稿 `body:before` 的四颗散点，14% 不透明度。
+ * Global starfield — the four scattered points from the prototype's `body:before`, at 14% opacity.
  *
- * 没有它，界面只是一片深蓝；有了它才有"在太空里"的感觉。强度低到不影响任何文字可读性，
+ * Without it the interface is just a field of deep blue; with it you feel out in space. It is faint enough not to affect the legibility of any text,
  * `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-cosmic])::before {
@@ -148,7 +148,7 @@
 /*
  * Thinking → Charting the unknown…
  *
- * 原型 Appearance 面板的 Agent copy 给了六条，这里做能找到锚点的两条（思考中、失败）；
+ * The Agent copy in the prototype's Appearance panel gives six lines; the two with an anchor are built here (thinking and failure);
  * Tool / Context / Success have no mount point in the harness (a tool row has only ok and error,
  * with no running state), and nothing is forced.
  *
@@ -242,8 +242,8 @@
 }
 
 /*
- * `＋ 新会话` 在这套设计里**不是**紫色实心：原型的 `.new-session` 是「深蓝渐变底 + 冷蓝描边」，
- * 真正的紫色实心只留给 hero 上那颗 `START EXPLORATION →`（也就是发送）。
+ * New session is **not** a solid violet here: the prototype's `.new-session` is a deep blue gradient with a cool blue border,
+ * and true solid violet is reserved for the hero's `START EXPLORATION →` (that is, send).
  * An accent spread wide stops being the one most important touch.
  */
 /*
