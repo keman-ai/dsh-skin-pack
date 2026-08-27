@@ -1,19 +1,19 @@
 # dsh-twilight-city · Twilight City
 
-DeepSeek Harness（dsh）的皮肤：深蓝夜空打底、晚霞橙紫粉做氛围、暖黄只点亮按钮、天空蓝只给运行中，新会话页是一整幅黄昏城市主视觉
+A skin for DeepSeek Harness (dsh): a deep night-sky blue ground, sunset orange, purple and pink for atmosphere, warm yellow lighting only the buttons and sky blue only for running, with a full twilight-city hero on the new-session page.
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色夜空蓝 `#0a1020`，三级面板往上是城市蓝，全场两条描边——
-  中性的 `rgba(255,255,255,.08)` 与晚霞橙的 `rgba(255,138,76,.14)`，文字 `#eef1f7`。
-  约 80 个 `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
-- **天光**：`body::before` 铺原型那两条 radial——左上一团暖黄、右上一团天空蓝，
-  一边暖一边冷，正好是黄昏那一刻天空的样子。`pointer-events: none` 保证不拦点击。
-- **新会话页整幅封面**：台阶上的两个人、远处的万家灯火与那道流星。进入对话与轨迹页后封面收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚「暮」字方标，副标「Twilight City」。
-- **人格化文案**：思考中 → 「正在穿过黄昏寻找答案……」；需要你确认时前缀一句
+- **A full set of semantic tokens**: a night-sky ground `#0a1020`, city blue from the third panel level up, and exactly two borders —
+  a neutral `rgba(255,255,255,.08)` and a sunset-orange `rgba(255,138,76,.14)` — with `#eef1f7` text.
+  Around 80 `--dsw-alias-*` / `--dsw-specific-*` variables change at once, and every layer of the interface follows.
+- **Skylight**: `body::before` lays down the prototype's two radials — warm yellow at the top left, sky blue at the top right,
+  one warm and one cool, exactly the sky at that moment of dusk. `pointer-events: none` keeps it from catching clicks.
+- **A full-bleed cover on the new-session page**: the two figures on the steps, the distant city lights and that one shooting star. The cover retracts once you enter the chat or trajectory pages.
+- **Brand mark takeover**: both the sidebar and hero marks become a square bearing the character 暮 (dusk), subtitled "Twilight City".
+- **Personified copy**: thinking becomes "walking through the dusk for an answer…", and anything needing confirmation is prefixed with
   "this cannot continue without your confirmation" — **the original text stays**, since that is what you actually judge by.
 - **A right-hand status dock**: always present; see the table below.
 
@@ -21,24 +21,24 @@ DeepSeek Harness（dsh）的皮肤：深蓝夜空打底、晚霞橙紫粉做氛�
 
 The prototype's Theme rules fix each colour's job:
 
-> 以**深蓝夜空**为底，**晚霞橙和紫粉云层**作为情绪重点，**暖黄色只负责点亮窗口与按钮**。
+> **Deep night-sky blue** as the ground, **sunset orange and purple-pink cloud** as the emotional emphasis, and **warm yellow only to light windows and buttons**.
 
 | Colour | Value | Used for |
 |---|---|---|
-| 深蓝夜空 | `#0a1020` → `#202d47` | 底与三级面板——绝大部分界面 |
-| 晚霞橙 | `#ff8a4c` | 情绪重点：暖描边、强调、hover、警告 |
-| 云层紫 / 粉 | `#8459d9` / `#c96594` | 情绪重点。粉落在「需要你多看一眼的那一个」——危险操作的悬停 |
-| 暖黄 | `#f1b56f` | 只点亮**窗口与按钮**：主操作、选中项 |
-| 天空蓝 | `#69a9ff` / `#5b7be4` | **正在跑** |
+| Night-sky blue | `#0a1020` → `#202d47` | Ground and the three panel levels — most of the interface |
+| Sunset orange | `#ff8a4c` | Emotional emphasis: warm borders, emphasis, hover and warnings |
+| Cloud purple / pink | `#8459d9` / `#c96594` | Emotional emphasis. Pink lands on the one that deserves a second look — hovering a destructive action |
+| Warm yellow | `#f1b56f` | Lights **windows and buttons** only: the primary action and selected items |
+| Sky blue | `#69a9ff` / `#5b7be4` | **Running** |
 
-🔴 **「情绪重点」不等于「状态色」**。橙紫粉负责氛围，不负责告诉你任务成没成——
-把 hover 的那点暖和「跑完了」用同一个颜色，界面会一直在说话但什么都没说清。
+🔴 **Emotional emphasis is not a state colour.** Orange, purple and pink carry atmosphere, not whether a task succeeded —
+give the warmth of a hover and the fact of completion the same colour and the interface talks constantly while saying nothing clearly.
 
-🔴 **「正在跑」为什么是天空蓝**：它是稿子调色盘里唯一一个**既在盘上、又没被分配情绪职责**的
-颜色，正好留给状态。而且冷色跟这一整片暖调拉得开，一眼能认出来。
+🔴 **Why running is sky blue**: it is the only colour on the draft's palette that is **both present and unassigned any emotional duty**,
+which leaves it free for state. A cool colour also stands well clear of all this warmth and is recognised at a glance.
 
-🔴 **成功态取一档低饱和青绿 `#7fc9a8`**：盘里没有绿，但「成功」必须跟「正在跑」（天空蓝）
-和「主操作」（暖黄）都区分得开。这是这一整片暖调里最不吵的选择。
+🔴 **Success takes a low-saturation teal-green `#7fc9a8`**: the palette has no green, but success must stay clear of both running (sky blue)
+and the primary action (warm yellow). This is the quietest choice available amid all that warmth.
 
 ### What the status dock shows
 
@@ -50,7 +50,7 @@ The prototype's Theme rules fix each colour's job:
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 工具轨迹 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Tool trace | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -61,17 +61,17 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏那三个写死的 `Workspace files`（`twilight-cover.png` 2.4 MB 之类）、
-那张静态快捷键表、侧栏底部的「Credits 72,300 / 108,000」，以及封面右上角的
-「Twilight mode ready」，**harness 都没有对应的投影**。
+The three hardcoded `Workspace files` in the prototype's right column (`twilight-cover.png` at 2.4 MB and the like),
+the static shortcut table, the "Credits 72,300 / 108,000" at the foot of the sidebar and the "Twilight mode ready" badge in the cover's
+top-right corner **all have no matching projection in the harness**.
 
-装饰可以，假状态不行：一条永远停在 72,300 的额度槽，第二次看见就没人信了，
+Decoration is fine; fake state is not. A credit gauge frozen at 72,300 convinces nobody the second time they see it,
 and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
-**Error 与 Success 两条人格化文案也没做**：这套稿子的 Agent copy 只给了 Thinking 与 Permission
-两条，没有失败与成功的规范。缺的不自己编——没有依据的人格化文案是自己加戏。
+**The Error and Success persona lines are not built either**: this draft's agent copy gives only Thinking and Permission,
+with no specification for failure or success. What is missing is not invented — persona copy without a basis is embellishment.
 
-hero 上那四颗建议 chip（`Explore this repository` / `Write a reflective story`…）同理：
+The four suggestion chips on the hero (`Explore this repository` / `Write a reflective story`…) are the same case:
 they are hardcoded copy in the draft, whereas the harness's suggestions come from session context, and hardcoding a set would only ever produce the same four lines.
 
 ## Install
@@ -84,7 +84,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-twilight-city
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-twilight-city 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-twilight-city to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -106,7 +106,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张干净插画（2048x1137），按 hero 的宽高比裁成 1580x1137，cwebp q95 原生分辨率——晚霞的渐变与万家灯火的碎点经不起缩图。
+The cover is the clean illustration from the prototype (2048×1137), cropped to 1580×1137 at the hero's aspect ratio and encoded at cwebp q95 in native resolution — the sunset gradient and the scattered city lights cannot survive downscaling.
 
 ## Development
 

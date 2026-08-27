@@ -1,10 +1,10 @@
 /**
- * 右侧状态台：缩小版的黄昏封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced twilight cover plus this session's real state.
  *
- * 原型稿的右栏是「Current Mission / Ship Systems / Telemetry / Shortcuts」四张卡。这里做
+ * The prototype's right column has four cards — Current Mission / Ship Systems / Telemetry / Shortcuts. What is built here
  * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
- * 待办进度。`Ship Systems` 那五行 ONLINE / STANDBY、`Telemetry` 里的 Signal 97.2% 与 Route score 82、
- * `Shortcuts` 那张静态速查表——harness 都没有对应投影，一律不伪造。
+ * is todo progress. The five ONLINE / STANDBY rows under `Ship Systems`, the Signal 97.2% and Route score 82 under `Telemetry`,
+ * and the static `Shortcuts` cheat sheet all have no matching projection in the harness, and none are faked.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1
@@ -160,7 +160,7 @@ export function TwilightStatusDock() {
           <div className={css.scroll}>
             {/*
               A reduced cover, using the same inline image (adding no size), centre-cropped with `cover` —
-              这张图是"台阶居中、城市铺开"的构图，裁掉两侧只会切到街巷。
+              The composition centres the steps with the city spread around them, so cropping the sides only cuts into the streets.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--twilight-cover)' }}>
               <span className={css.coverName}>Twilight City</span>
@@ -214,13 +214,13 @@ export function TwilightStatusDock() {
             </section>
 
             {/*
-              工具轨迹 —— 原型稿右栏那张卡的真数据版。
+              Tool trace — the real-data version of that card in the prototype's right column.
               The draft's `Workspace files` is three hardcoded filenames; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>工具轨迹</div>
+                <div className={css.cardTitle}>Tool trace</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>

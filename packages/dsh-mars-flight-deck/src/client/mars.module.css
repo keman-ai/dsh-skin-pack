@@ -36,7 +36,7 @@
  *
  * 🔴 原型稿 Theme rules 写死了作用域：「**New Mission 使用强驾驶舱场景**，
  * Console / Flight Path **回归低干扰工程界面**」。
- * 所以封面**只画在 hero**，对话页与轨迹页一点不铺。
+ * So the cover is drawn **on the hero only**, with none of it on the chat or trajectory pages.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
  * replaying and it is unknown whether it lands on hero or the conversation; the harness hides the composer then

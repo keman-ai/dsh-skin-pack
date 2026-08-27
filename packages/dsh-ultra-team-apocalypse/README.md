@@ -8,7 +8,7 @@ A skin for DeepSeek Harness (dsh): a charred dark-red ground, firelight orange f
 
 - **A full set of semantic tokens**: ground and panels are a **charred dark red-black** (`#120909` / `#1a1010`, not neutral black),
   there is exactly one border colour, `rgba(255,151,85,.16)` tinted with firelight, and the body text is a warm off-white `#fff2e6`.
-  约 80 个 `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
+  Around 80 `--dsw-alias-*` / `--dsw-specific-*` variables change at once, and every layer of the interface follows.
 - **A full banner on the new-session page**: five figures standing in burning ruins, with a 15px radius, an orange border and a large shadow;
   the composer sits at the card's lower edge, with the scrim darkened a little further at the bottom to keep it legible. The banner collapses on entering a conversation or the trajectory.
 - **Brand takeover**: the sidebar and hero marks both become an energy-core badge, with the subtitle "Ultra Team · Apocalypse".

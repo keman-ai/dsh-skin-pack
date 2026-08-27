@@ -1,29 +1,29 @@
 /**
- * 黄昏城市的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Twilight City's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 The prototype's Theme rules fix each colour's job:
- * 「以**深蓝夜空**为底，**晚霞橙和紫粉云层**作为情绪重点，**暖黄色只负责点亮窗口与按钮**。」
+ * **deep night-sky blue** as the ground, **sunset orange and purple-pink cloud** as the emotional emphasis, and **warm yellow only to light windows and buttons**.
  *
  * Three clauses, three uses:
- *   - **深蓝夜空**（#0a1020 → #202d47）：底与三级面板，绝大部分界面；
- *   - **晚霞橙**（#ff8a4c）与**紫**（#8459d9）、**粉**（#c96594）：情绪重点。
- *     ⚠️ 「情绪重点」不等于「状态色」——它们负责氛围（描边、强调、hover 的那一点暖），
- *     不负责告诉你任务成没成；
- *   - **暖黄**（#f1b56f）：只点亮"窗口与按钮"，也就是主操作与选中项。
+ *   - **night-sky blue** (#0a1020 → #202d47): ground and the three panel levels, most of the interface;
+ *   - **sunset orange** (#ff8a4c) with **purple** (#8459d9) and **pink** (#c96594): the emotional emphasis.
+ *     ⚠️ Emotional emphasis is not a state colour — they carry atmosphere (borders, emphasis, the warmth of a hover),
+ *     not whether a task succeeded;
+ *   - **warm yellow** (#f1b56f): lights windows and buttons only, meaning the primary action and selected items.
  *
- * 🔴 那么"正在跑"用什么？**天空蓝**（#5b7be4 / #69a9ff）。它是稿子里唯一一个既在调色盘上、
- * 又没被分配情绪职责的颜色，正好留给状态：冷色跟这一整片暖调拉得开，一眼能认出来。
+ * 🔴 So what carries running? **Sky blue** (#5b7be4 / #69a9ff). It is the only colour in the draft that is both on the palette and
+ * unassigned any emotional duty, which leaves it free for state: a cool colour stands well clear of all this warmth and is recognised at a glance.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const TWILIGHT_PALETTE = {
-  /** 夜空底。 */
+  /** The night-sky ground. */
   bg: '#0a1020',
   bg2: '#121a2e',
-  /** 城市面板三级。 */
+  /** The three city panel levels. */
   surface: '#131c31',
   surface2: '#19243b',
   surface3: '#202d47',
@@ -32,15 +32,15 @@ export const TWILIGHT_PALETTE = {
   text2: '#c9d0de',
   text3: '#8992a5',
 
-  /** 天空蓝：留给"正在跑"。 */
+  /** Sky blue: reserved for running. */
   blue: '#69a9ff',
   sky: '#5b7be4',
-  /** 云层紫与粉：情绪重点，不做状态。 */
+  /** Cloud purple and pink: emotional emphasis, never state. */
   violet: '#8459d9',
   pink: '#c96594',
-  /** 晚霞橙：情绪重点里最强的一档。 */
+  /** Sunset orange: the strongest step of the emotional emphasis. */
   sunset: '#ff8a4c',
-  /** 暖黄：点亮窗口与按钮。 */
+  /** Warm yellow: lights windows and buttons. */
   amber: '#f1b56f',
   danger: '#cc6a67',
 } as const
@@ -62,7 +62,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface2,
   '--dsw-alias-bg-multi-select': p.surface3,
 
-  // 遮罩：压向夜空蓝而不是纯黑，压黑会把这套本来就很暗的蓝洗成灰。
+  // The scrim darkens towards the night-sky blue rather than pure black; black would wash this already dark blue to grey.
   '--dsw-alias-bg-mask-1': 'rgba(5, 8, 16, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(5, 8, 16, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(5, 8, 16, 0.62)',
@@ -71,8 +71,8 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(255, 255, 255, 0.07)',
 
   // ── Borders ──
-  // 原型全场两条：`--line: rgba(255,255,255,.08)`（中性）与 `--line2: rgba(255,138,76,.14)`（晚霞橙）。
-  // 中性那条撑起全部分层，橙那条只出现在需要"暖一点"的框上——这就是"情绪重点"的用法。
+  // The prototype uses exactly two: `--line: rgba(255,255,255,.08)` (neutral) and `--line2: rgba(255,138,76,.14)` (sunset orange).
+  // The neutral one carries all the layering; the orange appears only on frames that want a little warmth — which is what emotional emphasis means.
   '--dsw-alias-border-l1': 'rgba(255, 255, 255, 0.06)',
   '--dsw-alias-border-l2': 'rgba(255, 255, 255, 0.08)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(255, 255, 255, 0.07)',
@@ -89,13 +89,13 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-label-tertiary': p.text3,
   '--dsw-alias-label-caption': '#737d91',
   '--dsw-alias-label-dimmed': '#737d91',
-  // 暖黄实底上放白字对比度不够，配一档接近黑的深棕。
+  // White on solid warm yellow lacks contrast, so a near-black deep brown is paired with it.
   '--dsw-alias-label-primary-foreground': '#241505',
   '--dsw-alias-label-primary-inverted': p.surface2,
 
   // ── Brand and primary button ──
-  // 主操作是暖黄（原型 Theme rules：「暖黄色只负责**点亮窗口与按钮**」）。
-  // 晚霞橙不做实心大按钮：它是氛围色，铺开会把这张画的黄昏感搬进界面，变得吵。
+  // The primary action is warm yellow (the prototype's Theme rules: warm yellow **lights windows and buttons** only).
+  // Sunset orange is never a large solid button: it is an atmosphere colour, and spreading it would drag the picture's dusk into the interface and turn it noisy.
   '--dsw-alias-brand-primary': p.amber,
   '--dsw-alias-brand-text': p.amber,
   '--dsw-alias-brand-primary-invert': '#241505',
@@ -121,24 +121,24 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-active': 'rgba(255, 255, 255, 0.1)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(255, 138, 76, 0.22)',
-  // 云层里那点粉的唯一去处：危险操作的悬停。稿子把粉排在"情绪重点"里，
-  // 落到"需要你多看一眼的那一个"上，比铺成装饰更有用。
+  // The one place for the pink in those clouds: hovering a destructive action. The draft files pink under emotional emphasis,
+  // and landing it on the one that deserves a second look is more useful than spreading it as decoration.
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(201, 101, 148, 0.24)',
 
   // ── Status colours ──
-  // 🔴 成功用青绿 #7fc9a8：稿子的调色盘里没有绿，但"成功"必须跟"正在跑"（天空蓝）
-  // 和"主操作"（暖黄）都区分得开。取一档低饱和的青绿，是这一整片暖调里最不吵的选择。
+  // 🔴 Success uses teal-green #7fc9a8: the draft's palette has no green, but success must stay clear of both running (sky blue)
+  // and the primary action (warm yellow). A low-saturation teal-green is the quietest choice available amid all that warmth.
   '--dsw-alias-state-success-primary': '#7fc9a8',
   '--dsw-alias-state-success-secondary': '#6fb797',
   '--dsw-alias-state-success-tertiary': '#12302a',
-  // 警告：晚霞橙。情绪重点在这里正好落到"提醒"上。
+  // Warning: sunset orange. Here the emotional emphasis lands squarely on drawing attention.
   '--dsw-alias-state-warn-primary': p.sunset,
   '--dsw-alias-state-warn-secondary': p.amber,
   '--dsw-alias-state-warn-label': '#ffc59a',
   '--dsw-alias-state-warn-tertiary': '#2e2013',
   '--dsw-alias-state-error-primary': p.danger,
   '--dsw-alias-state-error-secondary': '#dc8481',
-  // business = 进行中：天空蓝。冷色跟这一整片暖调拉得开，一眼能认出来。
+  // business = in progress: sky blue. A cool colour stands well clear of all this warmth and is recognised at a glance.
   '--dsw-alias-state-business-primary': p.blue,
   '--dsw-alias-state-business-tertiary': '#16294d',
 

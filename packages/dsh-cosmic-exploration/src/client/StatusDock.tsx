@@ -1,10 +1,10 @@
 /**
  * 右侧状态台：缩小版的宇宙探索封面 + 这场会话的真实状态。
  *
- * 原型稿的右栏是「Current Mission / Ship Systems / Telemetry / Shortcuts」四张卡。这里做
+ * The prototype's right column has four cards — Current Mission / Ship Systems / Telemetry / Shortcuts. What is built here
  * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
- * 待办进度。`Ship Systems` 那五行 ONLINE / STANDBY、`Telemetry` 里的 Signal 97.2% 与 Route score 82、
- * `Shortcuts` 那张静态速查表——harness 都没有对应投影，一律不伪造。
+ * is todo progress. The five ONLINE / STANDBY rows under `Ship Systems`, the Signal 97.2% and Route score 82 under `Telemetry`,
+ * and the static `Shortcuts` cheat sheet all have no matching projection in the harness, and none are faked.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1

@@ -1,7 +1,7 @@
 /**
- * 黄昏城市的装饰层。
+ * The Twilight City decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-twilight]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-twilight]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -13,11 +13,11 @@
  */
 
 /* ==========================================================================
- * 全局天光 —— 左上一团暖黄、右上一团天空蓝，对应原型 `body` 的两条 radial：
+ * Global skylight — warm yellow at the top left and sky blue at the top right, matching the two radials on the prototype's `body`:
  * `radial-gradient(circle at 20% 0%, rgba(241,181,111,.14), transparent 26%)` 与
  * `radial-gradient(circle at 80% 8%, rgba(91,123,228,.15), transparent 24%)`。
  *
- * 一边暖一边冷，正好是黄昏那一刻天空的样子——没有它，界面只是一块均匀的深蓝。
+ * one warm and one cool, exactly the sky at that moment of dusk — without it the interface is just an even field of deep blue.
  * Its intensity is low enough not to affect any text, and `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-twilight])::before {
@@ -34,9 +34,9 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿 Theme rules 写死了作用域：「**New Session 使用完整场景**，
- * Chat / Trajectory **回归安静、真实的工作界面**」。
- * 所以封面**只画在 hero**，对话页与轨迹页一点不铺。
+ * 🔴 The prototype's Theme rules fix the scope: **New Session uses the full scene**,
+ * while Chat / Trajectory **return to a quiet, honest working interface**.
+ * So the cover is drawn **on the hero only**, with none of it on the chat or trajectory pages.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
  * replaying and it is unknown whether it lands on hero or the conversation; the harness hides the composer then
@@ -142,10 +142,10 @@
  * ========================================================================== */
 
 /*
- * Thinking → 正在穿过黄昏寻找答案……
+ * Thinking → walking through the dusk for an answer…
  *
- * 这套原型只给了 Thinking 与 Permission 两条文案（没有 Error / Success 规范），
- * 所以这里也只做这两条，缺的不自己编——没有依据的人格化文案是自己加戏。
+ * This prototype gives only two lines of copy, Thinking and Permission (with no Error / Success specification),
+ * so only those two are built; what is missing is not invented — persona copy without a basis is embellishment.
  *
  * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
  */
@@ -154,7 +154,7 @@
 }
 
 :global(body[data-dsh-twilight] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '正在穿过黄昏寻找答案……';
+  content: 'Walking through the dusk for an answer…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -216,7 +216,7 @@
  * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-twilight] [data-chat-flow-kind='approval'])::before {
-  content: '需要你的确认后才能继续 · ';
+  content: 'This cannot continue without your confirmation · ';
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--dsw-alias-brand-text);
@@ -238,8 +238,8 @@
 }
 
 /*
- * `＋ 新会话` 在这套设计里**不是**暖黄实心：原型的 `.new-session` 是「夜蓝渐变底 + 中性描边」，
- * 暖黄的实心只留给 hero 上那颗 `Start task →`（也就是发送）。
+ * New session is **not** a solid warm yellow here: the prototype's `.new-session` is a night-blue gradient with a neutral border,
+ * and solid warm yellow is reserved for the hero's `Start task →` (that is, send).
  * An accent spread wide stops being the one most important touch.
  */
 /*
