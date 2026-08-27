@@ -39,10 +39,10 @@ export const MIST_PALETTE = {
   gold: '#b18a50',
   gold2: '#d4b681',
   gold3: '#8d6b3d',
-  /** 玉青：只给"正在跑"。 */
+  /** Jade green: running only. */
   jade: '#6d948d',
   jade2: '#4f7871',
-  /** 朱砂：只给危险与失败。 */
+  /** Cinnabar: danger and failure only. */
   red: '#b55a52',
 } as const
 

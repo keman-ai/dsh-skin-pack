@@ -53,7 +53,7 @@ The prototype's theme rules state the ratio as a single figure, and it is this s
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
 | Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
-| 经卷查阅 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
+| Scripture reading | The source and form of each context injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
@@ -67,10 +67,10 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 阵法模拟·九宫 `等待中`——是稿子里写死的演示数据；侧栏底部那条「灵力 68,250 / 108,000」
 和顶栏的「天机可测，静待道友下令」同理。
 
-**harness 没有对应的投影**。装饰可以，假状态不行：一条永远停在 68,250 的灵力槽，
+**The harness has no matching projection.** Decoration is fine; fake state is not. A spirit-energy gauge frozen at 68,250
 disbelieved the second time it is seen, and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
-原型 Agent copy 里的 `Tool → 正在调用神通……` 与 `Context → 正在翻阅经卷……` 也没做：
+The draft's agent copy for `Tool` (invoking an art…) and `Context` (leafing through the scriptures…) is not built either:
 The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.
 
 ## Install

@@ -154,10 +154,10 @@ interface ConversationNodeLike {
   shadowedTokenCount?: number | null
 }
 
-/** 「SHIP SYSTEMS」卡最多列几条。再多就只报总数——右栏是状态台，不是日志。 */
+/** How many rows the SHIP SYSTEMS card lists at most. Beyond that only a total is reported — the right column is a status dock, not a log. */
 const TOOL_LOG_LIMIT = 6
 
-/** 「CONTEXT FEED」卡最多列几条。 */
+/** How many rows the CONTEXT FEED card lists at most. */
 const CONTEXT_LOG_LIMIT = 5
 
 export interface StatusProbeProps {

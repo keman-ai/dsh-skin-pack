@@ -1,13 +1,13 @@
 /**
- * 宇宙探索的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Cosmic Exploration's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
- * 🔴 原型稿 Appearance 面板的「Theme rules」写死了三条：
- *   「以**深蓝太空**为主底，**冷蓝与紫色星云**做视觉高潮，**少量暖色只用于重要状态与任务按钮**。
- *   New Mission 使用全屏宇宙探索封面，Console / Trajectory 回归低干扰、真实可用的 Harness 界面。」
+ * 🔴 The Theme rules in the prototype's Appearance panel fix three things:
+ *   **deep blue space** as the main ground, **cool blue and violet nebula** as the visual climax, and **a small amount of warm colour for important states and the mission button only**.
+ *   New Mission uses the full-screen cosmic-exploration cover, while Console / Trajectory return to a low-distraction, genuinely usable Harness interface.
  *
- * 落到用量上：深蓝铺满、冷蓝与紫做强调（主操作是紫罗兰实心，`.hero-send` 是
- * `linear-gradient(180deg,#9f82ff,#6e69e4)`），暖色（#ffb772 / #f0b46d）**只给需要你注意的状态**，
- * 不参与任何常规按钮。
+ * In practice: deep blue everywhere, cool blue and violet for emphasis (the primary action is solid violet, `.hero-send` being
+ * `linear-gradient(180deg,#9f82ff,#6e69e4)`), and the warm tones (#ffb772 / #f0b46d) **reserved for states that need your attention**,
+ * never appearing on an ordinary button.
  */
 
 /** The raw colours from the prototype's `:root` and its Appearance swatches. */
@@ -33,7 +33,7 @@ export const COSMIC_PALETTE = {
   violet2: '#b08cff',
   /** The step of violet used solid on the primary button. */
   violetSolid: '#796eeb',
-  /** Glow：星云辉光，用于"正在运行"。 */
+  /** Glow: the nebula glow, used for running. */
   glow: '#61d0ff',
   /** 🔴 Warm: important states only, never an ordinary button. */
   amber: '#ffb772',
@@ -129,7 +129,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-state-warn-tertiary': '#2c2114',
   '--dsw-alias-state-error-primary': p.danger,
   '--dsw-alias-state-error-secondary': '#ff9a9a',
-  // business = 进行中：Glow 冷蓝。它在这片深蓝里最亮，又不跟紫的主操作抢。
+  // business = in progress: the Glow cool blue. The brightest thing in all this deep blue, without competing with the violet primary action.
   '--dsw-alias-state-business-primary': p.glow,
   '--dsw-alias-state-business-tertiary': '#0c2e42',
 

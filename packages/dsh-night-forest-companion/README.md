@@ -8,7 +8,7 @@ DeepSeek Harness（dsh）的皮肤：月夜蓝打底、月光青做描边与状�
 
 - **整套语义 token**：底色月夜蓝 `#071423`，面板森林深色 `#0b1c2e`，全场一条带月光青的暗描边
   `rgba(150,205,255,.16)`，文字 `#eef8ff`。约 80 个 `--dsw-alias-*` / `--dsw-specific-*`
-  一次性换掉，界面的每一层都跟着走。
+  change at once, and every layer of the interface follows.
 - **新会话页整张横幅**：树枝上的一大两小、夜空与那弯月，16px 圆角配月光青描边和很深的投影；
   输入区独立放在下方，两者不重叠；封面左上角留一枚身份角标。进入对话与轨迹页后横幅收起。
 - **品牌标接管**：侧栏与 hero 的标都换成一枚月环标，副标「Night Forest Companion」。

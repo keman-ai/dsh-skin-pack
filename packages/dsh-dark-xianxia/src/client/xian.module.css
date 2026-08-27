@@ -1,7 +1,7 @@
 /**
- * 天机阁·修仙版的装饰层。
+ * The Dark Xianxia decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-xian]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-xian]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -13,10 +13,10 @@
  */
 
 /* ==========================================================================
- * 全局灵气 —— 顶部一团极淡的玉青，对应原型 `body` 的
+ * Global qi — a very faint jade wash along the top, matching the prototype's `body`
  * `radial-gradient(circle at 50% 0%, rgba(45,92,94,.16), transparent 34%)`。
  *
- * 没有它，界面只是一片墨黑；有了它顶栏一带才有"灵气自上而下"的层次。
+ * without it the interface is just ink-black; with it the top of the page gains a sense of qi descending.
  * Its intensity is low enough not to affect any text, and `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-xian])::before {
@@ -31,8 +31,8 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿的 Theme rules 把分寸写死了：「**强世界观视觉集中在 New Session / Empty State**，
- * 进入工作流后回到克制的深色开发工具界面，**这样才适合真实长期使用**」。
+ * 🔴 The prototype's Theme rules fix the measure: **the strong world-building visuals concentrate on New Session and the empty state**,
+ * and once you enter the workflow it returns to a restrained dark developer-tool interface, **which is what suits real long-term use**.
  * so the full cover is painted **on the hero only** (which is exactly the empty state), with nothing on the conversation or trajectory pages and no layout touched.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
@@ -250,8 +250,8 @@
 }
 
 /*
- * `＋ 新会话` 在这套设计里**不是**金色实心：原型的 `.new-session` 是「墨青渐变底 + 古金描边 + 古金字」。
- * 8% 的古金要留给"边和字"，一旦铺成实心大按钮，配比立刻破掉。
+ * New session is **not** a solid gold here: the prototype's `.new-session` is an ink-teal gradient with a gold border and gold text.
+ * That 8% of gold belongs to edges and text; spread across a large solid button, the proportion breaks immediately.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.

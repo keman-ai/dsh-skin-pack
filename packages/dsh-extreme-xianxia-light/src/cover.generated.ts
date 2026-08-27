@@ -6,7 +6,7 @@
  *   cwebp -q 95 -crop 392 56 695 500 cover.png -o cover.webp
  *
  * 裁框 695x500（≈1.39）是照着 hero 区实测算的（约 1320x950）：`background-size: cover`
- * 只按短边缩放，裁框比例偏离 hero 的话多出来的那一边会被均分切掉，正好切在书法上。
+ * scales by the short edge, so a frame whose ratio strays from the hero's loses the excess evenly on the long side — which lands right on the calligraphy.
  * 现在书法「天机在握 · 万象归一」、仗剑的道友与龙首都完整。
  *
  * 体积：webp 99 KB，data URI 约 132 KB。

@@ -1,29 +1,29 @@
 /**
- * 天机阁·修仙版的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Dark Xianxia's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 The prototype's Theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
- * 「**70% 墨青黑 / 18% 暖灰黑 / 8% 古金 / 3% 玉青 / 1% 朱砂**」。
+ * **70% ink-teal black / 18% warm grey-black / 8% antique gold / 3% jade green / 1% cinnabar**.
  *
- * 换算成用量就是：
- *   - **墨青黑**（#071012）与暖灰黑：底、面板、输入框——绝大部分界面；
- *   - **古金**（#c09b5c）：描边、主操作、品牌字。8% 的意思是"边和按钮"，不是"大面积铺"；
- *   - **玉青**（#4d9b8f）：只给**正在跑**。3%；
- *   - **朱砂**（#bf5a47）：只给**危险与失败**。1%——原型全场只有「终止运行」那一处。
+ * Which translates into:
+ *   - **ink-teal black** (#071012) and warm grey-black: ground, panels and the composer — most of the interface;
+ *   - **antique gold** (#c09b5c): borders, the primary action and the wordmark. 8% means edges and buttons, not broad fills;
+ *   - **jade green** (#4d9b8f): reserved for **running**. 3%;
+ *   - **cinnabar** (#bf5a47): reserved for **danger and failure**. 1% — the prototype uses it in one place only, Stop run.
  *
- * 另一句同样写死在稿子里：「强世界观视觉集中在 New Session / Empty State，进入工作流后
- * 回到克制的深色开发工具界面，这样才适合真实长期使用」。所以封面只画在 hero。
+ * One more line is equally binding: the strong world-building visuals concentrate on New Session and the empty state, and once you enter the workflow it
+ * returns to a restrained dark developer-tool interface, which is what suits real long-term use. So the cover is drawn on the hero only.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const XIAN_PALETTE = {
-  /** 墨青黑，接近黑。 */
+  /** Ink-teal black, close to black. */
   bg: '#071012',
   bg2: '#0a1518',
   bg3: '#0d1a1d',
-  /** 面板三级（暖灰黑）。 */
+  /** The three panel levels (warm grey-black). */
   surface: '#0b1619',
   surface2: '#0f1d21',
   surface3: '#13252a',
@@ -32,14 +32,14 @@ export const XIAN_PALETTE = {
   text2: '#b5a98f',
   text3: '#756f61',
 
-  /** 古金：描边、主操作、品牌字。 */
+  /** Antique gold: borders, the primary action and the wordmark. */
   gold: '#c09b5c',
   gold2: '#e0bd7b',
   gold3: '#8b6734',
-  /** 玉青：只给"正在跑"。 */
+  /** Jade green: running only. */
   jade: '#4d9b8f',
   jade2: '#74b5a9',
-  /** 朱砂：只给危险与失败。 */
+  /** Cinnabar: danger and failure only. */
   red: '#bf5a47',
   red2: '#7a3429',
 } as const
@@ -61,7 +61,7 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface2,
   '--dsw-alias-bg-multi-select': p.surface3,
 
-  // 遮罩：压向墨青而不是纯黑，压黑会把这套本来就很暗的青洗成灰。
+  // The scrim darkens towards ink-teal rather than pure black; black would wash this already dark teal to grey.
   '--dsw-alias-bg-mask-1': 'rgba(4, 9, 10, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(4, 9, 10, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(4, 9, 10, 0.62)',
@@ -70,8 +70,8 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(189, 151, 88, 0.08)',
 
   // ── Borders ──
-  // 原型全场两条：`--line: rgba(189,151,88,.18)` 与 `--line2: .28`——**带古金的暗描边**。
-  // 这是那 8% 古金的主要去处：暗底上的分层全靠它，而不是靠提亮底色。
+  // The prototype uses exactly two: `--line: rgba(189,151,88,.18)` and `--line2: .28` — **dark borders tinted antique gold**.
+  // This is where most of that 8% gold goes: all layering on the dark ground rests on it, not on lightening the ground.
   '--dsw-alias-border-l1': 'rgba(189, 151, 88, 0.12)',
   '--dsw-alias-border-l2': 'rgba(189, 151, 88, 0.18)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(189, 151, 88, 0.14)',
@@ -92,8 +92,8 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-inverted': p.surface2,
 
   // ── Brand and primary button ──
-  // 主操作是古金（原型 `.new-session` 与 `召请道童` 那条 `linear-gradient(135deg,#e0bd7b,#c09b5c)`）。
-  // 前景色配深褐 `#241a0c`：金底上放白字对比度不够，放黑字又太硬。
+  // The primary action is antique gold (the `linear-gradient(135deg,#e0bd7b,#c09b5c)` on the prototype's `.new-session` and its summon button).
+  // A deep brown `#241a0c` goes in front: white on gold lacks contrast, and black is too hard.
   '--dsw-alias-brand-primary': p.gold,
   '--dsw-alias-brand-text': p.gold2,
   '--dsw-alias-brand-primary-invert': '#241a0c',
@@ -119,16 +119,16 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-active': 'rgba(189, 151, 88, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(192, 155, 92, 0.22)',
-  // 那 1% 朱砂的其中一处：危险操作的悬停（原型是「终止运行」）。
+  // One of the places for that 1% of cinnabar: hovering a destructive action (Stop run in the prototype).
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(191, 90, 71, 0.22)',
 
   // ── Status colours ──
   // 🔴 Success uses jade too. This draft's palette has no green at all, and forcing one would break both
-  // "3% 玉青"和"70% 墨青黑"两条配比。
+  // both the 3% jade and the 70% ink-black proportions.
   '--dsw-alias-state-success-primary': p.jade2,
   '--dsw-alias-state-success-secondary': p.jade,
   '--dsw-alias-state-success-tertiary': '#0d2a27',
-  // 警告：往古金上靠。稿子没给黄，而古金本来就是这套的"注意"色。
+  // Warning leans on antique gold. The draft gives no yellow, and gold is already this skin's attention colour.
   '--dsw-alias-state-warn-primary': p.gold2,
   '--dsw-alias-state-warn-secondary': p.gold,
   '--dsw-alias-state-warn-label': '#efd6a2',

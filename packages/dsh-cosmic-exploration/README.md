@@ -1,6 +1,6 @@
-# dsh-cosmic-exploration · 宇宙探索
+# dsh-cosmic-exploration · Cosmic Exploration
 
-DeepSeek Harness（dsh）的皮肤：深蓝太空底 + 冷蓝与星云紫，新会话页是一整幅宇宙探索封面
+A skin for DeepSeek Harness (dsh): a deep blue space ground with cool blue and nebula violet, and a full cosmic-exploration cover on the new-session page.
 
 ![New session](preview/dark.webp)
 
@@ -9,25 +9,25 @@ DeepSeek Harness（dsh）的皮肤：深蓝太空底 + 冷蓝与星云紫，新�
 | Surface | Content |
 |---|---|
 | Palette | A deep blue space ground (#050814) with three blue-black panel levels; borders split two ways — cool blue for broad layering and nebula violet for emphasis |
-| 全局 | 一层 14% 的星点（原型 `body:before` 的四颗散点）。没有它，界面只是一片深蓝 |
-| 新会话页 | 一整幅全屏封面：两团星云光晕 + 左右压幕 + 自下而上的暗幕，输入框贴底压在画面上 |
-| 品牌位 | 侧栏与新会话页的标换成任务徽标（深蓝渐变方块 + 冷蓝描边 + 等宽代号 `CX`），副标 `Cosmic Exploration` |
+| Global | A 14% starfield layer (the four scattered points from the prototype's `body:before`). Without it the interface is just a field of deep blue |
+| New session | A full-screen cover: two nebula glows, scrims left and right and a darkening from the bottom up, with the composer pinned to the bottom over the image |
+| Brand slots | The sidebar and new-session marks become a mission badge (a deep blue gradient square, a cool blue border and the monospace code `CX`), subtitled `Cosmic Exploration` |
 | Persona copy | Thinking → `Charting the unknown…`; failure → `Navigation anomaly detected.` |
 | 右侧状态台 | 对话页常驻：缩小版封面 + 六类真实状态，可收起（记住选择） |
 
-### 🔴 暖色只给状态，不给按钮
+### 🔴 The warm tone is for states, never buttons
 
-原型稿 Appearance 面板的 Theme rules 写死了：「以深蓝太空为主底，冷蓝与紫色星云做视觉高潮，
-**少量暖色只用于重要状态与任务按钮**。New Mission 使用全屏宇宙探索封面，Console / Trajectory
-回归低干扰、真实可用的 Harness 产品界面。」
+The Theme rules in the prototype's Appearance panel are explicit: deep blue space as the main ground, cool blue and violet nebula as the visual climax, and
+**a small amount of warm colour for important states and the mission button only**. New Mission uses the full-screen cosmic-exploration cover, while Console / Trajectory
+return to a low-distraction, genuinely usable Harness product interface.
 
-落到实现上：
+In implementation:
 
-- **主操作是星云紫实心**（原型 hero 上那颗 `START EXPLORATION →` 就是紫渐变），
-  `＋ 新会话` 则是深蓝渐变 + 冷蓝描边——强调色一旦铺开，就不再是"最重要的那一下"；
-- **暖色（#ffb772 / #f0b46d）只留给需要你注意的状态**，不参与任何常规按钮；
-- **「正在运行」用 Glow 冷蓝 `#61d0ff`**：它在这片深蓝里最亮，又不跟紫的主操作抢；
-- 封面只画在 hero，对话页与轨迹页一点不铺——原型要求那两页"低干扰、真实可用"。
+- **the primary action is solid nebula violet** (the hero's `START EXPLORATION →` is a violet gradient in the prototype),
+  while New session is a deep blue gradient with a cool blue border — once an accent spreads, it stops meaning "the one that matters most";
+- **the warm tones (#ffb772 / #f0b46d) are reserved for states that need your attention** and never appear on an ordinary button;
+- **running uses the Glow cool blue `#61d0ff`**: the brightest thing in all this deep blue, without competing with the violet primary action;
+- the cover is drawn on the hero only, with none of it on the chat or trajectory pages — the prototype requires those two to stay low-distraction and genuinely usable.
 
 ### What the status dock shows
 
@@ -39,8 +39,8 @@ DeepSeek Harness（dsh）的皮肤：深蓝太空底 + 冷蓝与星云紫，新�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| SHIP SYSTEMS | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
-| CONTEXT FEED | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
+| SHIP SYSTEMS | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
+| CONTEXT FEED | The source and form of each context injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | COMPACTED | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
@@ -50,13 +50,13 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏那四张卡里，只有 `Current Mission` 能对上真实数据，其余全是写死的装饰，
-harness 没有对应投影，一律不做——**装饰可以，假状态不行**：
+Of the four cards in the prototype's right column only `Current Mission` maps to real data; the rest are hardcoded decoration
+with no matching projection in the harness, and none are built — **decoration is fine; fake state is not**:
 
-- 「Ship Systems」五行 `ONLINE` / `SYNCED` / `STANDBY`
-- 「Telemetry」里的 Signal 97.2%、Route score 82
+- the five `ONLINE` / `SYNCED` / `STANDBY` rows under Ship Systems
+- the Signal 97.2% and Route score 82 under Telemetry
 - the static shortcut cheat sheet under Shortcuts
-- hero 左侧那四格任务参数（Mission / Sector / Signal Strength / Jump Window）
+- the four mission parameters at the left of the hero (Mission / Sector / Signal Strength / Jump Window)
 
 Of the six agent-copy lines only the two with an anchor are built: `Tool / Context / Success` have no intermediate state to attach to in the harness
 (a tool row has only ok and error, with no running), and nothing is forced.
@@ -71,7 +71,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-cosmic-exploration
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-cosmic-exploration 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-cosmic-exploration to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -93,7 +93,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是一张 1672×941 的插画，压成 webp（q92，222 KB）内联进 bundle，不外链图床——断网 / 内网也要能看。生成方式与分辨率上限写在 `src/client/cover.generated.ts` 的头部注释里。
+The cover is a 1672×941 illustration compressed to webp (q92, 222 KB) and inlined into the bundle rather than linked from an image host — it has to work offline and on an intranet. How it is generated and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development
 

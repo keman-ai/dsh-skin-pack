@@ -1,9 +1,9 @@
 /**
- * 右侧状态台：缩小版的修仙封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced xianxia cover plus this session's real state.
  *
- * 原型稿的右栏是「当前会话 / 神通调用 / 快捷操作」三张卡。这里做**能对上真实数据的那些**：
+ * The prototype's right column has three cards — current session / arts invoked / quick actions. What is built here is **whatever maps to real data**:
  * waiting on you, state and timing, model, context occupancy and composition, permission mode, usage, todo progress.
- * 「神通调用」那四行（天机推演阵 已完成 2.1s、经卷查阅 运行中 8.4s……）是稿子里写死的演示数据，
+ * the four rows under arts invoked (a divination array done in 2.1s, a scripture reading running at 8.4s…) are hardcoded demo data in the draft,
  * The sidebar's energy figure is the same — the harness has no matching projection, and nothing is fabricated.
  *
  * Why build our own rail instead of taking over the harness's details slot:
@@ -247,13 +247,13 @@ export function MistStatusDock() {
             )}
 
             {/*
-              经卷查阅 —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              Scripture reading — what actually gets pushed into the context each turn (AGENTS.md, the skill directory, the system prompt…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}
             {contextEntries.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>经卷查阅</div>
+                <div className={css.cardTitle}>Scripture reading</div>
                 <ul className={css.log}>
                   {contextEntries.map((entry, index) => (
                     <li key={`${entry.label}-${index}`} className={css.logRow} data-role={entry.role}>

@@ -1,7 +1,7 @@
 /**
- * 宇宙探索的装饰层。
+ * The Cosmic Exploration decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-cosmic]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-cosmic]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -36,8 +36,8 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿 Theme rules 写死了作用域：「**New Mission 使用全屏宇宙探索封面**，
- * Console / Trajectory 回归**低干扰、真实可用**的 Harness 产品界面」。
+ * 🔴 The prototype's Theme rules fix the scope: **New Mission uses the full-screen cosmic-exploration cover**,
+ * while Console / Trajectory return to a **low-distraction, genuinely usable** Harness product interface.
  * So the cover is drawn **on the hero only**, with none of it on the chat or trajectory pages.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still

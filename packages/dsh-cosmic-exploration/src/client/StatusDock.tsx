@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的宇宙探索封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced Cosmic Exploration cover plus this session's real state.
  *
  * The prototype's right column has four cards — Current Mission / Ship Systems / Telemetry / Shortcuts. What is built here
  * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
@@ -160,7 +160,7 @@ export function CosmicStatusDock() {
           <div className={css.scroll}>
             {/*
               A reduced cover, using the same inline image (adding no size), centre-cropped with `cover` —
-              这张图是"行星在中、星云环绕"的构图，裁掉两侧不影响主体。
+              The composition centres the planet with the nebula around it, so cropping the sides leaves the subject untouched.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--cosmic-cover)' }}>
               <span className={css.coverName}>Cosmic Exploration</span>
@@ -214,8 +214,8 @@ export function CosmicStatusDock() {
             </section>
 
             {/*
-              SHIP SYSTEMS —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Ship Systems` 是五行写死的 ONLINE；这里是本会话真实跑过的工具：
+              SHIP SYSTEMS — the real-data version of that card in the prototype's right column.
+              The draft's `Ship Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
@@ -247,7 +247,7 @@ export function CosmicStatusDock() {
             )}
 
             {/*
-              CONTEXT FEED —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              CONTEXT FEED — what actually gets pushed into the context each turn (AGENTS.md, the skill directory, the system prompt…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}

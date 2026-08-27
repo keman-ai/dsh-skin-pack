@@ -1,18 +1,18 @@
 # dsh-dark-xianxia · Dark Xianxia
 
-DeepSeek Harness（dsh）的皮肤：墨青黑打底、古金做边与按钮、玉青只给运行中、朱砂只给危险，新会话页是一整幅召请天机主视觉
+A skin for DeepSeek Harness (dsh): ink-teal black as the ground, antique gold for borders and buttons, jade green only for running and cinnabar only for danger, with a full divination hero on the new-session page.
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色墨青黑 `#071012`，面板暖灰黑，全场两条带古金的暗描边
-  （`rgba(189,151,88,.18)` / `.28`），文字 `#e8dfca`。约 80 个 `--dsw-alias-*` / `--dsw-specific-*`
-  一次性换掉，界面的每一层都跟着走。
-- **顶部一团灵气**：`body::before` 铺原型那条 `radial-gradient(circle at 50% 0%, rgba(45,92,94,.16), transparent 34%)`，
-  让墨黑底不至于死板。`pointer-events: none` 保证不拦点击。
-- **新会话页整幅封面**：书法「参悟天机 · 万象归一」、仗剑的道友与那条神龙。进入对话与轨迹页后封面收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚「天」字金章，副标「天机阁 · 修仙版」。
+- **A full set of semantic tokens**: an ink-teal black ground `#071012`, warm grey-black panels and exactly two dark borders tinted antique gold
+  (`rgba(189,151,88,.18)` / `.28`), with `#e8dfca` text. Around 80 `--dsw-alias-*` / `--dsw-specific-*` variables
+  change at once, and every layer of the interface follows.
+- **A breath of qi along the top**: `body::before` lays down the prototype's `radial-gradient(circle at 50% 0%, rgba(45,92,94,.16), transparent 34%)`,
+  keeping the ink-black ground from going flat. `pointer-events: none` keeps it from catching clicks.
+- **A full-bleed cover on the new-session page**: the calligraphy, the sword-bearing adept and the dragon. The cover retracts once you enter the chat or trajectory pages.
+- **Brand mark takeover**: both the sidebar and hero marks become a gold seal bearing the character 天 (heaven), subtitled "Tianji Pavilion · Xianxia".
 - **Personified copy**: thinking → "The acolyte is contemplating the workings of fate…"; failure → "The workings are disturbed — recalculate.";
   and a confirmation prompt is prefixed with "this carries consequences; a human decides" — **the original text stays**, since that is what you judge by.
 - **A right-hand status dock**: always present; see the table below.
@@ -21,21 +21,21 @@ DeepSeek Harness（dsh）的皮肤：墨青黑打底、古金做边与按钮、�
 
 The prototype's theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
 
-> **70% 墨青黑 / 18% 暖灰黑 / 8% 古金 / 3% 玉青 / 1% 朱砂**
+> **70% ink-teal black / 18% warm grey-black / 8% antique gold / 3% jade green / 1% cinnabar**
 
 | Colour | Value | Share | Used for |
 |---|---|---|---|
-| 墨青黑 | `#071012` | 70% | 底 |
-| 暖灰黑 | `#0b1619` / `#0f1d21` / `#13252a` | 18% | 面板、输入框、气泡 |
-| 古金 | `#c09b5c` / `#e0bd7b` | 8% | 描边、主操作、品牌字。「8%」的意思是**边和按钮**，不是大面积铺 |
-| 玉青 | `#4d9b8f` | 3% | 只给**正在跑** |
-| 朱砂 | `#bf5a47` | 1% | 只给**危险与失败**。原型全场只有「终止运行」那一处 |
+| Ink-teal black | `#071012` | 70% | The ground |
+| Warm grey-black | `#0b1619` / `#0f1d21` / `#13252a` | 18% | Panels, the composer and bubbles |
+| Antique gold | `#c09b5c` / `#e0bd7b` | 8% | Borders, the primary action and the wordmark. 8% means **edges and buttons**, not broad fills |
+| Jade green | `#4d9b8f` | 3% | Reserved for **running** |
+| Cinnabar | `#bf5a47` | 1% | Reserved for **danger and failure**. The prototype uses it in one place only: Stop run |
 
-🔴 **成功态也走玉青**：这套稿子的调色盘里根本没有绿，硬塞一个会同时破坏「3% 玉青」和「70% 墨青黑」
-两条配比。宁可让成功与运行同色系（用亮度区分 `#74b5a9` / `#4d9b8f`），也不引入第六种颜色。
+🔴 **Success also takes jade green**: this draft's palette contains no green at all, and forcing one in would break both the 3% jade and the 70% ink-black
+proportions. Better to let success and running share a family (separated by brightness, `#74b5a9` / `#4d9b8f`) than to introduce a sixth colour.
 
-还有一句同样写死在稿子里：**强世界观视觉集中在 New Session / Empty State，进入工作流后回到克制的
-深色开发工具界面，这样才适合真实长期使用**。所以封面只画在 hero，三栏布局与信息密度一处不动。
+One more line is equally binding: **the strong world-building visuals concentrate on New Session and the empty state, and once you enter the workflow it returns to a restrained
+dark developer-tool interface, which is what suits real long-term use**. So the cover is drawn on the hero only, leaving the three-column layout and its information density untouched.
 
 ### What the status dock shows
 
@@ -48,7 +48,7 @@ The prototype's theme rules state the ratio as a single figure, and it is this s
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
 | Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
-| 经卷查阅 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
+| Scripture reading | The source and form of each context injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
@@ -58,14 +58,14 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏「神通调用」那四行——天机推演阵 `已完成 2.1s`、灵脉探测术 `已完成 3.7s`、
-经卷查阅·玉清篇 `运行中 8.4s`、阵法模拟·九宫 `等待中`——是稿子里写死的演示数据；
-侧栏底部那条「灵力 68,250 / 108,000」和顶栏的「天机未泄，静待道友下令」同理。
+The four rows under Arts invoked in the prototype's right column — a divination array at `done 2.1s`, a ley-line probe at `done 3.7s`,
+a scripture reading at `running 8.4s` and a formation simulation at `queued` — are hardcoded demo data in the draft;
+so are the "Spirit energy 68,250 / 108,000" at the foot of the sidebar and the top bar's standing-by line.
 
-**harness 没有对应的投影**。装饰可以，假状态不行：一条永远停在 68,250 的灵力槽，
+**The harness has no matching projection.** Decoration is fine; fake state is not. A spirit-energy gauge frozen at 68,250
 disbelieved the second time it is seen, and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
-原型 Agent copy 里的 `Tool → 正在调用神通……` 与 `Context → 正在翻阅经卷……` 也没做：
+The draft's agent copy for `Tool` (invoking an art…) and `Context` (leafing through the scriptures…) is not built either:
 The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.
 
 ## Install
@@ -78,7 +78,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-dark-xianxia
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-dark-xianxia 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-dark-xianxia to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -100,7 +100,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面来自原型稿的整屏设计图，裁去了稿子自己的「召请天机」标题与顶栏残边，只留画面（660x475 webp，内联成 data URI）。
+The cover comes from the prototype's full-screen mockup, with the mockup's own title and the leftover top bar cropped away so that only the art remains (660×475 webp, inlined as a data URI).
 
 ## Development
 
