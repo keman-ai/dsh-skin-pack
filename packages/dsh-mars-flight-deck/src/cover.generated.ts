@@ -1,10 +1,10 @@
 /**
  * 火星驾驶舱封面 · 构建产物（不要手改）。
  *
- * 原图 1536x1024，是一张干净的插画（稿子里没有把 UI 一起截进来），只按 hero 的宽高比裁一刀：
+ * The source is 1536×1024, a clean illustration (the draft did not screenshot the UI along with it), so a single crop at the hero's aspect ratio is all it needs:
  *   cwebp -q 95 -crop 56 0 1423 1024 cover.png -o cover.webp
  *
- * 裁框 1423x1024（≈1.39）对齐 hero 区实测尺寸（约 1320x950）：`background-size: cover`
+ * a 1423×1024 frame (≈1.39) matching the hero area's measured size (about 1320×950). Under `background-size: cover`
  * scales on the short edge only, so if the crop ratio strays from the hero's the excess is split evenly off both sides. Almost nothing is cropped now,
  * 舷窗框、火星与整排仪表都完整。
  *

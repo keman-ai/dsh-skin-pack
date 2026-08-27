@@ -1,21 +1,21 @@
 /**
- * 森林漫游的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Forest Adventure's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 原型稿的 Theme rules 写死了每种颜色的职责：
- * 「以**森林深绿**为底，**溪水青与苔藓绿**作为状态色，**日光黄只做温暖点缀**。」
+ * 🔴 The prototype's Theme rules fix each colour's job:
+ * **forest green** as the ground, **stream teal and moss green** as the state colours, and **daylight yellow only as a warm accent**.
  *
- * 三句话对应三种用量：
- *   - **森林深绿**（#08150f → #1f3b2b）：底与三级面板，吃掉绝大部分界面；
- *   - **苔藓绿**（#6fa36d）主操作 + **溪水青**（#5eb7c7）"正在跑"：两个状态色分工明确，
- *     绿是"做完了"，青是"正在做"——同色系会让人分不清；
- *   - **日光黄**（#d7c77e）：只做点缀。这里给它两个位置：警告态、上下文占用条的末端。
- *     「只做点缀」就是它的定义，铺开就不再是穿过树冠的那束光了。
+ * Three clauses, three uses:
+ *   - **forest green** (#08150f → #1f3b2b): ground and the three panel levels, covering most of the interface;
+ *   - **moss green** (#6fa36d) for the primary action and **stream teal** (#5eb7c7) for running: the two state colours divide the work plainly,
+ *     green meaning done and teal meaning in progress — one family would blur the two;
+ *   - **daylight yellow** (#d7c77e): accent only, given exactly two places here — the warning state and the end of the context-usage bar.
+ *     Accent-only is its definition; spread wider it stops being the light through the canopy.
  *
- * 稿子里还有一个**紫**（`--flower: #9a7fbb`，画里那串紫藤）。全场只在装饰上出现过，
- * 没有任何语义，所以这里一处都不用：给它一个语义等于替设计师瞎定规矩。
+ * The draft also carries a **purple** (`--flower: #9a7fbb`, the wisteria in the picture). It appears only as decoration,
+ * with no semantics, so it is never used here: assigning it one would be inventing rules on the designer's behalf.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
@@ -23,7 +23,7 @@ export const GROVE_PALETTE = {
   /** The forest floor: a deep green close to black. */
   bg: '#08150f',
   bg2: '#0d2117',
-  /** 面板三级（苔藓）。 */
+  /** The third panel level (moss). */
   surface: '#10261b',
   surface2: '#173022',
   surface3: '#1f3b2b',
@@ -32,15 +32,15 @@ export const GROVE_PALETTE = {
   text2: '#c6cebf',
   text3: '#899585',
 
-  /** 苔藓绿：主操作与"做完了"。 */
+  /** Moss green: the primary action and done. */
   green: '#6fa36d',
   green2: '#a7cb87',
   mint: '#89c7ad',
-  /** 溪水青：只给"正在跑"。 */
+  /** Stream teal: running only. */
   river: '#5eb7c7',
-  /** 日光黄：只做点缀。 */
+  /** Daylight yellow: accent only. */
   sun: '#d7c77e',
-  /** 紫藤。原型只在装饰上用过，这里一处不用（见文件头）。 */
+  /** Wisteria. Decoration only in the prototype and never used here (see the file header). */
   flower: '#9a7fbb',
   danger: '#b96355',
 } as const
@@ -71,8 +71,8 @@ export const GROVE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(187, 212, 180, 0.08)',
 
   // ── Borders ──
-  // 原型全场两条：`--line: rgba(187,212,180,.14)`（草绿）与 `--line2: rgba(94,183,199,.12)`（溪水青）。
-  // 暗底上的分层全靠它们，而不是靠提亮底色。
+  // The prototype uses exactly two: `--line: rgba(187,212,180,.14)` (grass) and `--line2: rgba(94,183,199,.12)` (stream teal).
+  // All layering on the dark ground rests on them, not on lightening the ground.
   '--dsw-alias-border-l1': 'rgba(187, 212, 180, 0.1)',
   '--dsw-alias-border-l2': 'rgba(187, 212, 180, 0.14)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(187, 212, 180, 0.11)',
@@ -93,8 +93,8 @@ export const GROVE_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-inverted': p.surface2,
 
   // ── Brand and primary button ──
-  // 主操作是苔藓绿（原型 `.hero-send` 的 `linear-gradient(180deg,#8ebf7f,#5f8d5d)`），
-  // 前景色配深林绿 `#102014`——原型自己就是这么配的：亮绿底上放白字对比度不够。
+  // The primary action is moss green (the prototype's `.hero-send`: `linear-gradient(180deg,#8ebf7f,#5f8d5d)`),
+  // with deep forest green `#102014` in front — as the prototype pairs them, since white on bright green lacks contrast.
   '--dsw-alias-brand-primary': p.green,
   '--dsw-alias-brand-text': p.green2,
   '--dsw-alias-brand-primary-invert': '#102014',
@@ -123,19 +123,19 @@ export const GROVE_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(185, 99, 85, 0.22)',
 
   // ── Status colours ──
-  // 🔴 成功用苔藓绿、进行中用溪水青：稿子把这两个词并列写成"状态色"，
-  // 分工就在这里——绿是"做完了"，青是"正在做"。做成同色系会让人分不清。
+  // 🔴 Success is moss green and in-progress is stream teal: the draft names both together as the state colours,
+  // and this is the division — green means done, teal means in progress. One family would blur the two.
   '--dsw-alias-state-success-primary': p.green2,
   '--dsw-alias-state-success-secondary': p.green,
   '--dsw-alias-state-success-tertiary': '#14301d',
-  // 警告：日光黄。这是它两个位置里的第一个。
+  // Warning: daylight yellow. The first of its two places.
   '--dsw-alias-state-warn-primary': p.sun,
   '--dsw-alias-state-warn-secondary': p.sun,
   '--dsw-alias-state-warn-label': '#e6dba6',
   '--dsw-alias-state-warn-tertiary': '#2b2718',
   '--dsw-alias-state-error-primary': p.danger,
   '--dsw-alias-state-error-secondary': '#cd7a6c',
-  // business = 进行中：溪水青。
+  // business = in progress: stream teal.
   '--dsw-alias-state-business-primary': p.river,
   '--dsw-alias-state-business-tertiary': '#10333a',
 

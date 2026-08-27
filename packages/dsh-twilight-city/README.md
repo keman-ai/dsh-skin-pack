@@ -15,12 +15,12 @@ DeepSeek Harness（dsh）的皮肤：深蓝夜空打底、晚霞橙紫粉做氛�
 - **新会话页整幅封面**：台阶上的两个人、远处的万家灯火与那道流星。进入对话与轨迹页后封面收起。
 - **品牌标接管**：侧栏与 hero 的标都换成一枚「暮」字方标，副标「Twilight City」。
 - **人格化文案**：思考中 → 「正在穿过黄昏寻找答案……」；需要你确认时前缀一句
-  「需要你的确认后才能继续」——**原文照旧留着**，那才是你做判断的依据。
+  "this cannot continue without your confirmation" — **the original text stays**, since that is what you actually judge by.
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
-原型稿的 Theme rules 写死了每种颜色的职责：
+The prototype's Theme rules fix each colour's job:
 
 > 以**深蓝夜空**为底，**晚霞橙和紫粉云层**作为情绪重点，**暖黄色只负责点亮窗口与按钮**。
 
@@ -73,7 +73,7 @@ and the real numbers beside it get doubted along with it. So the right column ke
 两条，没有失败与成功的规范。缺的不自己编——没有依据的人格化文案是自己加戏。
 
 hero 上那四颗建议 chip（`Explore this repository` / `Write a reflective story`…）同理：
-它们在稿子里是写死的文案，而 harness 的建议来自会话上下文，硬编一组只会给出永远一样的四句话。
+they are hardcoded copy in the draft, whereas the harness's suggestions come from session context, and hardcoding a set would only ever produce the same four lines.
 
 ## Install
 

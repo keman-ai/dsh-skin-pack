@@ -4,10 +4,10 @@
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 原型稿的 Theme rules 写死了每种颜色的职责：
+ * 🔴 The prototype's Theme rules fix each colour's job:
  * 「以**深蓝夜空**为底，**晚霞橙和紫粉云层**作为情绪重点，**暖黄色只负责点亮窗口与按钮**。」
  *
- * 三句话对应三种用量：
+ * Three clauses, three uses:
  *   - **深蓝夜空**（#0a1020 → #202d47）：底与三级面板，绝大部分界面；
  *   - **晚霞橙**（#ff8a4c）与**紫**（#8459d9）、**粉**（#c96594）：情绪重点。
  *     ⚠️ 「情绪重点」不等于「状态色」——它们负责氛围（描边、强调、hover 的那一点暖），

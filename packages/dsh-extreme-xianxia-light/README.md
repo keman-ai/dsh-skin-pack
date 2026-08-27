@@ -9,7 +9,7 @@ DeepSeek Harness（dsh）的皮肤：纸白雾白打底、墨灰做文字、淡�
 
 - **整套语义 token（浅色）**：底色纸白 `#f4f3f0`，往上是纯白面板与雾白分隔带，全场两条暖灰实线
   （`#d7d2c8` / `#c9c2b5`），文字墨灰 `#313331`——这套里**没有纯黑**。约 80 个
-  `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
+  `--dsw-alias-*` / `--dsw-specific-*` variables change at once, and every layer of the interface follows.
 - **底色不是一块死板的纸白**：`body::before` 铺一团顶部的柔白软光，让"纸"有厚度。
 - **新会话页整幅封面**：书法「天机在握 · 万象归一」、仗剑的道友与那条白龙。
   封面底边是一层**纸白渐变**（不是压暗），把画洇进界面的纸里。进入对话与轨迹页后封面收起。

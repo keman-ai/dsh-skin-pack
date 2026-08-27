@@ -1,5 +1,5 @@
 /**
- * 森林漫游皮肤 · host 半。
+ * The Forest Adventure skin · host half.
  *
  * All of the skin's behaviour lives in the browser (registering the theme, spreading the cover, taking over the
  * brand slots); this host half is only the Loader's mount point. `cordis.patch.yml` inserts this package into
@@ -44,7 +44,7 @@ export const THEME_ID = 'grove'
 /** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
-   * 装上就切到森林，默认开。关掉则只注册、不应用，等用户自己去「设置 → 外观」选。
+   * Switch to Forest on install; on by default. Turned off, it only registers without applying, leaving the user to pick it under Settings → Appearance.
    *
    * On by default because the harness's third-party theme ids never enter the built-in settings schema, so the
    * choice is not persisted: without auto-apply, every dsh start would need reselecting.
@@ -68,5 +68,5 @@ export function apply(ctx: Context, config: Config = {}): void {
   }), `grove: ${COVER_ROUTE}`)
 
   const mode = config.autoApply === false ? 'select it manually under Settings → Appearance' : 'applied automatically'
-  ctx.logger.info('[grove] 森林漫游已挂载（%s）', mode)
+  ctx.logger.info('[grove] Forest Adventure mounted (%s)', mode)
 }

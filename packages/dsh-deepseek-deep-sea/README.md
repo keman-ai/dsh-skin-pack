@@ -9,7 +9,7 @@ A skin for DeepSeek Harness (dsh): a deep-sea blue ground, cool cyan for borders
 
 - **A full set of semantic tokens**: a deep-sea blue ground `#03101f`, three panel levels rising in turn, and exactly two dark borders tinted cool cyan
   (`rgba(118,204,255,.13)` / `rgba(94,215,255,.14)`), with text in `#eef8ff`. About 80
-  `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
+  `--dsw-alias-*` / `--dsw-specific-*` variables change at once, and every layer of the interface follows.
 - **A full cover on the new-session page**: the whale girl, undersea ruins, a whale hologram and bubbles. It collapses on entering a conversation or the trajectory.
 - **Brand takeover**: the sidebar and hero marks both become a square whale mark (inline SVG, not an emoji), with the subtitle "Whale Girl · Deep Sea".
 - **Personified copy**: thinking → "Diving into the context…"; failure → "Looks like we hit a reef — please retry.";

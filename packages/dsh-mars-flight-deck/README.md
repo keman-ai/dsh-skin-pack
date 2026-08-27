@@ -40,7 +40,7 @@ The prototype's theme rules state the ratio as a single figure, and it is this s
 🔴 **冷蓝不做实心按钮**：它在这套里是「遥测与描边」的语言，铺成大块会把仪表盘的层次压平。
 
 还有一句同样写死在稿子里：**New Mission 使用强驾驶舱场景，Console / Flight Path 回归低干扰工程界面**。
-所以封面只画在 hero，三栏布局与信息密度一处不动。
+So the cover is drawn on the hero only, leaving the three-column layout and its information density untouched.
 
 ### What the status dock shows
 
@@ -72,7 +72,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 所以右栏只留能对上真实数据的卡。
 
 hero 上那四颗任务预设（`Analyze orbital trajectory` / `Inspect system anomaly`…）也没做：
-它们在稿子里是写死的文案，而 harness 的建议来自会话上下文，硬编一组只会给出永远一样的四句话。
+they are hardcoded copy in the draft, whereas the harness's suggestions come from session context, and hardcoding a set would only ever produce the same four lines.
 
 ## Install
 

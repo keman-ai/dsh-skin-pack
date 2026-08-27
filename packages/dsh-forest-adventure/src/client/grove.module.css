@@ -1,7 +1,7 @@
 /**
- * 森林漫游的装饰层。
+ * The Forest Adventure decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-grove]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-grove]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -15,8 +15,8 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿的 Theme rules 把分寸写死了：「**New Session 可以使用完整场景**，
- * Chat / Trajectory **回归安静的半透明工作界面**」。
+ * 🔴 The prototype's Theme rules fix the measure: **New Session may use the full scene**,
+ * while Chat / Trajectory **return to a quiet, semi-transparent working interface**.
  * so the full cover is painted **on the hero only** (which is exactly the empty state), with nothing on the conversation or trajectory pages and no layout touched.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
@@ -54,15 +54,15 @@
   background-repeat: no-repeat;
   background-color: #10251a;
   /*
-   * 这张画本身是明亮的正午森林，直接铺会把整个界面顶起来。压一档亮度、稍降饱和，
-   * 让它退到界面之后——原型的 `.hero-scrim` 干的也是这件事。
+   * The picture is a bright midday forest, and laying it down as-is would overpower the interface. One step down in brightness and slightly less saturation
+   * push it behind the interface — which is what the prototype's `.hero-scrim` does too.
    */
   filter: saturate(0.94) contrast(1.02) brightness(0.82);
 }
 
 /*
  * The scrim. The prototype's `.hero-scrim` has three layers: a horizontal darkening on the left (clearing a readable
- * 底部纵向压到近黑（给贴底的输入区让路）、再加一团日光黄。这里合成一层 `::after`。
+ * The bottom darkens to near black (making room for the composer pinned there) with a wash of daylight yellow added. It is composed as one `::after` layer.
  */
 :global(body[data-dsh-grove] [data-phase='hero'])::after {
   content: '';
@@ -109,7 +109,7 @@
 
 /*
  * The hero composer sits over the image and needs its own frosted ground to stay legible (the prototype's `.hero-composer`:
- * 半透明深绿底 + 18px 模糊 + 草绿描边）。对话页那份不动，它本来就坐在实底上。
+ * a semi-transparent deep green ground, an 18px blur and a grass border). The chat page's copy is left alone, as it already sits on a solid ground.
  */
 :global(body[data-dsh-grove] [data-phase='hero'] [data-composer-seat] textarea) {
   color: var(--dsw-alias-label-primary);
@@ -174,16 +174,16 @@
  * without an error and without affecting anything else.
  * ========================================================================== */
 
-/* 侧栏：竖向渐变 + 草绿分隔线（原型 `.sidebar` 是 #0d2117 → #08150f）。 */
+/* Sidebar: a vertical gradient with a grass-green divider (the prototype's `.sidebar` runs #0d2117 → #08150f). */
 :global(body[data-dsh-grove] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #0d2117 0%, #08150f 100%);
   border-right: 1px solid var(--dsw-alias-border-l2);
 }
 
 /*
- * `＋ 新会话` 在这套设计里**不是**绿色实心：原型的 `.new-session` 是「深绿渐变底 + 草绿描边 + 草绿字」，
- * 苔藓绿实心只留给 hero 上那颗 `Start task →`（也就是发送）。
- * 主操作色一旦铺开，就不再是"最重要的那一下"。
+ * New session is **not** a solid green here: the prototype's `.new-session` is a deep green gradient with a grass border and grass text,
+ * and solid moss green is reserved for the hero's `Start task →` (that is, send).
+ * Once the primary action colour spreads, it stops meaning "the one that matters most".
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.

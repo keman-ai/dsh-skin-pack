@@ -1,42 +1,41 @@
-✔ dsh-forest-adventure/README.md
-游
+# dsh-forest-adventure · Forest Adventure
 
-DeepSeek Harness（dsh）的皮肤：森林深绿打底、苔藓绿做主操作、溪水青只给运行中、日光黄只做点缀，新会话页是一整幅林间主视觉
+A skin for DeepSeek Harness (dsh): forest green as the ground, moss green for the primary action, stream teal only for running and daylight yellow only as an accent, with a full forest hero on the new-session page.
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色林绿 `#08150f`，三级面板往上是苔藓色，全场两条描边——草绿的
-  `rgba(187,212,180,.14)` 与溪水青的 `rgba(94,183,199,.12)`，文字 `#eef1e8`。约 80 个
-  `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
-- **新会话页整幅封面**：木筏上的一大一小、吊桥、紫藤与溪水。进入对话与轨迹页后封面收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚林色方标，副标「Forest Adventure」。
-- **人格化文案**：思考中 → 「正在穿过森林寻找答案……」；需要你确认时前缀一句
-  「需要你的确认后才能继续」——**原文照旧留着**，那才是你做判断的依据。
+- **A full set of semantic tokens**: a forest-green ground `#08150f`, moss tones from the third panel level up, and exactly two borders —
+  grass `rgba(187,212,180,.14)` and stream teal `rgba(94,183,199,.12)` — with `#eef1e8` text. Around 80
+  `--dsw-alias-*` / `--dsw-specific-*` variables change at once, and every layer of the interface follows.
+- **A full-bleed cover on the new-session page**: the pair on the raft, the rope bridge, the wisteria and the stream. The cover retracts once you enter the chat or trajectory pages.
+- **Brand mark takeover**: both the sidebar and hero marks become a forest-toned square, subtitled "Forest Adventure".
+- **Personified copy**: thinking becomes "walking through the forest for an answer…", and anything needing confirmation is prefixed with
+  "this cannot continue without your confirmation" — **the original text stays**, since that is what you actually judge by.
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
-原型稿的 Theme rules 写死了每种颜色的职责：
+The prototype's Theme rules fix each colour's job:
 
-> 以**森林深绿**为底，**溪水青与苔藓绿**作为状态色，**日光黄只做温暖点缀**。
+> **Forest green** as the ground, **stream teal and moss green** as the state colours, and **daylight yellow only as a warm accent**.
 
 | Colour | Value | Used for |
 |---|---|---|
-| 森林深绿 | `#08150f` → `#1f3b2b` | 底与三级面板——绝大部分界面 |
-| 苔藓绿 | `#6fa36d` / `#a7cb87` | 主操作 + **做完了** |
-| 溪水青 | `#5eb7c7` | **正在跑** |
-| 日光黄 | `#d7c77e` | 只做点缀。这里只有两个位置：警告态、上下文占用条的末端 |
+| Forest green | `#08150f` → `#1f3b2b` | Ground and the three panel levels — most of the interface |
+| Moss green | `#6fa36d` / `#a7cb87` | The primary action and **done** |
+| Stream teal | `#5eb7c7` | **Running** |
+| Daylight yellow | `#d7c77e` | Accent only, in exactly two places: the warning state and the end of the context-usage bar |
 
-🔴 **两个状态色分工必须拉开**：绿是"做完了"，青是"正在做"。做成同色系（比如都用绿、靠亮度区分）
-会让人第一眼分不清任务是完成了还是还在跑——这是长期使用里最贵的一种误读。
+🔴 **The two state colours must stay clearly apart**: green means done, teal means in progress. Keeping them in one family (both green, separated by brightness)
+makes it impossible to tell at a glance whether a task finished or is still running — the most expensive misreading there is in daily use.
 
-🔴 **稿子里的紫一处不用**：`--flower: #9a7fbb`（画里那串紫藤）在原型全场只出现在装饰上，
-没有任何语义。给它安一个语义等于替设计师瞎定规矩，所以整套 token 里一处都没有它。
+🔴 **The draft's purple is never used**: `--flower: #9a7fbb` (the wisteria in the picture) appears only as decoration throughout the prototype,
+with no semantics at all. Assigning it one would be inventing rules on the designer's behalf, so it appears nowhere in the token set.
 
-还有一句同样写死在稿子里：**New Session 可以使用完整场景，Chat / Trajectory 回归安静的工作界面**。
-所以封面只画在 hero，三栏布局与信息密度一处不动。
+One more line is equally binding: **New Session may use the full scene, while Chat / Trajectory return to a quiet working interface**.
+So the cover is drawn on the hero only, leaving the three-column layout and its information density untouched.
 
 ### What the status dock shows
 
@@ -59,15 +58,15 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏那三个写死的 `Workspace files`（`forest-inspiration.md` 2.1 KB 之类）、
-那张静态快捷键表、侧栏底部的「Credits 68,250 / 108,000」，以及封面右上角的
-「Forest mode ready」，**harness 都没有对应的投影**。
+The three hardcoded `Workspace files` in the prototype's right column (`forest-inspiration.md` at 2.1 KB and the like),
+the static shortcut table, the "Credits 68,250 / 108,000" at the foot of the sidebar and the "Forest mode ready" badge in the cover's
+top-right corner **all have no matching projection in the harness**.
 
-装饰可以，假状态不行：一条永远停在 68,250 的额度槽，第二次看见就没人信了，
+Decoration is fine; fake state is not. A credit gauge frozen at 68,250 convinces nobody the second time they see it,
 and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
-hero 上那四颗建议 chip（`Explore this repository` / `Write a gentle story`…）也没做：
-它们在稿子里是写死的文案，而 harness 的建议来自会话上下文，硬编一组只会给出永远一样的四句话。
+The four suggestion chips on the hero (`Explore this repository` / `Write a gentle story`…) are not built either:
+they are hardcoded copy in the draft, whereas the harness's suggestions come from session context, and hardcoding a set would only ever produce the same four lines.
 
 ## Install
 
@@ -79,7 +78,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-forest-adventure
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-forest-adventure 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-forest-adventure to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -101,7 +100,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张干净插画（1536x1024），按 hero 的宽高比裁成 1423x1024，cwebp q95 保住叶子与水面的细纹，内联成 data URI。
+The cover is the clean illustration from the prototype (1536×1024), cropped to 1423×1024 at the hero's aspect ratio, kept at cwebp q95 to preserve the fine texture of the leaves and water, and inlined as a data URI.
 
 ## Development
 

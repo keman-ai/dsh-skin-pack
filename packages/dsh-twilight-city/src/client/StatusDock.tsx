@@ -215,7 +215,7 @@ export function TwilightStatusDock() {
 
             {/*
               工具轨迹 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Workspace files` 是三个写死的文件名；这里是本会话真实跑过的工具：
+              The draft's `Workspace files` is three hardcoded filenames; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
