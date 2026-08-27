@@ -64,7 +64,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 侧栏底部那条「灵力 68,250 / 108,000」和顶栏的「天机未泄，静待道友下令」同理。
 
 **harness 没有对应的投影**。装饰可以，假状态不行：一条永远停在 68,250 的灵力槽，
-第二次看见就没人信了，而它旁边那些真数字会跟着一起被怀疑。所以右栏只留能对上真实数据的卡。
+disbelieved the second time it is seen, and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
 原型 Agent copy 里的 `Tool → 正在调用神通……` 与 `Context → 正在翻阅经卷……` 也没做：
 The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.

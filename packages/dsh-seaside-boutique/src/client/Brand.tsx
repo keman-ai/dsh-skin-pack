@@ -86,7 +86,7 @@ export function SeasideMark({ size, className }: BrandMarkProps) {
         fontFamily='"STKaiti", "KaiTi", "Songti SC", serif'
         fill="#2f7fa6"
       >
-        海
+        Sea
       </text>
     </svg>
   )

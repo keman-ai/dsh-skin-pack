@@ -16,10 +16,10 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const TWINWHALE_PALETTE = {
-  /** 深海底，接近黑的蓝。 */
+  /** The deep-sea ground: a blue close to black. */
   bg: '#03101f',
   bg2: '#061a2d',
-  /** 面板三级。 */
+  /** Three panel levels. */
   surface: '#071a2d',
   surface2: '#0b2239',
   surface3: '#0f2d4a',
@@ -28,16 +28,16 @@ export const TWINWHALE_PALETTE = {
   text2: '#c7d8e8',
   text3: '#6f8da4',
 
-  /** 冷青：描边、图标、强调、以及"正在跑"。 */
+  /** Cool cyan: borders, icons, emphasis and running. */
   cyan: '#5ed7ff',
   cyan2: '#9be8ff',
-  /** DeepSeek 蓝：主操作。 */
+  /** DeepSeek Blue: the primary action. */
   blue: '#4e7ff2',
   navy: '#17426a',
-  /** 泡沫白。 */
+  /** Foam white. */
   foam: '#e8fbff',
   aqua: '#55c9d6',
-  /** 🔴 全场唯一的暖色。 */
+  /** 🔴 The only warm colour anywhere. */
   gold: '#e8ba72',
   ok: '#6fd6a6',
   danger: '#ff7c86',
@@ -60,7 +60,7 @@ export const TWINWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface2,
   '--dsw-alias-bg-multi-select': p.surface3,
 
-  // 遮罩：压向深海蓝而不是纯黑，压黑会把这套本来就很暗的蓝洗成灰。
+  // The scrim darkens towards deep-sea blue rather than pure black; black would wash this already dark blue to grey.
   '--dsw-alias-bg-mask-1': 'rgba(2, 8, 16, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(2, 8, 16, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(2, 8, 16, 0.62)',
@@ -69,8 +69,8 @@ export const TWINWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(118, 204, 255, 0.08)',
 
   // ── Borders ──
-  // 原型全场两条：`--line: rgba(118,204,255,.13)` 与 `--line2: rgba(94,215,255,.14)`
-  // ——**带冷青的暗描边**，就是海底那种发光线。暗底上的分层全靠它，而不是靠提亮底色。
+  // The prototype uses exactly two, `--line: rgba(118,204,255,.13)` and `--line2: rgba(94,215,255,.14)` —
+  // **dark borders tinted cool cyan**, the glowing line of the deep. All layering on a dark ground rests on them, not on brightening the ground.
   '--dsw-alias-border-l1': 'rgba(118, 204, 255, 0.1)',
   '--dsw-alias-border-l2': 'rgba(118, 204, 255, 0.14)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(118, 204, 255, 0.11)',
@@ -91,8 +91,8 @@ export const TWINWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-inverted': p.surface2,
 
   // ── Brand and primary button ──
-  // 主操作是 DeepSeek 蓝（原型 `开始下潜 →` 与 `＋ New Dive` 的渐变都以它为主）。
-  // 冷青不做实心按钮：它在这套里是"描边与状态"的语言，铺成大块会把海底的安静打破。
+  // The primary action is DeepSeek Blue (the prototype's dive button and `+ New Dive` gradients are both built on it).
+  // Cool cyan is never a solid button: here it is the language of borders and state, and a large fill would break the deep's quiet.
   '--dsw-alias-brand-primary': p.blue,
   '--dsw-alias-brand-text': p.cyan,
   '--dsw-alias-brand-primary-invert': '#ffffff',
@@ -124,15 +124,15 @@ export const TWINWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-state-success-primary': p.ok,
   '--dsw-alias-state-success-secondary': '#7fdcb2',
   '--dsw-alias-state-success-tertiary': '#0c2f2a',
-  // 琥珀原型没给（它只画了正常流程）。借那点金的方向推一个暖调——
-  // 这套皮肤最不该出现的就是刺眼的东西。
+  // The prototype gives no amber (it drew only the happy path), so one is derived towards that touch of gold —
+  // the last thing this skin should contain is anything that glares.
   '--dsw-alias-state-warn-primary': p.gold,
   '--dsw-alias-state-warn-secondary': p.gold,
   '--dsw-alias-state-warn-label': '#f2d3a2',
   '--dsw-alias-state-warn-tertiary': '#2c2418',
   '--dsw-alias-state-error-primary': p.danger,
   '--dsw-alias-state-error-secondary': '#ff9aa2',
-  // business = 进行中：冷青。它在海底最亮，又不刺眼。
+  // business = in progress: cool cyan. The brightest thing in the deep without glaring.
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#0d3550',
 

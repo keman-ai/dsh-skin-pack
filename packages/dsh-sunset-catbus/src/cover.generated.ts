@@ -1,11 +1,11 @@
 /**
  * 夕阳猫巴士封面 · 构建产物（不要手改）。
  *
- * 原图 1672x941，是一张干净的插画（稿子里没有把 UI 一起截进来），一刀都不裁：
+ * The source is 1672×941, a clean illustration (the draft did not screenshot the UI into it), and nothing is cropped:
  *   cwebp -q 95 cover.png -o cover.webp
  *
- * 新会话页那块横幅本身就是宽幅（`height: calc(100% - 288px)`，实测约 1292x662，比例 ≈1.95），
- * 与原图的 1.78 很接近，`background-size: cover` 只会切掉上下极窄的一条。
+ * the new-session banner is itself wide (`height: calc(100% - 288px)`, measured about 1292×662, a ratio of ≈1.95),
+ * close to the source's 1.78, so `background-size: cover` trims only a sliver above and below.
  *
  * ⚠️ **保原生分辨率、不缩图**，编码 q95：这张画的质感在麦田的笔触与逆光的尘土上，
  * 缩一档麦子就糊成一片黄。

@@ -1,39 +1,39 @@
 ✔ dsh-deepseek-deep-sea/README.md
  Deep Sea
 
-DeepSeek Harness（dsh）的皮肤：深海蓝打底、冷青做描边与状态、DeepSeek 蓝做主操作，新会话页是一整幅深海主视觉
+A skin for DeepSeek Harness (dsh): a deep-sea blue ground, cool cyan for borders and state, DeepSeek Blue for the primary action, and a full-bleed deep-sea visual on the new-session page
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色深海蓝 `#03101f`，三级面板依次抬升，全场两条带冷青的暗描边
-  （`rgba(118,204,255,.13)` / `rgba(94,215,255,.14)`），文字 `#eef8ff`。约 80 个
+- **A full set of semantic tokens**: a deep-sea blue ground `#03101f`, three panel levels rising in turn, and exactly two dark borders tinted cool cyan
+  (`rgba(118,204,255,.13)` / `rgba(94,215,255,.14)`), with text in `#eef8ff`. About 80
   `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
-- **新会话页整幅封面**：鲸鱼娘、海底遗迹、鲸鱼全息屏与气泡。进入对话与轨迹页后封面收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚鲸鱼方标（内联 svg，不是 emoji），副标「大肥鲸鱼娘 · Deep Sea」。
-- **人格化文案**：思考中 → 「正在潜入上下文……」；失败 → 「好像撞到暗礁了，请重试。」；
-  需要你确认时前缀一句「大肥鲸鱼娘需要你的确认后才能继续」——**原文照旧留着**，那才是你做判断的依据。
+- **A full cover on the new-session page**: the whale girl, undersea ruins, a whale hologram and bubbles. It collapses on entering a conversation or the trajectory.
+- **Brand takeover**: the sidebar and hero marks both become a square whale mark (inline SVG, not an emoji), with the subtitle "Whale Girl · Deep Sea".
+- **Personified copy**: thinking → "Diving into the context…"; failure → "Looks like we hit a reef — please retry.";
+  and a confirmation prompt is prefixed with "the whale girl needs your confirmation to continue" — **the original text stays**, since that is what you judge by.
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
-原型稿的 Theme rules 写死了两条，这套皮肤的全部分寸都在里面：
+The prototype's Theme rules fix two things, and all of this skin's restraint follows from them:
 
-> **主色保持 DeepSeek 蓝系**，鲸鱼娘元素只作为品牌人格化，**不覆盖工具和代码信息**。
-> 角色视觉集中在 New Dive / Empty State；Chat、Dive Path、Details **回归真实 Harness 工作态**。
+> **Keep the primary colour in the DeepSeek blue family**; the whale girl is brand personification only and **must not cover tool or code information**.
+> Character visuals belong to New Dive and the empty state; Chat, Dive Path and Details **return to the real Harness working state**.
 
-所以用色是**一条蓝的深浅**，不是彩色拼盘：
+So the palette is **one blue at several depths**, not an assortment of colours:
 
 | Colour | Value | Used for |
 |---|---|---|
-| 深海蓝 | `#03101f` → `#0f2d4a` | 底与三级面板——绝大部分界面 |
-| 冷青 | `#5ed7ff` | 描边、强调、**正在跑**。海底那种发光线，暗底上的分层全靠它 |
-| DeepSeek 蓝 | `#4e7ff2` | 主操作按钮。品牌色本身 |
-| 金 | `#e8ba72` | 全场唯一的暖色。原型只用在角色的蝴蝶结上，这里只给上下文占用条的末端 |
+| Deep-sea blue | `#03101f` → `#0f2d4a` | Ground and the three panel levels — most of the interface |
+| Cool cyan | `#5ed7ff` | Borders, emphasis and **running**. The glowing line of the deep, and all layering on a dark ground rests on it |
+| DeepSeek Blue | `#4e7ff2` | The primary action button. The brand colour itself |
+| Gold | `#e8ba72` | The only warm colour anywhere. The prototype uses it on the character's bow alone; here it goes only at the end of the context bar |
 
-🔴 **冷青不做实心按钮**：它在这套里是"描边与状态"的语言，铺成大块会把海底的安静打破。
-同理，金**只有一个位置**——「一点暖」铺开就不再是一点暖了。
+🔴 **Cool cyan is never a solid button**: here it is the language of borders and state, and spread across a large area it would break the deep's quiet.
+Likewise gold has **exactly one place** — a touch of warmth spread wide stops being a touch.
 
 ### What the status dock shows
 
@@ -45,8 +45,8 @@ DeepSeek Harness（dsh）的皮肤：深海蓝打底、冷青做描边与状态�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 下潜作业 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
-| 海底档案 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
+| Dive operations | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
+| Seafloor archive | The source and form of each context injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
@@ -56,14 +56,14 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏的「Ocean Systems」五行 `ONLINE / SYNCED`、「Companion」那句
-`Status: following · Mood: happy · Signal: strong`、那张静态快捷键表，以及侧栏底部的
-「Ocean compute · 82%」和封面右上角的「DEEP SEA MODE READY」，**harness 都没有对应的投影**。
+The prototype's right column has five `ONLINE / SYNCED` rows under Ocean Systems, a Companion line reading
+`Status: following · Mood: happy · Signal: strong`, a static shortcut table, plus "Ocean compute · 82%" at the
+foot of the sidebar and "DEEP SEA MODE READY" in the cover's top corner — **the harness has a projection for none of them**.
 
-装饰可以，假状态不行：一条永远停在 82% 的算力槽，第二次看见就没人信了，
+Decoration is fine; fake state is not. A compute gauge frozen at 82% is disbelieved the second time it is seen,
 and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
-原型 Agent copy 里的 `Tool → 正在调用工具……` 与 `Context → 正在读取海底档案……` 也没做：
+The prototype's agent copy for Tool and Context is also not implemented:
 The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.
 
 ## Install
@@ -76,7 +76,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-deepseek-deep-sea
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-deepseek-deep-sea 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-deepseek-deep-sea to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -98,7 +98,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张干净插画（1672x941），按 hero 的宽高比裁成 1312x941，内联成 data URI。
+The cover is the prototype's clean illustration (1672×941), cropped to 1312×941 for the hero's aspect ratio and inlined as a data URI.
 
 ## Development
 

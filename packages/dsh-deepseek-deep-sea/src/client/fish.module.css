@@ -1,23 +1,23 @@
 /**
- * 鲸鱼娘 Deep Sea 的装饰层。
+ * The Whale Girl Deep Sea decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-fish]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-fish]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
  * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
  * flashing into view as if the app had jumped to a different page.
  *
- * 这套原型稿给了完整的 Agent copy 规范，所以思考中、失败与权限确认三条文案照它替换；
- * 找不到锚点的（Tool / Context / Success）不硬凑。
+ * This prototype gives a complete agent-copy specification, so thinking, failure and permission are replaced accordingly;
+ * the ones with no anchor (Tool / Context / Success) are not forced.
  */
 
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿的 Theme rules 把分寸写死了：「**角色视觉集中在 New Dive / Empty State**；
- * Chat、Dive Path、Details **回归真实 Harness 工作态**」「鲸鱼娘元素只作为品牌人格化，
- * **不覆盖工具和代码信息**」。
+ * 🔴 The prototype's Theme rules fix the restraint: **character visuals belong to New Dive and the empty state**,
+ * while Chat, Dive Path and Details **return to the real Harness working state**, and the whale girl is brand
+ * personification only and **must not cover tool or code information**.
  * so the full cover is painted **on the hero only** (which is exactly the empty state), with nothing on the conversation or trajectory pages and no layout touched.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
@@ -55,15 +55,15 @@
   background-repeat: no-repeat;
   background-color: #061425;
   /*
-   * 原型的 `.hero img` 没压滤镜——它靠 `.hero-scrim` 那几层渐变把画面压下去。这里同理：
-   * 只压一点点亮度，避免把这张本来就偏亮的水下光线洗成灰。
+   * The prototype's `.hero img` carries no filter — it uses the `.hero-scrim` gradients to push the image back. Same here:
+   * brightness drops only slightly, so this already bright underwater light is not washed to grey.
    */
   filter: saturate(1) contrast(1.02) brightness(0.9);
 }
 
 /*
- * 压幕。原型的 `.hero-scrim` 是三层：左侧横向压暗（给左边那段文案让出可读区）、
- * 底部纵向压到近黑（给贴底的输入区让路）、再加一团冷青的水下光。这里合成一层 `::after`。
+ * The scrim. The prototype's `.hero-scrim` has three layers: a horizontal darkening on the left (clearing a readable
+ * area for the copy), a vertical fade to near black at the bottom (making way for the composer), and a pool of cool cyan underwater light. Combined here into one `::after`.
  */
 :global(body[data-dsh-fish] [data-phase='hero'])::after {
   content: '';
@@ -110,7 +110,7 @@
 
 /*
  * The hero composer sits over the image and needs its own frosted ground to stay legible (the prototype's `.hero-composer`:
- * 半透明暗底 + 18px 模糊 + 冷青描边）。对话页那份不动，它本来就坐在实底上。
+ * a translucent dark ground, an 18px blur and a cool cyan border). The conversation composer is untouched, sitting on solid ground already.
  */
 :global(body[data-dsh-fish] [data-phase='hero'] [data-composer-seat] textarea) {
   color: var(--dsw-alias-label-primary);
@@ -126,7 +126,7 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：深海卡 + 冷青描边 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: a deep-sea card with a cool cyan border and a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-fish] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -170,10 +170,10 @@
 }
 
 /*
- * Thinking → 正在潜入上下文……
+ * Thinking → "Diving into the context…"
  *
- * 原型的 Appearance 面板给了六条 Agent copy。这里做能找到锚点的三条（思考中、失败、权限确认）；
- * Tool 与 Context 两条 harness 没有可挂点（工具行只有 ok / error 两态，没有 running），不硬凑。
+ * The prototype's Appearance panel lists six agent-copy lines. Three have anchors and are implemented (thinking,
+ * failure, permission); Tool and Context have nothing to hang on in the harness (tool rows have only ok / error, no running), so they are not forced.
  *
  * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
  */
@@ -182,7 +182,7 @@
 }
 
 :global(body[data-dsh-fish] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '正在潜入上下文……';
+  content: 'Diving into the context…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -190,27 +190,27 @@
 }
 
 /*
- * Error → 好像撞到暗礁了，请重试。
+ * Error → "Looks like we hit a reef — please retry."
  *
  * Appended rather than replaced: the original error line carries the specific reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-fish] [data-state='error'] [class*='_title'])::after {
-  content: ' · 好像撞到暗礁了，请重试。';
+  content: ' · looks like we hit a reef — please retry.';
   font-weight: 400;
   color: var(--dsw-alias-state-error-primary);
 }
 
-/* 会话正在跑时侧边栏那颗指示点：跟着冷青走，与"在跑"同一套色语言。 */
+/* The sidebar dot while a session runs: cool cyan, the same colour language as running. */
 :global(body[data-dsh-fish] [data-state='ongoing']) {
   color: var(--dsw-alias-state-business-primary);
 }
 
 /* ==========================================================================
- * 组件语言 —— 原型的卡片/气泡：9–15px 圆角、1px 冷青低对比描边、毛玻璃底。
+ * Component language — the prototype's cards and bubbles: a 9–15px radius, a 1px low-contrast cool cyan border, a frosted ground.
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：12px 圆角（原型 `.userbox`）。 */
+/* User messages: a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-fish] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -235,8 +235,8 @@
 }
 
 /*
- * 权限确认卡：原型 `.permission` 是一块暗底 + 冷青描边的提示区
- *（「这个操作会修改文件。大肥鲸鱼娘需要你的确认后才能继续。」）。
+ * The permission card: the prototype's `.permission` is a dark panel with a cool cyan border
+ * ("this operation will modify files; the whale girl needs your confirmation to continue").
  *
  * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file.
  * The value comes from `kind === 'approval'` in the harness source (rendered by ChatNodeSeat as data-chat-flow-kind).
@@ -250,12 +250,12 @@
 }
 
 /*
- * Permission → 需要你的确认后才能继续。
+ * Permission → "needs your confirmation to continue".
  *
  * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-fish] [data-chat-flow-kind='approval'])::before {
-  content: '大肥鲸鱼娘需要你的确认后才能继续 · ';
+  content: 'the whale girl needs your confirmation to continue · ';
   font-weight: 600;
   color: var(--dsw-alias-brand-text);
 }
@@ -266,14 +266,14 @@
  * without an error and without affecting anything else.
  * ========================================================================== */
 
-/* 侧栏：竖向渐变 + 冷青分隔线（原型 `.left` 是 #091827 → #06111d）。 */
+/* Sidebar: a vertical gradient with a cool cyan divider (the prototype's `.left` runs #091827 → #06111d). */
 :global(body[data-dsh-fish] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #061a2d 0%, #03101f 100%);
   border-right: 1px solid var(--dsw-alias-border-l2);
 }
 
 /*
- * `＋ 新会话`：10px 圆角、DeepSeek 蓝渐变（原型 `.new-dive`）。
+ * `+ New session`: a 10px radius and a DeepSeek Blue gradient (the prototype's `.new-dive`).
  * The harness styles it as secondary by default, leaving the primary action without visual weight unless changed.
  */
 /*
@@ -303,7 +303,7 @@
 }
 
 /*
- * 会话选中态：横向渐变 + 左侧一道冷青竖条（原型 `.session.active` 的
+ * Selected session: a horizontal gradient with a cool cyan stripe on the left (the prototype's `.session.active`
  * `linear-gradient(90deg, rgba(31,94,132,.24), rgba(10,28,46,.22))` + `box-shadow: inset 2px 0 var(--cyan)`）。
  * An inset shadow rather than a border, so the box width is unchanged and the selected row does not shift against the others.
  */
@@ -325,10 +325,10 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：竖向渐变卡 + 11px 圆角 + 冷青描边（原型 `.card`）。
+ * The details rail's card language: a vertical gradient card with an 11px radius and a cool cyan border (the prototype's `.card`).
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「Current Dive / Ocean Systems / Companion / Shortcuts」四张卡。
- * 后三张全是写死的装饰——五行 ONLINE、一句「Status: following · Mood: happy」、一张静态快捷键表，
+ * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Dive / Ocean Systems / Companion / Shortcuts.
+ * The last three are hardcoded decoration — five ONLINE rows, a "Status: following · Mood: happy" line, and a static shortcut table —
  * the harness has no matching projection, so nothing is fabricated. Real state is carried by this skin's own dock (see StatusDock);
  * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.
  */

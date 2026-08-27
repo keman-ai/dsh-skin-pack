@@ -1,23 +1,23 @@
 /**
- * 齐天星海的装饰层。
+ * The Qitian Starscape decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-qitian]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-qitian]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
  * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
  * flashing into view as if the app had jumped to a different page.
  *
- * 这套原型稿给了完整的 Agent copy 规范，所以思考中、失败与权限确认三条文案照它替换；
- * 找不到锚点的（Tool / Context / Success）不硬凑。
+ * This prototype gives a complete agent-copy specification, so thinking, failure and permission are replaced accordingly;
+ * the ones with no anchor (Tool / Context / Success) are not forced.
  */
 
 /* ==========================================================================
  * The new-session banner.
  *
- * 🔴 原型稿的 Theme rules 写死了分寸：「**New Session 承担宏大叙事和角色世界观**；
- * 进入工作状态后则**压低视觉噪声，保持真正的开发工具可读性**」。
- * 它的 `.hero` 是一块 14px 圆角、金色描边、带深投影的横幅卡，下面才是输入区。
+ * 🔴 The prototype's Theme rules fix the restraint: **New Session carries the grand narrative and the character's world**,
+ * while once working it **drops visual noise and preserves the readability of a real development tool**.
+ * Its `.hero` is a banner card with a 14px radius, a gold border and a deep shadow, with the composer below it.
  *
  * So the banner takes all the height above the composer, which sits below it without overlap; apart from the two corner badges the cover
  * and covers no copy.
@@ -61,7 +61,7 @@
   min-height: 150px;
   z-index: 0;
   pointer-events: none;
-  /* 原型 `.hero`：14px 圆角、余烬金描边、一层很深的投影（暗底上的对比全靠它）。 */
+  /* The prototype's `.hero`: a 14px radius, an ember gold border and a very deep shadow — all the contrast on a dark ground comes from it. */
   border-radius: 14px;
   border: 1px solid rgba(240, 188, 112, 0.15);
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
@@ -73,13 +73,13 @@
 }
 
 /*
- * 封面左上角那枚身份角标（原型 `.hero-badge`：毛玻璃胶囊 + 「齐天星海 · New Session」）。
+ * The identity badge in the cover's top-left corner (the prototype's `.hero-badge`: a frosted pill reading "Qitian Starscape · New Session").
  *
- * ⚠️ 右上角那枚「星海之门已开启」**没有做**：它写死了一个"就绪"状态，而 harness 并没有
+ * ⚠️ The "gate to the starscape is open" badge in the top-right corner is **not implemented**: it hardcodes a ready state, and the harness has no
  * has nothing to read against — real state lives in the right-hand dock, where every number has a source. Decoration is fine; fake state is not.
  */
 :global(body[data-dsh-qitian] [data-phase='hero'])::after {
-  content: 'DeepSeek Harness / 齐天星海';
+  content: 'DeepSeek Harness / Qitian Starscape';
   position: absolute;
   top: 28px;
   left: 28px;
@@ -128,10 +128,10 @@
 }
 
 /*
- * Thinking → 大圣正在观照星海……
+ * Thinking → "The Sage is contemplating the starscape…"
  *
- * 原型 Appearance 面板给了六条 Agent copy。这里做能找到锚点的三条（思考中、失败、权限确认）；
- * Tool 与 Context 两条 harness 没有可挂点（工具行只有 ok / error 两态，没有 running），不硬凑。
+ * The prototype's Appearance panel lists six agent-copy lines. Three have anchors and are implemented (thinking, failure, permission);
+ * failure, permission); Tool and Context have nothing to hang on in the harness (tool rows have only ok / error, no running), so they are not forced.
  *
  * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
  */
@@ -140,7 +140,7 @@
 }
 
 :global(body[data-dsh-qitian] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '大圣正在观照星海……';
+  content: 'The Sage is contemplating the starscape…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -148,23 +148,23 @@
 }
 
 /*
- * Error → 星轨偏移，请重新推演。
+ * Error → "The star track has drifted — recalculate."
  *
  * Appended rather than replaced: the original error line carries the specific reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-qitian] [data-state='error'] [class*='_title'])::after {
-  content: ' · 星轨偏移，请重新推演。';
+  content: ' · the star track has drifted — recalculate.';
   font-weight: 400;
   color: var(--dsw-alias-state-error-primary);
 }
 
-/* 会话正在跑时侧边栏那颗指示点：跟着星辉蓝走，与"在跑"同一套色语言。 */
+/* The sidebar dot while a session runs: starlight blue, the same colour language as running. */
 :global(body[data-dsh-qitian] [data-state='ongoing']) {
   color: var(--dsw-alias-state-business-primary);
 }
 
 /* ==========================================================================
- * 组件语言 —— 原型的卡片/气泡：9–14px 圆角、1px 金调低对比描边、深投影。
+ * Component language — the prototype's cards and bubbles: a 9–14px radius, a 1px low-contrast gold border, a deep shadow.
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
@@ -193,8 +193,8 @@
 }
 
 /*
- * 权限确认卡：原型 `.permission` 是暗底 + 金描边的一块提示区
- *（「此行或涉天机，请真人定夺。」）。
+ * The permission card: the prototype's `.permission` is a dark panel with a gold border
+ * ("this may touch on fate; a human decides").
  *
  * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file.
  * The value comes from `kind === 'approval'` in the harness source (rendered by ChatNodeSeat as data-chat-flow-kind).
@@ -208,12 +208,12 @@
 }
 
 /*
- * Permission → 此行或涉天机，请真人定夺。
+ * Permission → "this may touch on fate; a human decides".
  *
  * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-qitian] [data-chat-flow-kind='approval'])::before {
-  content: '此行或涉天机，请真人定夺 · ';
+  content: 'this may touch on fate; a human decides · ';
   font-weight: 600;
   color: var(--dsw-alias-brand-text);
 }
@@ -223,7 +223,7 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：星海卡 + 余烬金描边 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: a starscape card with an ember gold border and a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-qitian] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -272,16 +272,16 @@
  * without an error and without affecting anything else.
  * ========================================================================== */
 
-/* 侧栏：竖向渐变 + 余烬金分隔线（原型 `.left` 是 #091827 → #06111d）。 */
+/* Sidebar: a vertical gradient with an ember gold divider (the prototype's `.left` runs #091827 → #06111d). */
 :global(body[data-dsh-qitian] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #0a1020 0%, #070b13 100%);
   border-right: 1px solid var(--dsw-alias-border-l2);
 }
 
 /*
- * `＋ 新会话` 在这套设计里**不是**金色实心：原型的 `.new-session` 是「蓝黑渐变底 + 金描边 + 金字」，
- * 余烬金的实心只留给 hero 上那颗 `踏云出发 →`（也就是发送）。
- * 9% 的金一旦铺成大按钮，配比立刻破掉。
+ * `+ New session` is **not** solid gold in this design: the prototype's `.new-session` is a blue-black gradient with a gold border and gold text,
+ * and solid ember gold is reserved for the hero's send button alone.
+ * Turn the 9% gold into a large button and the ratio breaks at once.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
@@ -310,7 +310,7 @@
 }
 
 /*
- * 会话选中态：横向渐变 + 左侧一道余烬金竖条（原型 `.session.active` 的
+ * Selected session: a horizontal gradient with an ember gold stripe on the left (the prototype's `.session.active`
  * `linear-gradient(90deg, rgba(49,95,174,.22), rgba(18,27,49,.22))` + `box-shadow: inset 2px 0 var(--cyan)`）。
  * An inset shadow rather than a border, so the box width is unchanged and the selected row does not shift against the others.
  */
@@ -332,10 +332,10 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：竖向渐变卡 + 11px 圆角 + 余烬金描边（原型 `.card`）。
+ * The details rail's card language: a vertical gradient card with an 11px radius and an ember gold border (the prototype's `.card`).
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「当前会话 / 神通调用 / 快捷操作」三张卡。
- * 「神通调用」那四行（星海推演术 已完成 2.3s、筋斗云任务拆解 运行中 7.9s……）是写死的演示数据，
+ * ⚠️ First, what is **not** done: the prototype's right column has three cards — current session / tool calls / shortcuts.
+ * The four tool-call rows, each with a hardcoded duration, are demo data,
  * the harness has no matching projection, so nothing is fabricated. Real state is carried by this skin's own dock (see StatusDock);
  * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.
  */

@@ -4,7 +4,7 @@
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
- * `data-dsh-qitian` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * stamps `data-dsh-qitian` onto body, and the harness UI is already rendered before that. During that window the dock
  * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
  * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
@@ -89,8 +89,8 @@
 /*
  * The reduced cover.
  *
- * 横幅是 16:9，缩到侧栏宽度整幅呈现会太扁，所以按 2.4:1 裁一条——裁的是上下的星云与云海，
- * 主体那一段（大圣与孤身那人）完整保留（配合下面的 `left center`）。
+ * The banner is 16:9 and too flat if shown whole at sidebar width, so a 2.4:1 strip is taken — cropping the nebula above and the clouds below,
+ * while the subject (the Sage and the lone figure) stays whole, together with `left center` below.
  */
 .cover {
   aspect-ratio: 2.4 / 1;
@@ -101,8 +101,8 @@
   /*
    * 🔴 Crop from the left, not centred.
    *
-   * 这张横幅的主体（大圣的脸与山崖上那个人）在画面**左三分之二**，右边是大片云海日出。
-   * `background-position: center` 会把大圣的脸切掉一半——按左对齐裁才留得住它。
+   * This banner's subject (the Sage's face and the figure on the cliff) occupies the **left two thirds**, with a wide sunrise over clouds on the right.
+   * `background-position: center` would cut the Sage's face in half; cropping from the left keeps it.
    */
   background-position: left center;
   background-repeat: no-repeat;
@@ -293,7 +293,7 @@
  * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
  * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
- * 同样必须带 `[data-dsh-qitian]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * This too must carry `[data-dsh-qitian]`: without it, the main area yields 300px during the window before the skin activates,
  * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-qitian][data-qitian-dock-open] > div:first-of-type) {

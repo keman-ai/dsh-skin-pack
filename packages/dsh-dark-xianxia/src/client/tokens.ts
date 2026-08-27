@@ -4,7 +4,7 @@
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 原型稿的 Theme rules 把配比写成了一句数字，这是这套皮肤最硬的约束：
+ * 🔴 The prototype's Theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
  * 「**70% 墨青黑 / 18% 暖灰黑 / 8% 古金 / 3% 玉青 / 1% 朱砂**」。
  *
  * 换算成用量就是：

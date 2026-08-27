@@ -1,5 +1,5 @@
 /**
- * 齐天星海皮肤 · host 半。
+ * The Qitian Starscape skin · host half.
  *
  * All of the skin's behaviour lives in the browser (registering the theme, spreading the cover, taking over the
  * brand slots); this host half is only the Loader's mount point. `cordis.patch.yml` inserts this package into
@@ -44,7 +44,7 @@ export const THEME_ID = 'qitian'
 /** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
-   * 装上就切到齐天星海，默认开。关掉则只注册、不应用，等用户自己去「设置 → 外观」选。
+   * Switch to Qitian Starscape on install; on by default. Turning it off registers without applying, leaving the user to select it under Settings → Appearance.
    *
    * On by default because the harness's third-party theme ids never enter the built-in settings schema, so the
    * choice is not persisted: without auto-apply, every dsh start would need reselecting.
@@ -68,5 +68,5 @@ export function apply(ctx: Context, config: Config = {}): void {
   }), `qitian: ${COVER_ROUTE}`)
 
   const mode = config.autoApply === false ? 'select it manually under Settings → Appearance' : 'applied automatically'
-  ctx.logger.info('[qitian] 齐天星海已挂载（%s）', mode)
+  ctx.logger.info('[qitian] Qitian Starscape mounted (%s)', mode)
 }

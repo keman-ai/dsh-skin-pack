@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的星海封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced starscape cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
@@ -163,7 +163,7 @@ export function QitianStatusDock() {
               The banner is a complete 2.5:1 composition and needs no cropping at sidebar width.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--qitian-cover)' }}>
-              <span className={css.coverName}>齐天星海</span>
+              <span className={css.coverName}>Qitian Starscape</span>
             </div>
 
             {/*
@@ -187,7 +187,7 @@ export function QitianStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 大圣正在忙' : '● 就绪 READY'}
+                  {busy ? '● THE SAGE IS BUSY' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -215,7 +215,7 @@ export function QitianStatusDock() {
 
             {/*
               Tool calls — the real-data version of that card in the prototype's right column.
-              稿子里是四行写死的演示（`星海推演术 已完成 2.3s`）；这里是本会话真实跑过的工具：
+              The draft shows four hardcoded demo rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
@@ -227,7 +227,7 @@ export function QitianStatusDock() {
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `施展中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `casting · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
                             ? call.ms === undefined ? 'failed' : `failed · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
@@ -247,13 +247,13 @@ export function QitianStatusDock() {
             )}
 
             {/*
-              天书注入 —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              Celestial scripture — what is actually pushed into the context each turn (AGENTS.md, skill directories, system prompts…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}
             {contextEntries.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>天书注入</div>
+                <div className={css.cardTitle}>Celestial scripture</div>
                 <ul className={css.log}>
                   {contextEntries.map((entry, index) => (
                     <li key={`${entry.label}-${index}`} className={css.logRow} data-role={entry.role}>

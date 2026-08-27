@@ -6,15 +6,15 @@
 .mark {
   flex: none;
   /*
-   * 原型 `.brand-logo` 是一枚 15px 圆角的方标，底是 `linear-gradient(135deg,#0b3b63,#0a2947)`
-   * 加一圈冷青内描边，里面放一个鲸鱼字形。这里照抄底与描边，字形交给 Brand.tsx 里的 svg。
+   * The prototype's `.brand-logo` is a 15px-radius square whose ground is `linear-gradient(135deg,#0b3b63,#0a2947)`
+   * with a cool cyan inner border and a whale glyph inside. The ground and border are copied here; the glyph is the SVG in Brand.tsx.
    */
   display: grid;
   place-items: center;
   background:
     radial-gradient(circle at 50% 22%, rgba(155, 232, 255, 0.22), transparent 58%),
     linear-gradient(135deg, #0b3b63, #0a2947);
-  /* 冷青辉光，原型是 `box-shadow: 0 0 24px rgba(94,215,255,.16)`。 */
+  /* The cool cyan glow; the prototype uses `box-shadow: 0 0 24px rgba(94,215,255,.16)`. */
   box-shadow:
     inset 0 0 0 1px rgba(94, 215, 255, 0.2),
     0 0 24px rgba(94, 215, 255, 0.16);

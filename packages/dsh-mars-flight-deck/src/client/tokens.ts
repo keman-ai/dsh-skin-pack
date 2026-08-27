@@ -4,11 +4,11 @@
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 原型稿的 Theme rules 把配比写成了一句数字，这是这套皮肤最硬的约束：
+ * 🔴 The prototype's Theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
  * 「**80% 航天黑与深蓝控制面板，10% 冷蓝遥测信息，6% 推进器橙色交互强调，
  * 3% Nominal 绿色状态，1% 红色异常态**」。
  *
- * 换算成用量：
+ * Translated into use:
  *   - **航天黑 / 深蓝面板**（#05080d → #142331）：底与三级面板——绝大部分界面；
  *   - **冷蓝**（#7fb4d3）：遥测信息，也就是**描边与次要数据**。仪表盘上那些细线就是它；
  *   - **推进器橙**（#ff7a2e）：**交互强调**——主操作、选中项。6% 的意思是"按下去的那一下"；

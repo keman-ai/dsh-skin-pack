@@ -160,7 +160,7 @@ export function TwinwhaleStatusDock() {
           <div className={css.scroll}>
             {/*
               A reduced banner. It uses the same inline image (adding no size) and presents it whole with `contain` —
-              封面是整身角色居中的构图，缩到侧栏宽度按 1.55:1 裁一条，角色完整保留。
+              The cover centres a full figure, and at sidebar width a 1.55:1 strip keeps the character whole.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--twinwhale-cover)' }}>
               <span className={css.coverName}>双胞胎鲸鱼娘</span>
@@ -215,7 +215,7 @@ export function TwinwhaleStatusDock() {
 
             {/*
               打理记录 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Ocean Systems` 是五行写死的 ONLINE；这里是本会话真实跑过的工具：
+              The draft's `Ocean Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
@@ -235,7 +235,7 @@ export function TwinwhaleStatusDock() {
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 次更早的下潜`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier dive(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.
@@ -262,7 +262,7 @@ export function TwinwhaleStatusDock() {
                     </li>
                   ))}
                 </ul>
-                {moreContext > 0 && <p className={css.hint}>{`另有 ${moreContext} 条更早的档案`}</p>}
+                {moreContext > 0 && <p className={css.hint}>{`${moreContext} earlier record(s) not shown`}</p>}
               </section>
             )}
 

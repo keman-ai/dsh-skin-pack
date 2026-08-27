@@ -187,7 +187,7 @@ export function BwhaleStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 正在下潜' : '● 就绪 READY'}
+                  {busy ? '● DIVING' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -227,7 +227,7 @@ export function BwhaleStatusDock() {
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `下潜中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `diving · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
                             ? call.ms === undefined ? '偏航' : `偏航 · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'arrived' : `arrived · ${formatDuration(call.ms)}`}

@@ -1,7 +1,7 @@
 /**
- * 品牌位的金环标与站名。
+ * The gold-ring mark and wordmark for the brand slots.
  *
- * 原型稿侧栏左上角是一枚圆角方标，里面是一个「齐」字配金环，配一层很淡的金色辉光；旁边两行「deepseek / 齐天星海」。
+ * The prototype's sidebar top-left carries a rounded square holding a Chinese character inside a gold ring with a faint gold glow, beside two lines reading "deepseek / Qitian Starscape".
  *
  * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
  * "a single slot occupied by the official component makes third-party registration throw" is **out of date**:
@@ -27,7 +27,7 @@ interface BrandMarkProps {
 }
 
 /**
- * 金环标。
+ * The gold-ring mark.
  *
  * The mark is reproduced with a pure CSS radial gradient rather than cropping the banner — the banner's subject sits in the left third, and a small square crop would only
  * 得到一团星海。圆角按 size 等比给（原型 35px 配 11px 圆角，约 0.31 倍），侧栏的 24px 与
@@ -51,7 +51,7 @@ export function QitianMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「deepseek / 齐天星海」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "deepseek / Qitian Starscape".
  *
  * The primary name stays DeepSeek Harness — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *
@@ -61,7 +61,7 @@ export function QitianName() {
   return (
     <span className={css.name}>
       <strong className={css.title}>DeepSeek Harness</strong>
-      <small className={css.subtitle}>齐天星海</small>
+      <small className={css.subtitle}>Qitian Starscape</small>
     </span>
   )
 }

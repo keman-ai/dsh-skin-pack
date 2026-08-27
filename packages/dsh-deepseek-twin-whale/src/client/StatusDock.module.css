@@ -89,8 +89,8 @@
 /*
  * The reduced cover.
  *
- * 封面是 1.39:1 的竖构图，缩到侧栏宽度按 1.55:1 裁一条——裁的是上下的水面与礁石，
- * 角色那一段完整保留。
+ * The cover is a 1.39:1 upright composition, and at sidebar width a 1.55:1 strip is taken — cropping the surface above and the rocks below,
+ * while the character stays whole.
  */
 .cover {
   aspect-ratio: 1.55 / 1;
@@ -98,7 +98,7 @@
   border: 1px solid var(--dsw-alias-border-l2);
   background-color: #061425;
   background-size: cover;
-  /* 角色就在画面正中，居中裁即可。 */
+  /* The character is dead centre, so a centred crop is enough. */
   background-position: center top;
   background-repeat: no-repeat;
   position: relative;

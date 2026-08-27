@@ -15,7 +15,7 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const BWHALE_PALETTE = {
-  /** 深海底，接近黑的蓝。 */
+  /** The deep-sea ground: a blue close to black. */
   bg: '#051c33',
   bg2: '#04162a',
   /** Two panel levels. */

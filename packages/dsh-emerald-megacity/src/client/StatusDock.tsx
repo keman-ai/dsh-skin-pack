@@ -227,7 +227,7 @@ export function EmeraldStatusDock() {
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `施展中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `casting · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
                             ? call.ms === undefined ? 'failed' : `failed · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}

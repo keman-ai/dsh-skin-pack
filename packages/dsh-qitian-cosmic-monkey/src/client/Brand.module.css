@@ -6,9 +6,9 @@
 .mark {
   display: block;
   flex: none;
-  /* 原型 `.brand-logo` 那圈金环：亮金芯 → 余烬金环 → 星海底。 */
+  /* The gold ring of the prototype's `.brand-logo`: a bright gold core, an ember ring, a starscape ground. */
   background: radial-gradient(circle, #f6d9a4 0 16%, #d39a52 17% 42%, #16213a 43%);
-  /* 金辉光，原型是 `box-shadow: 0 0 24px rgba(240,188,112,.16)`。 */
+  /* The gold glow; the prototype uses `box-shadow: 0 0 24px rgba(240,188,112,.16)`. */
   box-shadow: 0 0 24px rgba(240, 188, 112, 0.16);
 }
 

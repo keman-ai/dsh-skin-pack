@@ -1,7 +1,7 @@
 /**
  * The whale mark and wordmark for the brand slots.
  *
- * 原型稿侧栏左上角是一枚 15px 圆角的方形标，里面是一只鲸鱼，配一圈冷青内描边与很淡的蓝辉光；
+ * The prototype's sidebar top-left carries a 15px-radius square holding a whale, with a cool cyan inner border and a faint blue glow;
  * 旁边两行「DeepSeek Harness / 双胞胎鲸鱼娘 Theme」。
  *
  * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
@@ -30,12 +30,12 @@ interface BrandMarkProps {
 /**
  * The whale mark.
  *
- * 底与描边在 CSS 里，鲸鱼是一段内联 svg —— 不裁封面：封面的主体是一个整身角色，
- * 裁成 24px 小方块只会得到一团蓝。圆角按 size 等比给（原型 34px 配 11px 圆角，约 0.31 倍），
- * 侧栏的 24px 与 hero 的 34px 因此是同一个形状。
+ * The ground and border live in CSS and the whale is inline SVG — the cover is not cropped: its subject is a full figure,
+ * and a 24px square crop would yield nothing but blue. The radius scales with size (the prototype's 34px carries an 11px radius, about 0.31×),
+ * so the sidebar's 24px and the hero's 34px are the same shape.
  *
- * svg 而不是 emoji 🐋：emoji 的字形由系统字体决定，同一枚标在 mac / Windows / Linux 上
- * 会长成三个样子，还会被系统的彩色字体强行上色，压不住这套皮肤的冷青。
+ * SVG rather than the 🐋 emoji: an emoji's glyph comes from the system font, so one mark becomes three different
+ * things across macOS, Windows and Linux, and colour fonts would force their own palette over this skin's cool cyan.
  *
  * @param props - Size and class name from the host.
  * @returns The square whale mark.
@@ -52,7 +52,7 @@ export function TwinwhaleMark({ size, className }: BrandMarkProps) {
       }}
     >
       <svg width={Math.round(size * 0.62)} height={Math.round(size * 0.62)} viewBox="0 0 24 24" fill="none">
-        {/* 鲸身 + 尾鳍 + 一道背光，笔画尽量少：24px 时细节全都会糊掉。 */}
+        {/* Body, fluke and a backlight, with as few strokes as possible: at 24px any detail blurs away. */}
         <path
           d="M3.2 13.4c2.6-3.8 6.2-5.6 10.7-5.6 3 0 5.2 1.1 6.6 3.2-1.1 3.9-4.3 6.4-9.2 6.4-3.6 0-6.3-1.3-8.1-4z"
           fill="#9be8ff"

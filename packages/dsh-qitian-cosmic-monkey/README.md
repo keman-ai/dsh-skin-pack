@@ -1,48 +1,48 @@
 ✔ dsh-qitian-cosmic-monkey/README.md
-海
+Sea
 
-DeepSeek Harness（dsh）的皮肤：深夜宇宙蓝打底、余烬金做边与主操作、星辉蓝只给运行中，新会话页是一整幅大圣星海主视觉
+A skin for DeepSeek Harness (dsh): a midnight cosmic blue ground, ember gold for borders and the primary action, starlight blue for running alone, and a full-bleed Monkey King starscape on the new-session page
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色宇宙蓝 `#070b13`，三级面板往上是蓝黑，全场一条带余烬金的暗描边
-  `rgba(240,188,112,.14)`，文字用带暖调的 `#efe9dc`。约 80 个 `--dsw-alias-*` /
+- **A full set of semantic tokens**: a cosmic blue ground `#070b13` with three blue-black panel levels above it, and exactly one dark border tinted ember gold
+  `rgba(240,188,112,.14)`, with warm-toned text `#efe9dc`. About 80 `--dsw-alias-*` /
   `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
-- **新会话页整幅横幅**：大圣、星海与云海日出，14px 圆角配金描边和深投影；
-  输入区独立放在下方，两者不重叠。进入对话与轨迹页后横幅收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚金环标，副标「齐天星海」。
-- **人格化文案**：思考中 → 「大圣正在观照星海……」；失败 → 「星轨偏移，请重新推演。」；
-  需要你确认时前缀一句「此行或涉天机，请真人定夺」——**原文照旧留着**，那才是你做判断的依据。
+- **A full banner on the new-session page**: the Monkey King, the starscape and a sunrise over a sea of clouds, with a 14px radius, a gold border and a deep shadow;
+  the composer sits separately below without overlapping. The banner collapses on entering a conversation or the trajectory.
+- **Brand takeover**: the sidebar and hero marks both become a gold-ring mark, with the subtitle "Qitian Starscape".
+- **Personified copy**: thinking → "The Sage is contemplating the starscape…"; failure → "The star track has drifted — recalculate.";
+  and a confirmation prompt is prefixed with "this may touch on fate; a human decides" — **the original text stays**, since that is what you judge by.
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
 The prototype's theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
 
-> **64% 深夜宇宙蓝 / 16% 蓝黑 Surface / 9% 日落余烬金 / 6% 星辉蓝 / 4% 雾灰文字 / 1% 危险态红**
+> **64% midnight cosmic blue / 16% blue-black surface / 9% sunset ember gold / 6% starlight blue / 4% misty grey text / 1% danger red**
 
 | Colour | Value | Share | Used for |
 |---|---|---|---|
-| 深夜宇宙蓝 | `#070b13` / `#0a1020` | 64% | 底 |
-| 蓝黑 Surface | `#0c1424` → `#16213a` | 16% | 面板、气泡、输入框 |
-| 日落余烬金 | `#d39a52` / `#f1bc70` | 9% | 描边、主操作、品牌字。画里那道日出的光 |
-| 星辉蓝 | `#315fae` / `#6e94e9` | 6% | 只给**正在跑**。它是「星海」那一半 |
-| 雾灰 | `#c6bcaa` / `#847e73` | 4% | 次要文字 |
-| 红 | `#ca5a49` | 1% | 只给危险与失败 |
+| Midnight cosmic blue | `#070b13` / `#0a1020` | 64% | The ground |
+| Blue-black surface | `#0c1424` → `#16213a` | 16% | Panels, bubbles, the composer |
+| Sunset ember gold | `#d39a52` / `#f1bc70` | 9% | Borders, the primary action, the wordmark. The sunrise light in the picture |
+| Starlight blue | `#315fae` / `#6e94e9` | 6% | For **running** alone. It is the starscape half |
+| Misty grey | `#c6bcaa` / `#847e73` | 4% | Secondary text |
+| Red | `#ca5a49` | 1% | Danger and failure alone |
 
-🔴 **雾灰是暖调，不是中性灰**：`#c6bcaa` 偏黄。纯灰（`#8a8a8a` 那一类）放进这套暖金里会显脏，
-第一眼说不出哪里不对，但整个界面会"掉色"。
+🔴 **The misty grey is warm, not neutral**: `#c6bcaa` leans yellow. A pure grey such as `#8a8a8a` looks dirty against this warm gold —
+you cannot name what is wrong at first glance, but the whole interface loses its colour.
 
-🔴 **成功态走余烬橙而不是绿**：这套调色盘里根本没有绿，硬塞一个会同时破坏「9% 金」和
-「64% 宇宙蓝」两条配比。用 `#e0a06a` 与主操作金拉开亮度和色相。
+🔴 **Success uses ember orange, not green**: this palette has no green at all, and forcing one would break both the
+9% gold and the 64% cosmic blue ratios. `#e0a06a` separates it from the primary gold by luminance and hue.
 
-🔴 **稿子里的紫一处不用**：`--purple: #765799`（星云那一片）在原型全场只出现在装饰渐变上，
-没有任何语义。给它安一个语义等于替设计师瞎定规矩。
+🔴 **The draft's purple is used nowhere**: `--purple: #765799` (the nebula) appears in the prototype only on decorative gradients
+and carries no meaning. Assigning it one would be inventing rules on the designer's behalf.
 
-还有一句同样写死在稿子里：**New Session 承担宏大叙事和角色世界观；进入工作状态后压低视觉噪声，
-保持真正的开发工具可读性**。所以横幅只画在 hero，三栏布局与信息密度一处不动。
+One more line is fixed in the draft: **New Session carries the grand narrative and the character's world; once working,
+visual noise drops and the readability of a real development tool is preserved.** So the banner is painted on the hero only, and the three-column layout and information density are untouched.
 
 ### What the status dock shows
 
@@ -55,7 +55,7 @@ The prototype's theme rules state the ratio as a single figure, and it is this s
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
 | Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
-| 天书注入 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
+| Celestial scripture | The source and form of each context injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
@@ -65,15 +65,15 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏「神通调用」那四行——星海推演术 `已完成 2.3s`、火眼金睛检索 `已完成 3.1s`、
-筋斗云任务拆解 `运行中 7.9s`、斗战复杂度评估 `等待中`——是稿子里写死的演示数据；
-侧栏底部那条「战意 85,200 / 120,000」、顶栏的「星海浩渺，静候圣心一念」
-与封面右上角的「星海之门已开启」同理。
+The four rows under the prototype's tool-call card — each with a hardcoded duration such as `done 2.3s` or
+`running 7.9s` — are demo data written into the draft;
+the same goes for the battle-spirit gauge at the foot of the sidebar, the line in the top bar,
+and the "gate to the starscape is open" in the cover's top corner.
 
-**harness 没有对应的投影**。装饰可以，假状态不行：一条永远停在 85,200 的战意槽，
-第二次看见就没人信了，而它旁边那些真数字会跟着一起被怀疑。所以右栏只留能对上真实数据的卡。
+**The harness has no matching projection.** Decoration is fine; fake state is not. A battle-spirit gauge frozen at 85,200 is
+disbelieved the second time it is seen, and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
-原型 Agent copy 里的 `Tool → 正在施展神通……` 与 `Context → 正在翻阅天书……` 也没做：
+The prototype's agent copy for Tool and Context is also not implemented:
 The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.
 
 ## Install
@@ -86,7 +86,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-qitian-cosmic-monkey
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-qitian-cosmic-monkey 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-qitian-cosmic-monkey to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -108,7 +108,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张干净插画（1672x941），一刀不裁，cwebp q95 原生分辨率——星云的噪点与云海的层次经不起缩图。
+The cover is the prototype's clean illustration (1672×941), uncropped, at native resolution with cwebp q95 — the nebula's grain and the cloud sea's gradations do not survive downscaling.
 
 ## Development
 

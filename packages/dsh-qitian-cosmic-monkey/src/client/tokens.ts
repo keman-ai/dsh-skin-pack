@@ -1,46 +1,46 @@
 /**
- * 齐天星海的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Qitian Starscape's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 原型稿的 Theme rules 把配比写成了一句数字，这是这套皮肤最硬的约束：
- * 「**64% 深夜宇宙蓝 / 16% 蓝黑 Surface / 9% 日落余烬金 / 6% 星辉蓝 / 4% 雾灰文字 / 1% 危险态红**」。
+ * 🔴 The prototype's Theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
+ * **64% midnight cosmic blue / 16% blue-black surface / 9% sunset ember gold / 6% starlight blue / 4% misty grey text / 1% danger red**.
  *
- * 换算成用量：
- *   - **深夜宇宙蓝 + 蓝黑 Surface**（#070b13 → #16213a）：底与三级面板，八成的界面；
- *   - **余烬金**（#d39a52 / #f1bc70）：描边、主操作、品牌字——画里那道日出的光；
- *   - **星辉蓝**（#315fae / #6e94e9）：只给**正在跑**。它是"星海"那一半；
- *   - **雾灰**（#c6bcaa / #847e73）：次要文字。注意它带暖调，不是中性灰——
- *     纯灰放在这套暖金里会显脏；
- *   - **红**（#ca5a49）：只给危险与失败。1%。
+ * Translated into use:
+ *   - **midnight cosmic blue and blue-black surface** (#070b13 → #16213a): ground and the three panel levels, eight tenths of the interface;
+ *   - **ember gold** (#d39a52 / #f1bc70): borders, the primary action, the wordmark — the sunrise light in the picture;
+ *   - **starlight blue** (#315fae / #6e94e9): for **running** alone. It is the starscape half;
+ *   - **misty grey** (#c6bcaa / #847e73): secondary text. Note that it is warm, not neutral —
+ *     a pure grey looks dirty against this warm gold;
+ *   - **red** (#ca5a49): danger and failure alone. One per cent.
  *
- * 稿子里还有一个紫（`--purple: #765799`，星云那一片）。它在原型全场只出现在装饰渐变上，
- * 没有任何语义，所以这里一处都不用。
+ * The draft also has a purple (`--purple: #765799`, the nebula). It appears in the prototype only on decorative gradients
+ * and carries no meaning, so it is used nowhere here.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const QITIAN_PALETTE = {
-  /** 星海底，接近黑的宇宙蓝。 */
+  /** The starscape ground: a cosmic blue close to black. */
   bg: '#070b13',
   bg2: '#0a1020',
-  /** 蓝黑 Surface 三级。 */
+  /** Three blue-black surface levels. */
   surface: '#0c1424',
   surface2: '#111b30',
   surface3: '#16213a',
 
-  /** 文字带暖调，不是中性灰。 */
+  /** The text is warm-toned, not neutral grey. */
   text: '#efe9dc',
   text2: '#c6bcaa',
   text3: '#847e73',
 
-  /** 余烬金：描边、主操作、品牌字。 */
+  /** Ember gold: borders, the primary action, the wordmark. */
   gold: '#d39a52',
   gold2: '#f1bc70',
-  /** 星辉蓝：只给"正在跑"。 */
+  /** Starlight blue: for running alone. */
   blue: '#315fae',
   blue2: '#6e94e9',
-  /** 星云紫。原型只在装饰渐变上用过，这里一处不用（见文件头）。 */
+  /** Nebula purple. The prototype uses it only on decorative gradients, and it is used nowhere here (see the file header). */
   purple: '#765799',
   ember: '#d97a3c',
   red: '#ca5a49',
@@ -63,7 +63,7 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface2,
   '--dsw-alias-bg-multi-select': p.surface3,
 
-  // 遮罩：压向宇宙蓝而不是纯黑，压黑会把这套本来就很暗的蓝洗成灰。
+  // The scrim darkens towards cosmic blue rather than pure black; black would wash this already dark blue to grey.
   '--dsw-alias-bg-mask-1': 'rgba(3, 5, 10, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(3, 5, 10, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(3, 5, 10, 0.62)',
@@ -72,8 +72,8 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(240, 188, 112, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(240,188,112,.14)`——**带余烬金的暗描边**。
-  // 暗底上的分层全靠它，而不是靠提亮底色。
+  // The prototype uses exactly one, `--line: rgba(240,188,112,.14)` — a **dark border tinted ember gold**.
+  // All layering on a dark ground rests on it, not on brightening the ground.
   '--dsw-alias-border-l1': 'rgba(240, 188, 112, 0.1)',
   '--dsw-alias-border-l2': 'rgba(240, 188, 112, 0.14)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(240, 188, 112, 0.11)',
@@ -90,13 +90,13 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-label-tertiary': p.text3,
   '--dsw-alias-label-caption': '#6f6a61',
   '--dsw-alias-label-dimmed': '#6f6a61',
-  // 金实底上放白字对比度不够，配一档接近黑的深褐。
+  // White lacks contrast on solid gold, so a near-black deep brown is used instead.
   '--dsw-alias-label-primary-foreground': '#211405',
   '--dsw-alias-label-primary-inverted': p.surface2,
 
   // ── Brand and primary button ──
-  // 主操作是余烬金（原型 `踏云出发 →`）。星辉蓝不做实心按钮：
-  // 它在这套里是"状态"的语言，铺成大块会把星海压成蓝屏。
+  // The primary action is ember gold (the prototype's send button). Starlight blue is never a solid button:
+  // here it is the language of state, and a large fill would flatten the starscape into a blue screen.
   '--dsw-alias-brand-primary': p.gold,
   '--dsw-alias-brand-text': p.gold2,
   '--dsw-alias-brand-primary-invert': '#211405',
@@ -125,8 +125,8 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(202, 90, 73, 0.22)',
 
   // ── Status colours ──
-  // 🔴 成功用余烬橙（#d97a3c 提亮一档），不用绿：这套稿子的调色盘里没有绿，
-  // 硬塞一个会同时破坏"9% 金"和"64% 宇宙蓝"两条配比。用亮度与色相跟主操作金拉开。
+  // 🔴 Success uses ember orange (#d97a3c, one step brighter) rather than green: this draft's palette has no green,
+  // and forcing one would break both the 9% gold and the 64% cosmic blue ratios. Luminance and hue separate it from the primary gold.
   '--dsw-alias-state-success-primary': '#e0a06a',
   '--dsw-alias-state-success-secondary': p.ember,
   '--dsw-alias-state-success-tertiary': '#2a1c10',
@@ -136,7 +136,7 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-state-warn-tertiary': '#2c2314',
   '--dsw-alias-state-error-primary': p.red,
   '--dsw-alias-state-error-secondary': '#dd7565',
-  // business = 进行中：星辉蓝。它是"星海"那一半，和金的"日出"那一半各占一边。
+  // business = in progress: starlight blue. It is the starscape half, balancing gold's sunrise half.
   '--dsw-alias-state-business-primary': p.blue2,
   '--dsw-alias-state-business-tertiary': '#152a4d',
 

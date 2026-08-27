@@ -211,7 +211,7 @@
 }
 
 /*
- * Permission → 需要你的确认后才能继续。
+ * Permission → "needs your confirmation to continue".
  *
  * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */

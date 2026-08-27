@@ -1,27 +1,27 @@
 /**
- * 鲸鱼娘 Deep Sea 的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Whale Girl Deep Sea's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 原型稿的 Theme rules 写死了两条：
- * 「**主色保持 DeepSeek 蓝系**，鲸鱼娘元素只作为品牌人格化，**不覆盖工具和代码信息**」，
- * 「角色视觉集中在 New Dive / Empty State；Chat、Dive Path、Details **回归真实 Harness 工作态**」。
+ * 🔴 The prototype's Theme rules fix two things:
+ * keep the primary colour in the **DeepSeek blue family**, with the whale girl as brand personification only, **never covering tool or code information**;
+ * and character visuals belong to New Dive and the empty state, while Chat, Dive Path and Details **return to the real Harness working state**.
  *
- * 所以这套的用色是**一条蓝的深浅**，不是彩色拼盘：
- *   - **深海蓝**（#03101f → #0f2d4a）：底与三级面板，吃掉绝大部分界面；
- *   - **冷青**（#5ed7ff）：描边、强调、"正在跑"——海底的发光线；
- *   - **DeepSeek 蓝**（#4e7ff2）：主操作按钮，品牌色本身；
- *   - **金**（#e8ba72）：全场唯一的暖色，原型只用在角色的蝴蝶结与少量点缀上。
- *     这里也只给它一个位置：上下文占用条的末端。铺开就不再是"一点暖"了。
+ * So this palette is **one blue at several depths**, not an assortment of colours:
+ *   - **deep-sea blue** (#03101f → #0f2d4a): ground and the three panel levels, taking up most of the interface;
+ *   - **cool cyan** (#5ed7ff): borders, emphasis and running — the glowing line of the deep;
+ *   - **DeepSeek Blue** (#4e7ff2): the primary action button, the brand colour itself;
+ *   - **gold** (#e8ba72): the only warm colour anywhere, used in the prototype on the character's bow and a few accents.
+ *     Here it gets exactly one place too: the end of the context bar. Spread wider it stops being a touch of warmth.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const FISH_PALETTE = {
-  /** 深海底，接近黑的蓝。 */
+  /** The deep-sea ground: a blue close to black. */
   bg: '#03101f',
   bg2: '#061a2d',
-  /** 面板三级。 */
+  /** Three panel levels. */
   surface: '#071a2d',
   surface2: '#0b2239',
   surface3: '#0f2d4a',
@@ -30,16 +30,16 @@ export const FISH_PALETTE = {
   text2: '#c7d8e8',
   text3: '#6f8da4',
 
-  /** 冷青：描边、图标、强调、以及"正在跑"。 */
+  /** Cool cyan: borders, icons, emphasis and running. */
   cyan: '#5ed7ff',
   cyan2: '#9be8ff',
-  /** DeepSeek 蓝：主操作。 */
+  /** DeepSeek Blue: the primary action. */
   blue: '#4e7ff2',
   navy: '#17426a',
-  /** 泡沫白。 */
+  /** Foam white. */
   foam: '#e8fbff',
   aqua: '#55c9d6',
-  /** 🔴 全场唯一的暖色。 */
+  /** 🔴 The only warm colour anywhere. */
   gold: '#e8ba72',
   ok: '#6fd6a6',
   danger: '#ff7c86',
@@ -62,7 +62,7 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface2,
   '--dsw-alias-bg-multi-select': p.surface3,
 
-  // 遮罩：压向深海蓝而不是纯黑，压黑会把这套本来就很暗的蓝洗成灰。
+  // The scrim darkens towards deep-sea blue rather than pure black; black would wash this already dark blue to grey.
   '--dsw-alias-bg-mask-1': 'rgba(2, 8, 16, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(2, 8, 16, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(2, 8, 16, 0.62)',
@@ -71,8 +71,8 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(118, 204, 255, 0.08)',
 
   // ── Borders ──
-  // 原型全场两条：`--line: rgba(118,204,255,.13)` 与 `--line2: rgba(94,215,255,.14)`
-  // ——**带冷青的暗描边**，就是海底那种发光线。暗底上的分层全靠它，而不是靠提亮底色。
+  // The prototype uses exactly two, `--line: rgba(118,204,255,.13)` and `--line2: rgba(94,215,255,.14)` —
+  // **dark borders tinted cool cyan**, the glowing line of the deep. All layering on a dark ground rests on them, not on brightening the ground.
   '--dsw-alias-border-l1': 'rgba(118, 204, 255, 0.1)',
   '--dsw-alias-border-l2': 'rgba(118, 204, 255, 0.14)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(118, 204, 255, 0.11)',
@@ -93,8 +93,8 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-inverted': p.surface2,
 
   // ── Brand and primary button ──
-  // 主操作是 DeepSeek 蓝（原型 `开始下潜 →` 与 `＋ New Dive` 的渐变都以它为主）。
-  // 冷青不做实心按钮：它在这套里是"描边与状态"的语言，铺成大块会把海底的安静打破。
+  // The primary action is DeepSeek Blue (the prototype's dive button and `+ New Dive` gradients are both built on it).
+  // Cool cyan is never a solid button: here it is the language of borders and state, and a large fill would break the deep's quiet.
   '--dsw-alias-brand-primary': p.blue,
   '--dsw-alias-brand-text': p.cyan,
   '--dsw-alias-brand-primary-invert': '#ffffff',
@@ -126,15 +126,15 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-state-success-primary': p.ok,
   '--dsw-alias-state-success-secondary': '#7fdcb2',
   '--dsw-alias-state-success-tertiary': '#0c2f2a',
-  // 琥珀原型没给（它只画了正常流程）。借那点金的方向推一个暖调——
-  // 这套皮肤最不该出现的就是刺眼的东西。
+  // The prototype gives no amber (it drew only the happy path), so one is derived towards that touch of gold —
+  // the last thing this skin should contain is anything that glares.
   '--dsw-alias-state-warn-primary': p.gold,
   '--dsw-alias-state-warn-secondary': p.gold,
   '--dsw-alias-state-warn-label': '#f2d3a2',
   '--dsw-alias-state-warn-tertiary': '#2c2418',
   '--dsw-alias-state-error-primary': p.danger,
   '--dsw-alias-state-error-secondary': '#ff9aa2',
-  // business = 进行中：冷青。它在海底最亮，又不刺眼。
+  // business = in progress: cool cyan. The brightest thing in the deep without glaring.
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#0d3550',
 

@@ -4,7 +4,7 @@
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
- * `data-dsh-fish` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * stamps `data-dsh-fish` onto body, and the harness UI is already rendered before that. During that window the dock
  * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
  * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
@@ -89,8 +89,8 @@
 /*
  * The reduced cover.
  *
- * 封面是 1.39:1 的竖构图，缩到侧栏宽度按 1.55:1 裁一条——裁的是上下的水面与礁石，
- * 角色那一段完整保留。
+ * The cover is a 1.39:1 upright composition, and at sidebar width a 1.55:1 strip is taken — cropping the surface above and the rocks below,
+ * while the character stays whole.
  */
 .cover {
   aspect-ratio: 1.55 / 1;
@@ -98,7 +98,7 @@
   border: 1px solid var(--dsw-alias-border-l2);
   background-color: #061425;
   background-size: cover;
-  /* 角色就在画面正中，居中裁即可。 */
+  /* The character is dead centre, so a centred crop is enough. */
   background-position: center top;
   background-repeat: no-repeat;
   position: relative;
@@ -288,7 +288,7 @@
  * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
  * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
- * 同样必须带 `[data-dsh-fish]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * This too must carry `[data-dsh-fish]`: without it, the main area yields 300px during the window before the skin activates,
  * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-fish][data-fish-dock-open] > div:first-of-type) {

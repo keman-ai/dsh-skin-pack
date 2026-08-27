@@ -61,7 +61,7 @@
 }
 
 /*
- * 压幕。原型的 `.hero-scrim` 是三层：左侧横向压暗（给左边那段文案让出可读区）、
+ * The scrim. The prototype's `.hero-scrim` has three layers: a horizontal darkening on the left (clearing a readable
  * 底部纵向压到近黑（给贴底的输入区让路）、再加一团日光黄。这里合成一层 `::after`。
  */
 :global(body[data-dsh-grove] [data-phase='hero'])::after {

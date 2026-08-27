@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的深海封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced deep-sea cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
@@ -160,10 +160,10 @@ export function FishStatusDock() {
           <div className={css.scroll}>
             {/*
               A reduced banner. It uses the same inline image (adding no size) and presents it whole with `contain` —
-              封面是整身角色居中的构图，缩到侧栏宽度按 1.55:1 裁一条，角色完整保留。
+              The cover centres a full figure, and at sidebar width a 1.55:1 strip keeps the character whole.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--fish-cover)' }}>
-              <span className={css.coverName}>大肥鲸鱼娘</span>
+              <span className={css.coverName}>Whale Girl</span>
             </div>
 
             {/*
@@ -187,7 +187,7 @@ export function FishStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 正在下潜' : '● 就绪 READY'}
+                  {busy ? '● DIVING' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -214,28 +214,28 @@ export function FishStatusDock() {
             </section>
 
             {/*
-              下潜作业 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Ocean Systems` 是五行写死的 ONLINE；这里是本会话真实跑过的工具：
+              Dive operations — the real-data version of that card in the prototype's right column.
+              The draft's `Ocean Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>下潜作业</div>
+                <div className={css.cardTitle}>Dive operations</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `下潜中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `diving · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '触礁' : `触礁 · ${formatDuration(call.ms)}`
+                            ? call.ms === undefined ? 'hit a reef' : `hit a reef · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 次更早的下潜`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier dive(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.
@@ -247,13 +247,13 @@ export function FishStatusDock() {
             )}
 
             {/*
-              海底档案 —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              Seafloor archive — what is actually pushed into the context each turn (AGENTS.md, skill directories, system prompts…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}
             {contextEntries.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>海底档案</div>
+                <div className={css.cardTitle}>Seafloor archive</div>
                 <ul className={css.log}>
                   {contextEntries.map((entry, index) => (
                     <li key={`${entry.label}-${index}`} className={css.logRow} data-role={entry.role}>
@@ -262,7 +262,7 @@ export function FishStatusDock() {
                     </li>
                   ))}
                 </ul>
-                {moreContext > 0 && <p className={css.hint}>{`另有 ${moreContext} 条更早的档案`}</p>}
+                {moreContext > 0 && <p className={css.hint}>{`${moreContext} earlier record(s) not shown`}</p>}
               </section>
             )}
 
