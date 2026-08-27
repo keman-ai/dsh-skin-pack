@@ -4,7 +4,7 @@
  * The reason not to link out is the same as for market covers: a skin's look must not depend on whether some image
  * host still exists. The cost is 108KB on the client bundle, in exchange for Niulai still looking like Niulai offline, on an intranet, or when a host goes down.
  *
- * 头像由设计稿里那张 1011×702 原图生成（cwebp q92 —— 压缩损失肉眼不可见；
+ * The avatar is generated from the draft's 1011×702 original (cwebp q92 — the loss is invisible to the eye;
  * thriftier q76 shows blocking on a large screen):
  *   AVATAR crops the cow's face 470×470 → 256×256, for the status mark;
  *   COVER  keeps the original size, for the new-session hero.

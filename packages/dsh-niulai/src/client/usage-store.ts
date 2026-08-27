@@ -1,15 +1,15 @@
 /**
- * 状态数据的中转站。
+ * The relay for status data.
  *
  * Why the relay is needed: state and usage all come from the harness's **projections** and **session
  * snapshots**, and `useProjection` / `useSession` are hooks injected into props at slot render time — only a
- * 组件才拿得到。侧边栏是本插件自建的 fixed 节点、走自己的 React root，不在任何 slot 里。
+ * component mounted on a slot receives them. The rail is our own fixed node with its own React root and belongs to no slot.
  *
  * Hence the split in two: a zero-render probe mounted on `conversation.composer.dock` (a list slot third
- * 追加，官方 StatsLine 也在上面），把读到的值写进这里；侧栏 `useSyncExternalStore` 订阅这里。
+ * parties may append to, and where the official StatsLine also lives) writes what it reads into here, and the rail subscribes with `useSyncExternalStore`.
  *
- * 🔴 数据一律来自官方投影/快照，**不解析 DOM、不伪造**。早先这块是数 DOM 里的
- * `[data-variant]` 行、按类名猜预设与模型名的，harness 一改结构就全空 —— 那套已经删掉。
+ * 🔴 All data comes from official projections and snapshots — **no DOM parsing, nothing fabricated**. This once counted
+ * `[data-variant]` rows in the DOM and guessed the preset and model from class names, which went blank the moment the harness restructured. That version has been deleted.
  */
 
 /** One reading. Every field may be absent — the projection is empty until the provider reports usage. */
@@ -35,7 +35,7 @@ export interface UsageSnapshot {
   /** One-line description of that preset; absent when not configured. */
   permissionHint?: string | undefined
 
-  // ── 实时计时（存的是时间戳，逐秒变化的那部分由面板自己算） ──
+  // ── Live timing (timestamps are stored; the per-second part is computed by the panel) ──
   /** Start of the current turn (epoch ms); absent when no turn is in flight. */
   turnStartedAt?: number | undefined
   /** Start of the earliest tool call still running (epoch ms). */
@@ -75,7 +75,7 @@ export interface UsageSnapshot {
 let current: UsageSnapshot = {}
 const listeners = new Set<() => void>()
 
-/** 采集器每次读到新值时调用。值没变就不通知，避免侧栏跟着流式输出空转。 */
+/** Called by the probe on every new reading. Unchanged values notify nobody, so the rail does not spin along with streaming output. */
 export function publishUsage(next: UsageSnapshot): void {
   if (sameUsage(current, next)) {
     return
@@ -86,7 +86,7 @@ export function publishUsage(next: UsageSnapshot): void {
   }
 }
 
-/** 供 `useSyncExternalStore` 用：返回稳定引用，值没变时引用也不变。 */
+/** For `useSyncExternalStore`: returns a stable reference that does not change while the value does not. */
 export function getUsage(): UsageSnapshot {
   return current
 }
@@ -96,7 +96,7 @@ export function subscribeUsage(listener: () => void): () => void {
   return () => { listeners.delete(listener) }
 }
 
-/** 采集器卸载（切走会话、皮肤停用）时清空，免得侧栏挂着上一次会话的数字。 */
+/** Cleared when the probe unmounts (session switch, skin deactivation) so the rail does not keep the previous session's numbers. */
 export function clearUsage(): void {
   publishUsage({})
 }

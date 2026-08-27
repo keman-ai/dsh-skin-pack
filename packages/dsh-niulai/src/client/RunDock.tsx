@@ -1,14 +1,14 @@
 /**
- * 牛来运行概览的<b>右侧边栏</b>形态：常驻、可收起。
+ * Niulai's run overview as a <b>right-hand rail</b>: always present, collapsible.
  *
- * 为什么自己造一根侧栏而不是挂进 harness 的右侧详情栏：那个位置的 slot 是
- * `{ kind: 'single' }` 且已被官方 DetailsPanel 占住，第三方注册直接抛错。硬把 DOM
- * 塞进它的容器则会跟「点工具行看详情」抢地盘。所以这里开一根自己的：`position: fixed`
- * 贴右边，展开时通过 body 上的标记让主区让出等宽的空间，收起时只留一个把手。
- * 全程不碰官方那根侧栏，两者可以同时存在。
+ * Why build our own rail instead of mounting into the harness's details rail: that slot is `{ kind: 'single' }` and
+ * already held by the official DetailsPanel, so third-party registration throws. Forcing DOM into its container
+ * would fight the "click a tool row for details" flow. Hence our own: `position: fixed` against the right edge,
+ * a body marker making the main area yield an equal width while expanded, and only a handle when collapsed.
+ * The official rail is never touched, and both can coexist.
  *
- * 收起状态记在 localStorage，刷新后保持 —— 侧栏是长期可见的东西，每次刷新都弹回来
- * 会很烦人。
+ * The collapsed state lives in localStorage and survives a refresh — the rail is a long-lived fixture, and springing
+ * back every time would be annoying.
  */
 
 import { useCallback, useEffect, useState } from 'react'
@@ -26,7 +26,7 @@ const SKIN_ATTRIBUTE = 'data-dsh-niulai'
 
 function readOpen(): boolean {
   try {
-    // 默认展开：面板存在的意义就是被看见；用户收起过才记住收起。
+    // Expanded by default: the panel exists to be seen, and collapse is remembered only once the user chooses it.
     return window.localStorage.getItem(STORAGE_KEY) !== 'false'
   } catch {
     // localStorage throws in private mode; fall back to the default expanded state, which changes nothing functionally.
@@ -68,19 +68,19 @@ export function NiulaiRunDock() {
   const toggle = useCallback(() => { setOpen(value => !value) }, [])
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="牛来运行概览">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Niulai run overview">
       <button
         type="button"
         className={css.handle}
         onClick={toggle}
         aria-expanded={open}
-        title={open ? '收起牛来面板' : '展开牛来面板'}
+        title={open ? 'Collapse the Niulai panel' : 'Expand the Niulai panel'}
       >
         {open ? '›' : '‹'}
       </button>
       {open && (
         <div className={css.body}>
-          <div className={css.header}>牛来 · 运行概览</div>
+          <div className={css.header}>Niulai · run overview</div>
           <NiulaiRunPanel />
         </div>
       )}

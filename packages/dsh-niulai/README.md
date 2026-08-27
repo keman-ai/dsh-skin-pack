@@ -1,24 +1,24 @@
-# dsh-niulai · 牛来原野
+# dsh-niulai · Niulai Field
 
-给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 的暗色皮肤：一片黄昏原野，一头低模橙牛站在你的对话底下。
+A dark skin for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness): a field at dusk, with a low-poly orange cow standing beneath your conversation.
 
-![牛来原野](preview/dark.webp)
+![Niulai Field](preview/dark.webp)
 
-底色是带草绿倾向的暖黑 `#171911`（不是中性灰，这是它和内置暗色最直观的差别——内置那套偏蓝），主按钮换成牛的身体橙 `#ff7a14`，分隔线与滚动条走草绿到稻草的过渡。**只做暗色。**
+The ground is a warm black with a grass-green cast, `#171911` — not neutral grey, which is the most visible difference from the built-in dark theme, whose family leans blue. The primary button becomes the cow's body orange `#ff7a14`, and dividers and scrollbars run from grass to straw. **Dark only.**
 
 ## Install
 
-**不发布到 npm**，从 GitHub 装：
+**Not published to npm**; install from GitHub:
 
 ```sh
 dsh plugin --profile web add -w github:keman-ai/dsh-niulai
 ```
 
-**`-w` 不能省**。profile 目录自带 `pnpm-workspace.yaml`，pnpm 会认为它是 workspace 根，不带这个标志直接报 `ERR_PNPM_ADDING_TO_ROOT`。
+**`-w` is not optional.** The profile directory ships a `pnpm-workspace.yaml`, so pnpm reads it as a workspace root and without the flag fails outright with `ERR_PNPM_ADDING_TO_ROOT`.
 
-重启一次 dsh，**装上即生效**。
+Restart dsh once and it **takes effect on install**.
 
-想改回「装上只注册、由自己去选」的行为，在 profile 的 `cordis.patch.yml` 里关掉自动应用：
+To return to "install only registers it; select it yourself", turn auto-apply off in the profile's `cordis.patch.yml`:
 
 ```yaml
 - id: niulai
@@ -26,76 +26,76 @@ dsh plugin --profile web add -w github:keman-ai/dsh-niulai
     autoApply: false
 ```
 
-之所以默认自动应用：harness 的第三方主题 id **不进内置 settings schema**（见 ui-theme 的 README），选择只在进程内活着、不写进 `$DSH_HOME/settings.yaml`。不自动应用的话，每次启动 dsh 都得回「设置 → 外观」重选一遍——装了皮肤却看不到皮肤。切走随时可以，本插件只在装载那一刻切一次，不会把选择抢回来。
+Why auto-apply is the default: the harness's third-party theme ids **never enter the built-in settings schema** (see the ui-theme README), so the choice lives only in the process and is never written to `$DSH_HOME/settings.yaml`. Without auto-apply you would return to Settings → Appearance and reselect on every start — installing a skin and not seeing it. You may switch away at any time; the plugin switches once at load and never takes the choice back.
 
-仓库里带着构建产物（`lib/`），也没有 `prepare` 脚本，所以从 git 源安装时 pnpm 不需要执行任何构建脚本，你不必为它授权 `allowBuilds`。
+The repository ships its build output (`lib/`) and has no `prepare` script, so pnpm runs no build script when installing from a git source and you never have to grant `allowBuilds`.
 
-### 卸载
+### Uninstall
 
 ```sh
 dsh plugin --profile web remove -w dsh-niulai
 ```
 
-主题注销时偏好会自动退回默认，界面不会卡在一套已经不存在的配色上。
+Unregistering the theme resets the preference to the default, so the UI never sticks on a palette that no longer exists.
 
 ## What it changes
 
-| 层 | 内容 | 改版后会不会碎 |
+| Layer | Content | Does a redesign break it? |
 |---|---|---|
-| **配色** | 约 80 个 `--dsw-alias-*` / `--dsw-specific-*` 语义 token | 不会。token 是语义契约，harness 改版不改含义 |
-| **背景** | 半透明牛图铺在最底层，上下双重渐变压暗 | 不会。只挂在自有的 `body[data-dsh-niulai]` 上 |
+| **Palette** | About 80 `--dsw-alias-*` / `--dsw-specific-*` semantic tokens | No. Tokens are a semantic contract, and a harness redesign does not change their meaning |
+| **Background** | A translucent cow spread at the lowest layer, darkened by gradients above and below | No. It hangs only on our own `body[data-dsh-niulai]` |
 
-**刻意没做**的是钩住具体部件（把牛头像塞进 assistant 消息旁、改标题栏品牌那类）。那需要 `[class*='sidebarCol']` 这种模糊匹配 harness 内部 CSS module 哈希类名，观感更足，但宿主一改版就碎。牛来把赌注下在语义层，换取升级不出事。
+**Deliberately not done**: hooking individual parts (putting a cow avatar beside assistant messages, rebranding the title bar). That needs fuzzy `[class*='sidebarCol']` matches against the harness's internal hashed CSS module names — more striking, but it shatters the moment the host is redesigned. Niulai bets on the semantic layer instead, buying upgrades that do not break.
 
-背景**只在牛来主题激活时出现**：切回内置暗色时元素移除、body 属性摘掉。配色已经不是原野色了还铺着牛，那是纯粹的视觉污染。
+The background **appears only while the Niulai theme is active**: switching back to the built-in dark removes the element and the body attribute. A cow still spread while the palette is no longer the field's is pure visual pollution.
 
-## 配色速查
+## Palette at a glance
 
-设计稿的 25 个变量是全部色源，代码里在 `src/client/tokens.ts` 的 `NIULAI_PALETTE`，改配色改那里。
+The draft's 25 variables are the whole colour source, held in `NIULAI_PALETTE` in `src/client/tokens.ts`. Recolour there.
 
 | | |
 |---|---|
-| 主橙 / 深橙 | `#ff7a14` / `#e95e0a` |
-| 口鼻米黄 | `#f0d28a` |
-| 草绿 / 苔绿 / 稻草 | `#737746` / `#4f5f32` / `#b49a54` |
-| 底 / 侧栏 / 三级容器 | `#171911` / `#1c1f16` / `#20231a` `#25291e` `#2b3022` |
-| 正文 / 次级 / 三级 | `#f3efe4` / `#b7b6a5` / `#858777` |
-| 成功 / 警告 / 危险 / 信息 | `#91b65b` / `#d9b45e` / `#db735b` / `#7f9fbf` |
+| Primary orange / deep orange | `#ff7a14` / `#e95e0a` |
+| Muzzle cream | `#f0d28a` |
+| Grass / moss / straw | `#737746` / `#4f5f32` / `#b49a54` |
+| Ground / sidebar / three container levels | `#171911` / `#1c1f16` / `#20231a` `#25291e` `#2b3022` |
+| Body / secondary / tertiary text | `#f3efe4` / `#b7b6a5` / `#858777` |
+| Success / warning / danger / info | `#91b65b` / `#d9b45e` / `#db735b` / `#7f9fbf` |
 
-映射不是逐条抄色号，是按语义对位：设计稿的 `--surface/-2/-3` 是三级容器，harness 的 `bg-layer-1/2/3` 也是三级容器。设计稿没给的（遮罩、骨架屏、工具条按钮）从已有色阶推导，规则写在 `tokens.ts` 各段注释里。
+The mapping is semantic alignment, not colour-by-colour transcription: the draft's `--surface/-2/-3` are three container levels and so are the harness's `bg-layer-1/2/3`. What the draft omits (scrims, skeletons, toolbar buttons) is derived from the existing ramp, with the rule stated in each section of `tokens.ts`.
 
 ## Development
 
 ```sh
 pnpm install
-pnpm check     # 类型检查
-pnpm build     # → lib/index.js（host 半）+ lib/client.js（浏览器半）
+pnpm check     # type check
+pnpm build     # → lib/index.js (host half) + lib/client.js (browser half)
 ```
 
-| 文件 | 职责 |
+| File | Responsibility |
 |---|---|
-| `src/index.ts` | host 半，Loader 的挂载点 |
-| `src/client/index.ts` | 注册主题、挂背景层，两者都走 `ctx.effect` 可完整回收 |
-| `src/client/tokens.ts` | 25 个设计变量 → 80 个语义 token 的映射 |
-| `src/client/niulai.module.css` | 背景层样式 |
-| `src/client/cow-art.generated.ts` | 牛图内联（由原图经 `cwebp` 生成，无手写内容） |
+| `src/index.ts` | The host half, the Loader's mount point |
+| `src/client/index.ts` | Registers the theme and mounts the background layer, both through `ctx.effect` for full cleanup |
+| `src/client/tokens.ts` | The mapping from 25 design variables to 80 semantic tokens |
+| `src/client/niulai.module.css` | Background-layer styles |
+| `src/client/cow-art.generated.ts` | The inlined cow artwork (generated from the source with `cwebp`; nothing hand-written) |
 
-**`lib/` 是故意提交进仓库的**：这个包不发 npm，所有人都从 git 源安装，带上产物就不必赌对方机器的构建工具链。改完代码要把 `pnpm build` 的产物一并提交。
+**`lib/` is committed on purpose**: this package is not published to npm and everyone installs from a git source, so shipping the output avoids betting on the other machine's toolchain. Commit the `pnpm build` output along with your code changes.
 
-牛图两份都从设计稿那张 1011×702 原图生成：
+Both cow images are generated from the draft's 1011×702 original:
 
 ```sh
-cwebp -crop 300 55 470 470 -resize 256 256 -q 84 原图.png -o cow-avatar.webp   # 6KB
-cwebp -q 76 原图.png -o cow-cover.webp                                          # 32KB
+cwebp -crop 300 55 470 470 -resize 256 256 -q 84 source.png -o cow-avatar.webp   # 6KB
+cwebp -q 76 source.png -o cow-cover.webp                                          # 32KB
 ```
 
-`types/dsh.d.ts` 自带用到的那部分 harness API 声明，照 `0.1.0-rc.7` 抄写——npm 上的 `@deepseek-ai/dsh-client-*` 依赖链不完整装不下来。宿主行为与声明对不上时，先回那个文件核对。
+`types/dsh.d.ts` vendors the parts of the harness API we use, transcribed from `0.1.0-rc.7` — the `@deepseek-ai/dsh-client-*` dependency chain on npm is incomplete and cannot be installed. When host behaviour disagrees with the declarations, check that file first.
 
-## 相关
+## Related
 
-- [dsh.a2hmarket.ai](https://dsh.a2hmarket.ai) —— DSH 皮肤集市
-- [dsh-skin-market](https://github.com/keman-ai/dsh-skin-market) —— 在 dsh 设置里逛集市、一键装皮肤
+- [dsh.a2hmarket.ai](https://dsh.a2hmarket.ai) — the DSH skin market
+- [dsh-skin-market](https://github.com/keman-ai/dsh-skin-market) — browse the market and install skins in one click from dsh's settings
 
-## 许可
+## License
 
 [MIT](LICENSE) © 2026 Science Roam Limited

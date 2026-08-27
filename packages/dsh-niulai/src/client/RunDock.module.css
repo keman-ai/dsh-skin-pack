@@ -1,13 +1,13 @@
-/** 牛来右侧边栏：常驻、可收起。宽度取设计稿的 details ≈ 322px。 */
+/** Niulai's right-hand rail: always present, collapsible. Its width is the draft's details, ≈322px. */
 
 /*
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
- * 反过来写（默认显示、靠皮肤规则去藏）会漏掉一段窗口：插件的 JS 要等 bundle 执行完
- * 才能把 `data-dsh-niulai` 打到 body 上，而 harness 的界面在那之前就渲染好了。实测
- * 冷启动时 phase 已经是 hero、皮肤却还没激活（284ms → 359ms，冷编译时更长）。那段
- * 时间里侧栏照常显示、主区照常让位，屏幕上就是"harness 原生样式 + 一根侧栏"——
- * 看起来像进了对话页，而窗口长短随机，表现就是"刷新几次两种界面来回切"。
+ * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS can only
+ * stamp `data-dsh-niulai` onto body once its bundle has run, while the harness UI is already rendered. Measured:
+ * on a cold start the phase is already hero while the skin is not yet active (284ms → 359ms, longer with cold
+ * compilation). During that window the rail shows and the main area yields, leaving the harness's native styling
+ * with a rail beside it — looking like a conversation page, for a random length of time, so refreshing flips between two UIs.
  *
  * Hence the rule kept here: skin not active means this plugin does not exist in the UI.
  */
@@ -33,8 +33,8 @@
 }
 
 /*
- * 把手：收起时是唯一可见的部分，所以要够得着又不抢眼。
- * 垂直居中贴在边栏左沿，与边栏一起移动。
+ * The handle: the only visible part when collapsed, so it must be reachable without drawing attention.
+ * Vertically centred on the rail's left edge, moving with it.
  */
 .handle {
   align-self: center;
@@ -59,7 +59,7 @@
   color: var(--dsw-alias-label-primary);
 }
 
-/* 原型图 .details 带过渡；瞬间开合会让人分不清是收起了还是崩了。 */
+/* The prototype's .details has a transition; an instant toggle looks like a crash rather than a collapse. */
 .body {
   width: 322px;
   animation: niulai-dock-in 180ms ease-out;
@@ -81,13 +81,13 @@
 /*
  * When expanded, the main area yields an equal width.
  *
- * 挤压 harness 的根容器而不是给 body 加 padding：body 上有 fixed 定位的浮层
- * （模态、菜单），给 body 加内边距不会影响它们，反而会让固定层与内容错位。
- * 这里只推真正承载布局的那一层。
+ * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays
+ * (modals, menus) that padding would not move, misaligning them against the content.
+ * Only the layer that actually carries the layout is pushed.
  */
 /*
- * 同样必须带 `[data-dsh-niulai]`：漏了它，皮肤还没激活的那段窗口里主区已经让出
- * 322px，右边空一条、内容却还是原生配色 —— 正是"看起来像对话页"的另一半原因。
+ * This too must carry `[data-dsh-niulai]`: without it, the main area yields 322px during the window before the
+ * skin activates, leaving a strip on the right while the content keeps its native palette — the other half of why it looks like a conversation page.
  */
 :global(body[data-dsh-niulai][data-niulai-dock-open] > div:first-of-type) {
   padding-right: 322px;
@@ -104,40 +104,40 @@
 }
 
 /*
- * New Session 全屏：hero 阶段收起整根侧栏。
+ * New Session goes full screen: the whole rail collapses during the hero phase.
  *
- * 原型图的 New Session 是全屏接管的（连 harness 自己的三栏都不在），牛占满整块画面，
- * 旁边杵一根运行概览会把那份空旷感切碎 —— 何况新会话还没有任何"运行"可概览。
+ * The prototype's New Session takes the whole screen (not even the harness's three columns are present), with the
+ * cow filling the frame. A run overview beside it would chop up that openness — and a new session has no run to overview.
  *
- * 用 `:has()` 而不是在 JS 里监听阶段变化：阶段本来就体现在 DOM 上
- * （`[data-phase='hero']`），交给选择器判断比自己订阅事件再同步状态少一处出错的地方。
- * harness 自身也在用 `:has()`（`.scrollBody:has([data-conversation-composer-overlay])`）。
+ * `:has()` rather than watching phase changes in JS: the phase is already expressed in the DOM
+ * (`[data-phase='hero']`), and letting the selector decide removes one place to get wrong versus subscribing and syncing state.
+ * The harness itself uses `:has()` too (`.scrollBody:has([data-conversation-composer-overlay])`).
  */
 :global(body[data-dsh-niulai]:has([data-phase='hero'])) [data-niulai-dock] {
   display: none;
 }
 
-/* 侧栏收起了，主区那份让位也要一并撤掉，否则右边会空出 322px。 */
+/* With the rail collapsed the main area's yield must go too, or 322px is left empty on the right. */
 :global(body[data-dsh-niulai][data-niulai-dock-open]:has([data-phase='hero']) > div:first-of-type) {
   padding-right: 0;
 }
 
 /*
- * 🔴 `settling` 必须和 hero 一样收起侧栏。
+ * 🔴 `settling` must collapse the rail exactly as hero does.
  *
- * harness 的阶段是<b>三</b>态：`settling` / `hero` / `active`（ConversationRoot）。
- * settling 是"会话还在回放，落 hero 还是落对话页尚不可知"，那段时间它把 composer
- * 藏起来，免得闪一下居中输入框再跳到贴底那根。
+ * The harness has <b>three</b> phases: `settling` / `hero` / `active` (ConversationRoot).
+ * settling means the session is still replaying and it is unknown whether it lands on hero or the conversation, so
+ * the harness hides the composer to avoid flashing a centred one before jumping to the bottom-aligned one.
  *
- * 早先这里只认 hero，于是刷新后的 settling 窗口里：牛不画、侧栏却冒出来、主区还让出
- * 322px —— 屏幕上就是一个空的对话页。会话摘要回得快就直接进 hero（看到牛），回得慢
- * 就先经过 settling（看到"对话详情"），表现正是"多刷几次有几率出牛"。
+ * This once matched hero only, so during the settling window after a refresh the cow was not painted, the rail
+ * appeared and the main area yielded 322px — an empty conversation page. A fast session summary went straight to
+ * hero (the cow showed) and a slow one passed through settling (details showed), giving the symptom "refresh a few times and the cow sometimes appears".
  *
- * 这里跟着 harness 取中立：未知就什么都不主张 —— 侧栏不出现（它一露面就等于宣告
- * "已经在对话里了"），也不抢先画牛（settling 同样可能通向有内容的会话，抢画就会闪）。
+ * So this follows the harness and stays neutral: while unknown, assert nothing — the rail stays hidden (showing it
+ * would declare "already in a conversation"), and the cow is not painted early (settling may equally lead to a conversation with content, and painting early flashes).
  *
- * 逗号分组写不进 `:global()`（lightningcss 会在 Comma 处报错，踩过），所以两个阶段
- * 各写一条，别合并。
+ * A comma group cannot go inside `:global()` (lightningcss errors at the comma — we hit it), so each phase gets its
+ * own rule. Do not merge them.
  */
 :global(body[data-dsh-niulai]:has([data-phase='settling'])) [data-niulai-dock] {
   display: none;

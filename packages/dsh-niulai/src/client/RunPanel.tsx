@@ -1,15 +1,15 @@
 /**
- * 「牛来」运行概览面板 —— 与鲸鱼娘皮肤同一套状态台，只是把缩略图换成牛、配色走原野色。
+ * The Niulai run overview panel — the same dock as the whale girl skin's, with the thumbnail swapped for the cow and the palette for the field's.
  *
- * 🔴 <b>数据全部来自 harness 的官方投影与会话快照，不再解析 DOM</b>。
- * 早先这块是数 `[data-variant]` 行、按类名猜预设与模型名的——那是在"用量拿不到、得自己
- * 写一整套事件投影"的错误判断下写的。实际上 harness 自带 token-meter / session-stats /
- * permission-presets / tool-todo，投影早算好了，缺的只是把值递出 slot（见 UsageProbe）。
- * 换掉之后少了一整类"harness 改结构就读不到"的耦合。
+ * 🔴 <b>All data comes from the harness's official projections and session snapshots; no DOM is parsed any more.</b>
+ * This once counted `[data-variant]` rows and guessed the preset and model from class names — written under the
+ * mistaken belief that usage was unreachable and a whole event projection had to be written. In fact the harness
+ * ships token-meter / session-stats / permission-presets / tool-todo with the projections already computed; all that was missing was passing the values out of a slot (see UsageProbe).
+ * Replacing it removed an entire class of "a harness restructure makes this unreadable" coupling.
  *
- * 为什么不接管 harness 的右侧详情栏（`details` slot）：它确实**可以**接管（`single` 的
- * 占用冲突只发生在同一 priority，注册 -1 就能影子化官方那份），但那根装的是「点某次工具
- * 调用看 Input / Output」——排障时唯一的线索，拿状态台把它换掉是净损失。所以自己开一根。
+ * Why the harness's details rail (the `details` slot) is not taken over: it **could** be (a `single` conflict only
+ * arises at equal priority, and registering at -1 shadows the official entry), but that rail holds "click a tool
+ * call to see its Input / Output" — the only lead there is when debugging, so replacing it with a dock is a net loss. Hence our own.
  */
 
 import { useEffect, useState, useSyncExternalStore } from 'react'
@@ -18,9 +18,9 @@ import { getUsage, subscribeUsage } from './usage-store.ts'
 import css from './RunPanel.module.css'
 
 /**
- * token 数压成 31.8K / 1.2M。
- * 与 harness 的 `formatTokens` 同口径（三位数以内保一位小数），免得侧栏和官方
- * 那颗上下文圆环显示出不同的数字。
+ * Token counts compress to 31.8K / 1.2M.
+ * Aligned with the harness's `formatTokens` (one decimal place below three digits), so the rail and the official
+ * context ring never show different numbers.
  */
 function formatTokens(n: number): string {
   const scaled = (v: number): string =>
@@ -51,7 +51,7 @@ function Row({ label, children }: { label: string, children: ReactNode }) {
   )
 }
 
-/** 面板本体。挂在自建的右侧栏里。 */
+/** The panel itself, mounted inside our own right-hand rail. */
 export function NiulaiRunPanel() {
   const usage = useSyncExternalStore(subscribeUsage, getUsage, getUsage)
 
@@ -96,11 +96,11 @@ export function NiulaiRunPanel() {
   return (
     <div className={css.root}>
       {/*
-        缩小版牛图。用的是同一张内联图（不额外增加体积），contain 保证牛完整，
-        3/2 比例与设计稿的封面卡一致。
+        A reduced cow image, using the same inline image (adding no size), with contain keeping the cow whole
+        and a 3/2 ratio matching the draft's cover card.
       */}
       <div className={css.cover} style={{ backgroundImage: 'var(--niulai-cow-cover)' }}>
-        <span className={css.coverName}>牛来原野</span>
+        <span className={css.coverName}>Niulai Field</span>
       </div>
 
       {/*
@@ -111,29 +111,29 @@ export function NiulaiRunPanel() {
         <section className={`${css.card} ${css.alert}`}>
           <div className={css.cardTitle}>Waiting on you</div>
           {approvals.map((tool, index) => (
-            <Row key={`${tool}-${index}`} label="待授权">
+            <Row key={`${tool}-${index}`} label="Awaiting approval">
               <span className={css.mono}>{tool}</span>
             </Row>
           ))}
-          {questions > 0 && <Row label="待回答">{`${questions} 个问题`}</Row>}
-          <p className={css.note}>回到对话里确认后才会继续。</p>
+          {questions > 0 && <Row label="Awaiting answer">{`${questions} question(s)`}</Row>}
+          <p className={css.note}>Nothing continues until you confirm in the conversation.</p>
         </section>
       )}
 
       <section className={css.card}>
         <div className={css.cardTitle}>Current run</div>
-        <Row label="状态">
+        <Row label="State">
           <span className={css.status} data-running={busy || undefined}>
-            {busy ? '牛来正在干活' : '牛来在待命'}
+            {busy ? 'Niulai is at work' : 'Niulai is standing by'}
           </span>
         </Row>
         {usage.turnStartedAt !== undefined && (
-          <Row label="本轮已跑">
+          <Row label="This turn">
             <span className={css.busy}>{formatDuration(Math.max(0, now - usage.turnStartedAt))}</span>
           </Row>
         )}
         {tools.length > 0 && (
-          <Row label="正在执行">
+          <Row label="Running">
             <span className={css.mono}>
               {tools.join(' · ')}
               {usage.toolStartedAt !== undefined
@@ -142,23 +142,23 @@ export function NiulaiRunPanel() {
           </Row>
         )}
         {(queued > 0 || steering > 0) && (
-          <Row label="收件箱">
+          <Row label="Inbox">
             {[queued > 0 ? `${queued} queued` : '', steering > 0 ? `${steering} steering` : '']
               .filter(Boolean).join(' · ')}
           </Row>
         )}
-        <Row label="模型">{usage.model ?? dash}</Row>
+        <Row label="Model">{usage.model ?? dash}</Row>
       </section>
 
       <section className={css.card}>
         <div className={css.cardTitle}>Context</div>
-        <Row label="占用">{occupancy === undefined ? dash : `${occupancy}%`}</Row>
+        <Row label="Occupancy">{occupancy === undefined ? dash : `${occupancy}%`}</Row>
         {occupancy !== undefined && (
           <div className={css.progress}>
             <span style={{ width: `${occupancy}%` }} />
           </div>
         )}
-        <Row label="Token 负载">
+        <Row label="Token load">
           {usage.usedTokens === undefined || usage.contextWindow === undefined
             ? dash
             : `${formatTokens(usage.usedTokens)} / ${formatTokens(usage.contextWindow)}`}
@@ -185,7 +185,7 @@ export function NiulaiRunPanel() {
               🔴 This sentence is mandatory: the three are fixed-density estimates (systematically low for CJK and JSON
               schema), so they do not add up to the token load above. This is composition, not a total.
             */}
-            <p className={css.note}>构成为估算，与上方负载不同源，不可相加。</p>
+            <p className={css.note}>The composition is estimated from a different source than the load above; the two must not be added.</p>
           </>
         )}
       </section>
@@ -193,7 +193,7 @@ export function NiulaiRunPanel() {
       {usage.permissionLabel !== undefined && (
         <section className={css.card}>
           <div className={css.cardTitle}>Permission</div>
-          <Row label="当前模式">{usage.permissionLabel}</Row>
+          <Row label="Mode">{usage.permissionLabel}</Row>
           {usage.permissionHint !== undefined && (
             <p className={css.note}>{usage.permissionHint}</p>
           )}
@@ -202,18 +202,18 @@ export function NiulaiRunPanel() {
 
       <section className={css.card}>
         <div className={css.cardTitle}>Usage</div>
-        <Row label="输入">{usage.inputTokens === undefined ? dash : formatTokens(usage.inputTokens)}</Row>
-        <Row label="输出">{usage.outputTokens === undefined ? dash : formatTokens(usage.outputTokens)}</Row>
-        <Row label="缓存命中">
+        <Row label="Input">{usage.inputTokens === undefined ? dash : formatTokens(usage.inputTokens)}</Row>
+        <Row label="Output">{usage.outputTokens === undefined ? dash : formatTokens(usage.outputTokens)}</Row>
+        <Row label="Cache hits">
           {usage.cacheHitPercent === undefined ? dash : `${usage.cacheHitPercent}%`}
         </Row>
-        <Row label="耗时">
+        <Row label="Time spent">
           {usage.llmMs === undefined && usage.toolMs === undefined
             ? dash
-            : `LLM ${formatDuration(usage.llmMs ?? 0)} · 工具 ${formatDuration(usage.toolMs ?? 0)}`}
+            : `LLM ${formatDuration(usage.llmMs ?? 0)} · tools ${formatDuration(usage.toolMs ?? 0)}`}
         </Row>
-        <Row label="轮次">
-          {usage.turns === undefined ? dash : `${usage.turns} 轮 · ${usage.steps ?? 0} 步`}
+        <Row label="Turns">
+          {usage.turns === undefined ? dash : `${usage.turns} turns · ${usage.steps ?? 0} steps`}
         </Row>
       </section>
 
@@ -221,7 +221,7 @@ export function NiulaiRunPanel() {
       {usage.todosTotal !== undefined && (
         <section className={css.card}>
           <div className={css.cardTitle}>Plan</div>
-          <Row label="进度">{`${usage.todosDone ?? 0} / ${usage.todosTotal}`}</Row>
+          <Row label="Progress">{`${usage.todosDone ?? 0} / ${usage.todosTotal}`}</Row>
           {usage.todoActive !== undefined && <p className={css.todo}>{usage.todoActive}</p>}
         </section>
       )}

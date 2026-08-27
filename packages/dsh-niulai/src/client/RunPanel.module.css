@@ -1,6 +1,6 @@
 /**
- * 「牛来」状态台的样式，照设计稿的卡片语言：radius 12、1px 低对比描边、扁平底。
- * 结构与鲸鱼娘皮肤那套一致，配色换成原野色（全部走语义 token，堆叠条那三段除外）。
+ * Styles for the Niulai dock, following the draft's card language: a radius of 12, 1px low-contrast borders, a flat ground.
+ * The structure matches the whale girl skin's, with the palette swapped to the field's (all through semantic tokens, except the three stacked-bar segments).
  */
 
 .root {
@@ -13,10 +13,10 @@
 }
 
 /*
- * 缩小版牛图。
+ * The reduced cow image.
  *
- * `contain` 而不是 `cover`：低模牛是画面正中的主体，按侧栏宽度裁切会把牛角和尾巴切掉。
- * 3/2 的比例跟设计稿的封面卡一致。
+ * `contain` rather than `cover`: the low-poly cow is the subject dead centre, and cropping to sidebar width would cut off its horns and tail.
+ * The 3/2 ratio matches the draft's cover card.
  */
 .cover {
   aspect-ratio: 3 / 2;
@@ -52,8 +52,8 @@
 }
 
 /*
- * 「等你拿主意」用琥珀卡：这套皮肤里 warn 那档语义色专门留给"需要你确认的操作"，
- * 跟橙色的运行态区分得开，扫一眼就知道是哪一类。
+ * "Waiting on you" uses an amber card: in this skin the warn semantic is reserved for actions needing your
+ * confirmation, distinct from the orange running state, so a glance tells you which it is.
  */
 .alert {
   background: var(--dsw-alias-state-warn-tertiary);
@@ -81,7 +81,7 @@
   border-top: 1px solid var(--dsw-alias-border-l1);
 }
 
-/* 卡片内第一行不要顶着标题再画一条线。 */
+/* The first row inside a card must not draw another line right under the heading. */
 .row:first-of-type {
   border-top: none;
 }
@@ -105,8 +105,8 @@
 }
 
 /*
- * Status 用橙色，且只在真的在跑时亮 —— 设计稿把橙留给 active / run state，
- * 待命态落回次级文字色，避免"永远亮着"让这个信号失去意义。
+ * Status uses orange and lights only while actually running — the draft reserves orange for the active and run states,
+ * while idle falls back to the secondary text colour, so a permanently lit signal does not lose its meaning.
  */
 .status {
   color: var(--dsw-alias-label-tertiary);
@@ -121,12 +121,12 @@
   content: '● ';
 }
 
-/* 计时跟着运行态走同一个色，读的是同一件事。 */
+/* The clock takes the same colour as the running state; they report the same thing. */
 .busy {
   color: var(--dsw-alias-state-business-primary);
 }
 
-/* 上下文占用条：草绿底 + 橙色进度，与"牛在动"的色语言一致。 */
+/* The context bar: a grass track with orange progress, matching the colour language of the cow in motion. */
 .progress {
   height: 5px;
   border-radius: 999px;
@@ -141,7 +141,7 @@
   background: linear-gradient(90deg, #737746, #ff7a14);
 }
 
-/* 上下文构成：三段堆叠条，颜色取原野三色（苔绿 → 草绿 → 稻草），由沉到亮。 */
+/* Context composition: a three-segment stacked bar in the field's three colours (moss → grass → straw), deepest to brightest. */
 .stack {
   display: flex;
   height: 6px;

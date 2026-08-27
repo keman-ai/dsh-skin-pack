@@ -1,9 +1,9 @@
 /**
- * 用到的那部分 DeepSeek Harness API 声明，照 `0.1.0-rc.7` 的源码抄写，每处标了出处。
+ * Declarations for the parts of the DeepSeek Harness API we use, transcribed from the `0.1.0-rc.7` source, each with its origin noted.
  *
- * 为什么自带而不是依赖 npm 包：npm 上的 `@deepseek-ai/dsh-client-*` 依赖链不完整，
- * 装不下来。这些模块运行时全是 external —— 主题服务由跑着本插件的 harness 提供，
- * 插件只通过 `ctx.theme` 拿它，不 import 它的实现。
+ * Why vendored instead of depending on the npm packages: the `@deepseek-ai/dsh-client-*` dependency chain on npm is
+ * incomplete and cannot be installed. These modules are all external at runtime — the theme service comes from the
+ * harness hosting this plugin, which reaches it only through `ctx.theme` and never imports its implementation.
  *
  * When host behaviour disagrees with these declarations, check the harness source first — do not bend the code to fit the declarations.
  */
@@ -30,8 +30,8 @@ declare module '@deepseek-ai/cordis' {
     /** Theme id (the argument to `setTheme`). `system` is a preference, not an id, and registering it throws. */
     id: string
     /**
-     * 建立在哪套基座调色板上。presenter 据此切 `body[data-ds-dark-theme]`，
-     * **不看 id**。
+     * Which base palette it builds on. The presenter toggles `body[data-ds-dark-theme]` from this,
+     * **not from the id**.
      */
     colorScheme: 'light' | 'dark'
     /** Alias-layer overrides, applied over the base as inline CSS variables. */
@@ -50,7 +50,7 @@ declare module '@deepseek-ai/cordis' {
     revision: number
   }
 
-  /** 主题服务，客户端插件通过 `ctx.theme` 取用（`ctx.provide('theme', …)`）。 */
+  /** The theme service, reached by client plugins through `ctx.theme` (`ctx.provide('theme', …)`). */
   export interface ThemeService {
     /**
      * Register a theme. A duplicate id throws.
@@ -64,23 +64,23 @@ declare module '@deepseek-ai/cordis' {
     setTheme(id: string): void
   }
 
-  /** 视图 tab 注册项（`conversation.view` 是 list slot，第三方可追加）。 */
+  /** A view-tab registration (`conversation.view` is a list slot third parties may append to). */
   export interface ViewSlotRegistration {
     name: 'conversation.view'
-    /** 视图 id，也是激活时 `only:` 匹配的值。 */
+    /** The view id, and the value `only:` matches when it is active. */
     id: string
-    /** 排序，数字越大越靠后；官方的 trajectory 用 10。 */
+    /** Order; larger numbers come later. The official trajectory uses 10. */
     order?: number
-    /** tab 上显示的名字，thunk 形式以便跟随语言切换。 */
+    /** The name shown on the tab, as a thunk so it follows language changes. */
     label: () => string
   }
 
   /**
-   * composer.dock 条目注册项。
+   * A composer.dock entry registration.
    *
-   * 该 slot 是 `{ kind: 'list', scope: 'session' }`（见 ui-conversation 的
-   * apply.ts / contract/slots.ts），官方 StatsLine 以 order 0 挂在上面，
-   * 第三方追加不会顶掉它 —— single 型才会重复注册抛错。
+   * That slot is `{ kind: 'list', scope: 'session' }` (see apply.ts / contract/slots.ts in ui-conversation), the
+   * official StatsLine sits on it at order 0, and a third-party append displaces nothing —
+   * only a single-kind slot throws on a duplicate registration.
    */
   export interface DockSlotRegistration {
     name: 'conversation.composer.dock'
@@ -93,9 +93,9 @@ declare module '@deepseek-ai/cordis' {
     /** Register once the target slot is ready; returns a disposer. */
     inject(name: string, register: () => Disposer): Disposer
     /**
-     * 注册一个 slot 条目。
-     * 🔴 `single` 型 slot 重复注册会抛错，只有 `list` 型允许多个占用者
-     * （`conversation.view` 正是 list）。
+     * Register one slot entry.
+     * 🔴 A `single` slot throws on a duplicate registration; only `list` allows several occupants
+     * (`conversation.view` is one).
      */
     register(registration: ViewSlotRegistration | DockSlotRegistration, component: unknown): Disposer
   }
