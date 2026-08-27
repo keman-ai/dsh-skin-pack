@@ -1,7 +1,7 @@
 {
   "name": "dsh-ultraman-cosmic-hero",
   "version": "0.1.0",
-  "description": "宇宙英雄 —— DeepSeek Harness 的暗色皮肤：深空蓝黑 + 计时器三色（青/琥珀/红）+ 新会话页整幅宇宙英雄主视觉",
+  "description": "Cosmic Hero — a dark skin for DeepSeek Harness: deep-space blue-black, the timer's three colours (cyan/amber/red), and a full-bleed hero visual on the new-session page",
   "keywords": [
     "dsh",
     "deepseek-harness",

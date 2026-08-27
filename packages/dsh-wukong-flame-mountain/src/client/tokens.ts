@@ -141,7 +141,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-state-warn-tertiary': '#26180f',
   '--dsw-alias-state-error-primary': p.red,
   '--dsw-alias-state-error-secondary': '#c75849',
-  // 🔴 business 是 harness 标注「进行中 / 活动」的那档语义（spinner、运行指示都读它），
+  // 🔴 business is the harness's semantic for in-progress and active (read by the spinner and the running indicator),
   // 正是原型把余烬橙留给的位置：2% 的用量配比意味着它只该在"真的在跑"时出现。
   '--dsw-alias-state-business-primary': p.ember,
   '--dsw-alias-state-business-tertiary': '#2a1710',

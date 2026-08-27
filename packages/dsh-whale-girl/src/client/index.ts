@@ -81,7 +81,7 @@ export const inject = ['theme', 'slots']
 /** Browser-half config, with the same field names as the host half. */
 export interface Config {
   /**
-   * 装上就切到鲸鱼娘，默认开。
+   * Switch to Whale Girl on install; on by default.
    *
    * Why the switch exists: the harness's third-party theme ids **never enter the built-in settings schema**, so
    * the choice lives only in the process and is never written to `$DSH_HOME/settings.yaml`; and the built-in
@@ -102,7 +102,7 @@ export function apply(ctx: Context, config: Config = {}): void {
    * priority), but that rail holds "click a tool call to see its Input / Output", the only lead there is when
    * debugging, so replacing it with a dock is a net loss. Both coexist without interfering.
    *
-   * 挂载不区分皮肤是否激活，可见性交给 CSS（`body[data-dsh-whale-girl]` 才 display）——
+   * Mounting does not depend on whether the skin is active; visibility is left to CSS (display only under `body[data-dsh-whale-girl]`) —
    * The rule is "not active means not present", so no half-built UI shows during the window before the skin takes effect.
    */
   ctx.effect(() => mountDock(), 'whale-girl: status dock')
@@ -192,7 +192,7 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
     return false
   }
   if (scope[CLAIM_KEY] !== undefined) {
-    ctx.logger.info('[whale-girl] 已有皮肤占了自动应用名额（%s），本套改为待选', String(scope[CLAIM_KEY]))
+    ctx.logger.info('[whale-girl] another skin already claimed the auto-apply slot (%s); this one waits to be picked', String(scope[CLAIM_KEY]))
     return false
   }
   scope[CLAIM_KEY] = THEME_ID
@@ -214,14 +214,14 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
   let attached = false
   /** Disposers for the brand-slot registrations, existing only while the skin is active. */
   let brandDisposers: (() => void)[] = []
-  /** 推迟接管品牌位的定时器（切换时让旧皮肤先注销，见 sync）。 */
+  /** Timer deferring the brand-slot takeover, letting the old skin deregister first on a switch (see sync). */
   let brandTimer: ReturnType<typeof setTimeout> | undefined
 
   /**
    * Whether the startup window has passed. Inside it the theme is held; after it, nothing is touched.
    *
    * 🔴 It cannot be "stop after one successful switch": ui-theme's `setTheme` persists built-in preferences only
-   *（`isThemePreference('whale-girl')` 是 false，第三方 id 根本不进持久化），而 Host 快照
+   * (`isThemePreference('whale-girl')` is false and third-party ids never reach persistence), and when the Host snapshot
    * On arrival, `adopt()` **overrides** the current preference with the built-in value from disk. Once the order is
    * plugin-switches-then-snapshot-arrives, the skin is quietly swapped back to a built-in theme **with no error at
    * all**, and the plugin has already let go so it never switches back — the symptom being "installed a skin, refreshed a few times, back to default". The order is a race, hence the intermittency.
@@ -252,7 +252,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
         // 🔴 Do not say "pick it under Settings → Appearance": measured, that row holds only the three built-in
         // preferences light / dark / follow system (CUBES in ui-theme's AppearanceRow is hardcoded to three), and third-party themes are simply not there.
         // The place to switch manually is the skin market's own panel (Settings → Skin Market).
-        ctx.logger.warn('[whale-girl] 自动应用失败，可到「设置 → 皮肤市场」手动切换', error)
+        ctx.logger.warn('[whale-girl] auto-apply failed; you can switch manually under Settings → Skin Market', error)
       }
       return
     }
@@ -265,8 +265,8 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
       body.setAttribute(BODY_ATTRIBUTE, '')
       restoreDockOpen(body)
       /*
-       * 🔴 接管品牌位推迟一拍：切换时新旧两套响应同一个 theme/change，新皮肤先跑就会撞上
-       * 旧皮肤还没注销的 single slot，被静默吞掉，表现是"切过去了但品牌位还是官方标"。
+       * 🔴 The brand takeover is deferred one tick: on a switch both skins respond to the same theme/change, and if the
+       * new one runs first it collides with the single slot the old one has not yet released, is silently swallowed, and the result is a switched skin still showing the official mark.
        */
       clearTimeout(brandTimer)
       brandTimer = setTimeout(() => { brandDisposers = attachBrand(ctx) }, 0)
@@ -417,7 +417,7 @@ function attachBrand(ctx: Context): (() => void)[] {
           priority: -1,
         }, slot.component)
       } catch (error) {
-        ctx.logger.warn('[whale-girl] 品牌位 %s 接管失败，保留官方标', slot.name, error)
+        ctx.logger.warn('[whale-girl] brand slot %s takeover failed; keeping the official mark', slot.name, error)
         return () => {}
       }
     }))

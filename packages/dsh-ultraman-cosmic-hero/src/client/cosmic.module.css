@@ -40,7 +40,7 @@
 :global(body[data-dsh-cosmic-hero] [data-phase='hero'])::before {
   content: '';
   position: absolute;
-  /* 原型 `.hero-wrap` 的 14px 内边距 + `.hero` 的 15px 圆角、青描边与投影。 */
+  /* The prototype's 14px `.hero-wrap` padding plus `.hero`'s 15px radius, cyan border and shadow. */
   inset: 14px;
   border-radius: 15px;
   border: 1px solid rgba(79, 200, 255, 0.16);
@@ -48,7 +48,7 @@
   z-index: 0;
   pointer-events: none;
   background-image: var(--cosmic-cover);
-  /* 原图约 16:9，与卡片比例接近，`cover` 几乎不裁；原型的 `.hero img` 同样是 cover。 */
+  /* The source is roughly 16:9, close to the card's ratio, so `cover` crops almost nothing; the prototype's `.hero img` is cover too. */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -100,7 +100,7 @@
 :global(body[data-dsh-cosmic-hero] [data-phase='hero'] [data-composer-seat]) {
   align-items: center;
   z-index: 2;
-  /* 卡片有 14px 外边距，输入框跟着往上抬一点，别压在圆角上。 */
+  /* The card has 14px of margin, so the composer lifts slightly to avoid sitting on the rounded corner. */
   padding-bottom: 10px;
 }
 

@@ -210,7 +210,7 @@
 }
 
 :global(body[data-dsh-niulai] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '牛来正在深潜……';
+  content: 'Niulai is diving deep…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -252,7 +252,7 @@
  * Appended as before: the original error line carries the specific "Error: …" reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-niulai] [data-state='error'] [class*='_title'])::after {
-  content: ' · 事情超出了牛来的预料';
+  content: ' · this went beyond what Niulai expected';
   font-weight: 400;
   color: var(--dsw-alias-state-error-primary);
 }
@@ -266,7 +266,7 @@
  * mismatch this one simply does not display, leaving the other three unaffected.
  */
 :global(body[data-dsh-niulai] [data-chat-flow-kind='approval'] [class*='_title'])::before {
-  content: '牛来需要你拿个主意 · ';
+  content: 'Niulai needs you to decide · ';
   font-weight: 600;
   color: var(--dsw-alias-brand-primary);
 }
@@ -358,7 +358,7 @@
  * sensitivity "composerStack" does not contain "_stack", so nothing is hit by mistake.
  */
 :global(body[data-dsh-niulai] [data-phase='hero'] [class*='_stack'])::before {
-  content: '● 牛来在这儿。给它一个任务。';
+  content: '● Niulai is here. Give it a task.';
   align-self: center;
   margin-bottom: 12px;
   padding: 7px 12px;

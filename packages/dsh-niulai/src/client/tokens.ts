@@ -55,8 +55,8 @@ const p = NIULAI_PALETTE
  * everything would shut out built-in tokens added later.
  */
 export const NIULAI_TOKENS: Record<string, string> = {
-  // ── 容器三级层次 ──
-  // 设计稿的 bg → surface → surface-2/3 是逐级抬升，与 harness 的 base → layer-1/2/3 同构。
+  // ── Three container levels ──
+  // The draft's bg → surface → surface-2/3 rise step by step, isomorphic to the harness's base → layer-1/2/3.
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.surface,
   '--dsw-alias-bg-layer-2': p.surface2,
@@ -65,8 +65,8 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface3,
   '--dsw-alias-bg-multi-select': p.surface2,
 
-  // 遮罩设计稿没给。内置用纯黑透明，这里换成带绿的深色，
-  // 让弹窗压暗时底下的原野色不被洗成灰。
+  // The draft gives no scrim. The built-in uses transparent black; here it becomes a green-tinged dark,
+  // so dimming behind a modal does not wash the field colours to grey.
   '--dsw-alias-bg-mask-1': 'rgba(10, 12, 7, 0.56)',
   '--dsw-alias-bg-mask-2': 'rgba(10, 12, 7, 0.24)',
   '--dsw-alias-bg-mask-3': 'rgba(10, 12, 7, 0.52)',
@@ -75,8 +75,8 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(243, 239, 228, 0.07)',
 
   // ── Borders ──
-  // 设计稿只有 --line(#373c2a) 与 --line-soft(白 6.5%) 两级，harness 要四级：
-  // l1 最弱用 line-soft，l2 用实色 line，l3/l4 往草绿方向提亮，保持同一色相。
+  // The draft has only two levels, --line (#373c2a) and --line-soft (white 6.5%), while the harness wants four:
+  // l1 the weakest uses line-soft, l2 the solid line, and l3/l4 brighten towards grass, keeping one hue.
   '--dsw-alias-border-l1': 'rgba(243, 239, 228, 0.065)',
   '--dsw-alias-border-l2': p.line,
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(243, 239, 228, 0.08)',
@@ -93,15 +93,15 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-label-tertiary': p.text3,
   '--dsw-alias-label-caption': p.text3,
   '--dsw-alias-label-dimmed': p.grass,
-  // 落在主色块上的文字（米黄底深字）。用 bg 而不是纯黑，保持暖调统一。
+  // Text on the primary block (dark on cream). It uses bg rather than pure black to keep the warmth consistent.
   '--dsw-alias-label-primary-foreground': p.bg,
   '--dsw-alias-label-primary-inverted': p.surface3,
 
   // ── Brand and primary button ──
-  // 🔴 <b>主操作是口鼻米黄，不是橙</b>。设计稿的 Component language 写死了两条分工：
+  // 🔴 <b>The primary action is muzzle cream, not orange.</b> The draft's component language fixes the division:
   // 「orange reserved for active state / run state」「straw yellow for primary action」，
-  // 底部交接色卡把 Primary action 标成 #F0D28A。橙是牛在动的信号，不是按钮的默认色 ——
-  // 主按钮铺橙会让「运行中」和「可以点」变成同一个视觉语言，状态就没法读了。
+  // the handoff swatch marks Primary action as #F0D28A. Orange signals the cow in motion, not a button's default —
+  // an orange primary button would make "running" and "clickable" one visual language, leaving state unreadable.
   '--dsw-alias-brand-primary': p.muzzle,
   '--dsw-alias-brand-text': p.muzzle,
   '--dsw-alias-brand-primary-invert': p.bg,
@@ -116,7 +116,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-button-ghost-active-fill': p.surface3,
   '--dsw-alias-button-ghost-active-hover': p.grass,
   '--dsw-alias-button-ghost-active-border': p.grass,
-  // info 按钮承载「去看正在发生的事」，属于 run state 一侧，用橙。
+  // The info button carries "go and see what is happening", which belongs to run state, so orange.
   '--dsw-alias-button-info-fill': p.orangeDeep,
   '--dsw-alias-button-info-hover': p.orange,
   '--dsw-alias-button-tool-bar-fill': 'rgba(115, 119, 70, 0.5)',
@@ -124,7 +124,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(32, 35, 26, 0.4)',
 
   // ── Interaction states ──
-  // hover 用暖白低透明度，落在任何一级容器上都能看出来又不抢眼。
+  // Hover uses warm white at low opacity, visible on any container level without drawing attention.
   '--dsw-alias-interactive-bg-hover': 'rgba(243, 239, 228, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(243, 239, 228, 0.13)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
@@ -132,7 +132,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(219, 115, 91, 0.18)',
 
   // ── Status colours ──
-  // 设计稿的四个状态色直接对位；tertiary（浅底）按同色相压暗到容器层级。
+  // The draft's four status colours map directly; tertiary (the light ground) is darkened within the same hue to container level.
   '--dsw-alias-state-success-primary': p.good,
   '--dsw-alias-state-success-secondary': p.good,
   '--dsw-alias-state-success-tertiary': '#2b3a1f',
@@ -142,13 +142,13 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-state-warn-tertiary': '#3a3220',
   '--dsw-alias-state-error-primary': p.danger,
   '--dsw-alias-state-error-secondary': p.danger,
-  // 🔴 business 是 harness 标注「进行中 / 活动」的那档语义（spinner、运行指示都读它），
-  // 正是设计稿把橙留给的位置：orange reserved for active state / run state。
+  // 🔴 business is the harness's semantic for in-progress and active (read by the spinner and the running indicator),
+  // exactly where the draft reserves the orange: orange reserved for active state / run state.
   '--dsw-alias-state-business-primary': p.orange,
   '--dsw-alias-state-business-tertiary': '#3a2a18',
 
   // ── Markdown and code ──
-  // 代码块比正文容器更沉，压到 bg-2，读长代码时不刺眼。
+  // Code blocks sit deeper than the body container, pressed to bg-2 so long listings do not glare.
   '--dsw-alias-markdown-code-block': p.bg2,
   '--dsw-alias-markdown-code-block-banner': p.surface2,
   '--dsw-alias-markdown-inline-code': p.surface2,
@@ -159,7 +159,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-tag': p.surface2,
 
   // ── Scrollbar ──
-  // 用草绿系而不是中性灰：滚动条是长期可见的元素，灰色会把整片暖调拉回中性。
+  // The grass family rather than neutral grey: a scrollbar is permanently visible, and grey would pull the whole warmth back to neutral.
   '--dsw-alias-scrollbar-bg-l1': p.line,
   '--dsw-alias-scrollbar-bg-l2': p.grass,
   '--dsw-alias-scrollbar-hover-l1': p.grass,
@@ -170,7 +170,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-tooltip-bg': p.surface3,
 
   // ── The specific layer: hooks the harness leaves for individual parts ──
-  // 侧栏比主区更沉一档（设计稿的 --bg-2），让对话区显得往前浮。
+  // The sidebar sits one step deeper than the main area (the draft's --bg-2), floating the conversation forward.
   '--dsw-specific-sidebar-fill': p.bg2,
   '--dsw-specific-sidebar-nav-item-hover': p.surface,
   '--dsw-specific-sidebar-nav-item-active': p.surface3,

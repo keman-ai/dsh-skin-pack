@@ -114,7 +114,7 @@ function sameUsage(a: UsageSnapshot, b: UsageSnapshot): boolean {
   if (!keys.every(key => a[key] === b[key])) {
     return false
   }
-  // 两个字符串数组的引用每次都新，按内容比。
+  // Both string arrays get new references every time, so compare by content.
   return sameNames(a.runningTools, b.runningTools) && sameNames(a.pendingApprovals, b.pendingApprovals)
 }
 

@@ -229,7 +229,7 @@ export function TwinwhaleStatusDock() {
                         {call.running === true
                           ? `running · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '失手' : `失手 · ${formatDuration(call.ms)}`
+                            ? call.ms === undefined ? 'missed' : `missed · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>

@@ -136,7 +136,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-state-warn-tertiary': '#fdf6e8',
   '--dsw-alias-state-error-primary': '#d66058',
   '--dsw-alias-state-error-secondary': '#c14c45',
-  // business 是 harness 标注「进行中 / 活动」的那档语义（spinner、运行指示都读它）。
+  // business is the harness's semantic for in-progress and active (read by the spinner and the running indicator).
   // 给品牌蓝的亮一档：这套皮肤只有蓝白，运行态没必要引入第五种颜色。
   '--dsw-alias-state-business-primary': p.brand2,
   '--dsw-alias-state-business-tertiary': '#e6edff',
@@ -158,7 +158,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l2': p.brand3,
 
   // ── Overlays ──
-  // tooltip 在浅色界面里要反过来用深底白字，否则贴在白卡片上看不出是浮层。
+  // In a light UI a tooltip must invert to white on dark, or it is indistinguishable from the white card it floats over.
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': '#27418a',
 

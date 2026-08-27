@@ -48,7 +48,7 @@ export interface Config {
 }
 
 export function apply(ctx: Context, config: Config = {}): void {
-  /* 封面路由。内容不变，给一年的不可变缓存。 */
+  /* The cover route. Its content never changes, so a one-year immutable cache. */
   ctx.effect(() => ctx.webServer.register({
     kind: 'exact',
     path: COVER_ROUTE,
@@ -63,5 +63,5 @@ export function apply(ctx: Context, config: Config = {}): void {
   }), `niulai: ${COVER_ROUTE}`)
 
   const mode = config.autoApply === false ? 'select it manually under Settings → Appearance' : 'applied automatically'
-  ctx.logger.info('[niulai] 牛来原野已挂载（%s）', mode)
+  ctx.logger.info('[niulai] Niulai Field mounted (%s)', mode)
 }

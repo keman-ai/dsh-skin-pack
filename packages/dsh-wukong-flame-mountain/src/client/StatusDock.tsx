@@ -159,8 +159,8 @@ export function WukongStatusDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              缩小版主视觉。用的是同一张内联图（不额外增加体积），`cover` 裁切——这张图是
-              "巨像居中、两侧雪山"的构图，按侧栏宽度裁掉的正是两侧雪山，主体反而更突出。
+              A reduced hero visual, using the same inline image (adding no size) and cropped with `cover` — the image is
+              a colossus centred between snow peaks, and cropping to sidebar width removes exactly those peaks, making the subject stand out more.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--wukong-cover)' }}>
               <span className={css.coverName}>黑神话悟空 · 焚山版</span>

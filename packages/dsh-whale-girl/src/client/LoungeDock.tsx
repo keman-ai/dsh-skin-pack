@@ -138,7 +138,7 @@ export function WhaleLoungeDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="鲸鱼娘状态台">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Whale Girl status dock">
       <button
         type="button"
         className={css.handle}
@@ -153,8 +153,8 @@ export function WhaleLoungeDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              缩小版封面。用的是同一张内联图（不额外增加体积），contain 保证两个角色都完整
-              —— 这张图的构图是"左右各一人"，裁切必然切到人。
+              A reduced cover, using the same inline image (adding no size), with contain keeping both figures whole
+              — the composition places a figure at each side, and cropping inevitably cuts into them.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--whale-girl-cover)' }}>
               <span className={css.coverName}>Whale Girl Lounge</span>
@@ -181,7 +181,7 @@ export function WhaleLoungeDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 鲸鱼娘正在忙' : '● 就绪 READY'}
+                  {busy ? '● WHALE GIRL BUSY' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (

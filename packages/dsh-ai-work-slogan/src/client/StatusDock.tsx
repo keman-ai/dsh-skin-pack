@@ -145,7 +145,7 @@ export function WorkStatusDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="工作台状态">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Workbench status">
       <button
         type="button"
         className={css.handle}
@@ -160,8 +160,8 @@ export function WorkStatusDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              这套原型没有封面插画，状态台顶部就不放缩略图了——换成一条与顶栏同款的品牌行：
-              白色方标 + AI Work Mode。硬塞一张图只会让这根栏变矮。
+              This prototype has no cover illustration, so the top of the dock carries no thumbnail but a brand row
+              matching the top bar: the white mark plus AI Work Mode. Forcing an image in would only shorten the rail.
             */}
             <div className={css.badge}>
               <span className={css.badgeMark} style={{ backgroundImage: `url("${DEEPSEEK_ICON}")` }} />

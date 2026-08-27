@@ -229,7 +229,7 @@ export function SwingStatusDock() {
                         {call.running === true
                           ? `出动中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '落空' : `落空 · ${formatDuration(call.ms)}`
+                            ? call.ms === undefined ? 'missed' : `missed · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'arrived' : `arrived · ${formatDuration(call.ms)}`}
                       </span>
                     </li>

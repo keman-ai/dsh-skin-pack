@@ -17,27 +17,27 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const COSMIC_PALETTE = {
-  /** 深空底，接近纯黑但带蓝。 */
+  /** The deep-space ground: near black with a blue cast. */
   bg: '#030810',
   bg2: '#07131f',
-  /** 面板两级（卡片渐变的上下端）。 */
+  /** Two panel levels (the top and bottom of the card gradient). */
   panel: '#091726',
   panel2: '#0d2032',
 
   text: '#e9f8ff',
   muted: '#7897aa',
 
-  /** 青：描边、图标、强调，以及"正在运行"。 */
+  /** Cyan: borders, icons, emphasis and running. */
   cyan: '#23d9ff',
-  /** 蓝：<b>主操作色</b>（原型的 ＋ New Session 就是这条蓝渐变）。 */
+  /** Blue: the <b>primary action colour</b> (the prototype's + New Session is this blue gradient). */
   blue: '#2787ff',
-  /** 亮蓝：蓝渐变的上端，用作 hover。 */
+  /** Bright blue: the top of the blue gradient, used for hover. */
   blue2: '#1a7dff',
-  /** 红：<b>稀缺色</b>，只给错误态。 */
+  /** Red: <b>the scarce colour</b>, reserved for errors. */
   red: '#e6313a',
-  /** 琥珀：需要确认的操作，以及计时器三色的中段。 */
+  /** Amber: actions needing confirmation, and the timer's middle band. */
   amber: '#ffd84e',
-  /** 绿：ONLINE / READY。 */
+  /** Green: ONLINE / READY. */
   green: '#5ce2a6',
 } as const
 
@@ -51,8 +51,8 @@ const p = COSMIC_PALETTE
  */
 export const COSMIC_TOKENS: Record<string, string> = {
   // ── Container layers ──
-  // 原型是「深空底 + 蓝黑面板」：bg → panel → panel2 逐级抬升，与 harness 的
-  // base → layer-1/2/3 同构；layer-3 再抬一档给弹层，免得弹层与卡片分不开。
+  // The prototype is a deep-space ground with blue-black panels: bg → panel → panel2 rise step by step, isomorphic to
+  // the harness's base → layer-1/2/3; layer-3 rises once more for overlays so they stay distinct from cards.
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': '#071623',
   '--dsw-alias-bg-layer-2': p.panel,
@@ -61,7 +61,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.panel2,
   '--dsw-alias-bg-multi-select': '#112f4a',
 
-  // 遮罩：压暗要压向深蓝而不是纯黑——纯黑会把这套蓝调洗成灰。
+  // The scrim darkens towards deep blue rather than pure black — black would wash this blue to grey.
   '--dsw-alias-bg-mask-1': 'rgba(2, 7, 13, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(2, 7, 13, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(2, 7, 13, 0.62)',
@@ -70,8 +70,8 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(233, 248, 255, 0.06)',
 
   // ── Borders ──
-  // 原型全场只有一条 `--line: rgba(102,213,255,.16)`——**带青色倾向的暗描边**，不是中性灰。
-  // 这条线是整套皮肤"科技感"的来源，四级都按它的色相走。
+  // The prototype uses exactly one, `--line: rgba(102,213,255,.16)` — a **cyan-tinted dark border**, not neutral grey.
+  // That line is where the skin's technical feel comes from, and all four levels follow its hue.
   '--dsw-alias-border-l1': 'rgba(102, 213, 255, 0.10)',
   '--dsw-alias-border-l2': 'rgba(102, 213, 255, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(102, 213, 255, 0.12)',
@@ -88,14 +88,14 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-label-tertiary': p.muted,
   '--dsw-alias-label-caption': '#557183',
   '--dsw-alias-label-dimmed': '#557183',
-  // 落在蓝色主按钮上的字：原型的 ＋ New Session 是白字。
+  // Text on the blue primary button: the prototype's + New Session is white.
   '--dsw-alias-label-primary-foreground': '#ffffff',
   '--dsw-alias-label-primary-inverted': p.panel2,
 
   // ── Brand and primary button ──
-  // 🔴 <b>主操作是蓝，不是红也不是青</b>。原型里红只在 logo 外圈、头像与"当前模式"描边上出现，
-  // 青是描边与强调；唯一的实心大按钮 `＋ New Session` 走蓝渐变。拿红做按钮会让"出错了"和
-  // "可以点"变成同一个视觉语言。
+  // 🔴 <b>The primary action is blue, neither red nor cyan.</b> In the prototype red appears only on the logo's outer
+  // ring, the avatar and the current-mode border, while cyan is borders and emphasis; the one large solid button uses the
+  // blue gradient. A red button would make "something went wrong" and "you may click" one visual language.
   '--dsw-alias-brand-primary': p.blue,
   '--dsw-alias-brand-text': '#6ee0ff',
   '--dsw-alias-brand-primary-invert': '#ffffff',
@@ -110,7 +110,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-button-ghost-active-fill': '#0d2940',
   '--dsw-alias-button-ghost-active-hover': '#112f4a',
   '--dsw-alias-button-ghost-active-border': 'rgba(102, 213, 255, 0.28)',
-  // info 是「去看正在发生的事」，用青——比蓝低一档，不与主操作抢位。
+  // info means "go and see what is happening", so cyan — one step below blue, never competing with the primary action.
   '--dsw-alias-button-info-fill': '#0d4160',
   '--dsw-alias-button-info-hover': '#155a80',
   '--dsw-alias-button-tool-bar-fill': 'rgba(35, 217, 255, 0.12)',
@@ -125,20 +125,20 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(230, 49, 58, 0.2)',
 
   // ── Status colours ──
-  // 绿 = ONLINE / READY（原型的 `.online` 与那颗 `● COSMIC HERO ONLINE` 胶囊）。
+  // Green = ONLINE / READY (the prototype's `.online` and its `● COSMIC HERO ONLINE` pill).
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': p.green,
   '--dsw-alias-state-success-tertiary': '#0a2525',
-  // 需要你确认的操作走琥珀，也是计时器三色的中段。
+  // Actions needing your confirmation use amber, the timer's middle band.
   '--dsw-alias-state-warn-primary': p.amber,
   '--dsw-alias-state-warn-secondary': p.amber,
   '--dsw-alias-state-warn-label': '#ffe38a',
   '--dsw-alias-state-warn-tertiary': '#2a2410',
-  // 🔴 红只在这里出现。
+  // 🔴 Red appears here and nowhere else.
   '--dsw-alias-state-error-primary': p.red,
   '--dsw-alias-state-error-secondary': '#ef3943',
-  // business 是 harness 标注「进行中 / 活动」的那档语义（spinner、运行指示都读它）。
-  // 给青：英雄"能量充盈"的颜色，与计时器三色的起点一致。
+  // business is the harness's semantic for in-progress and active (read by the spinner and the running indicator).
+  // Cyan it is: the colour of a hero at full energy, and the start of the timer's three.
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#0a2a3a',
 
@@ -153,7 +153,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-tag': p.panel,
 
   // ── Scrollbar ──
-  // 用青色半透明而不是中性灰：滚动条长期可见，灰色会把整片蓝调拉回中性。
+  // Translucent cyan rather than neutral grey: a scrollbar is permanently visible, and grey would pull the whole blue back to neutral.
   '--dsw-alias-scrollbar-bg-l1': 'rgba(102, 213, 255, 0.14)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(102, 213, 255, 0.26)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(102, 213, 255, 0.28)',
@@ -164,7 +164,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-tooltip-bg': p.panel2,
 
   // ── The specific layer: hooks the harness leaves for individual parts ──
-  // 侧栏比主区更沉一档（原型 sidebar 是 #06121e → #040c14 的竖向渐变）。
+  // The sidebar sits one step deeper than the main area (the prototype's sidebar is a #06121e → #040c14 vertical gradient).
   '--dsw-specific-sidebar-fill': '#051019',
   '--dsw-specific-sidebar-nav-item-hover': '#0a1d2d',
   '--dsw-specific-sidebar-nav-item-active': '#112f4a',

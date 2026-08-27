@@ -42,15 +42,15 @@ export function WorkMark({ size, className }: BrandMarkProps) {
       className={[css.mark, className].filter(Boolean).join(' ')}
       aria-hidden="true"
       /*
-       * 🔴 尺寸走 CSS 变量，不写死成 width/height 内联值。
+       * 🔴 The size goes through a CSS variable rather than inline width/height.
        *
-       * 宿主在新会话页只给 34px，而原型那块白方块是 84px——内联样式的优先级高于任何类选择器，
-       * 写死之后样式表就只能靠 `!important` 去抢。
+       * The host gives only 34px on the new-session page while the prototype's square is 84px — and inline styles
+       * outrank any class selector, so hardcoding would leave the stylesheet fighting with `!important`.
        *
-       * ⚠️ 变量名是 `--mark-host-size`（宿主要求的尺寸），不是 `--mark-size`：自定义属性写在
-       * **元素自己**的 style 上时，祖先上的同名变量盖不过它——第一版就是这么写的，hero 里那条
-       * 放大规则完全不起作用。样式表实际读的是 `var(--mark-size, var(--mark-host-size, 34px))`：
-       * 谁都不设就用宿主尺寸，样式表想放大就在祖先上设 `--mark-size`。
+       * ⚠️ The variable is `--mark-host-size` (the size the host asks for), not `--mark-size`: a custom property set
+       * on **the element's own** style cannot be overridden by an ancestor — the first version did exactly that, and
+       * the hero's enlarging rule had no effect. The stylesheet actually reads `var(--mark-size, var(--mark-host-size, 34px))`:
+       * with neither set it uses the host size, and to enlarge, the stylesheet sets `--mark-size` on an ancestor.
        */
       style={{
         '--mark-host-size': `${size}px`,

@@ -71,7 +71,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
 **This draft gives no agent-copy specification either**, so not one line of host copy is replaced.
-没有依据的人格化文案是自己加戏。
+Unfounded personified copy is embellishment.
 
 ## Install
 

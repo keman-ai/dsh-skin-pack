@@ -1,28 +1,28 @@
 /**
- * 奥特小队·末日的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Ultra Team · Apocalypse's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 这套稿子**没有** Theme rules 那一节（不像同批的其它几套写死了配比），只给了一组
- * `:root` 变量。所以配比得从它**实际怎么用**这些变量里读出来：
+ * 🔴 This draft has **no** Theme rules section (unlike others in the batch, which fix the ratios) and gives only a set of
+ * `:root` variables. So the division had to be read from **how it actually uses** them:
  *
- *   - `--bg: #120909` / `--panel: #1a1010`——底与面板是**烧焦的暗红黑**，不是中性黑。
- *     整套界面的八成是它；
- *   - `--line: rgba(255,151,85,.16)`——**全场只有一条描边**，带火光橙。分层全靠它；
- *   - `--orange: #ff7b2c`——主操作（原型 `.new` 是 `linear-gradient(135deg,#f0522d,#bb251f)`，
- *     橙红渐变）；
- *   - `--red: #ef3b2f`——奥特曼身上那片红，留给**危险与失败**；
- *   - `--yellow: #ffdc60` / `--cyan: #57d9ff` / `--green: #65dfa3`——原型只在小徽标和
- *     状态点上零星用过，这里分别落到警告、进行中、成功。
+ *   - `--bg: #120909` / `--panel: #1a1010` — ground and panels are a **charred dark red-black**, not neutral black,
+ *     and they are eight tenths of the interface;
+ *   - `--line: rgba(255,151,85,.16)` — **the only border anywhere**, tinted with firelight; all layering rests on it;
+ *   - `--orange: #ff7b2c` — the primary action (the prototype's `.new` is `linear-gradient(135deg,#f0522d,#bb251f)`,
+ *     an orange-to-red gradient);
+ *   - `--red: #ef3b2f` — the red of the hero's suit, reserved for **danger and failure**;
+ *   - `--yellow: #ffdc60` / `--cyan: #57d9ff` / `--green: #65dfa3` — the prototype uses them only sparingly on small
+ *     badges and status dots, and here they land on warning, in-progress and success respectively.
  *
- * 🔴 **橙和红必须分开**：橙是"你要做的事"（主操作），红是"出事了"。这套画面本身就是
- * 一片火，两个色再混在一起，界面会变成"哪里都在烧"，真出错时反而看不见。
+ * 🔴 **Orange and red must stay apart**: orange is what you are meant to do (the primary action), red is that something
+ * went wrong. The artwork is already all fire, and mixing them would make everything look ablaze, hiding a real error.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const ULTRATEAM_PALETTE = {
-  /** 烧焦的暗红黑。 */
+  /** The charred dark red-black. */
   bg: '#120909',
   bg2: '#1a0c0b',
   /** Two panel levels. */
@@ -32,15 +32,15 @@ export const ULTRATEAM_PALETTE = {
   text: '#fff2e6',
   muted: '#b08f7b',
 
-  /** 火光橙：主操作。 */
+  /** Firelight orange: the primary action. */
   orange: '#ff7b2c',
-  /** 战斗红：危险与失败。 */
+  /** Battle red: danger and failure. */
   red: '#ef3b2f',
-  /** 计时黄：警告。 */
+  /** Timer yellow: warning. */
   yellow: '#ffdc60',
-  /** 能量青：进行中。 */
+  /** Energy cyan: in progress. */
   cyan: '#57d9ff',
-  /** 恢复绿：成功。 */
+  /** Recovery green: success. */
   green: '#65dfa3',
 } as const
 
@@ -53,8 +53,8 @@ const p = ULTRATEAM_PALETTE
  */
 export const ULTRATEAM_TOKENS: Record<string, string> = {
   // ── Container layers ──
-  // 🔴 原型只给了两级面板（`--panel` / `--panel2`），harness 要三级。
-  // 第三级往上再抬一档而不是复用 panel2：层级塌成两级后，弹层和选中态会分不出来。
+  // 🔴 The prototype gives two panel levels (`--panel` / `--panel2`) and the harness wants three.
+  // The third rises one step further rather than reusing panel2: collapsed to two, overlays and the selected state become indistinguishable.
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.bg2,
   '--dsw-alias-bg-layer-2': p.panel,
@@ -63,7 +63,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.panel2,
   '--dsw-alias-bg-multi-select': '#331915',
 
-  // 遮罩：压向暗红黑而不是纯黑。纯黑会把这套的"焦"洗成"灰"。
+  // The scrim darkens towards the dark red-black rather than pure black; black would wash the char into grey.
   '--dsw-alias-bg-mask-1': 'rgba(9, 4, 4, 0.74)',
   '--dsw-alias-bg-mask-2': 'rgba(9, 4, 4, 0.36)',
   '--dsw-alias-bg-mask-3': 'rgba(9, 4, 4, 0.64)',
@@ -72,7 +72,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(255, 151, 85, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(255,151,85,.16)`——带火光的暗描边。分层全靠它。
+  // The prototype uses exactly one, `--line: rgba(255,151,85,.16)` — a dark border lit by fire. All layering rests on it.
   '--dsw-alias-border-l1': 'rgba(255, 151, 85, 0.11)',
   '--dsw-alias-border-l2': 'rgba(255, 151, 85, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(255, 151, 85, 0.13)',
@@ -82,8 +82,8 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted2': 'rgba(255, 242, 230, 0.1)',
 
   // ── Text ──
-  // 正文是米白偏暖的 `#fff2e6`，次要文字是 `#b08f7b`——都带一点烟熏的暖，
-  // 跟这片火光是同一套光。放中性灰会像贴上去的。
+  // Body text is a warm off-white `#fff2e6` and secondary text `#b08f7b` — both carrying a smoky warmth,
+  // the same light as the fire. Neutral grey would look pasted on.
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#f6ece3',
   '--dsw-alias-label-primary-dimmed': p.muted,
@@ -95,8 +95,8 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-inverted': p.panel2,
 
   // ── Brand and primary button ──
-  // 主操作是那条橙红渐变（原型 `.new`）。这里用它的中点 `#ff7b2c` 做实心，
-  // 白字压得住。
+  // The primary action is that orange-to-red gradient (the prototype's `.new`), rendered here as a solid at its midpoint
+  // `#ff7b2c`, which white text holds up against.
   '--dsw-alias-brand-primary': p.orange,
   '--dsw-alias-brand-text': '#ffa763',
   '--dsw-alias-brand-primary-invert': '#ffffff',
@@ -132,11 +132,11 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-state-warn-secondary': '#f5cf5c',
   '--dsw-alias-state-warn-label': '#ffe995',
   '--dsw-alias-state-warn-tertiary': '#32290f',
-  // 🔴 错误用 `--red`，主操作用 `--orange`，两者不共用。这套画面本身就是一片火，
-  // 橙红再混在一起，真出错时反而看不见。
+  // 🔴 Errors use `--red` and the primary action `--orange`, never shared. The artwork is already all fire,
+  // and mixing orange with red would hide a real error.
   '--dsw-alias-state-error-primary': p.red,
   '--dsw-alias-state-error-secondary': '#f5665b',
-  // business = 进行中：能量青。全场唯一的冷色，在这片火里最容易被认出来。
+  // business = in progress: energy cyan. The only cool colour anywhere, and the easiest to pick out amid the fire.
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#0f3444',
 

@@ -1,7 +1,7 @@
 {
   "name": "dsh-ai-work-slogan",
   "version": "0.1.0",
-  "description": "AI 工作模式 —— DeepSeek Harness 的暗色皮肤：深海蓝渐变 + 毛玻璃面板 + 白色主操作，空屏是一句口号",
+  "description": "AI Work Mode — a dark skin for DeepSeek Harness: a deep-sea blue gradient, frosted-glass panels, a white primary action, and a slogan on the empty screen",
   "keywords": [
     "dsh",
     "deepseek-harness",

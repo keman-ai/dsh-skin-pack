@@ -223,7 +223,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
   let attached = false
   /** Disposers for the brand-slot registrations, existing only while the skin is active. */
   let brandDisposers: (() => void)[] = []
-  /** 推迟接管品牌位的定时器（切换时让旧皮肤先注销，见 sync）。 */
+  /** Timer deferring the brand-slot takeover, letting the old skin deregister first on a switch (see sync). */
   let brandTimer: ReturnType<typeof setTimeout> | undefined
 
   /**
@@ -273,8 +273,8 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
       body.setAttribute(BODY_ATTRIBUTE, '')
       restoreDockOpen(body)
       /*
-       * 🔴 接管品牌位推迟一拍：切换时新旧两套响应同一个 theme/change，新皮肤先跑就会撞上
-       * 旧皮肤还没注销的 single slot，被静默吞掉，表现是"切过去了但品牌位还是官方标"。
+       * 🔴 The brand takeover is deferred one tick: on a switch both skins respond to the same theme/change, and if the
+       * new one runs first it collides with the single slot the old one has not yet released, is silently swallowed, and the result is a switched skin still showing the official mark.
        */
       clearTimeout(brandTimer)
       brandTimer = setTimeout(() => { brandDisposers = attachBrand(ctx) }, 0)

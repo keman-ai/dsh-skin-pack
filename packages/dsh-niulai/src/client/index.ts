@@ -189,7 +189,7 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
     return false
   }
   if (scope[CLAIM_KEY] !== undefined) {
-    ctx.logger.info('[niulai] 已有皮肤占了自动应用名额（%s），本套改为待选', String(scope[CLAIM_KEY]))
+    ctx.logger.info('[niulai] another skin already claimed the auto-apply slot (%s); this one waits to be picked', String(scope[CLAIM_KEY]))
     return false
   }
   scope[CLAIM_KEY] = THEME_ID
@@ -238,7 +238,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
       try {
         ctx.theme.setTheme(THEME_ID)
       } catch (error) {
-        ctx.logger.warn('[niulai] 自动应用失败，请到「设置 → 外观」手动选择', error)
+        ctx.logger.warn('[niulai] auto-apply failed; please select it under Settings → Appearance', error)
       }
       return
     }

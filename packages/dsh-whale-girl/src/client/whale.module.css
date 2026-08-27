@@ -47,9 +47,9 @@
   content: '';
   position: absolute;
   /*
-   * 原型稿的封面是一张**卡片**（`.home-wrap{padding:16px 18px}` + `.cover-card`
-   * 圆角 18px + 一层很淡的投影），不是贴边的整块背景。留出这圈边距，contain 造成的
-   * 上下留白就变成卡片外的底色，看着是"一张挂在墙上的画"而不是"没铺满的背景图"。
+   * The prototype's cover is **a card** (`.home-wrap{padding:16px 18px}` plus `.cover-card` with an 18px radius and a
+   * very faint shadow), not a flush full-bleed background. With that margin, the letterboxing contain produces
+   * becomes ground outside the card, reading as a picture hung on a wall rather than a background that failed to fill.
    */
   inset: 16px 18px;
   border-radius: 18px;
@@ -59,15 +59,15 @@
   pointer-events: none;
   background-image: var(--whale-girl-cover);
   /*
-   * 🔴 `contain` 而不是 `cover`。原型稿最后那段 “CLEAN CHARACTER COVER FIX” 把封面
-   * 从 `object-fit: cover` 改成了 `contain` 并配一块 #dce9fb 底，注释写着
-   * “Keep the actual Harness UI outside the cover image.”——两个角色分别站在画面左右两侧，
-   * cover 会从两边裁进去，正好切到人。另外原图上限 1672×941，cover 在宽屏上还会放大变糊。
+   * 🔴 `contain`, not `cover`. The prototype's closing "CLEAN CHARACTER COVER FIX" changed the cover from
+   * `object-fit: cover` to `contain` with a #dce9fb ground, noting "Keep the actual Harness UI outside the cover
+   * image." The two figures stand at either side of the frame, so cover crops in from both edges and cuts into them.
+   * The source also tops out at 1672×941, and cover would upscale and blur it on a wide screen.
    */
   background-size: contain;
   background-position: center 42%;
   background-repeat: no-repeat;
-  /* 图之外的留白：原型稿给封面卡片配的底色，让letterbox 不是一片死白。 */
+  /* The space around the image: the ground the prototype gives its cover card, so the letterbox is not dead white. */
   background-color: #dce9fb;
 }
 
@@ -79,7 +79,7 @@
 :global(body[data-dsh-whale-girl] [data-phase='hero'])::after {
   content: '';
   position: absolute;
-  /* 跟封面卡片同一块区域，圆角也要对上，否则四角会露出直角的浅幕。 */
+  /* The same area as the cover card, with matching radii, or square corners of the scrim show at the edges. */
   inset: 16px 18px;
   border-radius: 18px;
   z-index: 0;
@@ -188,7 +188,7 @@
 }
 
 :global(body[data-dsh-whale-girl] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '鲸鱼娘正在深潜……';
+  content: 'The whale girl is diving deep…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;

@@ -1,44 +1,44 @@
 ✔ dsh-ultra-team-apocalypse/README.md
-队 · 末日
+Team · Apocalypse
 
-DeepSeek Harness（dsh）的皮肤：焦黑暗红打底、火光橙做主操作、战斗红只给失败、能量青只给运行中，新会话页是一整幅末日小队主视觉
+A skin for DeepSeek Harness (dsh): a charred dark-red ground, firelight orange for the primary action, battle red for failure alone, energy cyan for running alone, and a full-bleed apocalypse squad visual on the new-session page
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底与面板是**烧焦的暗红黑**（`#120909` / `#1a1010`，不是中性黑），
-  全场只有一条描边 `rgba(255,151,85,.16)`（带火光橙），正文米白偏暖 `#fff2e6`。
+- **A full set of semantic tokens**: ground and panels are a **charred dark red-black** (`#120909` / `#1a1010`, not neutral black),
+  there is exactly one border colour, `rgba(255,151,85,.16)` tinted with firelight, and the body text is a warm off-white `#fff2e6`.
   约 80 个 `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
-- **新会话页整幅横幅**：五个人站在燃烧的废墟里，15px 圆角配橙描边和大投影；
-  输入区贴在卡片下沿，压幕在底部多压一段保证读得清。进入对话与轨迹页后横幅收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚能量核心徽标，副标「Ultra Team · Apocalypse」。
-- **右侧状态台**：常驻一根，见下表。其中「能量核心」那颗球**跟着真实的上下文占用变色**
-  （青 → 琥珀 → 红），没有数据时是灰的 idle，不假装 STABLE。
+- **A full banner on the new-session page**: five figures standing in burning ruins, with a 15px radius, an orange border and a large shadow;
+  the composer sits at the card's lower edge, with the scrim darkened a little further at the bottom to keep it legible. The banner collapses on entering a conversation or the trajectory.
+- **Brand takeover**: the sidebar and hero marks both become an energy-core badge, with the subtitle "Ultra Team · Apocalypse".
+- **A right-hand status dock**: always present; see the table below. Its energy-core orb **changes colour with real context occupancy**
+  (cyan → amber → red), sitting at a grey idle with no data rather than pretending to be STABLE.
 
 ## Palette rules
 
-🔴 **这套稿子没有 Theme rules 那一节**（不像同批的其它几套写死了配比），只给了一组 `:root` 变量。
-所以配比是从它**实际怎么用**这些变量里读出来的：
+🔴 **This draft has no Theme rules section** (unlike others in the same batch, which fix the ratios) and gives only a set of `:root` variables.
+So the division was read from **how it actually uses** them:
 
-| 色 | 值 | 读出来的职责 |
+| Colour | Value | The role read from it |
 |---|---|---|
-| 焦黑暗红 | `#120909` / `#1a1010` / `#251311` | 底与面板。**不是中性黑**——整套界面的八成是它 |
-| 火光橙 | `#ff7b2c` | 主操作。原型 `.new` 是 `linear-gradient(135deg,#f0522d,#bb251f)` |
-| 描边 | `rgba(255,151,85,.16)` | **全场只有这一条**，分层全靠它 |
-| 战斗红 | `#ef3b2f` | 危险与失败 |
-| 计时黄 | `#ffdc60` | 警告 |
-| 能量青 | `#57d9ff` | **正在跑** |
-| 恢复绿 | `#65dfa3` | 成功 |
+| Charred dark red | `#120909` / `#1a1010` / `#251311` | Ground and panels. **Not neutral black** — it is eight tenths of the interface |
+| Firelight orange | `#ff7b2c` | The primary action. The prototype's `.new` is `linear-gradient(135deg,#f0522d,#bb251f)` |
+| Border | `rgba(255,151,85,.16)` | **The only one anywhere**; all layering rests on it |
+| Battle red | `#ef3b2f` | Danger and failure |
+| Timer yellow | `#ffdc60` | Warning |
+| Energy cyan | `#57d9ff` | **Running** |
+| Recovery green | `#65dfa3` | Success |
 
-🔴 **橙和红必须分开**：橙是「你要做的事」（主操作），红是「出事了」。
-这套画面本身就是一片火，两个色再混在一起，界面会变成"哪里都在烧"，真出错时反而看不见。
+🔴 **Orange and red must stay apart**: orange is what you are meant to do (the primary action), red is that something went wrong.
+The artwork is already all fire, and mixing the two would make everything look ablaze — so a real error would go unseen.
 
-🔴 **文字带烟熏的暖**：正文 `#fff2e6`、次要 `#b08f7b`，跟这片火光是同一套光。
-放中性灰会像贴上去的——这是浅色/暖色皮肤最容易被忽略的一条。
+🔴 **The type carries a smoky warmth**: body `#fff2e6`, secondary `#b08f7b` — the same light as the fire.
+Neutral grey would look pasted on, and this is the rule light and warm skins most often miss.
 
-🔴 **面板补第三级**：原型只给了两级（`--panel` / `--panel2`），harness 要三级。
-第三级往上再抬一档而不是复用 panel2，否则弹层和选中态会分不出来。
+🔴 **A third panel level was added**: the prototype gives two (`--panel` / `--panel2`) and the harness wants three.
+The third rises one step further rather than reusing panel2, or overlays and the selected state become indistinguishable.
 
 ### What the status dock shows
 
@@ -50,7 +50,7 @@ DeepSeek Harness（dsh）的皮肤：焦黑暗红打底、火光橙做主操作�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 出击记录 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Sortie log | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -61,15 +61,15 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏的「Harness Systems」五行 `AI / MM / TL / CX / FS — ONLINE`、「Team Modes」两张模式卡
-（Battle Mode / Strategy Mode）、「Energy Matrix — Matrix State: STABLE」，以及封面上的
-「TEAM COVER ONLINE」「SYSTEM READY」，**harness 都没有对应的投影**。
+The prototype's right column has five `AI / MM / TL / CX / FS — ONLINE` rows under Harness Systems, two Team Modes cards
+(Battle Mode / Strategy Mode), an "Energy Matrix — Matrix State: STABLE", and on the cover
+"TEAM COVER ONLINE" and "SYSTEM READY" — **the harness has a projection for none of them**.
 
-装饰可以，假状态不行。其中「能量核心」那一块**改成了真的**：球的颜色跟着 `contextPressure`
-投影走（青 → 琥珀 → 红），没有数据时是灰的 idle。一个永远显示 STABLE 的核心不如不做。
+Decoration is fine; fake state is not. The energy core was **made real** instead: the orb's colour follows the
+`contextPressure` projection (cyan → amber → red), sitting at a grey idle with no data. A core permanently reading STABLE would be worse than none.
 
-**这套稿子也没给 Agent copy 规范**（同批的其它几套都给了六条），所以宿主文案一句都不替换。
-没有依据的人格化文案是自己加戏。
+**This draft gives no agent-copy specification either** (others in the batch list six lines), so not one line of host copy is replaced.
+Unfounded personified copy is embellishment.
 
 ## Install
 
@@ -81,7 +81,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-ultra-team-apocalypse
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-ultra-team-apocalypse 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-ultra-team-apocalypse to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -103,7 +103,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张干净插画（1774x887），一刀不裁，cwebp q95 原生分辨率——硬边描线的赛璐璐风格缩一档线条就毛了。
+The cover is the prototype's clean illustration (1774×887), uncropped, at native resolution with cwebp q95 — a hard-lined cel style frays the moment it is scaled down.
 
 ## Development
 

@@ -82,7 +82,7 @@ export const inject = ['theme', 'slots']
 /** Browser-half config, with the same field names as the host half. */
 export interface Config {
   /**
-   * 装上就切到鲸鱼娘，默认开。
+   * Switch to Whale Girl on install; on by default.
    *
    * Why the switch exists: the harness's third-party theme ids **never enter the built-in settings schema**, so
    * the choice lives only in the process and is never written to `$DSH_HOME/settings.yaml`; and the built-in

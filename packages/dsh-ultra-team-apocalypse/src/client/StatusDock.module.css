@@ -4,7 +4,7 @@
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
- * `data-dsh-ultrateam` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * stamps `data-dsh-ultrateam` onto body, and the harness UI is already rendered before that. During that window the dock
  * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
  * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
@@ -186,14 +186,14 @@
   display: block;
   height: 100%;
   /*
-   * 🔴 这里**不能**照抄原型那条 `linear-gradient(90deg,#22d8ff,#ffdb53,#ef3943)`。
+   * 🔴 The prototype's `linear-gradient(90deg,#22d8ff,#ffdb53,#ef3943)` **must not** be copied here.
    *
-   * 原型的能量条宽度是写死的 72%，渐变铺在那 72% 上正好读成"青 → 琥珀 → 红"；而我们的条宽等于
-   * 真实占用，占用 3% 时整条渐变会被压进 3% 的宽度里——三种颜色挤成一小撮，看着像"已经告急"，
-   * 与事实相反。
+   * The prototype's bar is a hardcoded 72% wide, and across that 72% the gradient reads cyan → amber → red. Ours is
+   * as wide as the real occupancy, so at 3% the whole gradient compresses into 3% of the width — three colours crushed
+   * together, reading as critical when the opposite is true.
    *
-   * 所以改成**按档位取单色**：与能量核心同一套分档（青 <60% / 琥珀 <85% / 红 ≥85%），
-   * 条越长颜色越警觉，跟计时器的隐喻一致，也不会自相矛盾。
+   * So it takes **one colour per band** instead, using the same thresholds as the energy core (cyan <60% / amber <85% /
+   * red ≥85%): the longer the bar the more alert the colour, consistent with the metaphor and never self-contradicting.
    */
   background: var(--fill-color, var(--dsw-alias-state-business-primary));
   transition: background 320ms ease-out;
@@ -309,7 +309,7 @@
  * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
  * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
- * 同样必须带 `[data-dsh-ultrateam]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * This too must carry `[data-dsh-ultrateam]`: without it, the main area yields 300px during the window before the skin activates,
  * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-ultrateam][data-ultrateam-dock-open] > div:first-of-type) {
@@ -374,7 +374,7 @@
   height: 74px;
   border-radius: 10px;
   margin-bottom: 4px;
-  /* 三段径向：芯 / 环 / 底，跟品牌徽标是同一个剖面结构。 */
+  /* Three radial bands — core, ring, ground — the same cross-section as the brand badge. */
   background: radial-gradient(circle, var(--core-color) 0 12%, var(--core-ring) 13% 35%, #1a1010 36% 100%);
   box-shadow: inset 0 0 30px var(--core-glow), 0 0 22px var(--core-glow);
   transition: background 320ms ease-out, box-shadow 320ms ease-out;

@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的末日小队主视觉 + 这场会话的真实状态。
+ * The right-hand dock: a reduced apocalypse squad visual plus this session's real state.
  *
  * The prototype's right column has four cards: Session setup / Workspace context / Keyboard / Theme note. Only
  * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
@@ -125,14 +125,14 @@ export function UltrateamStatusDock() {
     : undefined
 
   /*
-   * 能量核心的档位。
+   * The energy core's bands.
    *
-   * 原型稿右栏那颗 `Energy Core` 是纯装饰（固定的 radial 圆 + 写死的 "STABLE"）。装饰本身没问题，
-   * 但既然这套皮肤的能量条就是「青 → 琥珀 → 红」的彩色计时器，让它跟着**真实的上下文占用**走，
-   * 比钉死一个 STABLE 有用得多——占用越高，核心越红，跟计时器是同一套隐喻。
+   * The prototype's `Energy Core` is pure decoration (a fixed radial circle and a hardcoded "STABLE"). Decoration is
+   * fine in itself, but since this skin's energy bar already is the cyan → amber → red timer, following **real context
+   * occupancy** is far more useful than a nailed-down STABLE: the fuller it gets the redder the core, on the same metaphor.
    *
-   * 分档取整数百分比：60% 以下充盈、85% 以下告警、再往上告急。没有数据时是 idle（灰蓝），
-   * 不假装"稳定"。
+   * The bands are whole percentages: full below 60%, caution below 85%, critical above. With no data it is idle (grey-blue)
+   * rather than pretending to be stable.
    */
   const core = occupancy === undefined
     ? { level: 'idle', label: '—' }
@@ -160,7 +160,7 @@ export function UltrateamStatusDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="末日小队状态台">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Apocalypse squad status dock">
       <button
         type="button"
         className={css.handle}
@@ -175,8 +175,8 @@ export function UltrateamStatusDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              缩小版主视觉。用的是同一张内联图（不额外增加体积），`cover` 裁切——这张图是
-              "巨像居中、两侧雪山"的构图，按侧栏宽度裁掉的正是两侧雪山，主体反而更突出。
+              A reduced hero visual, using the same inline image (adding no size) and cropped with `cover` — the image is
+              a colossus centred between snow peaks, and cropping to sidebar width removes exactly those peaks, making the subject stand out more.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--ultrateam-cover)' }}>
               <span className={css.coverName}>Ultra Team</span>
@@ -230,28 +230,28 @@ export function UltrateamStatusDock() {
             </section>
 
             {/*
-              出击记录 —— 原型稿右栏那张卡的真数据版。
+              Sortie log — the real-data version of that card in the prototype's right column.
               The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>出击记录</div>
+                <div className={css.cardTitle}>Sortie log</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `出击中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `in the field · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '失手' : `失手 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '得手' : `得手 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'missed' : `missed · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'landed' : `landed · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 次更早的出击`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier sortie(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.
@@ -326,10 +326,10 @@ export function UltrateamStatusDock() {
             <section className={css.card}>
               <div className={css.cardTitle}>Energy Core</div>
               <div className={css.core} data-level={core.level} />
-              <Line label="核心状态">
+              <Line label="Core state">
                 <span className={css.coreState} data-level={core.level}>{core.label}</span>
               </Line>
-              <p className={css.hint}>核心颜色跟随上下文占用：青 → 琥珀 → 红。</p>
+              <p className={css.hint}>The core's colour follows context occupancy: cyan → amber → red.</p>
             </section>
 
             {status.compactedCount !== undefined && (

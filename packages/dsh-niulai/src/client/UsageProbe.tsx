@@ -121,7 +121,7 @@ interface ConversationSnapshotLike {
 
 interface ConversationNodeLike {
   kind: string
-  /** 只有 assistant 节点带；`provenance` 是"这次回复实际由哪个 provider/model 完成"。 */
+  /** Only assistant nodes carry it; `provenance` is which provider and model actually completed this reply. */
   provenance?: { model?: string }
 }
 

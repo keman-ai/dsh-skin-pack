@@ -3,7 +3,7 @@
  *
  * The prototype's top left carries a rounded square seal: `radial-gradient(circle at 50% 50%, #38e5ff 0 22%, #10243a 23% 56%,
  * #d93640 57% 100%)` with a cyan glow — cyan core, deep-blue ring, red shell from the inside out: the colour timer in cross-section.
- * 旁边两行「DeepSeek Harness / Ultra Team · Apocalypse Skin」。
+ * Beside it, two lines reading "DeepSeek Harness / Ultra Team · Apocalypse Skin".
  *
  * 🔴 The sidebar mark, the new-session mark and the wordmark are all `{ kind: 'single' }` slots. The old conclusion,
  * "a single slot occupied by the official component makes third-party registration throw" is **out of date**:
@@ -52,11 +52,11 @@ export function UltrateamMark({ size, className }: BrandMarkProps) {
       aria-hidden="true"
       focusable="false"
     >
-      {/* 外壳：红。原型的 57%–100% 那一段。 */}
+      {/* The shell: red. The prototype's 57%–100% band. */}
       <rect x="0" y="0" width="32" height="32" rx="9" fill="#d93640" />
-      {/* 深蓝环：23%–56%。 */}
+      {/* The deep-blue ring: 23%–56%. */}
       <circle cx="16" cy="16" r="9" fill="#10243a" />
-      {/* 青芯：0–22%，带一层柔光，对应原型的 `box-shadow: 0 0 28px rgba(35,217,255,.22)`。 */}
+      {/* The cyan core: 0–22%, with a soft glow matching the prototype's `box-shadow: 0 0 28px rgba(35,217,255,.22)`. */}
       <circle cx="16" cy="16" r="3.6" fill="#38e5ff" />
       <circle cx="16" cy="16" r="6" fill="#38e5ff" fillOpacity="0.16" />
     </svg>
@@ -64,7 +64,7 @@ export function UltrateamMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「DeepSeek Harness / Ultra Team · Apocalypse Skin」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "DeepSeek Harness / Ultra Team · Apocalypse Skin".
  *
  * The primary name stays DeepSeek Harness — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *
