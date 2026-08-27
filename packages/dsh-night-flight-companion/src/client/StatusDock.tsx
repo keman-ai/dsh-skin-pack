@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的夜航封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced Night Flight cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
@@ -187,7 +187,7 @@ export function NightStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 夜航正在忙' : '● 就绪 READY'}
+                  {busy ? '● THE FLIGHT IS BUSY' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -214,28 +214,28 @@ export function NightStatusDock() {
             </section>
 
             {/*
-              航段记录 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Harness Systems` 是四行写死的 ONLINE；这里是本会话真实跑过的工具：
+              Flight log — the real-data version of that card in the prototype's right column.
+              The draft's `Harness Systems` is four hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>航段记录</div>
+                <div className={css.cardTitle}>Flight log</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `飞行中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `in flight · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '偏航' : `偏航 · ${formatDuration(call.ms)}`
+                            ? call.ms === undefined ? 'off course' : `off course · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'arrived' : `arrived · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 段更早的航段`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier leg(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.

@@ -1,7 +1,7 @@
 /**
- * 灰白仙境的装饰层。
+ * The Misty Xianxia decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-mist]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-mist]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -13,11 +13,11 @@
  */
 
 /* ==========================================================================
- * 全局雾 —— 自上而下从纯白洇到雾白，对应原型 `body` 的
+ * Global mist — bleeding from pure white down into mist white, matching the prototype's `body`
  * `radial-gradient(circle at 50% 0%, rgba(255,255,255,.96), rgba(240,238,233,.85) 45%, #e9e7e2 100%)`。
  *
- * 🔴 浅色皮肤最容易做塌的地方就是这里：如果底是一整块死板的 #f4f3f0，整个界面看着像没上色的
- * 白模。这层极缓的白→雾白渐变让"纸"有厚度，而强度低到不影响任何文字可读性。
+ * 🔴 This is where a light skin most easily collapses: with the ground one flat sheet of #f4f3f0, the whole interface looks like an uncoloured
+ * white model. This very gradual white-to-mist gradient gives the paper thickness while staying faint enough not to affect the legibility of any text.
  * `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-mist])::before {
@@ -42,8 +42,8 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿的 Theme rules 把分寸写死了：「仙侠主视觉集中在 New Session、Empty State 与少量
- * Identity surface，**工作态不满屏铺图**」；对话里那句更直白：「仙侠氛围强，**SaaS 可用性更强**」。
+ * 🔴 The prototype's Theme rules fix the measure: the xianxia hero visual concentrates on New Session, the empty state and a few
+ * identity surfaces, and **the working state is never covered wall to wall**; the notes put it more plainly still: strong xianxia atmosphere, **stronger SaaS usability**.
  * so the full cover is painted **on the hero only** (which is exactly the empty state), with nothing on the conversation or trajectory pages and no layout touched.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
@@ -81,7 +81,7 @@
   background-repeat: no-repeat;
   background-color: #f2f1ed;
   /*
-   * 浅色皮肤这里**不压暗**，反而要提一点亮：这张画本身就是灰白仙境，压暗会让它变脏，
+   * A light skin **does not darken** here but lifts slightly instead: the picture is already a grey-white immortal scene, darkening only dirties it,
    * tearing a grey edge against the paper-white UI. Saturation drops only slightly, so the gold lines do not jump off the paper.
    */
   filter: saturate(0.95) contrast(1.01) brightness(1.02);

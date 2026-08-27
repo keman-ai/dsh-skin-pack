@@ -163,7 +163,7 @@ export function MistStatusDock() {
               The image is a wide shot of a figure and a dragon, and cropping the sides leaves the subject intact.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--mist-cover)' }}>
-              <span className={css.coverName}>灰白仙境</span>
+              <span className={css.coverName}>Misty Xianxia</span>
             </div>
 
             {/*

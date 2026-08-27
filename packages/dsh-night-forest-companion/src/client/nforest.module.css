@@ -62,7 +62,7 @@
   min-height: 150px;
   z-index: 0;
   pointer-events: none;
-  /* 原型 `.hero`：16px 圆角、月光青描边、一层很深的投影（夜里的对比全靠它）。 */
+  /* The prototype's `.hero`: a 16px radius, a moonlight-cyan border and a very deep shadow — all the contrast at night comes from it. */
   border-radius: 16px;
   border: 1px solid rgba(144, 205, 255, 0.16);
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.44);
@@ -133,7 +133,7 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：夜蓝卡 + 月光青描边 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: a night-blue card with a moonlight-cyan border and a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-nforest] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -182,7 +182,7 @@
  * without an error and without affecting anything else.
  * ========================================================================== */
 
-/* 侧栏：竖向渐变 + 月光青分隔线（原型 `.left` 是 #091827 → #06111d）。 */
+/* Sidebar: a vertical gradient with a moonlight-cyan divider (the prototype's `.left` runs #091827 → #06111d). */
 :global(body[data-dsh-nforest] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #081827 0%, #071423 100%);
   border-right: 1px solid var(--dsw-alias-border-l2);
@@ -219,7 +219,7 @@
 }
 
 /*
- * 会话选中态：横向渐变 + 左侧一道月光青竖条（原型 `.session.active` 的
+ * Selected session: a horizontal gradient with a moonlight-cyan stripe on the left (the prototype's `.session.active`
  * `linear-gradient(90deg,#142f50,#0c2037)` + `box-shadow: inset 2px 0 var(--cyan)`）。
  * An inset shadow rather than a border, so the box width is unchanged and the selected row does not shift against the others.
  */
@@ -241,7 +241,7 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：竖向渐变卡 + 11px 圆角 + 月光青描边（原型 `.card`）。
+ * The details rail's card language: a vertical gradient card with an 11px radius and a moonlight-cyan border (the prototype's `.card`).
  *
  * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Session / Harness Systems / Companion Modes /
  * Moonlight Energy」四张卡。后三张全是写死的装饰——五行 ONLINE、四张模式卡、一个 82% 的能量值，

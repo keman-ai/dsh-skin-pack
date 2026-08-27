@@ -1,18 +1,18 @@
 # dsh-extreme-xianxia-light · Misty Xianxia
 
-DeepSeek Harness（dsh）的皮肤：纸白雾白打底、墨灰做文字、淡金做边与按钮、玉青只给运行中，新会话页是一整幅天机在握主视觉
+A skin for DeepSeek Harness (dsh): paper white and mist white as the ground, ink grey for text, pale gold for borders and buttons and jade green only for running, with a full xianxia hero on the new-session page.
 
 ![New session page](preview/light.webp)
 
 ## What it changes
 
-- **整套语义 token（浅色）**：底色纸白 `#f4f3f0`，往上是纯白面板与雾白分隔带，全场两条暖灰实线
-  （`#d7d2c8` / `#c9c2b5`），文字墨灰 `#313331`——这套里**没有纯黑**。约 80 个
+- **A full set of semantic tokens (light)**: a paper-white ground `#f4f3f0` rising to pure white panels and mist-white dividers, with exactly two warm grey lines
+  (`#d7d2c8` / `#c9c2b5`) and ink-grey `#313331` text — this skin contains **no pure black**. Around 80
   `--dsw-alias-*` / `--dsw-specific-*` variables change at once, and every layer of the interface follows.
-- **底色不是一块死板的纸白**：`body::before` 铺一团顶部的柔白软光，让"纸"有厚度。
-- **新会话页整幅封面**：书法「天机在握 · 万象归一」、仗剑的道友与那条白龙。
-  封面底边是一层**纸白渐变**（不是压暗），把画洇进界面的纸里。进入对话与轨迹页后封面收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚「天」字纸白印章，副标「灰白仙境」。
+- **The ground is not one flat sheet of paper white**: `body::before` lays a soft white glow along the top, giving the paper some thickness.
+- **A full-bleed cover on the new-session page**: the calligraphy, the sword-bearing adept and the white dragon.
+  Its lower edge is a **paper-white gradient** rather than a darkening, bleeding the art into the interface's paper. The cover retracts once you enter the chat or trajectory pages.
+- **Brand mark takeover**: both the sidebar and hero marks become a paper-white seal bearing the character 天 (heaven), subtitled "Misty Xianxia".
 - **Personified copy**: thinking → "The acolyte is contemplating the workings of fate…"; failure → "The workings are disturbed — recalculate.";
   and a confirmation prompt is prefixed with "this carries consequences; a human decides" — **the original text stays**, since that is what you judge by.
 - **A right-hand status dock**: always present; see the table below.
@@ -21,26 +21,26 @@ DeepSeek Harness（dsh）的皮肤：纸白雾白打底、墨灰做文字、淡�
 
 The prototype's theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
 
-> **80% 灰白 / 雾白基底；12% 墨灰层级；5% 淡金交互；2% 玉青运行态；1% 朱砂危险态**
+> **80% grey-white / mist-white base; 12% ink grey for hierarchy; 5% pale gold for interaction; 2% jade green for running; 1% cinnabar for danger**
 
 | Colour | Value | Share | Used for |
 |---|---|---|---|
-| 纸白 / 雾白 | `#f4f3f0` / `#eceae5` / `#e3e0da` | 80% | 底、面板、输入框 |
-| 墨灰 | `#313331` / `#676b68` / `#8f918d` | 12% | 文字与层级。**没有纯黑**——纯黑会把「雾」压成「影」 |
-| 淡金 | `#b18a50` | 5% | 描边、主操作、品牌字。「5%」的意思是**边和字**，不是实心大按钮 |
-| 玉青 | `#6d948d` / `#4f7871` | 2% | 只给**正在跑** |
-| 朱砂 | `#b55a52` | 1% | 只给**危险与失败** |
+| Paper white / mist white | `#f4f3f0` / `#eceae5` / `#e3e0da` | 80% | Ground, panels and the composer |
+| Ink grey | `#313331` / `#676b68` / `#8f918d` | 12% | Text and hierarchy. **No pure black** — black would press the mist into shadow |
+| Pale gold | `#b18a50` | 5% | Borders, the primary action and the wordmark. 5% means **edges and text**, not a large solid button |
+| Jade green | `#6d948d` / `#4f7871` | 2% | Reserved for **running** |
+| Cinnabar | `#b55a52` | 1% | Reserved for **danger and failure** |
 
-🔴 **成功态也走玉青**：这套稿子的调色盘里根本没有绿，硬塞一个会同时破坏「2% 玉青」和「80% 灰白」
-两条配比。宁可让成功与运行同色系（用深浅区分 `#4f7871` / `#6d948d`），也不引入第七种颜色。
+🔴 **Success also takes jade green**: this draft's palette contains no green at all, and forcing one in would break both the 2% jade and the 80% grey-white
+proportions. Better to let success and running share a family (separated by depth, `#4f7871` / `#6d948d`) than to introduce a seventh colour.
 
-🔴 **浅色皮肤多两条要写**：
-- **反白块上的文字**（`label-primary-foreground`）不能留白：主按钮是淡金实底，白字对比度不够、
-  黑字太硬，取纸白偏暖的一档 `#fdfcf9`。
-- **toast / tooltip 反过来做成暗底**（`#3a3c39`）：浮在纸白上的浅色浮层分不出层次。
+🔴 **A light skin needs two extra rules**:
+- **Text on inverted blocks** (`label-primary-foreground`) cannot stay white: the primary button is solid pale gold, where white lacks contrast and
+  black is too hard, so a warmer step of paper white, `#fdfcf9`, is used.
+- **Toasts and tooltips invert to a dark ground** (`#3a3c39`): a light overlay floating on paper white has no separation.
 
-还有一句同样写死在稿子里：**仙侠氛围强，SaaS 可用性更强**；主视觉集中在 New Session 与空状态，
-工作态不满屏铺图。所以封面只画在 hero，三栏布局与信息密度一处不动。
+One more line is equally binding: **strong xianxia atmosphere, stronger SaaS usability**; the hero visual concentrates on New Session and the empty state,
+and the working state is never covered wall to wall. So the cover is drawn on the hero only, leaving the three-column layout and its information density untouched.
 
 ### What the status dock shows
 
@@ -63,9 +63,9 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏「神通调用」那四行——天机推演阵 `已完成 2.1s`、经卷查阅·玉清篇 `运行中 8.4s`、
-阵法模拟·九宫 `等待中`——是稿子里写死的演示数据；侧栏底部那条「灵力 68,250 / 108,000」
-和顶栏的「天机可测，静待道友下令」同理。
+The four rows under Arts invoked in the prototype's right column — a divination array at `done 2.1s`, a scripture reading at `running 8.4s`,
+a formation simulation at `queued` — are hardcoded demo data in the draft; so are the "Spirit energy 68,250 / 108,000" at the foot of the sidebar
+and the top bar's standing-by line.
 
 **The harness has no matching projection.** Decoration is fine; fake state is not. A spirit-energy gauge frozen at 68,250
 disbelieved the second time it is seen, and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
@@ -83,7 +83,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-extreme-xianxia-light
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-extreme-xianxia-light 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-extreme-xianxia-light to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -105,7 +105,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面来自原型稿的整屏设计图，裁去了稿子的假侧栏、假详情栏与「召请天机」标题，只留画面（695x500 webp，内联成 data URI）。
+The cover comes from the prototype's full-screen mockup, with its fake sidebar, fake details rail and title cropped away so that only the art remains (695×500 webp, inlined as a data URI).
 
 ## Development
 

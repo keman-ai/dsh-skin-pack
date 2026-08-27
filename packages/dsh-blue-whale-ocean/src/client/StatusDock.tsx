@@ -229,7 +229,7 @@ export function BwhaleStatusDock() {
                         {call.running === true
                           ? `diving · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '偏航' : `偏航 · ${formatDuration(call.ms)}`
+                            ? call.ms === undefined ? 'off course' : `off course · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'arrived' : `arrived · ${formatDuration(call.ms)}`}
                       </span>
                     </li>

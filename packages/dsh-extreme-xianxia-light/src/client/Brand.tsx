@@ -103,7 +103,7 @@ export function MistName() {
   return (
     <span className={css.name}>
       <strong className={css.title}>DeepSeek Harness</strong>
-      <small className={css.subtitle}>灰白仙境</small>
+      <small className={css.subtitle}>Misty Xianxia</small>
     </span>
   )
 }

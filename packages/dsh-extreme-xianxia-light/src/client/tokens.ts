@@ -1,33 +1,33 @@
 /**
- * 灰白仙境的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Misty Xianxia's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 这是一套**浅色**皮肤（`colorScheme: 'light'`）。原型稿的 Theme rules 把配比写成了
- * 一句数字，这是这套皮肤最硬的约束：
- * 「**80% 灰白 / 雾白基底；12% 墨灰层级；5% 淡金交互；2% 玉青运行态；1% 朱砂危险态**」。
+ * 🔴 This is a **light** skin (`colorScheme: 'light'`). The prototype's Theme rules state the proportions as
+ * a single line of numbers, and it is this skin's hardest constraint:
+ * **80% grey-white / mist-white base; 12% ink grey for hierarchy; 5% pale gold for interaction; 2% jade green for running; 1% cinnabar for danger**.
  *
  * Translated into use:
- *   - **纸白 / 雾白**（#f4f3f0 → #e3e0da）：底、面板、输入框——绝大部分界面；
- *   - **墨灰**（#313331）：文字与层级，不是黑。这套里没有纯黑；
- *   - **淡金**（#b18a50）：描边、主操作、品牌字。5% 的意思是"边和按钮"，不是大面积铺；
- *   - **玉青**（#6d948d）：只给**正在跑**。2%；
- *   - **朱砂**（#b55a52）：只给**危险与失败**。1%。
+ *   - **paper white / mist white** (#f4f3f0 → #e3e0da): ground, panels and the composer — most of the interface;
+ *   - **ink grey** (#313331): text and hierarchy, not black. This skin contains no pure black;
+ *   - **pale gold** (#b18a50): borders, the primary action and the wordmark. 5% means edges and buttons, not broad fills;
+ *   - **jade green** (#6d948d): reserved for **running**. 2%;
+ *   - **cinnabar** (#b55a52): reserved for **danger and failure**. 1%.
  *
- * 还有一句同样写死在稿子里：「仙侠主视觉集中在 New Session、Empty State 与少量 Identity
- * surface，**工作态不满屏铺图**」。所以封面只画在 hero。
+ * One more line is equally binding: the xianxia hero visual concentrates on New Session, the empty state and a few identity
+ * surfaces, and **the working state is never covered wall to wall**. So the cover is drawn on the hero only.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const MIST_PALETTE = {
-  /** 纸白，最亮的一级。 */
+  /** Paper white, the brightest level. */
   paper: '#f4f3f0',
   paper2: '#eceae5',
-  /** 雾白：面板与分隔带。 */
+  /** Mist white: panels and dividers. */
   paper3: '#e3e0da',
 
-  /** 墨灰三级。这套里没有纯黑——纯黑会把"雾"压成"影"。 */
+  /** The three ink-grey levels. No pure black here — black would press the mist into shadow. */
   ink: '#313331',
   ink2: '#676b68',
   ink3: '#8f918d',
@@ -35,7 +35,7 @@ export const MIST_PALETTE = {
   line: '#d7d2c8',
   line2: '#c9c2b5',
 
-  /** 淡金：描边、主操作、品牌字。 */
+  /** Pale gold: borders, the primary action and the wordmark. */
   gold: '#b18a50',
   gold2: '#d4b681',
   gold3: '#8d6b3d',

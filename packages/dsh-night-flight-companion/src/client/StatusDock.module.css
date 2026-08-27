@@ -4,7 +4,7 @@
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
- * `data-dsh-night-flight` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * stamps `data-dsh-night-flight` onto body, and the harness UI is already rendered before that. During that window the dock
  * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
  * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
@@ -89,7 +89,7 @@
 /*
  * The reduced cover.
  *
- * 横幅是 16:9，缩到侧栏宽度整幅呈现会太扁，所以按 2.5:1 裁一条——裁的是上下的夜空与地面，
+ * The banner is 16:9, which looks too flat shown whole at the rail's width, so a 2.5:1 strip is cropped — losing the night sky above and the ground below,
  * keeping the subject intact (together with `left center` below).
  */
 .cover {
@@ -101,7 +101,7 @@
   /*
    * 🔴 Crop from the left, not centred.
    *
-   * 这张横幅的主体（飞行中的一大两小 + 那把伞）在画面**左三分之一**，右边是大片月光河谷。
+   * This banner's subject (the three figures in flight and the umbrella) sits in the **left third** of the image, with a wide moonlit valley to the right.
    * `background-position: center` would cut the subject in half and leave only night; cropping from the left keeps it.
    */
   background-position: left center;
@@ -293,7 +293,7 @@
  * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
  * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
- * 同样必须带 `[data-dsh-night-flight]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * This too must carry `[data-dsh-night-flight]`: without it, the main area yields 300px during the window before the skin activates,
  * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-night-flight][data-night-flight-dock-open] > div:first-of-type) {

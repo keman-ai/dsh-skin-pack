@@ -1,6 +1,6 @@
-# dsh-night-flight-companion · 夜航同行
+# dsh-night-flight-companion · Night Flight Companion
 
-DeepSeek Harness（dsh）的暗色皮肤：深夜蓝 + 月光青 + 一点暖米色，新会话页是一整幅夜空飞行横幅。
+A dark skin for DeepSeek Harness (dsh): deep night blue, moonlight cyan and a touch of warm cream, with a full night-flight banner on the new-session page.
 
 ![New session](preview/dark.webp)
 
@@ -8,24 +8,24 @@ DeepSeek Harness（dsh）的暗色皮肤：深夜蓝 + 月光青 + 一点暖米�
 
 | Surface | Content |
 |---|---|
-| 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（暗色基座），描边全是带月光青的 1px 细线 |
-| 新会话页 | 横幅吃掉输入区以上的全部高度（16px 圆角、月光青描边、很深的投影），输入区独立在下方，左上角一枚身份角标 |
-| 品牌位 | 侧栏与新会话页的标是纯 CSS 的**月环**（亮月芯 → 蓝环 → 夜色底 + 青色辉光），站名副标 `Night Flight Companion` |
+| Palette | A full set of `--dsw-alias-*` / `--dsw-specific-*` semantic tokens on the dark base, with every border a 1px line tinted moonlight cyan |
+| New session | The banner takes all the height above the composer (a 16px radius, a moonlight-cyan border, a deep shadow), the composer sits separately below, and an identity badge occupies the top-left corner |
+| Brand slots | The sidebar and new-session marks are a pure-CSS **moon ring** (a bright lunar core, a blue ring, a night ground and a cyan glow), with the subtitle `Night Flight Companion` |
 | 右侧状态台 | 对话页常驻：缩小版横幅 + 六类真实状态，可收起（记住选择） |
 
-### 只有一个暖色
+### Only one warm colour
 
-整套皮肤压在深夜蓝与月光青上，唯一的暖色是**月光米色 `#ded0ae`**。原型只把它用在能量条渐变的
-末端（`linear-gradient(90deg,#5f88da,#7bd8ff,#ded0ae)`），像画里那盏被夜色包住的灯——所以这里
-也只给它一个位置：**上下文占用条的末端**。铺开就不再是"一点暖"了。
+The whole skin rests on deep night blue and moonlight cyan, and its only warm colour is **moonlight cream `#ded0ae`**. The prototype uses it solely at the end of the energy-bar
+gradient (`linear-gradient(90deg,#5f88da,#7bd8ff,#ded0ae)`), like the lamp wrapped in night in the picture — so here too it gets
+exactly one place: **the end of the context-usage bar**. Spread wider it stops being a touch of warmth.
 
-红也压过：这套最不该出现的就是刺眼的东西，错误色取的是低饱和的 `#e5798a`。
+Red is toned down too: the last thing this skin should contain is anything that glares, so the error colour is a low-saturation `#e5798a`.
 
 ### The layout follows the prototype
 
-原型自己在对话里写了规则：「New Session 使用**整张横幅作为主视觉**，**输入区独立放在下方**，
-并保留完整 Harness 工作区」，`#home` 也是 `column` + `.hero { flex: 1 }` + 下方独立的 `.composer`。
-所以横幅不压输入区，封面上除了左上角那枚身份角标外不放任何文案。
+The prototype states the rule itself: New Session uses **the whole banner as the hero visual** with **the composer separately below**,
+while keeping the full Harness workspace. Its `#home` is likewise `column` plus `.hero { flex: 1 }` with a separate `.composer` below.
+So the banner does not sit over the composer, and carries no copy beyond the identity badge in its top-left corner.
 
 ### What the status dock shows
 
@@ -37,7 +37,7 @@ DeepSeek Harness（dsh）的暗色皮肤：深夜蓝 + 月光青 + 一点暖米�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 航段记录 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Flight log | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -49,21 +49,21 @@ DeepSeek Harness（dsh）的暗色皮肤：深夜蓝 + 月光青 + 一点暖米�
 
 These are all **hardcoded decoration** in the prototype with no matching projection in the harness, so none are built — decoration is fine; fake state is not:
 
-- 右栏「Harness Systems」四行 `ONLINE`
-- 右栏「Flight Modes」四张模式卡
-- 右栏「Moonlight Energy」那个 85% 与 100%
-- 封面右上角那枚「☾ MOONLIGHT ONLINE」
+- the four `ONLINE` rows under Harness Systems in the right column
+- the four Flight Modes cards in the right column
+- the 85% and 100% under Moonlight Energy in the right column
+- the "☾ MOONLIGHT ONLINE" badge in the cover's top-right corner
 
 **No host copy is replaced either**: this prototype gives no agent-copy specification, and inventing lines without a basis is embellishment.
 
-## 一个实现上的细节
+## One implementation detail
 
-状态台那张缩略图按 **`background-position: left center`** 裁，不居中——横幅的主体（飞行中的
-一大两小 + 那把伞）在画面**左三分之一**，右边是大片月光河谷，居中裁只会得到一片夜色。
+The dock's thumbnail crops with **`background-position: left center`** rather than centred — the banner's subject (the three figures in flight
+and the umbrella) sits in the **left third** of the image, with a wide moonlit valley to the right, so a centred crop would yield nothing but night.
 
 ## Install
 
-**皮肤集市**（推荐）：搜「夜航」安装，装完**重启 dsh**。
+**Skin market** (recommended): search for "Night Flight", install, then **restart dsh**.
 
 Manual install (during development):
 
@@ -71,7 +71,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-night-flight-companion
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-night-flight-companion 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-night-flight-companion to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 ## 🔴 The side effect of autoApply
@@ -87,7 +87,7 @@ mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "
 
 ## Assets
 
-横幅是一张 1672×941 的插画，压成 webp（q92，231 KB）内联进 bundle，不外链图床。
+The banner is a 1672×941 illustration compressed to webp (q92, 231 KB) and inlined into the bundle rather than linked from an image host.
 How it is generated and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development

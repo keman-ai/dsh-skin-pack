@@ -33,7 +33,7 @@ export const NFOREST_PALETTE = {
   blue: '#467fff',
   blue2: '#4b84ff',
   blueDeep: '#2f62ce',
-  /** 月光青：描边、图标、强调、以及"正在运行"。 */
+  /** Moonlight cyan: borders, icons, emphasis and running. */
   cyan: '#7bdcff',
   /** Online green. */
   green: '#78d99b',

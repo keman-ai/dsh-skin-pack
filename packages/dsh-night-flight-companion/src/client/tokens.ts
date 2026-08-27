@@ -1,5 +1,5 @@
 /**
- * 夜航同行的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Night Flight Companion's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
@@ -15,11 +15,11 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const NIGHT_PALETTE = {
-  /** 夜空底，接近黑。 */
+  /** The night-sky ground, close to black. */
   bg: '#06101c',
   /** One step deeper (the bottom of the prototype's gradient). */
   bg2: '#040a12',
-  /** 面板：夜蓝。 */
+  /** Panels: night blue. */
   panel: '#0b1d31',
   panel2: '#0c2034',
   /** The ground for the sidebar and cards. */
@@ -29,15 +29,15 @@ export const NIGHT_PALETTE = {
   muted: '#819caf',
   muted2: '#70899b',
 
-  /** 主操作蓝（原型的 `＋ New Session` 与 `Send →` 都是这条渐变）。 */
+  /** The primary action blue (the prototype's `＋ New Session` and `Send →` both use this gradient). */
   blue: '#3b78e8',
   blue2: '#4b7fe8',
   blueDeep: '#2d5eb9',
-  /** 月光青：描边、图标、强调、以及"正在运行"。 */
+  /** Moonlight cyan: borders, icons, emphasis and running. */
   cyan: '#73d5ff',
   /** Online green. */
   green: '#72d99c',
-  /** 🔴 全场唯一的暖色，只出现在能量条末端。 */
+  /** 🔴 The only warm colour anywhere, appearing solely at the end of the energy bar. */
   moonBeige: '#ded0ae',
 } as const
 
@@ -67,7 +67,7 @@ export const NIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(141, 198, 255, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(141,198,255,.16)`——**带月光青的暗描边**。夜里的界面全靠它分层。
+  // The prototype uses exactly one, `--line: rgba(141,198,255,.16)` — **a dark border tinted moonlight cyan**. All layering at night rests on it.
   '--dsw-alias-border-l1': 'rgba(141, 198, 255, 0.1)',
   '--dsw-alias-border-l2': 'rgba(141, 198, 255, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(141, 198, 255, 0.12)',
@@ -88,7 +88,7 @@ export const NIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-inverted': p.panel2,
 
   // ── Brand and primary button ──
-  // 主操作是那条夜蓝渐变（原型 `.new` / `.send` 的 `linear-gradient(135deg,#4b7fe8,#2d5eb9)`）。
+  // The primary action is that night-blue gradient (the prototype's `.new` / `.send`: `linear-gradient(135deg,#4b7fe8,#2d5eb9)`).
   // Moonlit cyan is not used for buttons: here it is the language of borders and state, and a solid fill would break the night's quiet.
   '--dsw-alias-brand-primary': p.blue,
   '--dsw-alias-brand-text': p.cyan,
@@ -121,8 +121,8 @@ export const NIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': '#74d099',
   '--dsw-alias-state-success-tertiary': '#0e261f',
-  // 琥珀与红原型没给（它只画了正常流程）。琥珀借那点月光米色的方向推一个暖调，
-  // 红压到低饱和——这套皮肤最不该出现的就是刺眼的东西。
+  // The prototype gives no amber or red (it drew only the happy path). Amber is derived towards that moonlight cream,
+  // and red is pulled down to low saturation — the last thing this skin should contain is anything that glares.
   '--dsw-alias-state-warn-primary': '#e3c47a',
   '--dsw-alias-state-warn-secondary': '#e3c47a',
   '--dsw-alias-state-warn-label': '#f0dcaa',

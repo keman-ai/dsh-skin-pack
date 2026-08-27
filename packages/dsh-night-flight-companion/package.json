@@ -1,7 +1,7 @@
 {
   "name": "dsh-night-flight-companion",
   "version": "0.1.0",
-  "description": "夜航同行 —— DeepSeek Harness 的暗色皮肤：深夜蓝 + 月光青 + 一点暖米色，新会话页是一整幅夜空飞行横幅",
+  "description": "Night Flight Companion — a dark skin for DeepSeek Harness: deep night blue, moonlight cyan and a touch of warm cream, with a full night-flight banner on the new-session page",
   "keywords": [
     "dsh",
     "deepseek-harness",
