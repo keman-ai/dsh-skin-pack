@@ -229,7 +229,7 @@ export function CosmicStatusDock() {
                         {call.running === true
                           ? `running · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '异常' : `异常 · ${formatDuration(call.ms)}`
+                            ? call.ms === undefined ? 'ANOMALY' : `ANOMALY · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>

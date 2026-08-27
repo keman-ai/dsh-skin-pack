@@ -149,8 +149,8 @@
  * Thinking → Charting the unknown…
  *
  * 原型 Appearance 面板的 Agent copy 给了六条，这里做能找到锚点的两条（思考中、失败）；
- * Tool / Context / Success 三条 harness 没有对应的可挂点（工具行只有 ok/error 两态，
- * 没有 running），不硬凑。
+ * Tool / Context / Success have no mount point in the harness (a tool row has only ok and error,
+ * with no running state), and nothing is forced.
  *
  * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
  */

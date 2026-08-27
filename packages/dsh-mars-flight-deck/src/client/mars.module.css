@@ -1,7 +1,7 @@
 /**
- * 火星驾驶舱的装饰层。
+ * The Mars Flight Deck decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-mars]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-mars]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -13,11 +13,11 @@
  */
 
 /* ==========================================================================
- * 全局舱内光 —— 顶部一团冷蓝、右上一团推进器橙，对应原型 `body` 的两条 radial：
+ * Global cabin light — cool blue along the top and thruster orange at the top right, matching the two radials on the prototype's `body`:
  * `radial-gradient(circle at 50% 0%, rgba(44,89,121,.16), transparent 26%)` 与
  * `radial-gradient(circle at 88% 8%, rgba(255,122,46,.09), transparent 24%)`。
  *
- * 没有它，界面只是一块死黑；有了这两团光才像坐在亮着仪表的舱里。
+ * without it the interface is just dead black; with those two washes it feels like sitting in a cabin with the instruments lit.
  * Its intensity is low enough not to affect any text, and `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-mars])::before {
@@ -34,8 +34,8 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿 Theme rules 写死了作用域：「**New Mission 使用强驾驶舱场景**，
- * Console / Flight Path **回归低干扰工程界面**」。
+ * 🔴 The prototype's Theme rules fix the scope: **New Mission uses the full flight-deck scene**,
+ * while Console / Flight Path **return to a low-distraction engineering interface**.
  * So the cover is drawn **on the hero only**, with none of it on the chat or trajectory pages.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
@@ -145,9 +145,9 @@
 /*
  * Thinking → Computing trajectory…
  *
- * 原型 Appearance 面板的 Agent copy 给了六条，这里做能找到锚点的三条（思考中、失败、权限确认）；
- * Tool / Context / Success 三条 harness 没有对应的可挂点（工具行只有 ok/error 两态，
- * 没有 running），不硬凑。
+ * The Agent copy in the prototype's Appearance panel gives six lines; the three with an anchor are built here (thinking, failure, permission);
+ * Tool / Context / Success have no mount point in the harness (a tool row has only ok and error,
+ * with no running state), and nothing is forced.
  *
  * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
  */
@@ -251,8 +251,8 @@
 }
 
 /*
- * `＋ 新会话` 在这套设计里**不是**橙色实心：原型的 `.new-session` 是「深蓝渐变底 + 冷蓝描边」，
- * 推进器橙的实心只留给 hero 上那颗 `LAUNCH MISSION →`（也就是发送）。
+ * New session is **not** a solid orange here: the prototype's `.new-session` is a deep blue gradient with a cool blue border,
+ * and solid thruster orange is reserved for the hero's `LAUNCH MISSION →` (that is, send).
  * An accent spread wide stops being the one most important touch.
  */
 /*

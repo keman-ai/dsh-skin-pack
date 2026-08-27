@@ -1,30 +1,30 @@
 /**
- * 火星驾驶舱的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Mars Flight Deck's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 The prototype's Theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
- * 「**80% 航天黑与深蓝控制面板，10% 冷蓝遥测信息，6% 推进器橙色交互强调，
- * 3% Nominal 绿色状态，1% 红色异常态**」。
+ * **80% spaceflight black and deep blue consoles, 10% cool blue telemetry, 6% thruster orange for interaction emphasis,
+ * 3% Nominal green for state and 1% red for anomalies**.
  *
  * Translated into use:
- *   - **航天黑 / 深蓝面板**（#05080d → #142331）：底与三级面板——绝大部分界面；
- *   - **冷蓝**（#7fb4d3）：遥测信息，也就是**描边与次要数据**。仪表盘上那些细线就是它；
- *   - **推进器橙**（#ff7a2e）：**交互强调**——主操作、选中项。6% 的意思是"按下去的那一下"；
- *   - **Nominal 绿**（#73b89a）：只给**一切正常**（成功态）。3%；
- *   - **红**（#d9503f）：只给**异常**。1%。
+ *   - **spaceflight black / deep blue panels** (#05080d → #142331): ground and the three panel levels — most of the interface;
+ *   - **cool blue** (#7fb4d3): telemetry, meaning **borders and secondary data**. The hairlines on the instrument panel are this;
+ *   - **thruster orange** (#ff7a2e): **interaction emphasis** — the primary action and selected items. 6% means the moment you press;
+ *   - **Nominal green** (#73b89a): reserved for **all nominal** (the success state). 3%;
+ *   - **red** (#d9503f): reserved for **anomalies**. 1%.
  *
- * 🔴 橙和绿分工不能混：橙是"你要做的事"，绿是"已经好了"。驾驶舱里把这两个搞混，
- * 代价是看一眼仪表分不清该不该动手。
+ * 🔴 Orange and green must never blur: orange is what you are about to do, green is what is already done. Confusing the two on a flight deck
+ * costs you the ability to tell at a glance whether to act.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const MARS_PALETTE = {
-  /** 航天黑，接近纯黑。 */
+  /** Spaceflight black, close to pure black. */
   bg: '#05080d',
   bg2: '#08111a',
-  /** 深蓝控制面板三级。 */
+  /** The three deep blue console levels. */
   surface: '#0a121b',
   surface2: '#0f1a25',
   surface3: '#142331',
@@ -33,15 +33,15 @@ export const MARS_PALETTE = {
   text2: '#aeb9c3',
   text3: '#6f7d89',
 
-  /** 冷蓝遥测：描边、次要数据。 */
+  /** Cool blue telemetry: borders and secondary data. */
   cyan: '#7fb4d3',
   cyan2: '#9fd3ee',
-  /** 推进器橙：交互强调。 */
+  /** Thruster orange: interaction emphasis. */
   orange: '#ff7a2e',
   orange2: '#ffad66',
-  /** 异常红。 */
+  /** Anomaly red. */
   red: '#d9503f',
-  /** Nominal 绿。 */
+  /** Nominal green. */
   green: '#73b89a',
 } as const
 
@@ -62,7 +62,7 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface2,
   '--dsw-alias-bg-multi-select': p.surface3,
 
-  // 遮罩：压向航天黑。这套本来就够黑，遮罩再往蓝里压会显脏。
+  // The scrim darkens towards spaceflight black. This skin is dark enough already, and pushing the scrim towards blue would dirty it.
   '--dsw-alias-bg-mask-1': 'rgba(2, 4, 7, 0.74)',
   '--dsw-alias-bg-mask-2': 'rgba(2, 4, 7, 0.36)',
   '--dsw-alias-bg-mask-3': 'rgba(2, 4, 7, 0.64)',
@@ -71,8 +71,8 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(142, 181, 203, 0.08)',
 
   // ── Borders ──
-  // 原型全场两条：`--line: rgba(142,181,203,.12)`（冷蓝）与 `--line2: rgba(255,122,46,.14)`（橙）。
-  // 冷蓝那条是"仪表盘的细线"，撑起全部分层；橙那条只出现在需要强调的框上。
+  // The prototype uses exactly two: `--line: rgba(142,181,203,.12)` (cool blue) and `--line2: rgba(255,122,46,.14)` (orange).
+  // The cool blue is the instrument hairline and carries all the layering; the orange appears only on frames that need emphasis.
   '--dsw-alias-border-l1': 'rgba(142, 181, 203, 0.09)',
   '--dsw-alias-border-l2': 'rgba(142, 181, 203, 0.12)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(142, 181, 203, 0.1)',
@@ -89,13 +89,13 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-label-tertiary': p.text3,
   '--dsw-alias-label-caption': '#5d6a75',
   '--dsw-alias-label-dimmed': '#5d6a75',
-  // 橙实底上放白字对比度不够，配一档接近黑的深棕。
+  // White on solid orange lacks contrast, so a near-black deep brown is paired with it.
   '--dsw-alias-label-primary-foreground': '#1a0d05',
   '--dsw-alias-label-primary-inverted': p.surface2,
 
   // ── Brand and primary button ──
-  // 主操作是推进器橙（原型 `LAUNCH MISSION →`）。冷蓝不做实心按钮：
-  // 它在这套里是"遥测与描边"的语言，铺成大块会把仪表盘的层次压平。
+  // The primary action is thruster orange (the prototype's `LAUNCH MISSION →`). Cool blue is never a solid button:
+  // here it is the language of telemetry and borders, and spreading it across large areas flattens the instrument panel's layering.
   '--dsw-alias-brand-primary': p.orange,
   '--dsw-alias-brand-text': p.orange2,
   '--dsw-alias-brand-primary-invert': '#1a0d05',
@@ -121,23 +121,23 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-active': 'rgba(142, 181, 203, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(255, 122, 46, 0.22)',
-  // 那 1% 红的其中一处：危险操作的悬停。
+  // One of the two places for that 1% of red: hovering a destructive action.
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(217, 80, 63, 0.22)',
 
   // ── Status colours ──
-  // 🔴 成功 = Nominal 绿，进行中 = 冷蓝，主操作 = 橙。三者各司其职，一处都不串。
+  // 🔴 Success = Nominal green, in progress = cool blue, primary action = orange. Each keeps to its own job and none ever trades places.
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': '#8ac9ad',
   '--dsw-alias-state-success-tertiary': '#102b26',
-  // 警告：往橙上靠（稿子没给黄，而橙本来就是这套的"注意"色，用亮一档的 orange2 区分主按钮）。
+  // Warning leans on orange (the draft gives no yellow, and orange is already this skin's attention colour, with the brighter orange2 keeping it apart from the primary button).
   '--dsw-alias-state-warn-primary': p.orange2,
   '--dsw-alias-state-warn-secondary': p.orange,
   '--dsw-alias-state-warn-label': '#ffc48c',
   '--dsw-alias-state-warn-tertiary': '#2c1c10',
-  // 异常：红。1% 的另一处。
+  // Anomaly: red. The other of the two 1% places.
   '--dsw-alias-state-error-primary': p.red,
   '--dsw-alias-state-error-secondary': '#e56d5c',
-  // business = 进行中：冷蓝遥测。
+  // business = in progress: cool blue telemetry.
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#123141',
 

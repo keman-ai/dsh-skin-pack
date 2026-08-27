@@ -1,8 +1,8 @@
 /**
  * The mission badge and wordmark for the brand slots.
  *
- * 原型稿侧栏左上角是一枚圆角方标（深蓝渐变 + 冷蓝描边 + 一圈青色辉光，里面是舱位代号 `FD`（Flight Deck））
- * + 两行站名「DeepSeek Harness / Mars Flight Deck」。harness 把这两处都开成了 slot：
+ * The prototype's sidebar carries a rounded square mark in its top-left corner (a deep blue gradient, a cool blue border and a cyan glow, holding the deck code `FD`, for Flight Deck)
+ * plus a two-line wordmark, "DeepSeek Harness / Mars Flight Deck". The harness exposes both as slots:
  * `sidebar.brand.mark`, `sidebar.brand.name`, and the new-session page's larger mark has another
  * `conversation.hero.brand.mark`。
  *

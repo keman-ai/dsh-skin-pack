@@ -1,7 +1,7 @@
 {
   "name": "dsh-mars-flight-deck",
   "version": "0.1.0",
-  "description": "火星驾驶舱 —— DeepSeek Harness 的暗色皮肤：航天黑 / 深蓝面板 / 冷蓝遥测 / 推进器橙配色 + 新会话页整幅驾驶舱主视觉",
+  "description": "Mars Flight Deck — a dark skin for DeepSeek Harness: a spaceflight black / deep blue panel / cool blue telemetry / thruster orange palette with a full flight-deck hero on the new-session page",
   "keywords": [
     "dsh",
     "deepseek-harness",

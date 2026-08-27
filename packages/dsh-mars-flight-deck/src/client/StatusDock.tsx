@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的驾驶舱封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced flight-deck cover plus this session's real state.
  *
  * The prototype's right column has four cards — Current Mission / Ship Systems / Telemetry / Shortcuts. What is built here
  * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
@@ -160,7 +160,7 @@ export function MarsStatusDock() {
           <div className={css.scroll}>
             {/*
               A reduced cover, using the same inline image (adding no size), centre-cropped with `cover` —
-              这张图是"舷窗居中、火星填满"的构图，裁掉两侧只会切到舱壁。
+              The composition centres the viewport with Mars filling it, so cropping the sides only cuts into the cabin wall.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--mars-cover)' }}>
               <span className={css.coverName}>Mars Flight Deck</span>
@@ -214,8 +214,8 @@ export function MarsStatusDock() {
             </section>
 
             {/*
-              SYSTEM OPS —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Systems` 面板是五行写死的 ONLINE；这里是本会话真实跑过的工具：
+              SYSTEM OPS — the real-data version of that card in the prototype's right column.
+              The draft's `Systems` panel is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
@@ -229,7 +229,7 @@ export function MarsStatusDock() {
                         {call.running === true
                           ? `running · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '异常' : `异常 · ${formatDuration(call.ms)}`
+                            ? call.ms === undefined ? 'ANOMALY' : `ANOMALY · ${formatDuration(call.ms)}`
                             : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
@@ -247,7 +247,7 @@ export function MarsStatusDock() {
             )}
 
             {/*
-              CONTEXT UPLINK —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              CONTEXT UPLINK — what actually gets pushed into the context each turn (AGENTS.md, the skill directory, the system prompt…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}

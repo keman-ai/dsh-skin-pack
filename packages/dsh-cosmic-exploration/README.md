@@ -41,7 +41,7 @@ DeepSeek Harness（dsh）的皮肤：深蓝太空底 + 冷蓝与星云紫，新�
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
 | SHIP SYSTEMS | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
 | CONTEXT FEED | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
-| COMPACTED | 压缩次数、折叠条目数与 token | trajectory 的 `compaction` 节点。**没压缩过就不出现** |
+| COMPACTED | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
 

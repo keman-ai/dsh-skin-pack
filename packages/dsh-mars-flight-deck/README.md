@@ -1,44 +1,44 @@
 # dsh-mars-flight-deck · Mars Flight Deck
 
-DeepSeek Harness（dsh）的皮肤：航天黑打底、冷蓝做遥测与描边、推进器橙做主操作、Nominal 绿只给成功，新会话页是一整幅驾驶舱主视觉
+A skin for DeepSeek Harness (dsh): spaceflight black as the ground, cool blue for telemetry and borders, thruster orange for the primary action and Nominal green only for success, with a full flight-deck hero on the new-session page.
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色航天黑 `#05080d`，三级面板往上是深蓝控制台，全场两条描边——
-  冷蓝的 `rgba(142,181,203,.12)`（仪表盘细线）与橙的 `rgba(255,122,46,.14)`（强调框），
-  文字 `#e8edf2`。约 80 个 `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉。
-- **舱内光**：`body::before` 铺原型那两条 radial——顶部一团冷蓝、右上一团推进器橙，
-  让死黑的底像坐在亮着仪表的舱里。`pointer-events: none` 保证不拦点击。
-- **新会话页整幅封面**：舷窗、近距离的火星与整排仪表。进入对话与轨迹页后封面收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚 `FD`（Flight Deck）方标，副标「Mars Flight Deck」。
-- **人格化文案**：思考中 → `Computing trajectory…`；失败 → `Mission anomaly detected.`；
-  需要你确认时前缀一句 `Command authorization required`——**原文照旧留着**，那才是你做判断的依据。
+- **A full set of semantic tokens**: a spaceflight-black ground `#05080d`, deep blue consoles from the third panel level up, and exactly two borders —
+  a cool blue `rgba(142,181,203,.12)` (the instrument hairlines) and an orange `rgba(255,122,46,.14)` (emphasis frames) —
+  with `#e8edf2` text. Around 80 `--dsw-alias-*` / `--dsw-specific-*` variables change at once.
+- **Cabin light**: `body::before` lays down the prototype's two radials — cool blue along the top and thruster orange at the top right,
+  so the dead-black ground feels like sitting in a cabin with the instruments lit. `pointer-events: none` keeps it from catching clicks.
+- **A full-bleed cover on the new-session page**: the viewport, Mars up close and the whole instrument row. The cover retracts once you enter the chat or trajectory pages.
+- **Brand mark takeover**: both the sidebar and hero marks become an `FD` (Flight Deck) square, subtitled "Mars Flight Deck".
+- **Personified copy**: thinking → `Computing trajectory…`; failure → `Mission anomaly detected.`;
+  anything needing confirmation is prefixed with `Command authorization required` — **the original text stays**, since that is what you actually judge by.
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
 The prototype's theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
 
-> **80% 航天黑与深蓝控制面板，10% 冷蓝遥测信息，6% 推进器橙色交互强调，
-> 3% Nominal 绿色状态，1% 红色异常态**
+> **80% spaceflight black and deep blue consoles, 10% cool blue telemetry, 6% thruster orange for interaction emphasis,
+> 3% Nominal green for state and 1% red for anomalies**
 
 | Colour | Value | Share | Used for |
 |---|---|---|---|
-| 航天黑 / 深蓝面板 | `#05080d` → `#142331` | 80% | 底与三级面板 |
-| 冷蓝遥测 | `#7fb4d3` | 10% | 描边、次要数据、**正在跑** |
-| 推进器橙 | `#ff7a2e` | 6% | **交互强调**：主操作、选中项 |
-| Nominal 绿 | `#73b89a` | 3% | 只给**一切正常**（成功态） |
-| 红 | `#d9503f` | 1% | 只给**异常** |
+| Spaceflight black / deep blue panels | `#05080d` → `#142331` | 80% | Ground and the three panel levels |
+| Cool blue telemetry | `#7fb4d3` | 10% | Borders, secondary data and **running** |
+| Thruster orange | `#ff7a2e` | 6% | **Interaction emphasis**: the primary action and selected items |
+| Nominal green | `#73b89a` | 3% | Reserved for **all nominal** (the success state) |
+| Red | `#d9503f` | 1% | Reserved for **anomalies** |
 
-🔴 **橙和绿的分工不能串**：橙是「你要做的事」，绿是「已经好了」。
-驾驶舱里把这两个搞混，代价是看一眼仪表分不清该不该动手。所以主操作、hover、选中一律走橙，
-成功态一律走绿，两边一处都不借用对方。
+🔴 **Orange and green must never trade places**: orange is what you are about to do, green is what is already done.
+Confusing the two on a flight deck costs you the ability to tell at a glance whether to act. So the primary action, hover and selection all take orange,
+success always takes green, and neither ever borrows from the other.
 
-🔴 **冷蓝不做实心按钮**：它在这套里是「遥测与描边」的语言，铺成大块会把仪表盘的层次压平。
+🔴 **Cool blue is never a solid button**: here it is the language of telemetry and borders, and spreading it across large areas flattens the instrument panel's layering.
 
-还有一句同样写死在稿子里：**New Mission 使用强驾驶舱场景，Console / Flight Path 回归低干扰工程界面**。
+One more line is equally binding: **New Mission uses the full flight-deck scene, while Console / Flight Path return to a low-distraction engineering interface**.
 So the cover is drawn on the hero only, leaving the three-column layout and its information density untouched.
 
 ### What the status dock shows
@@ -51,9 +51,9 @@ So the cover is drawn on the hero only, leaving the three-column layout and its 
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| SYSTEM OPS | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
-| CONTEXT UPLINK | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
-| COMPACTED | 压缩次数、折叠条目数与 token | trajectory 的 `compaction` 节点。**没压缩过就不出现** |
+| SYSTEM OPS | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
+| CONTEXT UPLINK | The source and form of each context injection | Trajectory `context` nodes (`provenance.label` / `form`) |
+| COMPACTED | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
 
@@ -62,15 +62,15 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏「Systems」那五行 `PROP / NAV / LSS / COM / PWR — ONLINE`、「Telemetry」里的
-`54,621 KM` / `2.56 KM/S` / `0.38 G`、那张静态快捷键表，以及侧栏底部的「Compute Load 71%」
-和封面右上角的「ALL SYSTEMS NOMINAL」，**harness 都没有对应的投影**。
+The five `PROP / NAV / LSS / COM / PWR — ONLINE` rows under Systems in the prototype's right column, the
+`54,621 KM` / `2.56 KM/S` / `0.38 G` under Telemetry, the static shortcut table, the "Compute Load 71%" at the foot of the sidebar
+and the "ALL SYSTEMS NOMINAL" in the cover's top-right corner **all have no matching projection in the harness**.
 
-装饰可以，假状态不行。这套皮肤尤其如此：一块永远显示 NOMINAL 的系统面板，
-在"驾驶舱"这个语境下正好是最误导人的东西——它旁边那些**真**数字会跟着一起被怀疑。
-所以右栏只留能对上真实数据的卡。
+Decoration is fine; fake state is not — especially in this skin. A systems panel permanently reading NOMINAL is exactly
+the most misleading thing possible in a flight-deck context, and the **real** numbers beside it get doubted along with it.
+So the right column keeps only cards backed by real data.
 
-hero 上那四颗任务预设（`Analyze orbital trajectory` / `Inspect system anomaly`…）也没做：
+The four mission presets on the hero (`Analyze orbital trajectory` / `Inspect system anomaly`…) are not built either:
 they are hardcoded copy in the draft, whereas the harness's suggestions come from session context, and hardcoding a set would only ever produce the same four lines.
 
 ## Install
@@ -83,7 +83,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-mars-flight-deck
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-mars-flight-deck 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-mars-flight-deck to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -105,7 +105,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张干净插画（1536x1024），按 hero 的宽高比裁成 1423x1024，cwebp q95 原生分辨率——仪表细线与火星表面的陨石坑纹理经不起缩图。
+The cover is the clean illustration from the prototype (1536×1024), cropped to 1423×1024 at the hero's aspect ratio and encoded at cwebp q95 in native resolution — the instrument hairlines and the crater texture on Mars cannot survive downscaling.
 
 ## Development
 
