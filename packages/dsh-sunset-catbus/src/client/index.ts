@@ -1,5 +1,5 @@
 /**
- * 夕阳猫巴士 · 浏览器半。
+ * Sunset Catbus · browser half.
  *
  * It does three things, in decreasing order of robustness, hence kept separate:
  *
@@ -47,7 +47,7 @@ const DOCK_OPEN_ATTRIBUTE = 'data-catbus-dock-open'
 const DOCK_STORAGE_KEY = 'catbus'
 
 /**
- * 封面地址。由 host 半在 `/skin-cover/catbus.webp` 上提供（见 src/index.ts 的 COVER_ROUTE）。
+ * The cover URL, served by the host half at `/skin-cover/catbus.webp` (see COVER_ROUTE in src/index.ts).
  *
  * 🔴 No more inline data URIs: with several skins loaded, a few hundred KB of base64 each crushes the browser's
  * main thread (measured: with 21 installed the first paint did not arrive in 90 seconds). The browser now fetches
@@ -82,7 +82,7 @@ export const inject = ['theme', 'slots']
 /** Browser-half config, with the same field names as the host half. */
 export interface Config {
   /**
-   * 装上就切到夕阳猫巴士，默认开。
+   * Switch to Sunset Catbus on install; on by default.
    *
    * Why the switch exists: the harness's third-party theme ids **never enter the built-in settings schema**, so
    * the choice lives only in the process and is never written to `$DSH_HOME/settings.yaml`; and the built-in
@@ -103,7 +103,7 @@ export function apply(ctx: Context, config: Config = {}): void {
    * priority), but that rail holds "click a tool call to see its Input / Output", the only lead there is when
    * debugging, so replacing it with a dock is a net loss. Both coexist without interfering.
    *
-   * 挂载不区分皮肤是否激活，可见性交给 CSS（`body[data-dsh-catbus]` 才 display）——
+   * Mounting does not depend on whether the skin is active; visibility is left to CSS (display only under `body[data-dsh-catbus]`) —
    * The rule is "not active means not present", so no half-built UI shows during the window before the skin takes effect.
    */
   ctx.effect(() => mountDock(), 'catbus: status dock')
@@ -206,7 +206,7 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
     return false
   }
   if (scope[CLAIM_KEY] !== undefined) {
-    ctx.logger.info('[catbus] 已有皮肤占了自动应用名额（%s），本套改为待选', String(scope[CLAIM_KEY]))
+    ctx.logger.info('[catbus] another skin already claimed the auto-apply slot (%s); this one waits to be picked', String(scope[CLAIM_KEY]))
     return false
   }
   scope[CLAIM_KEY] = THEME_ID
@@ -235,7 +235,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
    * Whether the startup window has passed. Inside it the theme is held; after it, nothing is touched.
    *
    * 🔴 It cannot be "stop after one successful switch": ui-theme's `setTheme` persists built-in preferences only
-   *（`isThemePreference('catbus')` 是 false，第三方 id 根本不进持久化），而 Host 快照
+   * (`isThemePreference('catbus')` is false and third-party ids never reach persistence), and when the Host snapshot
    * On arrival, `adopt()` **overrides** the current preference with the built-in value from disk. Once the order is
    * plugin-switches-then-snapshot-arrives, the skin is quietly swapped back to a built-in theme **with no error at
    * all**, and the plugin has already let go so it never switches back — the symptom being "installed a skin, refreshed a few times, back to default". The order is a race, hence the intermittency.
@@ -266,7 +266,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
         // 🔴 Do not say "pick it under Settings → Appearance": measured, that row holds only the three built-in
         // preferences light / dark / follow system (CUBES in ui-theme's AppearanceRow is hardcoded to three), and third-party themes are simply not there.
         // The place to switch manually is the skin market's own panel (Settings → Skin Market).
-        ctx.logger.warn('[catbus] 自动应用失败，可到「设置 → 皮肤市场」手动切换', error)
+        ctx.logger.warn('[catbus] auto-apply failed; you can switch manually under Settings → Skin Market', error)
       }
       return
     }
@@ -437,7 +437,7 @@ function attachBrand(ctx: Context): (() => void)[] {
           priority: -1,
         }, slot.component)
       } catch (error) {
-        ctx.logger.warn('[catbus] 品牌位 %s 接管失败，保留官方标', slot.name, error)
+        ctx.logger.warn('[catbus] brand slot %s takeover failed; keeping the official mark', slot.name, error)
         return () => {}
       }
     }))

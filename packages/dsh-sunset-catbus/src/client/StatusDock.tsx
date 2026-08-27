@@ -187,7 +187,7 @@ export function CatbusStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 正在赶路' : '● 就绪 READY'}
+                  {busy ? '● ON THE ROAD' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -214,28 +214,28 @@ export function CatbusStatusDock() {
             </section>
 
             {/*
-              途中停靠 —— 原型稿右栏那张卡的真数据版。
+              Stops along the way — the real-data version of that card in the prototype's right column.
               The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>途中停靠</div>
+                <div className={css.cardTitle}>Stops along the way</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `赶路中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `on the road · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '抛锚' : `抛锚 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '到站' : `到站 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'broken down' : `broken down · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'arrived' : `arrived · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 站更早的停靠`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier stop(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.

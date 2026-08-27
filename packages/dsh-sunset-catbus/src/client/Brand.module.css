@@ -6,7 +6,7 @@
 .mark {
   display: block;
   flex: none;
-  /* 原型 `.logo` 那圈落日：亮金芯 → 夕阳橙环 → 暗棕底。 */
+  /* The setting sun in the prototype's `.logo`: a bright gold core, a sunset-orange ring, a dark brown ground. */
   background: radial-gradient(circle, #ffe3ae 0 16%, #f49a43 17% 44%, #2b1a10 45%);
   /* Moonlight glow; the prototype uses `box-shadow: 0 0 24px #73d5ff24`. */
   box-shadow: 0 0 24px rgba(255, 208, 122, 0.16);

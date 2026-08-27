@@ -1,7 +1,7 @@
 /**
- * 夜林同伴的装饰层。
+ * The Night Forest Companion decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-nforest]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-nforest]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -16,8 +16,8 @@
  * The new-session banner.
  *
  * 🔴 The prototype states the rule plainly in its own notes:
- *   「New Session 以**整张横幅为主视觉**，**输入区独立放在下方**；左右仍然保留 Harness 的
- *   会话、状态、系统与模式区域。」handoff 里也写着 `composer = below hero`。
+ *   New Session uses **the whole banner as the hero visual** with **the composer separately below**, while left and right still keep the harness's
+ *   session, status, system and mode areas. The handoff also says `composer = below hero`.
  * its `#home` is likewise `flex-direction: column` plus `.hero { flex: 1 }` with a separate `.composer` below.
  *
  * So the banner takes all the height above the composer, which sits below it without overlap; apart from the two corner badges the cover
@@ -76,7 +76,7 @@
 /*
  * The identity badge in the cover's top-left corner (the prototype's `.badge.leftb`: a frosted pill reading "DeepSeek Harness / Night Flight").
  *
- * ⚠️ 右上角那枚「☾ MOONLIGHT READY」**没有做**：它写死了一个"在线"状态，而 harness 并没有
+ * ⚠️ The "☾ MOONLIGHT READY" badge in the top-right corner is **not implemented**: it hardcodes an online state, and the harness has no
  * has nothing to read against — real state lives in the right-hand dock, where every number has a source. Decoration is fine; fake state is not.
  */
 :global(body[data-dsh-nforest] [data-phase='hero'])::after {
@@ -244,7 +244,7 @@
  * The details rail's card language: a vertical gradient card with an 11px radius and a moonlight-cyan border (the prototype's `.card`).
  *
  * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Session / Harness Systems / Companion Modes /
- * Moonlight Energy」四张卡。后三张全是写死的装饰——五行 ONLINE、四张模式卡、一个 82% 的能量值，
+ * Moonlight Energy. The last three are hardcoded decoration — five ONLINE rows, four mode cards and an 82% energy value —
  * the harness has no matching projection, so nothing is fabricated. Real state is carried by this skin's own dock (see StatusDock);
  * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.
  */

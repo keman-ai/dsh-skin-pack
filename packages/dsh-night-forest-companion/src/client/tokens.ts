@@ -1,5 +1,5 @@
 /**
- * 夜林同伴的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Night Forest Companion's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
@@ -15,11 +15,11 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const NFOREST_PALETTE = {
-  /** 夜林底，接近黑的月夜蓝。 */
+  /** The night-forest ground: a moonlit night blue close to black. */
   bg: '#071423',
-  /** 更沉的一档。 */
+  /** One step deeper. */
   bg2: '#050f1a',
-  /** 面板：森林深色。 */
+  /** Panels: forest dark. */
   panel: '#0b1c2e',
   panel2: '#0e2438',
   /** The ground for the sidebar and cards. */
@@ -29,7 +29,7 @@ export const NFOREST_PALETTE = {
   muted: '#829cb0',
   muted2: '#6e8798',
 
-  /** 主操作蓝（原型 `.new` 的 `linear-gradient(135deg,#4b84ff,#2f62ce)`）。 */
+  /** The primary action blue (the prototype's `.new`: `linear-gradient(135deg,#4b84ff,#2f62ce)`). */
   blue: '#467fff',
   blue2: '#4b84ff',
   blueDeep: '#2f62ce',
@@ -65,7 +65,7 @@ export const NFOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(150, 205, 255, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(150,205,255,.16)`——**带月光青的暗描边**。夜里的界面全靠它分层。
+  // The prototype uses exactly one, `--line: rgba(150,205,255,.16)` — **a dark border tinted moonlight cyan**. All layering at night rests on it.
   '--dsw-alias-border-l1': 'rgba(150, 205, 255, 0.1)',
   '--dsw-alias-border-l2': 'rgba(150, 205, 255, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(150, 205, 255, 0.12)',
@@ -119,9 +119,9 @@ export const NFOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': '#74d099',
   '--dsw-alias-state-success-tertiary': '#0f2a20',
-  // 🔴 琥珀与红原型都没给（它只画了正常流程），而这套是 `calm companion`——
-  // 一个暖色都没有是有意的。所以警告压在低饱和的柔黄上、错误压在低饱和的粉红上，
-  // 绝不用橙红：这套皮肤最不该出现的就是跳出来喊你的东西。
+  // 🔴 The prototype gives neither amber nor red (it drew only the happy path), and this skin is a `calm companion` —
+  // having no warm colour at all is deliberate. So warnings settle on a low-saturation soft yellow and errors on a low-saturation pink,
+  // never orange-red: the last thing this skin should contain is something that jumps out and shouts at you.
   '--dsw-alias-state-warn-primary': '#dcc98a',
   '--dsw-alias-state-warn-secondary': '#dcc98a',
   '--dsw-alias-state-warn-label': '#ecdfb4',

@@ -1,39 +1,39 @@
 # dsh-night-forest-companion · Night Forest Companion
 
-DeepSeek Harness（dsh）的皮肤：月夜蓝打底、月光青做描边与状态、主操作走蓝，新会话页是一整幅夜林横幅
+A skin for DeepSeek Harness (dsh): moonlit night blue as the ground, moonlight cyan for borders and state and blue for the primary action, with a full night-forest banner on the new-session page.
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色月夜蓝 `#071423`，面板森林深色 `#0b1c2e`，全场一条带月光青的暗描边
-  `rgba(150,205,255,.16)`，文字 `#eef8ff`。约 80 个 `--dsw-alias-*` / `--dsw-specific-*`
+- **A full set of semantic tokens**: a moonlit night-blue ground `#071423`, forest-dark panels `#0b1c2e` and a single dark border tinted moonlight cyan
+  `rgba(150,205,255,.16)`, with `#eef8ff` text. Around 80 `--dsw-alias-*` / `--dsw-specific-*` variables
   change at once, and every layer of the interface follows.
-- **新会话页整张横幅**：树枝上的一大两小、夜空与那弯月，16px 圆角配月光青描边和很深的投影；
-  输入区独立放在下方，两者不重叠；封面左上角留一枚身份角标。进入对话与轨迹页后横幅收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚月环标，副标「Night Forest Companion」。
+- **A full banner on the new-session page**: the three figures on the branch, the night sky and the crescent moon, with a 16px radius, a moonlight-cyan border and a deep shadow;
+  the composer sits separately below and the two never overlap, with an identity badge in the cover's top-left corner. The banner retracts once you enter the chat or trajectory pages.
+- **Brand mark takeover**: both the sidebar and hero marks become a moon-ring mark, subtitled "Night Forest Companion".
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
-原型稿自己在对话里把规则写清楚了：
+The prototype states the rule plainly in its own notes:
 
-> 已将主题整体收束到**月夜蓝、森林深色与柔和冷光**。
+> The theme is drawn together into **moonlit night blue, forest dark and a soft cool glow**.
 
-handoff 里写得更直接：`theme = night blue / moon cyan / soft glow`、`mode = calm companion`。
+The handoff is blunter still: `theme = night blue / moon cyan / soft glow`, `mode = calm companion`.
 
 | Colour | Value | Used for |
 |---|---|---|
-| 月夜蓝 / 森林深色 | `#071423` / `#0b1c2e` | 底与面板——绝大部分界面 |
-| 月光青 | `#7bdcff` | 描边、强调、**正在跑**。画里那圈月光 |
-| 蓝 | `#467fff` | 主操作。原型 `.new` 的 `linear-gradient(135deg,#4b84ff,#2f62ce)` |
+| Night blue / forest dark | `#071423` / `#0b1c2e` | Ground and panels — most of the interface |
+| Moonlight cyan | `#7bdcff` | Borders, emphasis and **running**. The ring of moonlight in the picture |
+| Blue | `#467fff` | The primary action. The prototype's `.new`: `linear-gradient(135deg,#4b84ff,#2f62ce)` |
 
-🔴 **月光青不做实心按钮**：它在这套里是「描边与状态」的语言，铺成大块会把夜的安静打破。
-主操作因此走蓝。
+🔴 **Moonlight cyan is never a solid button**: here it is the language of borders and state, and spreading it across large areas would break the quiet of the night.
+The primary action therefore takes blue.
 
-🔴 **这套皮肤一个暖色都没有，是有意的**：`calm companion` 的意思就是不要有任何东西跳出来喊你。
-原型只画了正常流程、没给警告与错误色，所以警告压在低饱和的柔黄（`#dcc98a`）、
-错误压在低饱和的粉红（`#e0808f`）上——**绝不用橙红**。
+🔴 **This skin has no warm colour at all, deliberately**: `calm companion` means nothing should jump out and shout at you.
+The prototype drew only the happy path and gave no warning or error colour, so warnings settle on a low-saturation soft yellow (`#dcc98a`)
+and errors on a low-saturation pink (`#e0808f`) — **never orange-red**.
 
 ### What the status dock shows
 
@@ -45,7 +45,7 @@ handoff 里写得更直接：`theme = night blue / moon cyan / soft glow`、`mod
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 夜行记录 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Night-walk log | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -56,12 +56,12 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏的「Harness Systems」五行 `AI / MM / CX / VS / FS — ONLINE`、
-「Companion Modes」四张模式卡（Calm / Wonder / Focus / Memory）、
-「Moonlight Energy」那个 `Energy Level 82% · Night Sync 100%`，
-以及封面右上角的「☾ MOONLIGHT READY」，**harness 都没有对应的投影**。
+The five `AI / MM / CX / VS / FS — ONLINE` rows under Harness Systems in the prototype's right column,
+the four Companion Modes cards (Calm / Wonder / Focus / Memory),
+the `Energy Level 82% · Night Sync 100%` under Moonlight Energy
+and the "☾ MOONLIGHT READY" in the cover's top-right corner **all have no matching projection in the harness**.
 
-装饰可以，假状态不行：一个永远停在 82% 的能量值，第二次看见就没人信了，
+Decoration is fine; fake state is not. An energy value frozen at 82% convinces nobody the second time they see it,
 and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
 **This draft gives no agent-copy specification either**, so not one line of host copy is replaced.
@@ -77,7 +77,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-night-forest-companion
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-night-forest-companion 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-night-forest-companion to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -99,7 +99,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张干净插画（1672x941），一刀不裁，cwebp q95 原生分辨率——大面积平涂的夜空最吃编码质量，压一档就在蓝色渐变上起色带。
+The cover is the clean illustration from the prototype (1672×941), uncropped, at cwebp q95 in native resolution — a night sky of large flat areas is the most demanding case for the encoder, and one step down bands the blue gradient.
 
 ## Development
 

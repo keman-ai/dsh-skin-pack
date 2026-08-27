@@ -15,7 +15,7 @@ DeepSeek Harness（dsh）的皮肤：深海蓝打底、透明青蓝做描边与�
 
 ## Palette rules
 
-原型稿自己在对话里把规则写清楚了：
+The prototype states the rule plainly in its own notes:
 
 > 已将整套主题统一成**深海蓝、透明青蓝与冰白高光**。
 

@@ -1,44 +1,44 @@
 # dsh-sunset-catbus · Sunset Catbus
 
-DeepSeek Harness（dsh）的皮肤：深棕打底、夕阳橙做主操作、麦田金做描边与强调、冷蓝只给运行中，新会话页是一整幅黄昏横幅
+A skin for DeepSeek Harness (dsh): deep brown as the ground, sunset orange for the primary action, wheat gold for borders and emphasis and cool blue only for running, with a full golden-hour banner on the new-session page.
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色深棕 `#160d08`（**不是黑**），面板暖棕两级，全场一条带麦田金的暗描边
-  `rgba(255,191,103,.16)`，文字 `#fff4e7`。约 80 个 `--dsw-alias-*` / `--dsw-specific-*`
+- **A full set of semantic tokens**: a deep brown ground `#160d08` (**not black**), two levels of warm brown panels and a single dark border tinted wheat gold
+  `rgba(255,191,103,.16)`, with `#fff4e7` text. Around 80 `--dsw-alias-*` / `--dsw-specific-*` variables
   change at once, and every layer of the interface follows.
-- **新会话页整张横幅**：猫巴士、麦田与落日，16px 圆角配麦田金描边和很深的投影；
-  输入区独立放在下方，两者不重叠；封面左上角留一枚身份角标。进入对话与轨迹页后横幅收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚落日标，副标「Sunset Catbus」。
+- **A full banner on the new-session page**: the catbus, the wheat field and the setting sun, with a 16px radius, a wheat-gold border and a deep shadow;
+  the composer sits separately below and the two never overlap, with an identity badge in the cover's top-left corner. The banner retracts once you enter the chat or trajectory pages.
+- **Brand mark takeover**: both the sidebar and hero marks become a setting-sun mark, subtitled "Sunset Catbus".
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
-原型稿自己在对话里把规则写清楚了：
+The prototype states the rule plainly in its own notes:
 
-> 已将主题统一成**夕阳橙、麦田金和深棕色**。
+> The theme is drawn together into **sunset orange, wheat gold and deep brown**.
 
-handoff 里写得更直接：`theme = warm orange / golden field / dark brown`、`mode = companion journey`。
+The handoff is blunter still: `theme = warm orange / golden field / dark brown`, `mode = companion journey`.
 
 | Colour | Value | Used for |
 |---|---|---|
-| 深棕 | `#160d08` / `#24150d` / `#302016` | 底与面板——绝大部分界面 |
-| 夕阳橙 | `#f49a43` | 主操作。原型 `.new` 的 `linear-gradient(135deg,#f39a43,#bd5e27)` |
-| 麦田金 | `#ffd07a` | 描边与强调。画里那片被夕阳照亮的麦子 |
-| 冷蓝 | `#6ab6ff` | **正在跑** |
+| Deep brown | `#160d08` / `#24150d` / `#302016` | Ground and panels — most of the interface |
+| Sunset orange | `#f49a43` | The primary action. The prototype's `.new`: `linear-gradient(135deg,#f39a43,#bd5e27)` |
+| Wheat gold | `#ffd07a` | Borders and emphasis. The wheat lit by the setting sun in the picture |
+| Cool blue | `#6ab6ff` | **Running** |
 
-🔴 **底是深棕，不是黑**。这套的底带着黄昏的余温，换成中性黑，整张封面会像贴在另一个界面上——
-这是暖色皮肤最容易做塌的一处。
+🔴 **The ground is deep brown, not black.** It carries the residual warmth of dusk, and swapping in a neutral black makes the whole cover look pasted onto a different interface —
+the place a warm skin most easily collapses.
 
-🔴 **全暖盘里，"正在跑"反过来取冷**：`#6ab6ff` 是稿子调色盘里唯一的冷色，正好留给状态。
-在一片橙金里，冷色是唯一能一眼认出来的东西。
+🔴 **In an all-warm palette, running goes cool instead**: `#6ab6ff` is the only cool colour on the draft's palette, which leaves it free for state.
+Amid all that orange and gold, a cool colour is the one thing recognised at a glance.
 
-🔴 **警告是这套里的难题**：整盘都是橙金，橙色警告根本浮不出来。所以警告取**麦田金的高亮档**，
-靠亮度而不是色相区分；错误取砖红 `#e0674f`——比夕阳橙更深更红，在暖色里仍然读得出"这是坏消息"。
+🔴 **Warnings are the hard problem here**: with the whole palette orange and gold, an orange warning simply does not surface. So warnings take **a bright step of wheat gold**,
+separated by brightness rather than hue; errors take a brick red `#e0674f` — deeper and redder than the sunset orange, so it still reads as bad news amid the warmth.
 
-🔴 **金不做实心按钮**：它在这套里是"描边与强调"的语言，金色大按钮会跟封面抢光。
+🔴 **Gold is never a solid button**: here it is the language of borders and emphasis, and a large gold button would compete with the cover for light.
 
 ### What the status dock shows
 
@@ -50,7 +50,7 @@ handoff 里写得更直接：`theme = warm orange / golden field / dark brown`�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 途中停靠 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Stops along the way | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -61,12 +61,12 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型右栏的「Harness Systems」五行 `AI / MM / CX / VS / FS — ONLINE`、
-「Journey Modes」四张模式卡（Wonder / Focus / Memory / Story）、
-「Golden Hour Energy」那个 `Energy Level 88% · Journey Sync 100%`，
-以及封面右上角的「☀ GOLDEN HOUR」，**harness 都没有对应的投影**。
+The five `AI / MM / CX / VS / FS — ONLINE` rows under Harness Systems in the prototype's right column,
+the four Journey Modes cards (Wonder / Focus / Memory / Story),
+the `Energy Level 88% · Journey Sync 100%` under Golden Hour Energy
+and the "☀ GOLDEN HOUR" in the cover's top-right corner **all have no matching projection in the harness**.
 
-装饰可以，假状态不行：一个永远停在 88% 的能量值，第二次看见就没人信了，
+Decoration is fine; fake state is not. An energy value frozen at 88% convinces nobody the second time they see it,
 and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
 **This draft gives no agent-copy specification either**, so not one line of host copy is replaced.
@@ -82,7 +82,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-sunset-catbus
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-sunset-catbus 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-sunset-catbus to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -104,7 +104,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张干净插画（1672x941），一刀不裁，cwebp q95 原生分辨率——麦田的笔触与逆光的尘土缩一档就糊成一片黄。
+The cover is the clean illustration from the prototype (1672×941), uncropped, at cwebp q95 in native resolution — one step down and the brushwork in the wheat and the backlit dust smear into a single field of yellow.
 
 ## Development
 

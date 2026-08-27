@@ -2,7 +2,7 @@
  * The moon-ring mark and wordmark for the brand slots.
  *
  * The prototype's sidebar has a 12px-radius square mark in the top left containing **the banner itself** (cropped square with `object-fit: cover`),
- * 配一层很淡的蓝色投影；旁边两行「deepseek / Night Forest Companion」。
+ * with a faint blue shadow, beside two lines reading "deepseek / Night Forest Companion".
  *
  * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
  * "a single slot occupied by the official component makes third-party registration throw" is **out of date**:
@@ -52,7 +52,7 @@ export function NforestMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「deepseek / Night Forest Companion」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "deepseek / Night Forest Companion".
  *
  * The primary name stays DeepSeek Harness — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *

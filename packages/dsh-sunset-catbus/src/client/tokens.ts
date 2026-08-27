@@ -1,5 +1,5 @@
 /**
- * 夕阳猫巴士的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Sunset Catbus's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
@@ -15,10 +15,10 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const CATBUS_PALETTE = {
-  /** 黄昏底，深棕（不是黑）。 */
+  /** The dusk ground: deep brown, not black. */
   bg: '#160d08',
   bg2: '#100904',
-  /** 面板：暖棕两级。 */
+  /** Panels: two levels of warm brown. */
   panel: '#24150d',
   panel2: '#302016',
   /** The ground for the sidebar and cards. */
@@ -28,13 +28,13 @@ export const CATBUS_PALETTE = {
   muted: '#b49a84',
   muted2: '#9a836f',
 
-  /** 夕阳橙：主操作。 */
+  /** Sunset orange: the primary action. */
   orange: '#f49a43',
   orange2: '#f8b168',
   orangeDeep: '#bd5e27',
-  /** 麦田金：描边与强调。 */
+  /** Wheat gold: borders and emphasis. */
   gold: '#ffd07a',
-  /** 冷色：全场唯一，留给"正在跑"。 */
+  /** The only cool colour anywhere, reserved for running. */
   blue: '#6ab6ff',
   /** Online green. */
   green: '#7fd59e',
@@ -66,7 +66,7 @@ export const CATBUS_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(255, 191, 103, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(255,191,103,.16)`——**带麦田金的暗描边**。暗棕底上的分层全靠它。
+  // The prototype uses exactly one, `--line: rgba(255,191,103,.16)` — **a dark border tinted wheat gold**. All layering on the dark brown ground rests on it.
   '--dsw-alias-border-l1': 'rgba(255, 191, 103, 0.1)',
   '--dsw-alias-border-l2': 'rgba(255, 191, 103, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(255, 191, 103, 0.12)',
@@ -88,7 +88,7 @@ export const CATBUS_TOKENS: Record<string, string> = {
 
   // ── Brand and primary button ──
   // 主操作是那条夜蓝渐变（原型 `.new` / `.send` 的 `linear-gradient(135deg,#4b7fe8,#24507a)`）。
-  // 麦田金不做实心按钮：它在这套里是"描边与强调"的语言，金色大按钮会跟封面抢光。
+  // Wheat gold is never a solid button: here it is the language of borders and emphasis, and a large gold button would compete with the cover for light.
   '--dsw-alias-brand-primary': p.orange,
   '--dsw-alias-brand-text': p.gold,
   '--dsw-alias-brand-primary-invert': '#ffffff',
@@ -120,16 +120,16 @@ export const CATBUS_TOKENS: Record<string, string> = {
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': '#74d099',
   '--dsw-alias-state-success-tertiary': '#16301f',
-  // 🔴 警告在这套里是个难题：整盘都是橙金，橙色警告根本浮不出来。
-  // 所以警告取**麦田金的高亮档**（靠亮度而不是色相区分），错误取砖红——
-  // 比夕阳橙更深更红，在一片暖色里仍然读得出"这是坏消息"。
+  // 🔴 Warnings are the hard problem here: with the whole palette orange and gold, an orange warning simply does not surface.
+  // So warnings take **a bright step of wheat gold** (separated by brightness rather than hue) and errors take a brick red —
+  // deeper and redder than the sunset orange, so it still reads as bad news amid all the warmth.
   '--dsw-alias-state-warn-primary': '#ffd07a',
   '--dsw-alias-state-warn-secondary': '#f0bd63',
   '--dsw-alias-state-warn-label': '#ffe1a8',
   '--dsw-alias-state-warn-tertiary': '#33270f',
   '--dsw-alias-state-error-primary': '#e0674f',
   '--dsw-alias-state-error-secondary': '#ea8069',
-  // business = 进行中：冷蓝。全场唯一的冷色，在一片橙金里一眼能认出来。
+  // business = in progress: cool blue. The only cool colour anywhere, recognised at a glance amid the orange and gold.
   '--dsw-alias-state-business-primary': p.blue,
   '--dsw-alias-state-business-tertiary': '#12293d',
 
