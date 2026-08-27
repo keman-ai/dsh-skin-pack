@@ -243,7 +243,7 @@
 /*
  * 右侧详情栏的卡片语言：竖向渐变卡 + 11px 圆角 + 月光青描边（原型 `.card`）。
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「Current Session / Harness Systems / Companion Modes /
+ * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Session / Harness Systems / Companion Modes /
  * Moonlight Energy」四张卡。后三张全是写死的装饰——五行 ONLINE、四张模式卡、一个 82% 的能量值，
  * the harness has no matching projection, so nothing is fabricated. Real state is carried by this skin's own dock (see StatusDock);
  * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.

@@ -1,8 +1,8 @@
 /**
- * 品牌位的林间光斑标与站名。
+ * The forest-light mark and wordmark for the brand slots.
  *
  * The prototype's sidebar has a 12px-radius square mark in the top left containing **the banner itself** (cropped square with `object-fit: cover`),
- * 配一层很淡的蓝色投影；旁边两行「deepseek / Forest Companion Skin」。
+ * with a faint blue shadow, beside two lines reading "deepseek / Forest Companion Skin".
  *
  * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
  * "a single slot occupied by the official component makes third-party registration throw" is **out of date**:
@@ -28,13 +28,13 @@ interface BrandMarkProps {
 }
 
 /**
- * 林间光斑标。
+ * The forest-light mark.
  *
- * 用纯 CSS 的径向渐变复刻原型那枚标，不裁封面——封面是一整片林子，裁成小方块只会得到一块绿。圆角按 size 等比给（原型 35px 配 11px 圆角，约 0.31 倍），侧栏的 24px 与
+ * A pure-CSS radial gradient reproduces the prototype's mark rather than cropping the cover — the cover is a whole forest, and a small square crop would yield nothing but green. The radius scales with size (the prototype's 35px carries an 11px radius, about 0.31×), so the sidebar's 24px and
  * so the hero's 34px is the same shape.
  *
  * @param props - Size and class name from the host.
- * @returns 方形光斑标。
+ * @returns The square light mark.
  */
 export function ForestMark({ size, className }: BrandMarkProps) {
   return (
@@ -51,7 +51,7 @@ export function ForestMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「deepseek / Forest Companion Skin」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "deepseek / Forest Companion Skin".
  *
  * The primary name stays deepseek — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *

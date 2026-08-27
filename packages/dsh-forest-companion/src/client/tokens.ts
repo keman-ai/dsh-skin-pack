@@ -1,44 +1,44 @@
 /**
- * 森林同行的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Forest Companion's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 原型稿自己在对话里把配色规则写清楚了：
- * 「已把整套主题收束到**深森林绿、柔和米色与一点粉色人物呼应**」，
- * handoff 里也写着 `theme = deep green / soft cream / warm pink`。
+ * 🔴 The prototype states the palette rule plainly in its own notes:
+ * the whole theme is drawn together into **deep forest green, soft cream and a touch of pink echoing the character**,
+ * and the handoff says `theme = deep green / soft cream / warm pink`.
  *
- * 三个词对应三种用量：
- *   - **深森林绿**：底、面板、描边、主操作——绝大部分界面；
- *   - **柔和米色**（#e9e0c5）：只出现在能量条末端与品牌标的芯上，像穿过树冠的那束光；
- *   - **一点粉**（#d96f95）：原型全场只用了两处，而且都极淡——封面上一团 5% 的光晕，
- *     和「当前模式」卡的描边。**"一点"是它的定义**，铺开就不再是呼应画里那个人物了。
+ * Three words, three uses:
+ *   - **deep forest green**: ground, panels, borders and the primary action — most of the interface;
+ *   - **soft cream** (#e9e0c5): only at the end of the energy bar and in the brand mark's core, like light through the canopy;
+ *   - **a touch of pink** (#d96f95): used in two places only, both very faint — a 5% glow on the cover
+ *     and the current-mode card's border. **"A touch" is its definition**; spread wider it no longer echoes the figure in the picture.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const FOREST_PALETTE = {
-  /** 林底，接近黑的深绿。 */
+  /** The forest floor: a deep green close to black. */
   bg: '#071713',
-  /** 更沉的一档（原型渐变的下端）。 */
+  /** One step deeper (the bottom of the prototype's gradient). */
   bg2: '#050f0c',
   /** Two panel levels. */
   panel: '#0b211a',
   panel2: '#102b22',
-  /** 侧栏与卡片渐变的上端。 */
+  /** The top of the sidebar and card gradients. */
   panelUp: '#0a2019',
 
   text: '#edf8f1',
   muted: '#8da99b',
   muted2: '#718a7e',
 
-  /** 主操作绿（原型 `.new` / `.send` 的 `linear-gradient(135deg,#58c88a,#2d8f72)`）。 */
+  /** The primary action green (the prototype's `.new` / `.send`: `linear-gradient(135deg,#58c88a,#2d8f72)`). */
   green: '#59c98b',
   greenDeep: '#2d8f72',
-  /** 青绿：用于"正在运行"，与成功绿区分得开。 */
+  /** Teal: used for running, clearly apart from the success green. */
   teal: '#4db9b0',
-  /** 🔴 柔和米色：只给能量条末端与品牌标的芯。 */
+  /** 🔴 Soft cream: only the end of the energy bar and the brand mark's core. */
   cream: '#e9e0c5',
-  /** 🔴 一点粉：全场两处，都极淡。 */
+  /** 🔴 A touch of pink: two places anywhere, both very faint. */
   pink: '#d96f95',
 } as const
 
@@ -59,7 +59,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.panel2,
   '--dsw-alias-bg-multi-select': '#163a2e',
 
-  // 遮罩：压向林底的深绿而不是纯黑，压黑会把这套本来就很暗的绿洗成灰。
+  // The scrim darkens towards the forest floor's deep green rather than pure black; black would wash this already dark green to grey.
   '--dsw-alias-bg-mask-1': 'rgba(3, 10, 7, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(3, 10, 7, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(3, 10, 7, 0.62)',
@@ -68,7 +68,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(151, 220, 190, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(151,220,190,.15)`——带草绿的暗描边。林子里的分层全靠它。
+  // The prototype uses exactly one, `--line: rgba(151,220,190,.15)` — a dark border tinted grass green. All layering in the forest rests on it.
   '--dsw-alias-border-l1': 'rgba(151, 220, 190, 0.09)',
   '--dsw-alias-border-l2': 'rgba(151, 220, 190, 0.15)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(151, 220, 190, 0.12)',
@@ -89,8 +89,8 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-inverted': p.panel2,
 
   // ── Brand and primary button ──
-  // 主操作是那条 135° 绿渐变（原型 `.new` 与 `.send`）。米色与粉都不做按钮：
-  // 前者是光、后者是呼应，实心铺开会把这套的安静打破。
+  // The primary action is that 135° green gradient (the prototype's `.new` and `.send`). Neither cream nor pink is ever a button:
+  // one is light and the other an echo, and a solid fill of either would break this skin's quiet.
   '--dsw-alias-brand-primary': p.green,
   '--dsw-alias-brand-text': '#a6e6c6',
   '--dsw-alias-brand-primary-invert': '#ffffff',
@@ -116,24 +116,24 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-active': 'rgba(151, 220, 190, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': '#123426',
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(89, 201, 139, 0.22)',
-  // 🔴 粉的第二处（第一处是封面上那团光晕）：危险操作的悬停。原型把粉用在
-  // 「当前模式」的描边上，也就是"需要你注意的那一个"；这里落到同一类语义上。
+  // 🔴 Pink's second place (the first is the cover glow): hovering a destructive action. The prototype uses pink on the
+  // current-mode border, meaning "the one that needs your attention"; this lands on the same semantic.
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(217, 111, 149, 0.22)',
 
   // ── Status colours ──
   '--dsw-alias-state-success-primary': '#76dfa0',
   '--dsw-alias-state-success-secondary': '#78d698',
   '--dsw-alias-state-success-tertiary': '#10261d',
-  // 琥珀原型没给，借米色的方向推一个暖调——这套皮肤最不该出现的就是刺眼的东西。
+  // The prototype gives no amber, so one is derived towards the cream — the last thing this skin should contain is anything that glares.
   '--dsw-alias-state-warn-primary': '#dcc487',
   '--dsw-alias-state-warn-secondary': '#dcc487',
   '--dsw-alias-state-warn-label': '#ecdcae',
   '--dsw-alias-state-warn-tertiary': '#2a2418',
-  // 错误：往那点粉上靠（#d96f95 提亮一档）。原型没给错误色，而粉是它唯一的暖冷对比色，
-  // 拿它当错误既守住"不刺眼"，又不用凭空引入第五种颜色。
+  // Error leans on that touch of pink (#d96f95, one step brighter). The prototype gives no error colour, and pink is its
+  // only warm-against-cool contrast, so using it keeps nothing glaring while introducing no fifth colour out of thin air.
   '--dsw-alias-state-error-primary': '#e07f9f',
   '--dsw-alias-state-error-secondary': '#eb95b1',
-  // business = 进行中：青绿。与成功绿拉开一档，运行和成功不会看成同一件事。
+  // business = in progress: teal. A step apart from the success green, so running and success never read as one.
   '--dsw-alias-state-business-primary': p.teal,
   '--dsw-alias-state-business-tertiary': '#0f3330',
 

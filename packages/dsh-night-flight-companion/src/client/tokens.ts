@@ -17,7 +17,7 @@
 export const NIGHT_PALETTE = {
   /** 夜空底，接近黑。 */
   bg: '#06101c',
-  /** 更沉的一档（原型渐变的下端）。 */
+  /** One step deeper (the bottom of the prototype's gradient). */
   bg2: '#040a12',
   /** 面板：夜蓝。 */
   panel: '#0b1d31',

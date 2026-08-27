@@ -1,7 +1,7 @@
 /**
- * 森林同行的装饰层。
+ * The Forest Companion decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-forest]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-forest]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -16,9 +16,9 @@
  * The new-session banner.
  *
  * 🔴 The prototype states the rule plainly in its own notes:
- *   「New Session **保留整张封面**，**输入区独立放在下方**；左右栏继续保留完整 Harness 的
- *   会话、系统、模式与状态信息。」handoff 里也写着 `composer = below hero`。
- * 它的 `#home` 是 `flex-direction: column` + `.hero { flex: 1 }` + 下方独立的 `.composer`。
+ *   New Session **keeps the whole cover** with the **composer separately below**, while the left and right columns keep
+ *   Harness's full session, system, mode and status information. The handoff also says `composer = below hero`.
+ * Its `#home` is `flex-direction: column` plus `.hero { flex: 1 }` with a separate `.composer` below.
  *
  * So the banner takes all the height above the composer, which sits below it without overlap; apart from the two corner badges the cover
  * and covers no copy.
@@ -62,7 +62,7 @@
   min-height: 150px;
   z-index: 0;
   pointer-events: none;
-  /* 原型 `.hero`：16px 圆角、草绿描边、一层很深的投影（暗底上的对比全靠它）。 */
+  /* The prototype's `.hero`: a 16px radius, a grass-green border and a very deep shadow — all the contrast on a dark ground comes from it. */
   border-radius: 16px;
   border: 1px solid rgba(150, 222, 192, 0.15);
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.44);
@@ -76,7 +76,7 @@
 /*
  * The identity badge in the cover's top-left corner (the prototype's `.badge.leftb`: a frosted pill reading "DeepSeek Harness / Night Flight").
  *
- * ⚠️ 右上角那枚「☘ GROVE ONLINE」**没有做**：它写死了一个"在线"状态，而 harness 并没有
+ * ⚠️ The "☘ GROVE ONLINE" badge in the top-right corner is **not implemented**: it hardcodes an online state, and the harness has no
  * has nothing to read against — real state lives in the right-hand dock, where every number has a source. Decoration is fine; fake state is not.
  */
 :global(body[data-dsh-forest] [data-phase='hero'])::after {
@@ -97,12 +97,12 @@
 }
 
 /*
- * 🔴 封面上那团**极淡的粉**（原型 `.hero:after` 的第二层：
+ * 🔴 The **very faint pink** on the cover (the second layer of the prototype's `.hero:after`:
  * `radial-gradient(circle at 66% 35%, rgba(217,111,149,.05), transparent 26%)`）。
  *
- * 原型对配色的原话是「深森林绿、柔和米色与**一点粉色人物呼应**」——粉全场只有两处，
- * 而且都极淡：这团 5% 的光晕，和「当前模式」卡的描边。**"一点"就是它的定义**，
- * 所以这里照抄那 5%，一点不加浓。
+ * The prototype's own words are "deep forest green, soft cream and **a touch of pink echoing the character**" — pink
+ * appears in two places only, both very faint: this 5% glow and the current-mode card's border. **"A touch" is its definition**,
+ * so the 5% is copied exactly, without deepening it at all.
  */
 :global(body[data-dsh-forest] [data-phase='hero'])::before {
   background-image:
@@ -147,7 +147,7 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：林绿卡 + 草绿描边 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: a forest-green card with a grass border and a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-forest] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -196,7 +196,7 @@
  * without an error and without affecting anything else.
  * ========================================================================== */
 
-/* 侧栏：竖向渐变 + 草绿分隔线（原型 `.left` 是 #0a2019 → #07130f）。 */
+/* Sidebar: a vertical gradient with a grass-green divider (the prototype's `.left` runs #0a2019 → #07130f). */
 :global(body[data-dsh-forest] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #0a2019 0%, #07130f 100%);
   border-right: 1px solid var(--dsw-alias-border-l2);
@@ -233,7 +233,7 @@
 }
 
 /*
- * 会话选中态：横向渐变 + 左侧一道绿竖条（原型 `.session.active` 的
+ * Selected session: a horizontal gradient with a green stripe on the left (the prototype's `.session.active`
  * `linear-gradient(90deg,#163a2e,#0d281f)` + `box-shadow: inset 2px 0 var(--green)`）。
  * An inset shadow rather than a border, so the box width is unchanged and the selected row does not shift against the others.
  */
@@ -255,10 +255,10 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：竖向渐变卡 + 11px 圆角 + 草绿描边（原型 `.card`）。
+ * The details rail's card language: a vertical gradient card with an 11px radius and a grass-green border (the prototype's `.card`).
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「Current Session / Harness Systems / Companion Modes /
- * Forest Energy」四张卡。后三张全是写死的装饰——五行 ONLINE、四张模式卡、一个 83% 的能量值，
+ * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Session / Harness Systems / Companion Modes /
+ * Forest Energy. The last three are hardcoded decoration — five ONLINE rows, four mode cards and an 83% energy value —
  * the harness has no matching projection, so nothing is fabricated. Real state is carried by this skin's own dock (see StatusDock);
  * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.
  */

@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的森林封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced forest cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
@@ -187,7 +187,7 @@ export function ForestStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 森林正在忙' : '● 就绪 READY'}
+                  {busy ? '● THE FOREST IS BUSY' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -214,28 +214,28 @@ export function ForestStatusDock() {
             </section>
 
             {/*
-              林间足迹 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Harness Systems` 是几行写死的 ONLINE；这里是本会话真实跑过的工具：
+              Forest tracks — the real-data version of that card in the prototype's right column.
+              The draft's `Harness Systems` is a few hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>林间足迹</div>
+                <div className={css.cardTitle}>Forest tracks</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `前行中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `on the trail · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '走岔' : `走岔 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '走通' : `走通 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'lost the way' : `lost the way · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'made it through' : `made it through · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 段更早的足迹`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier track(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.

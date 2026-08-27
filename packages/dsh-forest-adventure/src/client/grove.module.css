@@ -125,7 +125,7 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：林绿卡 + 草绿描边 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: a forest-green card with a grass border and a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-grove] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -212,7 +212,7 @@
 }
 
 /*
- * 会话选中态：横向渐变 + 左侧一道绿竖条（原型 `.session.active` 的
+ * Selected session: a horizontal gradient with a green stripe on the left (the prototype's `.session.active`
  * `linear-gradient(90deg, rgba(91,137,87,.24), rgba(18,38,27,.22))` + `box-shadow: inset 2px 0 var(--green2)`）。
  * An inset shadow rather than a border, so the box width is unchanged and the selected row does not shift against the others.
  */
@@ -234,10 +234,10 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：竖向渐变卡 + 11px 圆角 + 草绿描边（原型 `.card`）。
+ * The details rail's card language: a vertical gradient card with an 11px radius and a grass-green border (the prototype's `.card`).
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「Current Session / Harness Systems / Companion Modes /
- * Forest Energy」四张卡。后三张全是写死的装饰——五行 ONLINE、四张模式卡、一个 83% 的能量值，
+ * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Session / Harness Systems / Companion Modes /
+ * Forest Energy. The last three are hardcoded decoration — five ONLINE rows, four mode cards and an 83% energy value —
  * the harness has no matching projection, so nothing is fabricated. Real state is carried by this skin's own dock (see StatusDock);
  * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.
  */

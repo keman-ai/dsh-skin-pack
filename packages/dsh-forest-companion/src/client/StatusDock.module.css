@@ -4,7 +4,7 @@
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
- * `data-dsh-forest` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * stamps `data-dsh-forest` onto body, and the harness UI is already rendered before that. During that window the dock
  * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
  * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
@@ -89,8 +89,8 @@
 /*
  * The reduced cover.
  *
- * 封面是 1.85:1 的林景，按 2.4:1 裁一条正好——裁掉的是上下两端的树冠与草地，中间那段
- * （角色与林道）完整保留，所以这里居中裁即可，不像前一套要靠左。
+ * The cover is a 1.85:1 forest scene, and a 2.4:1 strip fits exactly — cropping the canopy above and the grass below,
+ * while the middle (the character and the path) stays whole. So a centred crop suffices here, unlike the previous skin's left-aligned one.
  */
 .cover {
   aspect-ratio: 2.4 / 1;
@@ -287,7 +287,7 @@
  * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
  * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
- * 同样必须带 `[data-dsh-forest]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * This too must carry `[data-dsh-forest]`: without it, the main area yields 300px during the window before the skin activates,
  * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-forest][data-forest-dock-open] > div:first-of-type) {

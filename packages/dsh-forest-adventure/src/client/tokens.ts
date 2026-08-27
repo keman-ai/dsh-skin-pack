@@ -20,7 +20,7 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const GROVE_PALETTE = {
-  /** 林底，接近黑的深绿。 */
+  /** The forest floor: a deep green close to black. */
   bg: '#08150f',
   bg2: '#0d2117',
   /** 面板三级（苔藓）。 */
@@ -62,7 +62,7 @@ export const GROVE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.surface2,
   '--dsw-alias-bg-multi-select': p.surface3,
 
-  // 遮罩：压向林底的深绿而不是纯黑，压黑会把这套本来就很暗的绿洗成灰。
+  // The scrim darkens towards the forest floor's deep green rather than pure black; black would wash this already dark green to grey.
   '--dsw-alias-bg-mask-1': 'rgba(4, 11, 7, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(4, 11, 7, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(4, 11, 7, 0.62)',

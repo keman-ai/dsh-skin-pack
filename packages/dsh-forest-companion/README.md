@@ -1,6 +1,6 @@
-# dsh-forest-companion · 森林同行
+# dsh-forest-companion · Forest Companion
 
-DeepSeek Harness（dsh）的暗色皮肤：深森林绿 + 柔和米色 + 一点粉，新会话页是一整幅森林陪伴封面。
+A dark skin for DeepSeek Harness (dsh): deep forest green, soft cream and a touch of pink, with a full-bleed forest companion cover on the new-session page.
 
 ![New session](preview/dark.webp)
 
@@ -8,31 +8,31 @@ DeepSeek Harness（dsh）的暗色皮肤：深森林绿 + 柔和米色 + 一点�
 
 | Surface | Content |
 |---|---|
-| 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（暗色基座），描边全是带草绿的 1px 细线 |
-| 新会话页 | 封面吃掉输入区以上的全部高度（16px 圆角、草绿描边、很深的投影），输入区独立在下方，左上角一枚身份角标 |
-| 品牌位 | 侧栏与新会话页的标是纯 CSS 的**林间光斑**（米色芯 → 灰绿环 → 深林底 + 绿色辉光），站名副标 `Forest Companion Skin` |
+| Palette | A full set of `--dsw-alias-*` / `--dsw-specific-*` semantic tokens on the dark base, with every border a 1px line tinted grass green |
+| New session | The cover takes all the height above the composer (a 16px radius, a grass-green border, a deep shadow), the composer sits separately below, and an identity badge occupies the top-left corner |
+| Brand slots | The sidebar and new-session marks are a pure-CSS **shaft of forest light** (a cream core, a grey-green ring, a deep-forest ground and a green glow), with the subtitle `Forest Companion Skin` |
 | 右侧状态台 | 对话页常驻：缩小版封面 + 六类真实状态，可收起（记住选择） |
 
-### 配色是原型自己定的三个词
+### The palette is the prototype's own three words
 
-原型稿在对话里写的是「深森林绿、柔和米色与**一点粉色人物呼应**」，handoff 里也写着
-`theme = deep green / soft cream / warm pink`。三个词对应三种用量：
+The prototype's notes read "deep forest green, soft cream and **a touch of pink echoing the character**", and the
+handoff says `theme = deep green / soft cream / warm pink`. Three words, three uses:
 
-- **深森林绿**：底、面板、描边、主操作——绝大部分界面；
-- **柔和米色 `#e9e0c5`**：只出现在能量条末端与品牌标的芯上，像穿过树冠的那束光；
-- **一点粉 `#d96f95`**：原型全场只用了两处，而且都极淡——封面上那团 **5%** 的光晕，
-  和「当前模式」卡的描边。**"一点"就是它的定义**，铺开就不再是呼应画里那个人物了。
-  这里把它落在封面光晕（照抄那 5%）与危险操作的悬停上，另外错误色也往粉上靠
-  （`#e07f9f`）——原型没给错误色，而粉是它唯一的暖冷对比色，这样既守住"不刺眼"，
-  也不用凭空引入第五种颜色。
+- **Deep forest green**: ground, panels, borders and the primary action — most of the interface;
+- **Soft cream `#e9e0c5`**: only at the end of the energy bar and in the brand mark's core, like light through the canopy;
+- **A touch of pink `#d96f95`**: the prototype uses it in two places only, both very faint — a **5%** glow on the cover
+  and the current-mode card's border. **"A touch" is its definition**; spread wider it no longer echoes the figure in the picture.
+  Here it lands on the cover glow (copying that 5%) and on hovering a destructive action, and the error colour leans
+  pink too (`#e07f9f`) — the prototype gives no error colour, and pink is its only warm-against-cool contrast, which keeps
+  nothing glaring while introducing no fifth colour out of thin air.
 
-「正在运行」用的是青绿 `#4db9b0`，跟成功绿拉开一档——运行和成功不该看成同一件事。
+Running uses teal `#4db9b0`, a step apart from the success green — running and success should never read as one.
 
-### 版式跟着原型走
+### The layout follows the prototype
 
-原型自己写了规则：「New Session **保留整张封面**，**输入区独立放在下方**；左右栏继续保留
-完整 Harness 的会话、系统、模式与状态信息」，`#home` 也是 `column` + `.hero { flex: 1 }` +
-下方独立的 `.composer`。所以封面不压输入区，上面除了左上角那枚身份角标外不放任何文案。
+The prototype states the rule itself: New Session **keeps the whole cover** with the **composer separately below**,
+while the left and right columns keep Harness's full session, system, mode and status information. Its `#home` is
+likewise `column` plus `.hero { flex: 1 }` with a separate `.composer` below. So the cover does not sit over the composer, and carries no copy beyond the badge in its top-left corner.
 
 ### What the status dock shows
 
@@ -44,7 +44,7 @@ DeepSeek Harness（dsh）的暗色皮肤：深森林绿 + 柔和米色 + 一点�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 林间足迹 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Forest tracks | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -52,20 +52,20 @@ DeepSeek Harness（dsh）的暗色皮肤：深森林绿 + 柔和米色 + 一点�
 
 ⚠️ **构成不是总量**：`contextBreakdown` 三项是固定密度估算，加起来**不等于** Token 负载。
 
-## 刻意没做的四处
+## Four things deliberately not done
 
-原型里这些都是**写死的装饰**，harness 没有对应投影，一律不做——装饰可以，假状态不行：
+These are all **hardcoded decoration** in the prototype with no matching projection in the harness, so none are built — decoration is fine; fake state is not:
 
-- 右栏「Harness Systems」五行 `ONLINE`
-- 右栏「Companion Modes」四张模式卡
-- 右栏「Forest Energy」那个 83% 与 100%
-- 封面右上角那枚「☘ GROVE ONLINE」
+- the five `ONLINE` rows under Harness Systems in the right column
+- the four Companion Modes cards in the right column
+- the 83% and 100% under Forest Energy in the right column
+- the "☘ GROVE ONLINE" badge in the cover's top-right corner
 
-**也不替换任何宿主文案**：这份原型没有 Agent 文案规范，没有依据就自己加台词是加戏。
+**No host copy is replaced either**: this prototype gives no agent-copy specification, and inventing lines without a basis is embellishment.
 
 ## Install
 
-**皮肤集市**（推荐）：搜「森林」安装，装完**重启 dsh**。
+**Skin market** (recommended): search for "Forest", install, then **restart dsh**.
 
 Manual install (during development):
 
@@ -73,7 +73,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-forest-companion
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-forest-companion 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-forest-companion to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 ## 🔴 The side effect of autoApply
@@ -89,8 +89,8 @@ mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "
 
 ## Assets
 
-封面是一张 2048×1110 的插画，压成 webp（q92，140 KB）内联进 bundle，不外链图床。
-生成方式与分辨率上限写在 `src/client/cover.generated.ts` 的头部注释里。
+The cover is a 2048×1110 illustration compressed to webp (q92, 140 KB) and inlined into the bundle rather than linked from an image host.
+How it is generated and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development
 

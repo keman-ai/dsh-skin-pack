@@ -6,9 +6,9 @@
 .mark {
   display: block;
   flex: none;
-  /* 原型 `.logo` 那圈林间光斑：米色芯 → 灰绿环 → 深林底。 */
+  /* The shaft of forest light in the prototype's `.logo`: a cream core, a grey-green ring, a deep-forest ground. */
   background: radial-gradient(circle at 50% 45%, #e9e0c5 0 16%, #6d8178 17% 45%, #19392e 46% 100%);
-  /* 绿色辉光，原型是 `box-shadow: 0 0 22px rgba(103,204,162,.14)`。 */
+  /* The green glow; the prototype uses `box-shadow: 0 0 22px rgba(103,204,162,.14)`. */
   box-shadow: 0 0 22px rgba(103, 204, 162, 0.14);
 }
 

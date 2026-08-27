@@ -21,7 +21,7 @@ DeepSeek Harness（dsh）的暗色皮肤：深夜蓝 + 月光青 + 一点暖米�
 
 红也压过：这套最不该出现的就是刺眼的东西，错误色取的是低饱和的 `#e5798a`。
 
-### 版式跟着原型走
+### The layout follows the prototype
 
 原型自己在对话里写了规则：「New Session 使用**整张横幅作为主视觉**，**输入区独立放在下方**，
 并保留完整 Harness 工作区」，`#home` 也是 `column` + `.hero { flex: 1 }` + 下方独立的 `.composer`。
@@ -45,16 +45,16 @@ DeepSeek Harness（dsh）的暗色皮肤：深夜蓝 + 月光青 + 一点暖米�
 
 ⚠️ **构成不是总量**：`contextBreakdown` 三项是固定密度估算，加起来**不等于** Token 负载。
 
-## 刻意没做的四处
+## Four things deliberately not done
 
-原型里这些都是**写死的装饰**，harness 没有对应投影，一律不做——装饰可以，假状态不行：
+These are all **hardcoded decoration** in the prototype with no matching projection in the harness, so none are built — decoration is fine; fake state is not:
 
 - 右栏「Harness Systems」四行 `ONLINE`
 - 右栏「Flight Modes」四张模式卡
 - 右栏「Moonlight Energy」那个 85% 与 100%
 - 封面右上角那枚「☾ MOONLIGHT ONLINE」
 
-**也不替换任何宿主文案**：这份原型没有 Agent 文案规范，没有依据就自己加台词是加戏。
+**No host copy is replaced either**: this prototype gives no agent-copy specification, and inventing lines without a basis is embellishment.
 
 ## 一个实现上的细节
 
@@ -88,7 +88,7 @@ mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "
 ## Assets
 
 横幅是一张 1672×941 的插画，压成 webp（q92，231 KB）内联进 bundle，不外链图床。
-生成方式与分辨率上限写在 `src/client/cover.generated.ts` 的头部注释里。
+How it is generated and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development
 
