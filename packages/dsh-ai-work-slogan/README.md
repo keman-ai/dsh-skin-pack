@@ -6,7 +6,7 @@ DeepSeek Harness（dsh）的暗色皮肤：深海蓝渐变 + 毛玻璃面板 + �
 
 ## What it changes
 
-| 面 | 内容 |
+| Surface | Content |
 |---|---|
 | 底 | **一整片竖向渐变**（#071936 → #0a2a60 → #2f79ef）+ 顶部一团蓝光——越往下越亮，跟常规暗色主题相反 |
 | 面板 | 侧栏、状态台、卡片全是半透明玻璃（白 6%–10% + 14px 背景模糊），描边是白色半透明细线 |
@@ -50,7 +50,7 @@ harness 不允许第三方覆盖内置文案（`locale.register` 同名直接抛
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 工具调用 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 

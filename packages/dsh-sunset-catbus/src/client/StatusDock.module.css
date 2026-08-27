@@ -90,7 +90,7 @@
  * The reduced cover.
  *
  * 横幅是 16:9，缩到侧栏宽度整幅呈现会太扁，所以按 2.5:1 裁一条——裁的是上下的晚霞与土路，
- * 主体那一段完整保留（配合下面的 `left center`）。
+ * keeping the subject intact (together with `left center` below).
  */
 .cover {
   aspect-ratio: 2.4 / 1;
@@ -99,7 +99,7 @@
   background-color: #080503;
   background-size: cover;
   /*
-   * 🔴 靠左裁，不居中。
+   * 🔴 Crop from the left, not centred.
    *
    * 这张横幅的主体（猫巴士）在画面**左三分之二**，右边是大片麦田与落日。
    * `background-position: center` 会把猫巴士的脸切掉一半——按左对齐裁才留得住它。

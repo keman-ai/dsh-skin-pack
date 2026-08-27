@@ -6,7 +6,7 @@ DeepSeek Harness（dsh）的暗色皮肤：深空蓝黑 + 彩色计时器三色�
 
 ## What it changes
 
-| 面 | 内容 |
+| Surface | Content |
 |---|---|
 | 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（暗色基座），描边全部是带青色倾向的 1px 细线 |
 | 新会话页 | 15px 圆角卡片 + 青描边 + 大投影里铺满主视觉，输入框贴在卡片下沿；进对话页自动收起 |

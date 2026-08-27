@@ -25,7 +25,7 @@ export const ULTRATEAM_PALETTE = {
   /** 烧焦的暗红黑。 */
   bg: '#120909',
   bg2: '#1a0c0b',
-  /** 面板两级。 */
+  /** Two panel levels. */
   panel: '#1a1010',
   panel2: '#251311',
 

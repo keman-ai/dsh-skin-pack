@@ -6,7 +6,7 @@ DeepSeek Harness（dsh）的暗色皮肤：黑墨、古金与余烬橙，新会�
 
 ## What it changes
 
-| 面 | 内容 |
+| Surface | Content |
 |---|---|
 | 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（暗色基座）+ 全局 170px 经纬细纹 |
 | 新会话页 | 整幅焰发悟空横版主视觉 + 输入框贴底。**强角色视觉只出现在空屏**——进对话页就收起 |
@@ -36,7 +36,7 @@ DeepSeek Harness（dsh）的暗色皮肤：黑墨、古金与余烬橙，新会�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 神通调用 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | 卷宗注入 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 

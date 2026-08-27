@@ -22,7 +22,7 @@ DeepSeek Harness（dsh）的皮肤：深海蓝打底、透明青蓝做描边与�
 
 handoff 里写得更直接：`theme = deep ocean / cyan light / ice white`、`mode = deep ocean`。
 
-| 色 | 值 | 用在哪 |
+| Colour | Value | Used for |
 |---|---|---|
 | 深海蓝 | `#051c33` / `#082845` / `#0d3559` | 底与面板——绝大部分界面 |
 | 透明青蓝 | `#79dfff` | 描边、强调、**正在跑**。水面透下来的那层光 |
@@ -45,7 +45,7 @@ handoff 里写得更直接：`theme = deep ocean / cyan light / ice white`、`mo
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 工具调用 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | 上下文注入 | 每条注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -63,7 +63,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 装饰可以，假状态不行：一个永远不变的能量值，第二次看见就没人信了，
 而它旁边那些真数字会跟着一起被怀疑。
 
-**这套稿子也没给 Agent copy 规范**，所以宿主文案一句都不替换。
+**This draft gives no agent-copy specification either**, so not one line of host copy is replaced.
 
 ## Install
 

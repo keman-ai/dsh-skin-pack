@@ -215,7 +215,7 @@ export function NforestStatusDock() {
 
             {/*
               夜行记录 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Harness Systems` 是五行写死的 ONLINE；这里是本会话真实跑过的工具：
+              The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
@@ -230,7 +230,7 @@ export function NforestStatusDock() {
                           ? `行进中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
                             ? call.ms === undefined ? '迷路' : `迷路 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '抵达' : `抵达 · ${formatDuration(call.ms)}`}
+                            : call.ms === undefined ? 'arrived' : `arrived · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

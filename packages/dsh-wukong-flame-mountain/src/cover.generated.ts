@@ -3,11 +3,11 @@
  *
  * 来源：原型稿 dsh-wukong-flame-mountain-full.html 里内嵌的那张 PNG（1672x941，解出来 3.29 MB）。
  *
- * 生成方式：
+ * How it is generated:
  *   cwebp -q 95 cover.png -o cover.webp     # 396 KB
- *   再 base64 成 data URI 写进本文件
+ *   then base64-encoded into a data URI written into this file
  *
- * 为什么内联而不是外链图床：皮肤的观感不该取决于某个图床还在不在，断网 / 内网也要能看。
+ * Why inline rather than a remote image host: a skin's look must not depend on whether some host still exists, and it has to work offline or on an intranet.
  * 为什么是 q92：q76 在大屏上有肉眼可见的块状伪影（前一个皮肤被当场指出过）。
  *
  * 原图分辨率上限 1672x941。构图是"巨像居中、两侧雪山"，所以样式表用 background-size: cover

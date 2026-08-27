@@ -2,7 +2,7 @@
  * 右侧状态台：缩小版的焚山主视觉 + 这场会话的真实状态。
  *
  * 原型稿的右栏是「Session setup / Workspace context / Keyboard / Theme note」四张卡。这里做
- * **能对上真实数据的那些**：等你拿主意、状态与计时、模型、上下文占用与构成、权限模式、用量、
+ * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
  * 待办进度。`Workspace context` 那三行（哪些文件被索引了）harness 没有对应投影，
  * `Keyboard` 是静态速查表——都不伪造、也不做成装饰卡占位置。
  *
@@ -214,23 +214,23 @@ export function WukongStatusDock() {
             </section>
 
             {/*
-              神通调用 —— 原型稿右栏那张卡的真数据版。
+              Tool calls — the real-data version of that card in the prototype's right column.
               稿子里那几行工具演示是写死的；这里是本会话真实跑过的工具：
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>神通调用</div>
+                <div className={css.cardTitle}>Tool calls</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `施法中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `casting · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '未成' : `未成 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '已成' : `已成 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'failed' : `failed · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

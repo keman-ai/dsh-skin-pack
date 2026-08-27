@@ -214,13 +214,13 @@ export function QitianStatusDock() {
             </section>
 
             {/*
-              神通调用 —— 原型稿右栏那张卡的真数据版。
+              Tool calls — the real-data version of that card in the prototype's right column.
               稿子里是四行写死的演示（`星海推演术 已完成 2.3s`）；这里是本会话真实跑过的工具：
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>神通调用</div>
+                <div className={css.cardTitle}>Tool calls</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
@@ -229,8 +229,8 @@ export function QitianStatusDock() {
                         {call.running === true
                           ? `施展中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '未成' : `未成 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '已成' : `已成 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'failed' : `failed · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

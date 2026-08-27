@@ -1,10 +1,10 @@
 /**
- * 牛来原野皮肤 · host 半。
+ * The Niulai Field skin · host half.
  *
- * 皮肤的全部行为都在浏览器里（注册主题、铺背景），host 这半只是 Loader 的挂载点：
- * `cordis.patch.yml` 把这个包插进树，Loader import 本文件，浏览器半再由
- * `package.json` 的 `dsh.client` 声明加载。留空插件比不留更明确 ——
- * 没有它，Loader 那一行就指向一个没有入口的包。
+ * All of the skin's behaviour lives in the browser (registering the theme, spreading the background); this host half
+ * is only the Loader's mount point. `cordis.patch.yml` inserts this package into the tree, the Loader imports this
+ * file, and the browser half is loaded from `package.json`'s `dsh.client` declaration. An empty plugin is clearer than none —
+ * without it, that Loader row points at a package with no entry.
  *
  * @module dsh-niulai
  */
@@ -20,17 +20,17 @@ export const name = 'niulai'
 export const inject = ['webServer']
 
 /**
- * 🔴 原野全景走 HTTP 路由，不再内联进浏览器半。
+ * 🔴 The field panorama is served over an HTTP route and no longer inlined into the browser half.
  *
- * 多套皮肤同装时，每套的 data URI 封面都会被 `<script>` 同步拉进主线程——实测 21 套时
- * 首屏 90 秒渲染不出来。挪到 Node 侧只解一次 base64，浏览器在皮肤真的激活时才去取图。
+ * With several skins installed, every data-URI cover is pulled synchronously into the main thread by a `<script>` —
+ * measured with 21 installed, the first paint did not arrive in 90 seconds. On the Node side base64 is decoded once, and the browser fetches the image only once the skin is actually active.
  *
- * 头像只有 13 KB，留在浏览器半内联：它出现在会话行里，比封面更早需要，
- * 为它多发一个请求不划算。
+ * The avatar is only 13 KB and stays inlined in the browser half: it appears in session rows, is needed earlier than
+ * the cover, and is not worth an extra request.
  */
 export const COVER_ROUTE = '/skin-cover/niulai.webp'
 
-/** 封面字节。data URI 只在这一侧解一次。 */
+/** Cover bytes. The data URI is decoded once on this side. */
 const COVER_BYTES = Buffer.from(NIULAI_COW_COVER.slice(NIULAI_COW_COVER.indexOf(',') + 1), 'base64')
 
 /** Theme id, matching the browser half; host-side scripts can import it to tell whether the skin is in use. */
@@ -39,7 +39,7 @@ export const THEME_ID = 'niulai'
 /** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
-   * 装上就切到牛来，默认开。关掉则只注册、不应用，等用户自己去「设置 → 外观」选。
+   * Switch to Niulai on install; on by default. Turning it off registers without applying, leaving the user to select it under Settings → Appearance.
    *
    * On by default because the harness's third-party theme ids never enter the built-in settings schema, so the
    * choice is not persisted: without auto-apply, every dsh start would need reselecting.

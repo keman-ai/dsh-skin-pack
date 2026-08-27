@@ -7,11 +7,11 @@
  * 单份 1.08 MB）。这里只内联一份，品牌标那处用 `background-size: cover` 从中间裁方——
  * 横幅正中就是鲸鱼，裁出来正好是它。
  *
- * 生成方式：
+ * How it is generated:
  *   cwebp -q 95 banner.png -o banner.webp     # 56 KB（扁平矢量风的图压得极好）
- *   再 base64 成 data URI 写进本文件
+ *   then base64-encoded into a data URI written into this file
  *
- * 为什么内联而不是外链图床：皮肤的观感不该取决于某个图床还在不在，断网 / 内网也要能看。
+ * Why inline rather than a remote image host: a skin's look must not depend on whether some host still exists, and it has to work offline or on an intranet.
  *
  * 原图分辨率上限 1983x793。体积：data URI 约 73 KB——是四套皮肤里最小的一张，
  * 因为它是扁平色块而不是照片级插画。

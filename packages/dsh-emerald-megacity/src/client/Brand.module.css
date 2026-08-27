@@ -6,9 +6,9 @@
 .mark {
   display: block;
   flex: none;
-  /* 原型 `.logo` 那圈月环：亮月芯 → 蓝环 → 夜色底。 */
+  /* The moon ring of the prototype's `.logo`: a bright core, a blue ring, a night ground. */
   background: radial-gradient(circle, #d9ad62 0 16%, #2f7e66 17% 44%, #0b211c 45%);
-  /* 月光辉光，原型是 `box-shadow: 0 0 24px #73d5ff24`。 */
+  /* Moonlight glow; the prototype uses `box-shadow: 0 0 24px #73d5ff24`. */
   box-shadow: 0 0 24px rgba(217, 173, 98, 0.16);
 }
 

@@ -23,7 +23,7 @@ DeepSeek Harness（dsh）的皮肤：深棕打底、夕阳橙做主操作、麦�
 
 handoff 里写得更直接：`theme = warm orange / golden field / dark brown`、`mode = companion journey`。
 
-| 色 | 值 | 用在哪 |
+| Colour | Value | Used for |
 |---|---|---|
 | 深棕 | `#160d08` / `#24150d` / `#302016` | 底与面板——绝大部分界面 |
 | 夕阳橙 | `#f49a43` | 主操作。原型 `.new` 的 `linear-gradient(135deg,#f39a43,#bd5e27)` |
@@ -68,9 +68,9 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 以及封面右上角的「☀ GOLDEN HOUR」，**harness 都没有对应的投影**。
 
 装饰可以，假状态不行：一个永远停在 88% 的能量值，第二次看见就没人信了，
-而它旁边那些真数字会跟着一起被怀疑。所以右栏只留能对上真实数据的卡。
+and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
-**这套稿子也没给 Agent copy 规范**，所以宿主文案一句都不替换。
+**This draft gives no agent-copy specification either**, so not one line of host copy is replaced.
 没有依据的人格化文案是自己加戏。
 
 ## Install

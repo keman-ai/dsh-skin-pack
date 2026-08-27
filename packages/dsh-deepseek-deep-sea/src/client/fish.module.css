@@ -18,7 +18,7 @@
  * 🔴 原型稿的 Theme rules 把分寸写死了：「**角色视觉集中在 New Dive / Empty State**；
  * Chat、Dive Path、Details **回归真实 Harness 工作态**」「鲸鱼娘元素只作为品牌人格化，
  * **不覆盖工具和代码信息**」。
- * 所以整幅封面**只画在 hero**（那正是空状态），对话页与轨迹页一点不铺，布局一处不动。
+ * so the full cover is painted **on the hero only** (which is exactly the empty state), with nothing on the conversation or trajectory pages and no layout touched.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
  * replaying and it is unknown whether it lands on hero or the conversation; the harness hides the composer then
@@ -47,8 +47,8 @@
   pointer-events: none;
   background-image: var(--fish-cover);
   /*
-   * `cover` 而不是 `contain`：裁框已经按 hero 的宽高比裁好（见 cover.generated.ts），
-   * 这里几乎不再切；原型稿的 `.hero img` 用的也是 `object-fit: cover`。
+   * `cover` rather than `contain`: the crop frame already matches the hero's aspect ratio (see cover.generated.ts),
+   * so almost nothing is cropped here; the prototype's `.hero img` also uses `object-fit: cover`.
    */
   background-size: cover;
   background-position: center center;
@@ -252,7 +252,7 @@
 /*
  * Permission → 需要你的确认后才能继续。
  *
- * 追加一行，不盖原文：原文写着这次操作要改哪个文件，那是你做判断的依据。
+ * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-fish] [data-chat-flow-kind='approval'])::before {
   content: '大肥鲸鱼娘需要你的确认后才能继续 · ';

@@ -23,7 +23,7 @@ DeepSeek Harness（dsh）的皮肤：月夜蓝打底、月光青做描边与状�
 
 handoff 里写得更直接：`theme = night blue / moon cyan / soft glow`、`mode = calm companion`。
 
-| 色 | 值 | 用在哪 |
+| Colour | Value | Used for |
 |---|---|---|
 | 月夜蓝 / 森林深色 | `#071423` / `#0b1c2e` | 底与面板——绝大部分界面 |
 | 月光青 | `#7bdcff` | 描边、强调、**正在跑**。画里那圈月光 |
@@ -63,9 +63,9 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 以及封面右上角的「☾ MOONLIGHT READY」，**harness 都没有对应的投影**。
 
 装饰可以，假状态不行：一个永远停在 82% 的能量值，第二次看见就没人信了，
-而它旁边那些真数字会跟着一起被怀疑。所以右栏只留能对上真实数据的卡。
+and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
-**这套稿子也没给 Agent copy 规范**，所以宿主文案一句都不替换。
+**This draft gives no agent-copy specification either**, so not one line of host copy is replaced.
 没有依据的人格化文案是自己加戏。
 
 ## Install

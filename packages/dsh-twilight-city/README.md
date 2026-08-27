@@ -24,7 +24,7 @@ DeepSeek Harness（dsh）的皮肤：深蓝夜空打底、晚霞橙紫粉做氛�
 
 > 以**深蓝夜空**为底，**晚霞橙和紫粉云层**作为情绪重点，**暖黄色只负责点亮窗口与按钮**。
 
-| 色 | 值 | 用在哪 |
+| Colour | Value | Used for |
 |---|---|---|
 | 深蓝夜空 | `#0a1020` → `#202d47` | 底与三级面板——绝大部分界面 |
 | 晚霞橙 | `#ff8a4c` | 情绪重点：暖描边、强调、hover、警告 |
@@ -67,7 +67,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 「Twilight mode ready」，**harness 都没有对应的投影**。
 
 装饰可以，假状态不行：一条永远停在 72,300 的额度槽，第二次看见就没人信了，
-而它旁边那些真数字会跟着一起被怀疑。所以右栏只留能对上真实数据的卡。
+and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
 **Error 与 Success 两条人格化文案也没做**：这套稿子的 Agent copy 只给了 Thinking 与 Permission
 两条，没有失败与成功的规范。缺的不自己编——没有依据的人格化文案是自己加戏。

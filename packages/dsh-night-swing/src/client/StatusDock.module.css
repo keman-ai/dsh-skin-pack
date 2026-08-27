@@ -89,8 +89,8 @@
 /*
  * The reduced cover.
  *
- * 横幅是 16:9，缩到侧栏宽度整幅呈现会太扁，所以按 2.5:1 裁一条——裁的是上下的夜空与树冠，
- * 主体那一段完整保留（配合下面的 `left center`）。
+ * The banner is 16:9 and too flat if shown whole at sidebar width, so a 2.5:1 strip is taken — cropping the sky above and the canopy below,
+ * keeping the subject intact (together with `left center` below).
  */
 .cover {
   aspect-ratio: 2.4 / 1;
@@ -99,10 +99,10 @@
   background-color: #030910;
   background-size: cover;
   /*
-   * 🔴 靠左裁，不居中。
+   * 🔴 Crop from the left, not centred.
    *
-   * 这张横幅的主体（树枝上的一大两小）在画面**左三分之二**，右边是大片夜空与那弯月。
-   * `background-position: center` 会把主体切掉一半，只剩夜色——按左对齐裁才留得住它。
+   * This banner's subject (one large and two small figures on a branch) occupies the **left two thirds**, with open night sky and the crescent moon on the right.
+   * `background-position: center` would cut the subject in half and leave only night; cropping from the left keeps it.
    */
   background-position: left center;
   background-repeat: no-repeat;

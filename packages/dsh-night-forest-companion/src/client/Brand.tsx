@@ -1,7 +1,7 @@
 /**
- * 品牌位的月环标与站名。
+ * The moon-ring mark and wordmark for the brand slots.
  *
- * 原型稿侧栏左上角是一枚 12px 圆角的方形标，里面就是**横幅本身**（`object-fit: cover` 裁方），
+ * The prototype's sidebar has a 12px-radius square mark in the top left containing **the banner itself** (cropped square with `object-fit: cover`),
  * 配一层很淡的蓝色投影；旁边两行「deepseek / Night Forest Companion」。
  *
  * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
@@ -28,11 +28,11 @@ interface BrandMarkProps {
 }
 
 /**
- * 月环标。
+ * The moon-ring mark.
  *
- * 用纯 CSS 的径向渐变复刻原型那枚标，不裁横幅——横幅的主体在画面左三分之一，裁成小方块只会
- * 得到一团夜色。圆角按 size 等比给（原型 35px 配 11px 圆角，约 0.31 倍），侧栏的 24px 与
- * hero 的 34px 因此是同一个形状。
+ * The mark is reproduced with a pure CSS radial gradient rather than cropping the banner — the banner's subject sits in the left third, and a small square crop would only
+ * yield a blur of night. The radius scales with size (the prototype's 35px carries an 11px radius, about 0.31×), so the sidebar's 24px and
+ * so the hero's 34px is the same shape.
  *
  * @param props - Size and class name from the host.
  * @returns The square whale mark.

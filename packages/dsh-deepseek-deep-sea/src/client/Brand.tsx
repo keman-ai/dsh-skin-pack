@@ -1,5 +1,5 @@
 /**
- * 品牌位的鲸鱼标与站名。
+ * The whale mark and wordmark for the brand slots.
  *
  * 原型稿侧栏左上角是一枚 15px 圆角的方形标，里面是一只鲸鱼，配一圈冷青内描边与很淡的蓝辉光；
  * 旁边两行「DeepSeek Harness / 大肥鲸鱼娘 · Deep Sea Theme」。

@@ -22,7 +22,7 @@ DeepSeek Harness（dsh）的皮肤：森林深绿打底、苔藓绿做主操作�
 
 > 以**森林深绿**为底，**溪水青与苔藓绿**作为状态色，**日光黄只做温暖点缀**。
 
-| 色 | 值 | 用在哪 |
+| Colour | Value | Used for |
 |---|---|---|
 | 森林深绿 | `#08150f` → `#1f3b2b` | 底与三级面板——绝大部分界面 |
 | 苔藓绿 | `#6fa36d` / `#a7cb87` | 主操作 + **做完了** |
@@ -64,7 +64,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 「Forest mode ready」，**harness 都没有对应的投影**。
 
 装饰可以，假状态不行：一条永远停在 68,250 的额度槽，第二次看见就没人信了，
-而它旁边那些真数字会跟着一起被怀疑。所以右栏只留能对上真实数据的卡。
+and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
 hero 上那四颗建议 chip（`Explore this repository` / `Write a gentle story`…）也没做：
 它们在稿子里是写死的文案，而 harness 的建议来自会话上下文，硬编一组只会给出永远一样的四句话。

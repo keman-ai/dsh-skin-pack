@@ -2,7 +2,7 @@
  * 右侧状态台：缩小版的驾驶舱封面 + 这场会话的真实状态。
  *
  * 原型稿的右栏是「Current Mission / Ship Systems / Telemetry / Shortcuts」四张卡。这里做
- * **能对上真实数据的那些**：等你拿主意、状态与计时、模型、上下文占用与构成、权限模式、用量、
+ * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
  * 待办进度。`Ship Systems` 那五行 ONLINE / STANDBY、`Telemetry` 里的 Signal 97.2% 与 Route score 82、
  * `Shortcuts` 那张静态速查表——harness 都没有对应投影，一律不伪造。
  *
@@ -144,7 +144,7 @@ export function MarsStatusDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="任务状态台">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Mission status dock">
       <button
         type="button"
         className={css.handle}
@@ -159,7 +159,7 @@ export function MarsStatusDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              缩小版封面。用的是同一张内联图（不额外增加体积），`cover` 居中裁——
+              A reduced cover, using the same inline image (adding no size), centre-cropped with `cover` —
               这张图是"舷窗居中、火星填满"的构图，裁掉两侧只会切到舱壁。
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--mars-cover)' }}>
@@ -227,10 +227,10 @@ export function MarsStatusDock() {
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `执行中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `running · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
                             ? call.ms === undefined ? '异常' : `异常 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '完成' : `完成 · ${formatDuration(call.ms)}`}
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

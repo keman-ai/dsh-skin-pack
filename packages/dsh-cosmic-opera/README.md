@@ -6,7 +6,7 @@ DeepSeek Harness（dsh）的皮肤：深蓝太空底 + 紫/蓝/青三档强调�
 
 ## What it changes
 
-| 面 | 内容 |
+| Surface | Content |
 |---|---|
 | 配色 | 深蓝太空底（#050814）+ 三级蓝黑面板；描边分两路——大面积分层用冷蓝、强调边用星云紫 |
 | 全局 | 一层 14% 的星点。没有它，界面只是一片深蓝 |
@@ -54,7 +54,7 @@ cwebp -q 92 -crop 665 0 600 700 cover.png -o cover.webp
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 工具调用 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 

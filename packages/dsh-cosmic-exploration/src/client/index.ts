@@ -5,7 +5,7 @@
  *
  * 1. **Register the theme** — the palette goes to `ctx.theme`, and the presenter paints it as inline variables on body.
  *    It depends on semantic tokens only, and harness redesigns do not change what a token means, so this layer lasts.
- * 2. **挂主视觉** —— 往 body 打一个自有属性、把封面以 CSS 变量交给样式表。只用自己的属性和
+ * 2. **Mount the hero visual** — stamp our own attribute on body and hand the cover to the stylesheet as a CSS variable. Only our own attributes and
  *    our own variables; no hooks into harness class names or structure.
  * 3. **Take over the brand slots** — shadow the official mark and wordmark with `priority: -1` (see Brand.tsx).
  *    This one is bound to the active state: deactivating deregisters it and the official mark returns.

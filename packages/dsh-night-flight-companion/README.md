@@ -6,7 +6,7 @@ DeepSeek Harness（dsh）的暗色皮肤：深夜蓝 + 月光青 + 一点暖米�
 
 ## What it changes
 
-| 面 | 内容 |
+| Surface | Content |
 |---|---|
 | 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（暗色基座），描边全是带月光青的 1px 细线 |
 | 新会话页 | 横幅吃掉输入区以上的全部高度（16px 圆角、月光青描边、很深的投影），输入区独立在下方，左上角一枚身份角标 |

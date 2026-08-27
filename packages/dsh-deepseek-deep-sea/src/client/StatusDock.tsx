@@ -230,7 +230,7 @@ export function FishStatusDock() {
                           ? `下潜中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
                             ? call.ms === undefined ? '触礁' : `触礁 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '完成' : `完成 · ${formatDuration(call.ms)}`}
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

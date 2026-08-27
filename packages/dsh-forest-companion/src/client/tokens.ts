@@ -21,7 +21,7 @@ export const FOREST_PALETTE = {
   bg: '#071713',
   /** 更沉的一档（原型渐变的下端）。 */
   bg2: '#050f0c',
-  /** 面板两级。 */
+  /** Two panel levels. */
   panel: '#0b211a',
   panel2: '#102b22',
   /** 侧栏与卡片渐变的上端。 */

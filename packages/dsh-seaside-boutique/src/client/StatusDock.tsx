@@ -2,9 +2,9 @@
  * 右侧状态台：缩小版的海边封面 + 这场会话的真实状态。
  *
  * 原型稿的右栏是「当前会话 / 工具调用 / 快捷操作」三张卡。这里做**能对上真实数据的那些**：
- * 等你拿主意、状态与计时、模型、上下文占用与构成、权限模式、用量、待办进度。
+ * waiting on you, state and timing, model, context occupancy and composition, permission mode, usage, todo progress.
  * 「工具调用」那四行（天机推演阵 已完成 2.1s、上下文注入 运行中 8.4s……）是稿子里写死的演示数据，
- * 侧栏底部那条「灵力 68,250 / 108,000」也是——harness 没有对应投影，不伪造。
+ * The sidebar's energy figure is the same — the harness has no matching projection, and nothing is fabricated.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1
@@ -144,7 +144,7 @@ export function SeasideStatusDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="天机状态台">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Session status dock">
       <button
         type="button"
         className={css.handle}
@@ -159,8 +159,8 @@ export function SeasideStatusDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              缩小版封面。用的是同一张内联图（不额外增加体积），`cover` 居中裁——
-              这张图是道友与神龙的大景，裁掉两侧不影响主体。
+              A reduced cover, using the same inline image (adding no size), centre-cropped with `cover` —
+              The image is a wide shot of a figure and a dragon, and cropping the sides leaves the subject intact.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--seaside-cover)' }}>
               <span className={css.coverName}>海边小铺</span>
@@ -214,23 +214,23 @@ export function SeasideStatusDock() {
             </section>
 
             {/*
-              工具调用 —— 原型稿右栏那张卡的真数据版。
-              稿子里是四行写死的演示（`天机推演阵 已完成 2.1s`）；这里是本会话真实跑过的工具：
+              Tool calls — the real-data version of that card in the prototype's right column.
+              The draft shows four hardcoded demo rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>工具调用</div>
+                <div className={css.cardTitle}>Tool calls</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `进行中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `running · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '失败' : `失败 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '完成' : `完成 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'failed' : `failed · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

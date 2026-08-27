@@ -99,7 +99,7 @@
 }
 
 /*
- * 输入区贴底。
+ * The composer sits at the bottom.
  *
  * 🔴 The centring is not the composer's own; it comes from an ancestor's `justify-content: center`
  * (`.root[data-phase='hero'] .scrollBody`) — changing the composer's own margin has no effect whatsoever.

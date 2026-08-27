@@ -22,7 +22,7 @@ DeepSeek Harness（dsh）的皮肤：黑曜石底、青铜描边、宣纸白文�
 原型稿自己把规则写死成一句话：**黑曜石底色、青铜描边、宣纸白文字、朱砂强调、玉石青状态**。
 五个词对应五种用量，越界就不是这套皮肤了：
 
-| 色 | 值 | 用在哪 |
+| Colour | Value | Used for |
 |---|---|---|
 | 黑曜石 | `#0a0d10` / `#13181d` | 底与面板——绝大部分界面 |
 | 青铜 | `rgba(228,207,168,.12)` | 描边。暗底上的分层全靠这条细线 |
@@ -44,7 +44,7 @@ DeepSeek Harness（dsh）的皮肤：黑曜石底、青铜描边、宣纸白文�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 神通调用 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | 经卷注入 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -63,7 +63,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 而它旁边那些真数字会跟着一起被怀疑。所以这些一律不做，右栏只留能对上真实数据的卡。
 
 原型 Agent copy 里的 `Tool run → 正在调用神通……` 与 `Context → 正在翻阅经卷……` 也没做：
-harness 的工具行只有 ok / error 两态，没有 running 可挂点，硬凑会做成一个永远亮着的假状态。
+The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.
 
 ## Install
 

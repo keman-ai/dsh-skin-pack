@@ -4,13 +4,13 @@
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 这套的性格是**安静**：底色压到接近黑的深夜蓝，所有描边都带一点月光青
- *（`rgba(141,198,255,.16)`），亮度全压在低位——原型稿自己在对话里写的是
- * 「已将主题统一成深夜蓝、月光冷色和柔和米色」。
+ * This skin's character is **quiet**: the ground is pressed to a near-black night blue and every border carries a hint of moonlit cyan
+ * (`rgba(141,198,255,.16)`), with everything held low in luminance — as the prototype's own notes put it,
+ * "the theme is unified into deep night blue, cool moonlight and soft beige".
  *
- * 那点**米色**（#ded0ae）很关键：它是整套皮肤里唯一的暖色，原型只把它用在能量条渐变的末端
- *（`linear-gradient(90deg,#5f88da,#7bd8ff,#ded0ae)`）——就像画里那盏被夜色包住的灯。
- * 所以这里也只给它一个位置：上下文占用条的末端。铺开就不再是"一点暖"了。
+ * That touch of **beige** (#ded0ae) matters: it is the only warm colour in the skin, and the prototype uses it solely at the end of the energy gradient
+ * (`linear-gradient(90deg,#5f88da,#7bd8ff,#ded0ae)`) — like the lamp wrapped in night in the picture.
+ * so it gets exactly one place here too: the end of the context bar. Spread wider it would stop being a touch of warmth.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
@@ -21,7 +21,7 @@ export const CATBUS_PALETTE = {
   /** 面板：暖棕两级。 */
   panel: '#24150d',
   panel2: '#302016',
-  /** 侧栏与卡片的底。 */
+  /** The ground for the sidebar and cards. */
   panelDeep: '#1c1009',
 
   text: '#fff4e7',
@@ -36,7 +36,7 @@ export const CATBUS_PALETTE = {
   gold: '#ffd07a',
   /** 冷色：全场唯一，留给"正在跑"。 */
   blue: '#6ab6ff',
-  /** 在线绿。 */
+  /** Online green. */
   green: '#7fd59e',
 } as const
 
@@ -57,7 +57,7 @@ export const CATBUS_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': p.panel2,
   '--dsw-alias-bg-multi-select': '#3a2415',
 
-  // 遮罩：压向夜蓝而不是纯黑，压黑会把这套本来就很暗的蓝洗成灰。
+  // The scrim pushes towards night blue rather than pure black; black would wash this already dark blue into grey.
   '--dsw-alias-bg-mask-1': 'rgba(3, 8, 16, 0.72)',
   '--dsw-alias-bg-mask-2': 'rgba(3, 8, 16, 0.34)',
   '--dsw-alias-bg-mask-3': 'rgba(3, 8, 16, 0.62)',

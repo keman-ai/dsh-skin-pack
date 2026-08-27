@@ -5,7 +5,7 @@
  *   cwebp -q 95 -crop 56 0 1423 1024 cover.png -o cover.webp
  *
  * 裁框 1423x1024（≈1.39）对齐 hero 区实测尺寸（约 1320x950）：`background-size: cover`
- * 只按短边缩放，裁框比例偏离 hero 的话多出来的那一边会被均分切掉。现在几乎不再切，
+ * scales on the short edge only, so if the crop ratio strays from the hero's the excess is split evenly off both sides. Almost nothing is cropped now,
  * 舷窗框、火星与整排仪表都完整。
  *
  * ⚠️ **保原生分辨率、不缩图**，编码 q95：这张画的质感全在仪表盘那些细线和火星表面的

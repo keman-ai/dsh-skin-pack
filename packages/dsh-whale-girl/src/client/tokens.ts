@@ -2,9 +2,9 @@
  * 鲸鱼娘海岸休息室的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` /
  * `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值
- * 作为 inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
- * harness 改版会动 class 名和布局，但不会动语义 token 的含义，所以这层能长期活着。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter paints
+ * these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
+ * A harness redesign changes class names and layout but not what a semantic token means, so this layer lasts.
  *
  * 映射不是逐条抄色号，而是**按语义对位**：原型稿的 `--paper / --paper2 / 卡片白` 是
  * 三级容器，harness 的 `bg-base / layer-1 / layer-2 / layer-3` 也是逐级抬升，对上即可。
@@ -13,7 +13,7 @@
  * 🔴 这是一套**浅色**皮肤（`colorScheme: 'light'`），跟之前那套暗色皮肤相反。原型稿
  * 的设计说明写死了这条：「整体控制在浅蓝、白色、深蓝三个层级，避免赛博朋克感，
  * 突出柔和、清爽、可爱但仍然专业」。所以没列出的 token 继承的是 harness 的**内置浅色基座**，
- * 覆盖集不完整是有意的：列全反而会把将来新增的内置 token 挡在外面。
+ * The override set is deliberately incomplete: listing everything would shut out built-in tokens added later.
  */
 
 /** 原型稿 `:root` 与 Appearance 色卡的原始色，改配色从这里改，下面全部由它派生。 */

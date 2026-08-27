@@ -214,13 +214,13 @@ export function EmeraldStatusDock() {
             </section>
 
             {/*
-              神通调用 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Harness Systems` 是五行写死的 ONLINE；这里是本会话真实跑过的工具：
+              Tool calls — the real-data version of that card in the prototype's right column.
+              The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>神通调用</div>
+                <div className={css.cardTitle}>Tool calls</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
@@ -229,8 +229,8 @@ export function EmeraldStatusDock() {
                         {call.running === true
                           ? `施展中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '未成' : `未成 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '已成' : `已成 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'failed' : `failed · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

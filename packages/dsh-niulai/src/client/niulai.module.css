@@ -1,28 +1,28 @@
 /**
- * 牛来的装饰层。
+ * Niulai's decoration layer.
  *
- * 🔴 <b>为什么不铺在 body 最底层</b>：第一版就是那么做的，结果牛完全看不见 ——
- * harness 的内容容器有自己的不透明底色（`bg-base`），把身下的一切盖死。背景图必须
- * 画在**内容容器自己身上**才透得出来：CSS 的 background-image 绘制在该元素的
- * background-color 之上，而对话正文本身是透明的，于是牛从文字后面透出来。
+ * 🔴 <b>Why it is not laid beneath body</b>: the first version did exactly that and the cow was invisible —
+ * the harness's content container has its own opaque ground (`bg-base`) and buries everything below. The
+ * background must be painted **on the content container itself** to show through: a CSS background-image is drawn
+ * above that element's background-color, and the conversation text is itself transparent, so the cow shows through behind it.
  *
- * 🔴 <b>牛只出现在新会话页</b>。设计稿的 Component language 写死了这条：
+ * 🔴 <b>The cow appears only on the new-session page.</b> The draft's component language states it outright:
  * 「cow image only on New Session hero and tiny agent status identity」。
- * 曾经做过一版对话区常驻水印，那是违规的 —— 牛铺在正文后面会跟每一行字抢注意力，
- * 而设计稿要的是「进新会话时牛在那儿，干活时它退到状态标识里」。
+ * An earlier version kept a permanent watermark in the conversation area, which broke the rule — a cow behind the
+ * text competes with every line, whereas the draft wants the cow present on a new session and reduced to a status mark while working.
  *
- * 挂载点只用 harness 的语义 data 属性 `[data-phase='hero']`（EmptyHero.tsx），
- * 不碰 CSS module 的哈希类名，比 `[class*='sidebarCol']` 那种模糊匹配稳得多。
+ * The only anchor used is the harness's semantic data attribute `[data-phase='hero']` (EmptyHero.tsx),
+ * never a hashed CSS module class — far sturdier than a fuzzy `[class*='sidebarCol']` match.
  *
- * 全部规则挂在 `body[data-dsh-niulai]` 下：属性由 client 半在主题激活时打上、
- * 切走时摘掉，所以关掉皮肤等于这些规则整体失效，不留残迹。
+ * Every rule hangs under `body[data-dsh-niulai]`: the client half stamps the attribute when the theme activates
+ * and removes it on switching away, so turning the skin off invalidates every rule at once, leaving no residue.
  */
 
 /*
- * 新会话整屏封面。
+ * The full-screen cover on the new-session page.
  *
- * 这是设计稿里牛最主要的露出（`.cow-cover`）：空屏没有正文要读，牛可以放到
- * 水印的三倍浓度，一进新会话就是一头牛站在原野上看着你。
+ * This is the cow's main appearance in the draft (`.cow-cover`): an empty screen has no text to read, so the cow can
+ * run at three times watermark strength, and a new session opens on a cow standing in the field looking at you.
  */
 :global(body[data-dsh-niulai] [data-phase='hero'])::before {
   content: '';
@@ -32,22 +32,22 @@
   pointer-events: none;
   background-image: var(--niulai-cow-cover);
   /*
-   * 铺满，按设计稿：New Session 页牛就是整块画面的主体，不是背景装饰。
+   * Full-bleed, per the draft: on New Session the cow is the subject of the whole frame, not background decoration.
    *
-   * 原图 1011×702 在大屏上会被放大，但低模 3D 没有细节纹理，放大不糊 —— 之前看着糊
-   * 是 q76 的块效应，那已经换成 q92 解决了。缩着显示反而丢掉了设计稿要的压迫感。
+   * The 1011×702 source is upscaled on a large screen, but low-poly 3D has no fine texture and does not blur — what
+   * looked blurry before was q76 blocking, since fixed by q92. Shrinking it instead would lose the presence the draft wants.
    */
   background-size: cover;
   background-position: center 38%;
   background-repeat: no-repeat;
-  /* 设计稿里牛几乎不透明；留一点点透让它坐在原野底色上，不像贴上去的一张图。 */
+  /* The draft's cow is nearly opaque; a touch of transparency seats it on the field's ground rather than pasting it on top. */
   opacity: 0.92;
 }
 
 /*
- * 文字与输入框压在牛身上，靠一层自下而上的暗幕保证可读性 —— 设计稿也是这么做的
- * （标题和输入区所在的下半部分明显压暗）。放在 ::after 而不是调低牛的透明度：
- * 牛的上半身要保持鲜亮。
+ * Text and composer sit over the cow, and a bottom-up scrim keeps them legible — the draft does the same
+ * (the lower half holding the heading and composer is clearly darkened). It lives in ::after rather than lowering the cow's opacity:
+ * the cow's upper body must stay vivid.
  */
 :global(body[data-dsh-niulai] [data-phase='hero'])::after {
   content: '';
@@ -65,50 +65,50 @@
 }
 
 /*
- * 输入区贴底。
+ * The composer sits at the bottom.
  *
- * 🔴 居中不是 composer 自己做的，是它的祖先干的：
+ * 🔴 The centring is not the composer's own; an ancestor does it:
  *   .root[data-phase='hero'] .scrollBody { justify-content: center }
- * 第一版去改 `.composerHero{margin-top:auto}` 没有任何效果 —— 那是孙元素，
- * 越不过父级 flex 容器的 justify-content。改对地方才是一行的事。
+ * The first attempt changed `.composerHero{margin-top:auto}` to no effect — that is a grandchild and cannot
+ * override the parent flex container's justify-content. In the right place it is a one-line change.
  *
- * 类名是 CSS module 哈希（形如 `_1Onn0a_scrollBody`），只能包含匹配；
- * 这是本皮肤仅有的两处模糊匹配之一，harness 改名会让贴底退回居中，
- * 不报错、其余部分照常。
+ * The class is a CSS module hash (like `_1Onn0a_scrollBody`) and can only be matched by containment;
+ * this is one of only two fuzzy matches in this skin, and a harness rename simply reverts bottom-alignment to centring,
+ * without an error and with everything else unaffected.
  */
 :global(body[data-dsh-niulai] [data-phase='hero'] [data-conversation-scroll]) {
   justify-content: flex-end;
   /*
-   * hero 没有可滚的内容，牛应当铺满整屏。不关掉这两条就会：
-   * ① overflow-y: auto 在贴底后因内容溢出冒出一条滚动条；
-   * ② scrollbar-gutter: stable 恒定预留一条滚动条的宽度（harness 为让 composer
-   *    在 Chat 与 overlay 两种落位下左右不跳而设），hero 里没有滚动条要让位，
-   *    这段预留就变成了把整列往一边推的偏移 —— 看上去就是输入框没居中。
+   * The hero has nothing to scroll and the cow should fill the screen. Leaving these two on causes:
+   * 1. overflow-y: auto raising a scrollbar once content overflows after bottom-alignment;
+   * 2. scrollbar-gutter: stable permanently reserving a scrollbar's width (the harness does this so the composer
+   *    does not shift between the Chat and overlay placements); with no scrollbar in the hero to make way for,
+   *    that reservation becomes an offset pushing the column aside — looking exactly like an off-centre composer.
    */
   overflow: hidden;
   scrollbar-gutter: auto;
 }
 
-/* 贴底后，居中态为浮空留的那 32px 底部内边距就成了多余的缝。 */
+/* Once bottom-aligned, the 32px of bottom padding the centred state left for float becomes a needless gap. */
 :global(body[data-dsh-niulai] [data-phase='hero'] [class*='composerHero']) {
   padding-bottom: 12px;
 }
 
 /*
- * 🔴 输入区相对<b>整个窗口</b>居中，而不是相对中间列。
+ * 🔴 The composer centres on <b>the whole window</b>, not on the middle column.
  *
- * 实测（playwright 量的，不是估的）：视口中心 800，而输入卡片中心 936 —— 偏右 136。
- * 因为层级是 .centerCol → [data-phase=hero] → [data-conversation-scroll] →
- * [data-composer-seat]，侧栏占掉左边 280px，「在 centerCol 里居中」＝在窗口里偏右。
- * 牛是铺满整个窗口的（设计稿的 New Session 本就全屏无侧栏），两个中心必须重合。
+ * Measured with playwright, not estimated: the viewport centre is 800 while the composer's centre is 936 — 136 to the right.
+ * The hierarchy is .centerCol → [data-phase=hero] → [data-conversation-scroll] →
+ * [data-composer-seat], and with the sidebar taking 280px on the left, centred in centerCol means right of centre in the window.
+ * The cow fills the whole window (the draft's New Session is full-screen with no sidebar), so the two centres must coincide.
  *
- * ⚠️ 试过 `margin-left: calc(50% - 50vw)`（横跨视口的常用写法），量下来 center
- * 只从 936 挪到 940 —— 那个式子算的是「父列半宽 − 视口半宽」，成立的前提是父列本身
- * 在视口里居中；这里父列是靠右的，需要的偏移量其实是「父列距视口左沿的距离」，
- * 而 CSS 表达不出它。
+ * ⚠️ `margin-left: calc(50% - 50vw)` (the usual full-bleed trick) was tried and moved the centre only from
+ * 936 to 940 — that expression computes half the parent's width minus half the viewport's, which only holds when
+ * the parent is itself centred. Here the parent sits to the right, and the offset actually needed is its distance
+ * from the viewport's left edge, which CSS cannot express.
  *
- * 所以直接 fixed：脱离父列，天然以视口为参照系。只在 hero 生效，Chat 阶段那份
- * 贴底与滚动补偿逻辑完全不受影响。
+ * Hence fixed: detached from the parent, the viewport becomes the natural frame of reference. It applies to the hero
+ * only, leaving the Chat phase's bottom-alignment and scroll compensation untouched.
  */
 :global(body[data-dsh-niulai] [data-phase='hero'] [data-composer-seat]) {
   position: fixed;
@@ -119,7 +119,7 @@
   max-width: none;
   margin-left: 0;
   align-items: center;
-  /* 压在牛与暗幕之上。 */
+  /* Above the cow and the scrim. */
   z-index: 2;
 }
 
@@ -129,24 +129,24 @@
 }
 
 /*
- * 预设选择器 → 原型图里的深色胶囊 + 橙点。
+ * The preset picker → the prototype's dark pill with an orange dot.
  *
- * ⚠️ 上一版把它做成了米黄实心，<b>做反了</b>。完整原型图里米黄是<b>主操作</b>专用色
- * （+ New Session、权限卡的「允许」、发送键），而顶栏的 `● Standard`、输入框下的
- * `Standard ▾` 都是深色胶囊配一颗橙点 —— 橙点表示"当前预设在生效"，属于 run state
- * 那套语言。次级控件铺米黄会把主操作的视觉位置抢掉。
+ * ⚠️ The previous version made it solid cream, which was <b>backwards</b>. In the full prototype cream belongs to
+ * the <b>primary action</b> alone (+ New Session, the permission card's Allow, the send key), while the top bar's
+ * `● Standard` and the `Standard ▾` below the composer are dark pills with an orange dot — the dot meaning the
+ * preset is active, which belongs to the run-state language. Cream on a secondary control steals the primary action's place.
  *
- * 选择器用 `_seat` 而非 `seat`：哈希形如 `_1Onn0a_seat`，对话区另有 `_composerSeat`，
- * 属性选择器大小写敏感，只命中前者。
+ * The selector uses `_seat` rather than `seat`: the hash looks like `_1Onn0a_seat`, the conversation area has its own
+ * `_composerSeat`, and attribute selectors are case-sensitive, so only the former matches.
  */
 :global(body[data-dsh-niulai] [class*='_seat']) {
   /*
-   * 🔴 橙点用背景绘制，<b>不能用 ::before</b>。
+   * 🔴 The orange dot is painted as a background and <b>must not be a ::before</b>.
    *
-   * 上一版插了个伪元素当圆点，结果把控件里的文字挤出了可视区 —— 那个按钮是
-   * `overflow: hidden` 的固定宽度 flex 容器（实测 159×28），伪元素会真占掉 13px
-   * 的排版空间，用户看到的就是「模式选择器坏了/不见了」。背景不参与布局，配一段
-   * padding 给它让位即可，控件宽高与内部对齐一概不变。
+   * The previous version inserted a pseudo-element as the dot and pushed the control's text out of view — that button
+   * is a fixed-width flex container with `overflow: hidden` (measured 159×28), and the pseudo-element really consumes
+   * 13px of layout, so users saw the mode picker broken or gone. A background takes part in no layout; a little
+   * padding makes room, and the control's size and internal alignment are unchanged.
    */
   background-color: var(--dsw-alias-bg-layer-2);
   background-image: radial-gradient(
@@ -166,17 +166,17 @@
 }
 
 /*
- * 对话页的预设选择器在会话标题栏里（`headerActions`），不含 `_seat` —— 实测对话页
- * `[class*='_seat']` 命中 0。给它配同款胶囊，两处观感一致。
+ * On the conversation page the preset picker lives in the session header (`headerActions`) and carries no `_seat` —
+ * measured, `[class*='_seat']` matches nothing there. It gets the same pill so both places look alike.
  */
 :global(body[data-dsh-niulai] [class*='headerActions'] button) {
   border-radius: 999px;
 }
 
 /*
- * 工作区选择器（那个文件夹下拉）配成描边胶囊，与米黄那颗成一组。
- * 设计稿里它不存在 —— 稿子的 "Code" 是预设名不是工作区 —— 但真实产品里它就在旁边，
- * 放着不管会让一颗胶囊孤零零地立在一排方角控件中间。
+ * The workspace picker (the folder dropdown) becomes an outlined pill, grouping with the cream one.
+ * The draft does not have it — its "Code" is a preset name, not a workspace — but in the real product it sits right
+ * there, and leaving it alone would strand one pill among a row of square-cornered controls.
  */
 :global(body[data-dsh-niulai] [data-phase='hero'] [class*='workspace']) {
   border-radius: 999px;
@@ -185,25 +185,25 @@
 }
 
 /* ==========================================================================
- * Agent 人格化文案 —— 设计稿 Appearance 面板「Agent copy states」那四条。
+ * Personified agent copy — the four lines under "Agent copy states" in the draft's Appearance panel.
  *
- * harness 不允许第三方覆盖内置文案：`locale.register` 与 `slots.register` 对同名
- * 重复注册都是直接抛错（只给"新增"不给"替换"）。所以走 CSS 伪元素这条路：
+ * The harness forbids third parties overriding built-in copy: both `locale.register` and `slots.register` throw
+ * outright on a duplicate name (they offer addition, never replacement). Hence the CSS pseudo-element route:
  * No MutationObserver, no runtime cost; at worst a redesign makes a style stop matching, with no error and no blank screen.
  *
- * 锚点是 playwright 跑真实对话抓出来的，不是猜的：
- *   [data-variant="think"][data-state="running"]  思考中
- *   [data-variant="bash"|"read"|…][data-state]     每个工具各有自己的 variant
- *   [data-state="error"]                           失败
- * 字号也是量的：title 14px / line-height 24px / weight 400。
+ * The anchors were captured from a real conversation with playwright, not guessed:
+ *   [data-variant="think"][data-state="running"]  thinking
+ *   [data-variant="bash"|"read"|…][data-state]     each tool has its own variant
+ *   [data-state="error"]                           failure
+ * The type was measured too: title 14px / line-height 24px / weight 400.
  * ========================================================================== */
 
 /*
- * Thinking → 牛来正在深潜……
+ * Thinking → "Niulai is diving deep…"
  *
- * "Think" 本身就是个状态标签（harness 里是硬编码字符串，不走 locale），
- * 整个换掉最自然。font-size: 0 让原文本不占位，伪元素显式给回量到的 14px。
- * 只在 running 时换：思考完成后那行是可展开的历史记录，保留 "Think" 更好认。
+ * "Think" is itself a status label (a hardcoded string in the harness, not routed through locale),
+ * so replacing it wholesale is most natural. font-size: 0 collapses the original text, and the pseudo-element restores the measured 14px.
+ * Replaced only while running: once thinking finishes the row becomes expandable history, where "Think" reads better.
  */
 :global(body[data-dsh-niulai] [data-variant='think'][data-state='running'] [class*='_title']) {
   font-size: 0;
@@ -218,38 +218,38 @@
 }
 
 /*
- * Tool run → 牛来正在干活……
+ * Tool run → "Niulai is at work…"
  *
- * 🔴 <b>这条做不到，位置留着说明原因</b>：harness 不渲染「工具运行中」这个中间态。
- * playwright 跑真实对话抓下来的序列是 think(running) → think(ok) → bash(ok)，
- * 工具行只在拿到 outcome 之后才出现，data-state 只有 ok / error 两种取值，
- * 没有 running。全局唯一带 data-state="ongoing" 的元素在<b>侧边栏会话行</b>里
- * （表示"这个会话在跑"），不在对话区，语义也不是某次工具调用。
+ * 🔴 <b>This one cannot be done; the slot stays to record why.</b> The harness never renders a tool-running state.
+ * The sequence captured from a real conversation is think(running) → think(ok) → bash(ok): tool rows appear only
+ * once an outcome exists, data-state takes only ok / error, and there is no running.
+ * The one element anywhere carrying data-state="ongoing" is a <b>sidebar session row</b>
+ * (meaning that session is running); it is not in the conversation area and does not denote a tool call.
  *
- * 所以没有可挂的锚点。硬造一个（比如猜某个 class 存在）只会得到一条永远不显示、
- * 也永远不会报错提醒你的死规则。牛在干活时的表达由下面那颗小牛头承担。
+ * So there is no anchor. Inventing one (guessing at a class name) would only produce a rule that never displays
+ * and never errors to tell you. The cow at work is expressed by the small cow head below instead.
  */
 
 /*
- * tiny agent status identity —— 设计稿 Component language 里那句
- * 「cow image only on New Session hero and tiny agent status identity」的后半句。
+ * The tiny agent status identity — the second half of the draft's component-language line,
+ * "cow image only on New Session hero and tiny agent status identity".
  *
- * 落点就是上面说的那个 ongoing 指示点：会话正在跑时侧边栏亮的那颗点，换成牛脸。
- * 这是整套皮肤里牛的第二处、也是最后一处露出，与设计稿的限定一致。
+ * It lands on the ongoing indicator described above: the dot the sidebar lights while a session runs, replaced by the cow's face.
+ * This is the cow's second and final appearance in the skin, exactly as the draft restricts it.
  */
 :global(body[data-dsh-niulai] [data-state='ongoing']) {
   background-image: var(--niulai-cow-avatar);
   background-size: cover;
   background-position: center 38%;
   border-radius: 999px;
-  /* 盖住原本的 svg 图形，只留下这颗牛头。 */
+  /* Covers the original svg shape, leaving only this cow head. */
   color: transparent;
 }
 
 /*
- * Error → 事情超出了牛来的预料
+ * Error → "this went beyond what Niulai expected"
  *
- * 同样是追加：错误行原文带着 "Error: …" 的具体原因，那是排障唯一的线索，不能盖掉。
+ * Appended as before: the original error line carries the specific "Error: …" reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-niulai] [data-state='error'] [class*='_title'])::after {
   content: ' · 事情超出了牛来的预料';
@@ -258,12 +258,12 @@
 }
 
 /*
- * Permission → 牛来需要你拿个主意
+ * Permission → "Niulai needs you to decide"
  *
- * ⚠️ 唯一一条没能在真实对话里抓到锚点的：触发权限确认需要一次会改本地文件的操作，
- * 探针跑的是只读任务。锚点取自 harness 源码里节点类型的取值（kind === 'approval'，
- * 由 ChatNodeSeat 渲染成 data-chat-flow-kind），未经实测，失配的话这一条不显示，
- * 不影响其余三条。
+ * ⚠️ The only one whose anchor was not captured from a real conversation: triggering a permission prompt requires an
+ * operation that modifies a local file, and the probe ran read-only tasks. The anchor comes from the node type in the
+ * harness source (kind === 'approval', rendered by ChatNodeSeat as data-chat-flow-kind). It is unverified, and on a
+ * mismatch this one simply does not display, leaving the other three unaffected.
  */
 :global(body[data-dsh-niulai] [data-chat-flow-kind='approval'] [class*='_title'])::before {
   content: '牛来需要你拿个主意 · ';
@@ -272,20 +272,20 @@
 }
 
 /* ==========================================================================
- * 右侧详情面板 —— 对齐设计稿的卡片语言。
+ * The right-hand details panel — aligned with the draft's card language.
  *
- * ⚠️ 先说清楚<b>没做什么</b>：设计稿那个 Details 是「运行概览」（Current run /
- * Goal / Context files / Usage 四张卡片），而 harness 的详情面板是「某次工具调用
- * 的详情」，只有 Input 与 Output 两段 —— 两者不是同一个东西，不是换皮的问题。
- * 全部 29 个 slot 里与详情相关的只有 `conversation.details.tool`（渲染工具结果的
- * 位置），没有"往面板加卡片"的口子，`data-slot="details"` 也已被官方组件占据。
- * 所以这里只做视觉语言对齐，不伪造那四张卡片。
+ * ⚠️ First, what is <b>not</b> done: the draft's Details is a run overview (Current run / Goal / Context files /
+ * Usage, four cards), whereas the harness's details panel shows one tool call's detail with just Input and Output —
+ * they are not the same thing, and this is not a matter of reskinning.
+ * Of all 29 slots, the only detail-related one is `conversation.details.tool` (where a tool result renders); there is
+ * no hook for adding cards to the panel, and `data-slot="details"` is already taken by an official component.
+ * So only the visual language is aligned here; those four cards are not fabricated.
  *
- * 设计稿 Component language 的原文：Radius 8–12px · 1px low-contrast borders ·
- * almost-flat surfaces。下面照此执行。
+ * The draft's component language reads: Radius 8–12px · 1px low-contrast borders ·
+ * almost-flat surfaces. What follows implements exactly that.
  * ========================================================================== */
 
-/* Input / Output 两段升格成带描边的卡片，与设计稿的 Current run / Goal 同款。 */
+/* Input and Output are promoted to bordered cards, matching the draft's Current run / Goal. */
 :global(body[data-dsh-niulai] [data-slot='details'] [class*='_section']) {
   background: var(--dsw-alias-bg-layer-1);
   border: 1px solid var(--dsw-alias-border-l2);
@@ -294,26 +294,26 @@
   margin-bottom: 10px;
 }
 
-/* 段标题：设计稿里是加粗小字，与正文拉开层级。 */
+/* Section headings: small and bold in the draft, separating them from body text. */
 :global(body[data-dsh-niulai] [data-slot='details'] [class*='_sectionLabel']) {
   font-weight: 600;
   color: var(--dsw-alias-label-primary);
   margin-bottom: 8px;
 }
 
-/* 面板标题行：与卡片之间用一条低对比分隔，而不是留白硬断。 */
+/* The panel's heading row: separated from the cards by a low-contrast line rather than a hard gap. */
 :global(body[data-dsh-niulai] [data-slot='details'] [class*='_header']) {
   border-bottom: 1px solid var(--dsw-alias-border-l1);
 }
 
 /*
- * 空态与运行态的提示文字。
+ * The hint text for the empty and running states.
  *
- * 🔴 这两个态在 harness 里<b>共用同一个 `css.empty` 元素</b>，只有文本不同
- * （`details.empty` / `details.running`），CSS 选不了文本，所以无法只给运行态
- * 换成设计稿的「● 牛来正在干活」。要区分只能上 MutationObserver 读文本再替换，
- * 那是全项目目前唯一还没用过的脏手段，没有业主点头不做。
- * 这里只统一排版，不动文案。
+ * 🔴 In the harness these two states <b>share one `css.empty` element</b> and differ only in text
+ * (`details.empty` / `details.running`). CSS cannot select on text, so the running state alone cannot be given the
+ * draft's "● Niulai is at work". Distinguishing them would need a MutationObserver reading the text and replacing it,
+ * the one dirty technique this project has never used, and not without the owner's approval.
+ * Only the typography is unified here; the copy is untouched.
  */
 :global(body[data-dsh-niulai] [data-slot='details'] [class*='_empty']) {
   color: var(--dsw-alias-label-tertiary);
@@ -322,17 +322,17 @@
 }
 
 /* ==========================================================================
- * 原型图的质感层 —— 全是纯 CSS，不依赖 harness 的 DOM 结构，改版不会碎。
+ * The prototype's texture layer — pure CSS throughout, depending on no harness DOM structure, so a redesign cannot break it.
  * ========================================================================== */
 
 /*
- * 全局细纹理。
+ * The global fine texture.
  *
- * 原型图 `.app:before`：3.5% 不透明度的横竖细线 + screen 混合。这层是"原野质感"
- * 的关键 —— 没有它，牛来只是一套暖色色块；有了它才有旧显示器那点颗粒感。
+ * The prototype's `.app:before`: fine horizontal and vertical lines at 3.5% opacity with screen blending. This layer
+ * is what makes the field: without it Niulai is just warm blocks of colour; with it there is the grain of an old monitor.
  *
- * z-index 取原型图的 100 并 pointer-events: none：盖在所有内容之上才有统一的
- * 蒙版效果，而 3.5% 的强度不影响任何文字可读性，也绝不拦截点击。
+ * z-index takes the prototype's 100 with pointer-events: none: only above all content does the mask read as one,
+ * and at 3.5% it affects no text and intercepts no click.
  */
 :global(body[data-dsh-niulai])::after {
   content: '';
@@ -348,14 +348,14 @@
 }
 
 /*
- * New Session 的状态胶囊：「● 牛来在这儿。给它一个任务。」
+ * The New Session status pill: "● Niulai is here. Give it a task."
  *
- * 原型图 `.new-status`：圆角 999、半透明深底、8px 毛玻璃，浮在牛图之上、标题之前。
- * 挂在 hero 的纵向 stack 上（`_stack`），它是标题与正文的共同父容器，::before 天然
- * 落在最前面。
+ * The prototype's `.new-status`: a 999 radius, a translucent dark ground and an 8px blur, floating over the cow above the heading.
+ * It hangs on the hero's vertical stack (`_stack`), the shared parent of heading and body, so ::before naturally
+ * lands first.
  *
- * 选择器用 `_stack` 而非 `stack`：对话区还有个 `composerStack`，大小写敏感下
- * "composerStack" 不含 "_stack"，不会误伤。
+ * The selector uses `_stack` rather than `stack`: the conversation area has a `composerStack`, and with case
+ * sensitivity "composerStack" does not contain "_stack", so nothing is hit by mistake.
  */
 :global(body[data-dsh-niulai] [data-phase='hero'] [class*='_stack'])::before {
   content: '● 牛来在这儿。给它一个任务。';
@@ -369,25 +369,25 @@
   font-size: 11px;
   letter-spacing: 0.2px;
   color: #e7e1d2;
-  /* 圆点用主橙：这是"牛在场"的信号，与 run state 同一套色语言。 */
+  /* The dot uses the primary orange: it signals the cow's presence, in the same colour language as run state. */
   text-shadow: none;
 }
 
 /*
- * 输入区的自下而上遮罩。
+ * The bottom-up scrim behind the composer.
  *
- * 原型图 `.composer-shell` 用 `linear-gradient(180deg, transparent, #191b13 20%)`
- * 让消息滚到输入框附近自然淡出，而不是被硬边切断。
+ * The prototype's `.composer-shell` uses `linear-gradient(180deg, transparent, #191b13 20%)`
+ * so messages fade out near the composer instead of being cut by a hard edge.
  */
 :global(body[data-dsh-niulai] [data-composer-seat]) {
   background: linear-gradient(180deg, rgba(23, 25, 17, 0) 0%, var(--dsw-alias-bg-base) 22%);
 }
 
 /*
- * 加载指示：草绿底 + 橙色缺口。
+ * The loading indicator: a grass-green track with an orange gap.
  *
- * 原型图 `.spinner` 是 `1.5px solid #555a46` 配 `border-top-color: 主橙`。harness 的
- * 转圈是 svg，拿不到 border，所以退一步只统一描边色调 —— 至少不再是中性灰。
+ * The prototype's `.spinner` is `1.5px solid #555a46` with `border-top-color` in the primary orange. The harness's
+ * spinner is an svg with no border to reach, so this settles for unifying the stroke colour — at least it is no longer neutral grey.
  */
 :global(body[data-dsh-niulai] [class*='spinner']),
 :global(body[data-dsh-niulai] [class*='Spinner']) {
@@ -395,11 +395,11 @@
 }
 
 /*
- * 用户头像：橙色渐变圆。
+ * The user avatar: an orange gradient circle.
  *
- * 原型图 `.avatar` 是 `linear-gradient(145deg, 主橙, #b84c0b)` 配浅橙字。
- * ⚠️ 探针在当前页面没抓到 avatar 类名（要有对话消息才渲染），所以这条是<b>按类名
- * 惯例写的、未经实测</b>；失配的话不显示，不影响其它。
+ * The prototype's `.avatar` is `linear-gradient(145deg, primary orange, #b84c0b)` with pale orange text.
+ * ⚠️ The probe did not capture an avatar class on the current page (it renders only with messages present), so this
+ * rule is <b>written by naming convention and unverified</b>; on a mismatch it does not display and affects nothing else.
  */
 :global(body[data-dsh-niulai] [class*='avatar']:not(img)) {
   background: linear-gradient(145deg, #ff7a14, #b84c0b);
@@ -407,12 +407,12 @@
 }
 
 /* ==========================================================================
- * 侧边栏 —— 对照完整原型图补的。锚点全部来自 playwright 实测的真实类名。
+ * The sidebar — filled in against the full prototype. Every anchor is a real class name measured with playwright.
  * ========================================================================== */
 
 /*
- * `+ New Session` 是整个界面的<b>主操作</b>，原型图里它是唯一的米黄实心大按钮。
- * harness 默认给它的是低调的次级样式，不改的话主操作反而没有视觉重量。
+ * `+ New Session` is the interface's <b>primary action</b>, and in the prototype it is the only large solid cream button.
+ * The harness styles it as understated secondary, leaving the primary action without visual weight unless changed.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
@@ -434,16 +434,16 @@
   background: var(--dsw-alias-button-primary-hover);
 }
 
-/* 按钮内的图标与文字跟着走：harness 图标用 currentColor，父级换色即可。 */
+/* Icons and text inside the button follow along: harness icons use currentColor, so recolouring the parent is enough. */
 :global(body[data-dsh-niulai] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
   color: inherit;
 }
 
 /*
- * 会话列表的选中态：左侧一道橙色竖条。
+ * The selected state in the session list: an orange stripe on the left.
  *
- * 原型图用它标"当前会话"，比单纯改底色更容易一眼扫到。用 inset box-shadow 画竖条
- * 而不是 border-left —— 后者会改变盒宽，让选中行相对其它行错位 2px。
+ * The prototype marks the current session this way, easier to spot than a changed background. The stripe is an inset
+ * box-shadow rather than a border-left — the latter changes the box width and shifts the selected row 2px against the others.
  */
 :global(body[data-dsh-niulai] [class*='_sessionRow'][class*='_selected']) {
   box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-business-primary);
@@ -451,8 +451,8 @@
 }
 
 /*
- * 分组标题（TODAY / PREVIOUS 7 DAYS）：小号大写、字距拉开、压到三级文字色。
- * 原型图用这个把时间分组降成背景信息，不与会话标题争注意力。
+ * Group headings (TODAY / PREVIOUS 7 DAYS): small caps, wide tracking, muted to the tertiary text colour.
+ * The prototype uses this to demote date groups to background information, so they do not compete with session titles.
  */
 :global(body[data-dsh-niulai] [class*='_groupSection'] > :first-child) {
   text-transform: uppercase;
@@ -462,31 +462,31 @@
 }
 
 /*
- * 侧边栏底色比主区更沉一档，让对话区显得往前浮 —— 原型图的三栏就是这个层次。
- * token 里已经设过 `--dsw-specific-sidebar-fill`，这里补一条右侧分隔线收边。
+ * The sidebar's ground sits one step deeper than the main area, floating the conversation forward — exactly the prototype's three-column layering.
+ * The tokens already set `--dsw-specific-sidebar-fill`; this adds a right-hand divider to close the edge.
  */
 :global(body[data-dsh-niulai] [class*='_sidebarCol']) {
   border-right: 1px solid var(--dsw-alias-border-l1);
 }
 
 /* ==========================================================================
- * 对话流 —— 对照完整原型图。锚点是 playwright 跑真实对话 dump 出来的：
- *   [data-chat-flow-kind='user']   用户消息
- *   [data-chat-flow-kind='text']   助手正文
- *   [data-chat-flow-kind='context'] 上下文注入
- *   [data-chat-flow-kind='turn-error'] 本轮失败
+ * The conversation flow — against the full prototype. The anchors were dumped from a real conversation with playwright:
+ *   [data-chat-flow-kind='user']   user message
+ *   [data-chat-flow-kind='text']   assistant text
+ *   [data-chat-flow-kind='context'] context injection
+ *   [data-chat-flow-kind='turn-error'] failed turn
  * ========================================================================== */
 
 /*
- * 助手正文旁的牛头像。
+ * The cow avatar beside assistant text.
  *
- * 原型图里每段助手发言前面都有一颗橙色牛头方块，那是"牛来在说话"最直接的识别。
- * harness <b>不渲染任何助手头像</b>（dump 过整棵对话流，没有 avatar 类的元素），
- * 所以这里用伪元素造一颗，绝对定位到正文左侧的空白处。
+ * In the prototype every assistant passage is preceded by an orange cow-head square, the most direct sign that Niulai is speaking.
+ * The harness <b>renders no assistant avatar at all</b> (the whole flow was dumped and no avatar-classed element exists),
+ * so one is built as a pseudo-element, absolutely positioned into the blank to the left of the text.
  *
- * ⚠️ 一轮回复可能拆成多个 text 节点，那样会出现多颗牛头。宁可如此也不做
- * 「只给每轮第一个加」—— CSS 选不出"每轮第一个"，硬凑要靠 JS 遍历 DOM，
- * 那是本皮肤一直避免的耦合。
+ * ⚠️ One reply may split across several text nodes, producing several cow heads. That is preferable to
+ * "only the first of each turn" — CSS cannot select that, and forcing it would need JS walking the DOM,
+ * exactly the coupling this skin avoids throughout.
  */
 :global(body[data-dsh-niulai] [data-chat-flow-kind='text']) {
   position: relative;
@@ -504,7 +504,7 @@
   background-size: cover;
   background-position: center 38%;
   border: 1px solid rgba(240, 210, 138, 0.32);
-  /* 窄屏下左边没有 38px 富余，隐掉而不是把正文挤走。 */
+  /* On a narrow screen there is no 38px to spare on the left, so it hides rather than pushing the text aside. */
   pointer-events: none;
 }
 
@@ -515,8 +515,8 @@
 }
 
 /*
- * 用户消息气泡：原型图是低对比灰底 + 12px 圆角，靠右。
- * harness 已有 bubble，这里只把圆角与底色对到原野色，不动布局。
+ * User message bubbles: the prototype uses a low-contrast grey ground with a 12px radius, right-aligned.
+ * The harness already has a bubble, so only the radius and ground are matched to the field palette; the layout is untouched.
  */
 :global(body[data-dsh-niulai] [class*='_bubble']) {
   border-radius: 12px;
@@ -525,8 +525,8 @@
 }
 
 /*
- * 上下文注入行：原型图把它压成背景信息（灰、小、不抢眼），
- * 因为它是每轮都出现的系统噪音，不是用户要读的内容。
+ * Context injection rows: the prototype presses them into background information (grey, small, unobtrusive),
+ * because they are the system noise of every turn, not something the user reads.
  */
 :global(body[data-dsh-niulai] [data-chat-flow-kind='context']) {
   opacity: 0.62;
@@ -538,8 +538,8 @@
 }
 
 /*
- * 本轮失败：原型图的错误态是红色描边卡片，与普通消息拉开距离。
- * 这里补一条左侧红边，比纯文字更容易在长对话里扫到。
+ * A failed turn: the prototype's error state is a red-bordered card, set apart from ordinary messages.
+ * A red stripe on the left is added here, easier to spot in a long conversation than text alone.
  */
 :global(body[data-dsh-niulai] [data-chat-flow-kind='turn-error']) {
   box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
@@ -548,14 +548,14 @@
 }
 
 /*
- * Agent 预设页：「当前使用」徽章与当前卡片。
+ * The agent preset page: the "in use" badge and the active card.
  *
- * harness 默认给徽章的是白底黑字，在这套暖色里像块补丁。按原型图的色彩分工，
- * "这个正在生效"属于 run state 一侧，与预设胶囊上那颗橙点同源，所以用橙。
+ * The harness gives the badge black on white, which looks like a patch in this warm palette. By the prototype's
+ * colour division, "this one is active" belongs to run state, the same origin as the preset pill's orange dot, so orange it is.
  *
- * 选择器限定在 `_cardActive` 之内 —— 源码里只有 `row.isDefault` 的卡片才带这个类
- * （AgentPresetSection.tsx:254），而 `_badge` 本身还用在别处，不限定会误伤「内置」
- * 那类标签。
+ * The selector is confined to `_cardActive` — in the source only a `row.isDefault` card carries that class
+ * (AgentPresetSection.tsx:254), while `_badge` is used elsewhere too, and without the confinement the built-in
+ * labels would be hit by mistake.
  */
 :global(body[data-dsh-niulai] [class*='_cardActive'] [class*='_badge']) {
   background: var(--dsw-alias-state-business-primary);
@@ -564,7 +564,7 @@
   font-weight: 600;
 }
 
-/* 当前卡片的描边跟着换成橙色，与徽章呼应，一眼看出哪张在生效。 */
+/* The active card's border turns orange to echo the badge, showing at a glance which one is in effect. */
 :global(body[data-dsh-niulai] [class*='_cardActive']) {
   border-color: var(--dsw-alias-state-business-primary);
 }

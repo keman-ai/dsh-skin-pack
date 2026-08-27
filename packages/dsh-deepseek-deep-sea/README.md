@@ -25,7 +25,7 @@ DeepSeek Harness（dsh）的皮肤：深海蓝打底、冷青做描边与状态�
 
 所以用色是**一条蓝的深浅**，不是彩色拼盘：
 
-| 色 | 值 | 用在哪 |
+| Colour | Value | Used for |
 |---|---|---|
 | 深海蓝 | `#03101f` → `#0f2d4a` | 底与三级面板——绝大部分界面 |
 | 冷青 | `#5ed7ff` | 描边、强调、**正在跑**。海底那种发光线，暗底上的分层全靠它 |
@@ -61,10 +61,10 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 「Ocean compute · 82%」和封面右上角的「DEEP SEA MODE READY」，**harness 都没有对应的投影**。
 
 装饰可以，假状态不行：一条永远停在 82% 的算力槽，第二次看见就没人信了，
-而它旁边那些真数字会跟着一起被怀疑。所以右栏只留能对上真实数据的卡。
+and the real numbers beside it get doubted along with it. So the right column keeps only cards backed by real data.
 
 原型 Agent copy 里的 `Tool → 正在调用工具……` 与 `Context → 正在读取海底档案……` 也没做：
-harness 的工具行只有 ok / error 两态，没有 running 可挂点，硬凑会做成一个永远亮着的假状态。
+The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.
 
 ## Install
 

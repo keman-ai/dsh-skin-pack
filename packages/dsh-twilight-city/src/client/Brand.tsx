@@ -1,16 +1,16 @@
 /**
- * 品牌位的任务徽标与站名。
+ * The mission badge and wordmark for the brand slots.
  *
  * 原型稿侧栏左上角是一枚圆角方标（深蓝渐变 + 冷蓝描边 + 一圈青色辉光，里面是一个「暮」字）
  * + 两行站名「DeepSeek Harness / Twilight City」。harness 把这两处都开成了 slot：
- * `sidebar.brand.mark`、`sidebar.brand.name`，新会话页的大标还有一个
+ * `sidebar.brand.mark`, `sidebar.brand.name`, and the new-session page's larger mark has another
  * `conversation.hero.brand.mark`。
  *
  * 🔴 All three are `{ kind: 'single' }`. The old conclusion — that an occupied single makes third-party registration throw —
  * **is out of date**: `SlotCore.register` in dsh 0.1.1-rc.2 detects occupancy only **at the same priority**,
  * and different priorities shadow (`entriesOfSlot` takes the live entry with the lowest priority in each cell).
- * 官方 `ui-brand-official` 注册在默认 0，所以我们注册 `priority: -1` 就能接管，且它那份只是
- * 被影子化、没被卸载——皮肤一停用就自动回到官方标。
+ * The official `ui-brand-official` registers at the default 0, so registering at `priority: -1` takes over while its entry is
+ * only shadowed, not unloaded — the official mark returns the moment the skin is deactivated.
  *
  * Taking over means honouring the other side's owner-props contract, so both components follow it strictly:
  *   SidebarBrandMarkOwnerProps { size }            — the sidebar wants 24px
@@ -18,13 +18,13 @@
  *     keeps the default hover animation, so it is passed through verbatim
  *   SidebarBrandNameOwnerProps {}                  — the name slot decides its own content and width
  *
- * 印章用「字 + 圆环」而不是画一只猴子：小到 24px 时任何角色轮廓都会糊成一团色块，
- * 而汉字在这个尺寸下仍然认得出——原型稿本身也是这么处理的。
+ * The seal is a character inside a ring rather than a drawn monkey: at 24px any figure blurs into a blob of colour,
+ * while a Chinese character stays recognisable at that size — which is how the prototype handles it too.
  */
 
 import css from './Brand.module.css'
 
-/** 侧栏 / 新会话页共用的印章契约。 */
+/** The seal contract shared by the sidebar and the new-session page. */
 interface BrandMarkProps {
   /** The square size the host requires, in px. */
   size: number
@@ -33,16 +33,16 @@ interface BrandMarkProps {
 }
 
 /**
- * 任务徽标。
+ * The mission badge.
  *
- * 做成 svg 而不是 DOM + CSS：宿主给的 `size` 在侧栏（24）与 hero（34）不同，svg 用 viewBox
- * 缩放，字号、圆角、间距按同一比例走，两处都不用另配一套样式。
+ * Built as SVG rather than DOM + CSS: the host's `size` differs between sidebar (24) and hero (34), and an SVG viewBox
+ * scaling, so type size, radius and spacing follow one ratio and neither place needs its own styles.
  *
- * 用代号字母而不是画一艘飞船：小到 24px 时任何飞船轮廓都会糊成一团，字母还认得出——
- * 原型稿本身也是这么处理的。
+ * A code letter rather than a drawn ship: at 24px any hull blurs into a smear while a letter stays recognisable —
+ * which is how the prototype handles it too.
  *
  * @param props - Size and class name from the host.
- * @returns 方形任务徽标。
+ * @returns The square mission badge.
  */
 export function TwilightMark({ size, className }: BrandMarkProps) {
   return (
@@ -55,14 +55,14 @@ export function TwilightMark({ size, className }: BrandMarkProps) {
       aria-hidden="true"
       focusable="false"
     >
-      {/* 印底：从上方偏暖的一点光晕过渡到近黑，对应原型 .brand-avatar 的径向渐变。 */}
+      {/* Seal ground: a slightly warm glow at the top fading to near black, matching the prototype's .brand-avatar radial gradient. */}
       <defs>
         <linearGradient id="cosmic-mark" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#202d47" />
           <stop offset="100%" stopColor="#131c31" />
         </linearGradient>
       </defs>
-      {/* 原型 `.brand-avatar`：10px 圆角的深蓝渐变方块 + 冷蓝描边。 */}
+      {/* The prototype's `.brand-avatar`: a 10px-radius deep-blue gradient square with a cool blue border. */}
       <rect x="0.8" y="0.8" width="30.4" height="30.4" rx="9" fill="url(#cosmic-mark)" />
       <rect
         x="0.8"
@@ -82,7 +82,7 @@ export function TwilightMark({ size, className }: BrandMarkProps) {
         fontSize="15"
         fontWeight="800"
         letterSpacing="0.6"
-        /* 等宽：原型的任务代号、遥测数字全是等宽字，徽标跟着走才是一套字。 */
+        /* Monospace: the prototype's mission codes and telemetry figures are all monospaced, and the badge follows to stay one typeface. */
         fontFamily='"PingFang SC", "Microsoft YaHei", sans-serif'
         fill="#f1b56f"
       >
@@ -93,7 +93,7 @@ export function TwilightMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「DeepSeek Harness / 黑神话悟空 · 焚山版」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "DeepSeek Harness / Black Myth Wukong · Flame Mountain".
  *
  * The primary name stays DeepSeek Harness — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *

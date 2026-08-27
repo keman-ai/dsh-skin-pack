@@ -1,7 +1,7 @@
 /**
  * 品牌位的林间光斑标与站名。
  *
- * 原型稿侧栏左上角是一枚 12px 圆角的方形标，里面就是**横幅本身**（`object-fit: cover` 裁方），
+ * The prototype's sidebar has a 12px-radius square mark in the top left containing **the banner itself** (cropped square with `object-fit: cover`),
  * 配一层很淡的蓝色投影；旁边两行「deepseek / Forest Companion Skin」。
  *
  * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
@@ -31,7 +31,7 @@ interface BrandMarkProps {
  * 林间光斑标。
  *
  * 用纯 CSS 的径向渐变复刻原型那枚标，不裁封面——封面是一整片林子，裁成小方块只会得到一块绿。圆角按 size 等比给（原型 35px 配 11px 圆角，约 0.31 倍），侧栏的 24px 与
- * hero 的 34px 因此是同一个形状。
+ * so the hero's 34px is the same shape.
  *
  * @param props - Size and class name from the host.
  * @returns 方形光斑标。
@@ -53,7 +53,7 @@ export function ForestMark({ size, className }: BrandMarkProps) {
 /**
  * 站名：主名 + 副标，对应原型稿的「deepseek / Forest Companion Skin」。
  *
- * 主名保留 deepseek —— 皮肤换的是外观，不冒充另一个产品；副标才是这套皮肤的身份。
+ * The primary name stays deepseek — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *
  * @returns The two-line wordmark.
  */

@@ -5,7 +5,7 @@
  *   cwebp -q 95 -crop 234 0 1580 1137 cover.png -o cover.webp
  *
  * 裁框 1580x1137（≈1.39）对齐 hero 区实测尺寸（约 1320x950）：`background-size: cover`
- * 只按短边缩放，裁框比例偏离 hero 的话多出来的那一边会被均分切掉。现在几乎不再切，
+ * scales on the short edge only, so if the crop ratio strays from the hero's the excess is split evenly off both sides. Almost nothing is cropped now,
  * 台阶上的两个人、远处的城市灯火与那道流星都完整。
  *
  * ⚠️ **保原生分辨率、不缩图**，编码 q95：这张画的质感全在晚霞的渐变与万家灯火的碎点上，

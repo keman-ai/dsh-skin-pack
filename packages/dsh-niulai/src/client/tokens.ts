@@ -1,31 +1,31 @@
 /**
- * 牛来原野的配色：设计稿的 25 个变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Niulai Field's palette: the draft's 25 variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值
- * 作为 inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
- * harness 改版会动 class 名和布局，但不会动语义 token 的含义，所以这层能长期活着。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter paints
+ * these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
+ * A harness redesign changes class names and layout but not what a semantic token means, so this layer lasts.
  *
- * 映射不是逐条抄色号，而是**按语义对位**：设计稿的 `--surface/-2/-3` 是三级容器，
- * harness 的 `bg-layer-1/2/3` 也是三级容器，对上即可。设计稿没给的（遮罩、骨架屏、
- * 滚动条、工具条按钮）从已有色阶推导，规则写在各段注释里。
+ * The mapping is not colour-by-colour transcription but **semantic alignment**: the draft's `--surface/-2/-3` are
+ * three container levels and so are the harness's `bg-layer-1/2/3`, so they line up. What the draft omits (scrims,
+ * skeletons, scrollbars, toolbar buttons) is derived from the existing ramp, with the rule stated in each section.
  *
- * 底色刻意保留原野的暖绿倾向（`#171911` 不是中性灰），这是牛来区别于内置暗色主题的
- * 第一眼观感；harness 内置暗色是偏蓝的 `neutral-bluish` 系。
+ * The ground deliberately keeps the field's warm green cast (`#171911`, not neutral grey), which is the first thing
+ * that distinguishes Niulai from the built-in dark theme, whose `neutral-bluish` family leans blue.
  */
 
-/** 设计稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the draft's `:root`. Recolour here; everything below derives from these. */
 export const NIULAI_PALETTE = {
-  /** 主橙：牛的身体色。设计稿把它<b>保留给活动态 / 运行态</b>，不用作主按钮。 */
+  /** Primary orange: the cow's body colour. The draft <b>reserves it for active and running states</b>, never for the primary button. */
   orange: '#ff7a14',
-  /** 深橙：橙的按下 / 悬停态。 */
+  /** Deep orange: the pressed and hover state of the orange. */
   orangeDeep: '#e95e0a',
-  /** 口鼻米黄：<b>主操作色</b>（设计稿交接色卡的 Primary action = #F0D28A）。 */
+  /** Muzzle cream: the <b>primary action colour</b> (the handoff swatch's Primary action = #F0D28A). */
   muzzle: '#f0d28a',
-  /** 草绿 / 苔绿 / 稻草：原野三色，用于分隔线与低饱和装饰。 */
+  /** Grass / moss / straw: the field's three colours, used for dividers and desaturated decoration. */
   grass: '#737746',
   moss: '#4f5f32',
   straw: '#b49a54',
-  /** 天色：设计稿里最亮的中性色。 */
+  /** Sky: the brightest neutral in the draft. */
   sky: '#e8e1da',
 
   bg: '#171911',
@@ -50,9 +50,9 @@ const p = NIULAI_PALETTE
 /**
  * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的 token 继承 harness 内置暗色基座。这是有意的——
- * 覆盖集不完整是允许的（README 明说没有完整性校验），列全反而会把将来新增的
- * 内置 token 挡在外面。
+ * Only **what changes** is written; unlisted tokens inherit the harness's built-in dark base. This is deliberate —
+ * an incomplete override set is allowed (the README says explicitly there is no completeness check), and listing
+ * everything would shut out built-in tokens added later.
  */
 export const NIULAI_TOKENS: Record<string, string> = {
   // ── 容器三级层次 ──

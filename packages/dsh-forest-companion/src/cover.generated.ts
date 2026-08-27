@@ -3,11 +3,11 @@
  *
  * 来源：原型稿 dsh-forest-companion-totoro-full.html 里内嵌的那张 PNG（2048x1110，约 1.85:1，2.40 MB）。
  *
- * 生成方式：
+ * How it is generated:
  *   cwebp -q 95 cover.png -o cover.webp     # 190 KB
- *   再 base64 成 data URI 写进本文件
+ *   then base64-encoded into a data URI written into this file
  *
- * 为什么内联而不是外链图床：皮肤的观感不该取决于某个图床还在不在，断网 / 内网也要能看。
+ * Why inline rather than a remote image host: a skin's look must not depend on whether some host still exists, and it has to work offline or on an intranet.
  *
  * 原图分辨率上限 2048x1110。体积：data URI 约 186 KB。
  */

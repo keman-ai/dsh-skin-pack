@@ -20,12 +20,12 @@ DeepSeek Harness（dsh）的皮肤：航天黑打底、冷蓝做遥测与描边�
 
 ## Palette rules
 
-原型稿的 Theme rules 把配比写成了一句数字，这是这套皮肤最硬的约束：
+The prototype's theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
 
 > **80% 航天黑与深蓝控制面板，10% 冷蓝遥测信息，6% 推进器橙色交互强调，
 > 3% Nominal 绿色状态，1% 红色异常态**
 
-| 色 | 值 | 占比 | 用在哪 |
+| Colour | Value | Share | Used for |
 |---|---|---|---|
 | 航天黑 / 深蓝面板 | `#05080d` → `#142331` | 80% | 底与三级面板 |
 | 冷蓝遥测 | `#7fb4d3` | 10% | 描边、次要数据、**正在跑** |

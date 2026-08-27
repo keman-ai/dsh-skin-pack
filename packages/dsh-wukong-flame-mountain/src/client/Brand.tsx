@@ -3,14 +3,14 @@
  *
  * 原型稿侧栏左上角是一枚圆形金边印章（里面一个「悟」字）+ 两行站名
  * 「DeepSeek Harness / 黑神话悟空 · 焚山版」。harness 把这两处都开成了 slot：
- * `sidebar.brand.mark`、`sidebar.brand.name`，新会话页的大标还有一个
+ * `sidebar.brand.mark`, `sidebar.brand.name`, and the new-session page's larger mark has another
  * `conversation.hero.brand.mark`。
  *
  * 🔴 All three are `{ kind: 'single' }`. The old conclusion — that an occupied single makes third-party registration throw —
  * **is out of date**: `SlotCore.register` in dsh 0.1.1-rc.2 detects occupancy only **at the same priority**,
  * and different priorities shadow (`entriesOfSlot` takes the live entry with the lowest priority in each cell).
- * 官方 `ui-brand-official` 注册在默认 0，所以我们注册 `priority: -1` 就能接管，且它那份只是
- * 被影子化、没被卸载——皮肤一停用就自动回到官方标。
+ * The official `ui-brand-official` registers at the default 0, so registering at `priority: -1` takes over while its entry is
+ * only shadowed, not unloaded — the official mark returns the moment the skin is deactivated.
  *
  * Taking over means honouring the other side's owner-props contract, so both components follow it strictly:
  *   SidebarBrandMarkOwnerProps { size }            — the sidebar wants 24px
@@ -18,13 +18,13 @@
  *     keeps the default hover animation, so it is passed through verbatim
  *   SidebarBrandNameOwnerProps {}                  — the name slot decides its own content and width
  *
- * 印章用「字 + 圆环」而不是画一只猴子：小到 24px 时任何角色轮廓都会糊成一团色块，
- * 而汉字在这个尺寸下仍然认得出——原型稿本身也是这么处理的。
+ * The seal is a character inside a ring rather than a drawn monkey: at 24px any figure blurs into a blob of colour,
+ * while a Chinese character stays recognisable at that size — which is how the prototype handles it too.
  */
 
 import css from './Brand.module.css'
 
-/** 侧栏 / 新会话页共用的印章契约。 */
+/** The seal contract shared by the sidebar and the new-session page. */
 interface BrandMarkProps {
   /** The square size the host requires, in px. */
   size: number
@@ -52,7 +52,7 @@ export function WukongMark({ size, className }: BrandMarkProps) {
       aria-hidden="true"
       focusable="false"
     >
-      {/* 印底：从上方偏暖的一点光晕过渡到近黑，对应原型 .brand-avatar 的径向渐变。 */}
+      {/* Seal ground: a slightly warm glow at the top fading to near black, matching the prototype's .brand-avatar radial gradient. */}
       <defs>
         <radialGradient id="wukong-seal" cx="50%" cy="32%" r="70%">
           <stop offset="0%" stopColor="#3a2718" />
@@ -80,7 +80,7 @@ export function WukongMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「DeepSeek Harness / 黑神话悟空 · 焚山版」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "DeepSeek Harness / Black Myth Wukong · Flame Mountain".
  *
  * The primary name stays DeepSeek Harness — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *

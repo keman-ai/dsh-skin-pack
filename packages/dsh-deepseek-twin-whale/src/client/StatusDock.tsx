@@ -227,10 +227,10 @@ export function TwinwhaleStatusDock() {
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `进行中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `running · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
                             ? call.ms === undefined ? '失手' : `失手 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '完成' : `完成 · ${formatDuration(call.ms)}`}
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

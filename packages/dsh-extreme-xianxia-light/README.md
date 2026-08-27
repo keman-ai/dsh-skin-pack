@@ -20,11 +20,11 @@ DeepSeek Harness（dsh）的皮肤：纸白雾白打底、墨灰做文字、淡�
 
 ## Palette rules
 
-原型稿的 Theme rules 把配比写成了一句数字，这是这套皮肤最硬的约束：
+The prototype's theme rules state the ratio as a single figure, and it is this skin's hardest constraint:
 
 > **80% 灰白 / 雾白基底；12% 墨灰层级；5% 淡金交互；2% 玉青运行态；1% 朱砂危险态**
 
-| 色 | 值 | 占比 | 用在哪 |
+| Colour | Value | Share | Used for |
 |---|---|---|---|
 | 纸白 / 雾白 | `#f4f3f0` / `#eceae5` / `#e3e0da` | 80% | 底、面板、输入框 |
 | 墨灰 | `#313331` / `#676b68` / `#8f918d` | 12% | 文字与层级。**没有纯黑**——纯黑会把「雾」压成「影」 |
@@ -53,7 +53,7 @@ DeepSeek Harness（dsh）的皮肤：纸白雾白打底、墨灰做文字、淡�
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 神通调用 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | 经卷查阅 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -72,7 +72,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 第二次看见就没人信了，而它旁边那些真数字会跟着一起被怀疑。所以右栏只留能对上真实数据的卡。
 
 原型 Agent copy 里的 `Tool → 正在调用神通……` 与 `Context → 正在翻阅经卷……` 也没做：
-harness 的工具行只有 ok / error 两态，没有 running 可挂点，硬凑会做成一个永远亮着的假状态。
+The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.
 
 ## Install
 

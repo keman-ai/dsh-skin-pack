@@ -123,7 +123,7 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(191, 90, 71, 0.22)',
 
   // ── Status colours ──
-  // 🔴 成功也走玉青。这套稿子的调色盘里根本没有绿——硬塞一个会同时破坏
+  // 🔴 Success uses jade too. This draft's palette has no green at all, and forcing one would break both
   // "3% 玉青"和"70% 墨青黑"两条配比。
   '--dsw-alias-state-success-primary': p.jade2,
   '--dsw-alias-state-success-secondary': p.jade,
@@ -133,10 +133,10 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-state-warn-secondary': p.gold,
   '--dsw-alias-state-warn-label': '#efd6a2',
   '--dsw-alias-state-warn-tertiary': '#2a2216',
-  // 错误：朱砂。1% 的另一处。
+  // Error: cinnabar. The other of the two 1% uses.
   '--dsw-alias-state-error-primary': p.red,
   '--dsw-alias-state-error-secondary': '#d4705d',
-  // business = 进行中：玉青。原型「运行中」那颗点就是它。
+  // business = in progress: jade. It is the prototype's running dot.
   '--dsw-alias-state-business-primary': p.jade,
   '--dsw-alias-state-business-tertiary': '#0d2a27',
 

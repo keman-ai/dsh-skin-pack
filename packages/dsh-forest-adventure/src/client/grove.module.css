@@ -8,8 +8,8 @@
  * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
  * flashing into view as if the app had jumped to a different page.
  *
- * ⚠️ 这套原型稿**没有** Agent 文案规范，所以这里**不替换任何宿主文案**——没有依据的人格化
- * 文案是自己加戏。
+ * ⚠️ This prototype has **no** agent-copy specification, so **no host copy is replaced** — unfounded personified
+ * copy would be embellishment of our own.
  */
 
 /* ==========================================================================
@@ -17,7 +17,7 @@
  *
  * 🔴 原型稿的 Theme rules 把分寸写死了：「**New Session 可以使用完整场景**，
  * Chat / Trajectory **回归安静的半透明工作界面**」。
- * 所以整幅封面**只画在 hero**（那正是空状态），对话页与轨迹页一点不铺，布局一处不动。
+ * so the full cover is painted **on the hero only** (which is exactly the empty state), with nothing on the conversation or trajectory pages and no layout touched.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
  * replaying and it is unknown whether it lands on hero or the conversation; the harness hides the composer then
@@ -46,8 +46,8 @@
   pointer-events: none;
   background-image: var(--grove-cover);
   /*
-   * `cover` 而不是 `contain`：裁框已经按 hero 的宽高比裁好（见 cover.generated.ts），
-   * 这里几乎不再切；原型稿的 `.hero img` 用的也是 `object-fit: cover`。
+   * `cover` rather than `contain`: the crop frame already matches the hero's aspect ratio (see cover.generated.ts),
+   * so almost nothing is cropped here; the prototype's `.hero img` also uses `object-fit: cover`.
    */
   background-size: cover;
   background-position: center center;

@@ -2,7 +2,7 @@
  * 右侧状态台：缩小版的宇宙英雄主视觉 + 这场会话的真实状态。
  *
  * 原型稿的右栏是「Session setup / Workspace context / Keyboard / Theme note」四张卡。这里做
- * **能对上真实数据的那些**：等你拿主意、状态与计时、模型、上下文占用与构成、权限模式、用量、
+ * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
  * 待办进度。`Workspace context` 那三行（哪些文件被索引了）harness 没有对应投影，
  * `Keyboard` 是静态速查表——都不伪造、也不做成装饰卡占位置。
  *
@@ -231,7 +231,7 @@ export function CosmicStatusDock() {
 
             {/*
               光线调用 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Harness Systems` 是五行写死的 ONLINE；这里是本会话真实跑过的工具：
+              The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (

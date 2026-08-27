@@ -2,7 +2,7 @@
  * 右侧状态台：缩小版的道观封面 + 这场会话的真实状态。
  *
  * 原型稿的右栏是「Current run / Context files / Usage」三张卡。这里做**能对上真实数据的那些**：
- * 等你拿主意、状态与计时、模型、上下文占用与构成、权限模式、用量、待办进度。
+ * waiting on you, state and timing, model, context occupancy and composition, permission mode, usage, todo progress.
  * `Goal` 那条「完成一套研发可落地的主题设计」与 `72% · 5/7 checkpoints`、以及 `Context files`
  * 里那几个文件名，都是稿子里写死的，harness 没有对应投影，不伪造。
  *
@@ -215,23 +215,23 @@ export function TaoStatusDock() {
             </section>
 
             {/*
-              神通调用 —— 原型稿右栏那张卡的真数据版。
-              稿子里是四行写死的演示（`天机推演阵 已完成 2.1s`）；这里是本会话真实跑过的工具：
+              Tool calls — the real-data version of that card in the prototype's right column.
+              The draft shows four hardcoded demo rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>神通调用</div>
+                <div className={css.cardTitle}>Tool calls</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `施法中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `casting · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '未成' : `未成 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '已成' : `已成 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'failed' : `failed · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

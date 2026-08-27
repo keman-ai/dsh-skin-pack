@@ -216,23 +216,23 @@ export function WorkStatusDock() {
             </section>
 
             {/*
-              工具调用 —— 原型稿右栏那张卡的真数据版。
-              稿子里的 `Harness Systems` 是五行写死的 ONLINE；这里是本会话真实跑过的工具：
+              Tool calls — the real-data version of that card in the prototype's right column.
+              The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>工具调用</div>
+                <div className={css.cardTitle}>Tool calls</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
                       <span className={css.logName}>{call.name}</span>
                       <span className={css.logMeta}>
                         {call.running === true
-                          ? `执行中 · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
+                          ? `running · ${formatDuration(Math.max(0, now - (call.startedAt ?? now)))}`
                           : call.failed === true
-                            ? call.ms === undefined ? '失败' : `失败 · ${formatDuration(call.ms)}`
-                            : call.ms === undefined ? '完成' : `完成 · ${formatDuration(call.ms)}`}
+                            ? call.ms === undefined ? 'failed' : `failed · ${formatDuration(call.ms)}`
+                            : call.ms === undefined ? 'done' : `done · ${formatDuration(call.ms)}`}
                       </span>
                     </li>
                   ))}

@@ -48,12 +48,12 @@ const p = SEASIDE_PALETTE
 /**
  * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置**浅色**基座（`colorScheme: 'light'`）。
- * 覆盖集不完整是有意的：列全反而会把将来新增的内置 token 挡在外面。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in **light** base (`colorScheme: 'light'`).
+ * The override set is deliberately incomplete: listing everything would shut out built-in tokens added later.
  */
 export const SEASIDE_TOKENS: Record<string, string> = {
   // ── Container layers ──
-  // 🔴 浅色皮肤的层级方向与暗色相反：底最亮，往上逐级压暗一点点。
+  // 🔴 A light skin layers the other way round from a dark one: the ground is brightest and each layer above darkens slightly.
   '--dsw-alias-bg-base': p.paper,
   '--dsw-alias-bg-layer-1': '#faf9f6',
   '--dsw-alias-bg-layer-2': '#ffffff',
@@ -62,7 +62,7 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-overlay': '#ffffff',
   '--dsw-alias-bg-multi-select': '#e7ece9',
 
-  // 遮罩：压向暖灰而不是纯黑。纯黑遮罩会在纸白上显出一层脏。
+  // The scrim pushes towards warm grey rather than pure black; a black scrim looks dirty over paper white.
   '--dsw-alias-bg-mask-1': 'rgba(72, 69, 60, 0.42)',
   '--dsw-alias-bg-mask-2': 'rgba(72, 69, 60, 0.18)',
   '--dsw-alias-bg-mask-3': 'rgba(72, 69, 60, 0.32)',
@@ -71,8 +71,8 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(72, 69, 60, 0.08)',
 
   // ── Borders ──
-  // 原型全场两条：`--line: #d7d2c8` 与 `--line2: #c9c2b5`——**暖灰实线**。
-  // 浅色界面的分层靠线，不靠阴影：满屏投影会把"纸"变成"卡片堆"。
+  // The prototype uses exactly two: `--line: #d7d2c8` and `--line2: #c9c2b5` — **solid warm grey**.
+  // A light UI separates with lines, not shadows: shadows everywhere turn paper into a stack of cards.
   '--dsw-alias-border-l1': '#e6e2d9',
   '--dsw-alias-border-l2': p.line,
   '--dsw-alias-border-l2-darkmode-thin': p.line,
@@ -89,8 +89,8 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   '--dsw-alias-label-tertiary': p.ink3,
   '--dsw-alias-label-caption': '#9b9d98',
   '--dsw-alias-label-dimmed': '#9b9d98',
-  // 🔴 反白块上的文字：浅色皮肤里这一条最容易漏。主按钮是淡金实底，
-  // 白字对比度不够、黑字太硬，取纸白偏暖的一档。
+  // 🔴 Text on inverted blocks: the easiest thing to miss in a light skin. The primary button is solid pale gold,
+  // White lacks contrast and black is too hard, so a warmer step of the paper white is used.
   '--dsw-alias-label-primary-foreground': '#fdfcf9',
   '--dsw-alias-label-primary-inverted': '#fdfcf9',
 
@@ -120,25 +120,25 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-active': 'rgba(72, 69, 60, 0.09)',
   '--dsw-alias-interactive-bg-hover-solid': p.paper2,
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(177, 138, 80, 0.16)',
-  // 那 1% 朱砂的其中一处：危险操作的悬停。
+  // One of the two 1% cinnabar uses: hovering a destructive action.
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(181, 90, 82, 0.14)',
 
   // ── Status colours ──
-  // 🔴 成功也走玉青。这套稿子的调色盘里根本没有绿——硬塞一个会同时破坏
-  // "2% 玉青"和"80% 灰白"两条配比。用深浅区分：成功用深一档的 jade2。
+  // 🔴 Success uses jade too. This draft's palette has no green at all, and forcing one would break both
+  // the 2% jade and 80% grey-white ratios. Depth separates them: success uses the deeper jade2.
   '--dsw-alias-state-success-primary': p.jade2,
   '--dsw-alias-state-success-secondary': p.jade,
   '--dsw-alias-state-success-tertiary': '#e7eeec',
-  // 警告：往淡金上靠。稿子没给黄，而淡金本来就是这套的"注意"色。
-  // 浅底上要用深一档的 gold3，gold2 在纸白上几乎看不见。
+  // Warning leans on the pale gold. The draft gives no yellow, and pale gold is already this skin's attention colour.
+  // A light ground needs the deeper gold3; gold2 is nearly invisible on paper white.
   '--dsw-alias-state-warn-primary': p.gold3,
   '--dsw-alias-state-warn-secondary': p.gold,
   '--dsw-alias-state-warn-label': '#7a5c33',
   '--dsw-alias-state-warn-tertiary': '#f5efe3',
-  // 错误：朱砂。1% 的另一处。
+  // Error: cinnabar. The other of the two 1% uses.
   '--dsw-alias-state-error-primary': p.red,
   '--dsw-alias-state-error-secondary': '#9c4a43',
-  // business = 进行中：玉青。原型「运行中」那颗点就是它。
+  // business = in progress: jade. It is the prototype's running dot.
   '--dsw-alias-state-business-primary': p.jade2,
   '--dsw-alias-state-business-tertiary': '#e7eeec',
 
@@ -159,7 +159,7 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l2': p.gold3,
 
   // ── Overlays ──
-  // 浅色皮肤里 toast / tooltip 通常反过来做成暗底，否则浮在纸白上分不出层。
+  // In a light skin, toasts and tooltips are inverted to a dark ground, or they lose all separation over paper white.
   '--dsw-alias-toast-bg': '#3a3c39',
   '--dsw-alias-tooltip-bg': '#3a3c39',
 

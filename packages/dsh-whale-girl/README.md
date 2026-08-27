@@ -6,7 +6,7 @@ DeepSeek Harness（dsh）的浅色皮肤：浅蓝 / 珍珠白 / 深海蓝三级�
 
 ## What it changes
 
-| 面 | 内容 |
+| Surface | Content |
 |---|---|
 | 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（浅色基座）。主操作是 DeepSeek Blue，**绿色保留给在线 / 成功态**，琥珀留给需要确认的操作 |
 | 新会话页 | 整幅鲸鱼娘封面 + 输入框贴底。**主视觉只出现在空屏**——进入对话与轨迹页就收起，回到真实工作态 |

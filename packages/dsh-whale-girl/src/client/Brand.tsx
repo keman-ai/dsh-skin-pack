@@ -1,5 +1,5 @@
 /**
- * 品牌位的鲸鱼标与站名。
+ * The whale mark and wordmark for the brand slots.
  *
  * 原型稿侧栏左上角是「🐋 deepseek / Whale Girl Lounge」两行，harness 把这两处都开成了
  * slot：`sidebar.brand.mark`、`sidebar.brand.name`，新会话页的大标还有一个
@@ -70,7 +70,7 @@ export function WhaleMark({ size, className }: BrandMarkProps) {
 /**
  * 站名：主名 + 副标，对应原型稿的「deepseek / Whale Girl Lounge」。
  *
- * 主名保留 deepseek —— 皮肤换的是外观，不冒充另一个产品；副标才是这套皮肤的身份。
+ * The primary name stays deepseek — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *
  * @returns The two-line wordmark.
  */

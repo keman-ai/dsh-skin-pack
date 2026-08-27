@@ -29,9 +29,9 @@ interface BrandMarkProps {
 /**
  * 金环标。
  *
- * 用纯 CSS 的径向渐变复刻原型那枚标，不裁横幅——横幅的主体在画面左三分之一，裁成小方块只会
+ * The mark is reproduced with a pure CSS radial gradient rather than cropping the banner — the banner's subject sits in the left third, and a small square crop would only
  * 得到一团星海。圆角按 size 等比给（原型 35px 配 11px 圆角，约 0.31 倍），侧栏的 24px 与
- * hero 的 34px 因此是同一个形状。
+ * so the hero's 34px is the same shape.
  *
  * @param props - Size and class name from the host.
  * @returns The square whale mark.

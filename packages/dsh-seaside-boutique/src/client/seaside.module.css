@@ -17,7 +17,7 @@
  *
  * 🔴 浅色皮肤最容易做塌的地方就是这里：底若是一整块死板的浅色，界面看着像没上色的白模。
  * 这层极缓的光让"纸"有厚度，而强度低到不影响任何文字可读性。
- * `pointer-events: none` 保证绝不拦点击。
+ * `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-seaside])::before {
   content: '';
@@ -26,14 +26,14 @@
   z-index: 100;
   pointer-events: none;
   /*
-   * 🔴 只做**顶部一团柔白**，不铺满。
+   * 🔴 Only **a soft white pool at the top**, never full coverage.
    *
-   * 原型那条是 `body` 的**背景**（画在所有内容之下）；这里这层是覆盖在界面**之上**的
-   * `::before`。照抄成不透明的白→雾白，会把整个界面糊成一张白纸——实测过一次，
-   * 侧栏文字、输入框、按钮全部只剩淡淡的影子。
+   * The prototype's is a `body` **background** painted beneath all content; this layer sits **above** the UI as a
+   * `::before`. Copying it as an opaque white-to-mist would smear the whole UI into a blank sheet — measured once,
+   * leaving sidebar text, the composer and buttons as faint ghosts.
    *
-   * 所以改成中间透明的软光：顶部 55% 的白，42% 处就完全透明。要的是"纸有厚度"，
-   * 不是"给界面蒙一层布"。
+   * so it became a soft light transparent in the middle: 55% white at the top, fully transparent by 42%. The aim is paper with depth,
+   * not a cloth thrown over the UI.
    */
   background-image: radial-gradient(circle at 50% -8%, rgba(255, 255, 255, 0.6), transparent 40%);
 }
@@ -71,8 +71,8 @@
   pointer-events: none;
   background-image: var(--seaside-cover);
   /*
-   * `cover` 而不是 `contain`：裁框已经按 hero 的宽高比裁好（见 cover.generated.ts），
-   * 这里几乎不再切；原型稿的 `.hero img` 用的也是 `object-fit: cover`。
+   * `cover` rather than `contain`: the crop frame already matches the hero's aspect ratio (see cover.generated.ts),
+   * so almost nothing is cropped here; the prototype's `.hero img` also uses `object-fit: cover`.
    */
   background-size: cover;
   background-position: center center;
@@ -80,15 +80,15 @@
   background-color: #eef8fb;
   /*
    * 浅色皮肤这里**不压暗**，反而要提一点亮：这张照片本身就是明亮的海边，压暗会让它发灰，
-   * 与纸白的界面撕开一道灰边。只稍微降一点饱和，免得金线在纸白上跳出来。
+   * tearing a grey edge against the paper-white UI. Saturation drops only slightly, so the gold lines do not jump off the paper.
    */
   filter: saturate(0.95) contrast(1.01) brightness(1.02);
 }
 
 /*
- * 压幕。原型 `.hero-fade` 是一层自下而上的**纸白**渐变（不是压暗）：
+ * The scrim. The prototype's `.hero-fade` is a bottom-up **paper-white** gradient, not a darkening:
  * `linear-gradient(180deg, transparent 65%, rgba(243,241,235,.25) 78%, rgba(243,241,235,.92) 100%)`
- * ——把画的底边洇进界面的纸里，输入区因此不需要自己再画一块底。
+ * — bleeding the picture's lower edge into the UI's paper, so the composer needs no ground of its own.
  */
 :global(body[data-dsh-seaside] [data-phase='hero'])::after {
   content: '';
@@ -133,7 +133,7 @@
 
 /*
  * The hero composer sits over the image and needs its own frosted ground to stay legible (the prototype's `.hero-composer`:
- * 半透明暗底 + 18px 模糊 + 金描边）。对话页那份不动，它本来就坐在实底上。
+ * a translucent dark ground, an 18px blur and a gold border). The conversation composer is untouched, sitting on solid ground already.
  */
 :global(body[data-dsh-seaside] [data-phase='hero'] [data-composer-seat] textarea) {
   color: var(--dsw-alias-label-primary);
@@ -145,11 +145,11 @@
 }
 
 /* ==========================================================================
- * 身份化文案 —— 原型 Appearance 面板「Agent copy」那六条。
+ * Identity copy — the six lines from the prototype's Appearance panel under "Agent copy".
  *
- * ⚠️ 这几条**刻意克制**：原型稿在两处写明「避免过度仙侠化文案」「只接管视觉气质与少量
- * 身份化文案；实际交互、信息架构和权限逻辑继续遵循 DeepSeek Harness」。所以这里是
- * 「正在思考……」而不是"大圣正在推演天机"——写飘了就违反设计稿本身。
+ * ⚠️ These lines are **deliberately restrained**: the prototype says twice to avoid over-stylised copy and to take over only the visual character and a little
+ * identity copy, while interaction, information architecture and permission logic keep following DeepSeek Harness. So this is
+ * "Thinking…" rather than something grandiose — overwriting it would violate the design draft itself.
  *
  * The harness forbids third parties overriding built-in copy (`locale.register` throws on a duplicate name), hence a pseudo-element:
  * No MutationObserver, no runtime cost; at worst a redesign makes a style stop matching, with no error and no blank screen.
@@ -158,9 +158,9 @@
 /*
  * Thinking → 正在看海……
  *
- * 原型的 handoff plan 里有一条「Thinking / Tool / Permission / Error 全部人格化文案」。
- * 这里做能找到锚点的三条（思考中、失败、权限确认）；Tool 那条 harness 没有可挂点
- *（工具行只有 ok / error 两态，没有 running），不硬凑。
+ * The prototype's handoff plan calls for personified copy across Thinking / Tool / Permission / Error.
+ * Three of them have anchors and are implemented (thinking, failure, permission); the Tool line has nothing to hang on in the harness
+ * (tool rows have only ok / error, no running), so nothing is forced.
  *
  * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
  */
@@ -187,13 +187,13 @@
   color: var(--dsw-alias-state-error-primary);
 }
 
-/* 会话正在跑时侧边栏那颗指示点：跟着余烬橙走，与"在跑"同一套色语言。 */
+/* The sidebar dot while a session runs: ember orange, the same colour language as running. */
 :global(body[data-dsh-seaside] [data-state='ongoing']) {
   color: var(--dsw-alias-state-business-primary);
 }
 
 /* ==========================================================================
- * 组件语言 —— 原型的卡片/气泡：10–12px 圆角、1px 金调低对比描边、几乎不用阴影。
+ * Component language — the prototype's cards and bubbles: a 10–12px radius, a 1px low-contrast gold border, almost no shadow.
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
@@ -222,8 +222,8 @@
 }
 
 /*
- * 权限确认卡：原型 `.permission` 是暖米底 + 淡金描边的一块提示区
- *（「该操作会修改文件，请你确认。」）。
+ * The permission card: the prototype's `.permission` is a warm cream panel with a pale gold border
+ * ("this operation will modify files; please confirm").
  *
  * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file.
  * The value comes from `kind === 'approval'` in the harness source (rendered by ChatNodeSeat as data-chat-flow-kind).
@@ -237,9 +237,9 @@
 }
 
 /*
- * Permission → 此事涉及因果，请真人裁决。
+ * Permission → this carries consequences; a human decides.
  *
- * 追加一行，不盖原文：原文写着这次操作要改哪个文件，那是你做判断的依据。
+ * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-seaside] [data-chat-flow-kind='approval'])::before {
   content: '这一步要你点头 · ';
@@ -254,7 +254,7 @@
  * ========================================================================== */
 
 /*
- * 侧栏：比主区更沉一档 + 一条金调分隔线（原型 sidebar 是近乎纯黑的竖向渐变）。
+ * Sidebar: one step deeper than the main area plus a gold divider (the prototype's sidebar is a near-black vertical gradient).
  * `--dsw-specific-sidebar-fill` already covers the solid colour, so a mismatch here costs only a gradient and an edge.
  */
 :global(body[data-dsh-seaside] [class*='_sidebarCol']) {
@@ -263,8 +263,8 @@
 }
 
 /*
- * `＋ 新会话` 在这套设计里**不是**金色实心：原型的 `.new-session` 是「纸白渐变底 + 暖灰描边 + 深金字」。
- * 5% 的淡金要留给"边和字"，一旦铺成实心大按钮，配比立刻破掉。
+ * `+ New session` is **not** solid gold in this design: the prototype's `.new-session` is a paper-white gradient with a warm grey border and deep gold text.
+ * The 5% pale gold belongs to edges and text; turned into a large solid button, the ratio breaks at once.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
@@ -294,7 +294,7 @@
 }
 
 /*
- * 会话选中态：左侧一道金色竖条 + 一层横向渐变（原型 `.session.active`）。
+ * Selected session: a gold stripe on the left plus a horizontal gradient (the prototype's `.session.active`).
  * The stripe is an inset box-shadow rather than a border-left — the latter changes the box width and shifts the selected row against the others.
  */
 :global(body[data-dsh-seaside] [class*='_sessionRow'][class*='_selected']) {
@@ -318,10 +318,10 @@
 /*
  * The card language of the right-hand details rail.
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「Session setup / Workspace context / Keyboard /
- * Theme note」四张卡，而 harness 的详情栏是「某次工具调用的 Input / Output」——两者不是同一个
- * 东西，不是换皮的问题。本皮肤自己开了一根状态台放真实状态（见 StatusDock），
- * 这里只做视觉语言对齐，不去接管官方那根。
+ * ⚠️ First, what is **not** done: the prototype's right column has four cards — Session setup / Workspace context / Keyboard /
+ * Theme note — while the harness's details rail holds a tool call's Input / Output. They are not the same
+ * which is a different thing entirely, not a matter of reskinning. This skin opens its own dock for real state (see StatusDock),
+ * Only the visual language is aligned here; the official rail is not taken over.
  */
 :global(body[data-dsh-seaside] [data-slot='details'] [class*='_section']) {
   background: var(--dsw-alias-bg-layer-1);

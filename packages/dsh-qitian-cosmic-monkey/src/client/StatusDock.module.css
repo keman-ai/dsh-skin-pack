@@ -99,7 +99,7 @@
   background-color: #09111d;
   background-size: cover;
   /*
-   * 🔴 靠左裁，不居中。
+   * 🔴 Crop from the left, not centred.
    *
    * 这张横幅的主体（大圣的脸与山崖上那个人）在画面**左三分之二**，右边是大片云海日出。
    * `background-position: center` 会把大圣的脸切掉一半——按左对齐裁才留得住它。
