@@ -1,5 +1,5 @@
 /**
- * 鲸鱼娘海岸休息室 · 浏览器半。
+ * Whale Girl Lounge · browser half.
  *
  * It does three things, in decreasing order of robustness, hence kept separate:
  *
@@ -7,7 +7,7 @@
  *    It depends on semantic tokens only, and harness redesigns do not change what a token means, so this layer lasts.
  * 2. **Mount the cover layer** — stamp our own attribute on body and hand the cover image to the stylesheet as
  *    a CSS variable. Only our own attributes and variables; no hooks into harness class names or structure.
- * 3. **接管品牌位** —— 用 `priority: -1` 影子化官方的鲸鱼标与站名（见 Brand.tsx）。
+ * 3. **Take over the brand slots** — shadow the official mark and wordmark with `priority: -1` (see Brand.tsx).
  *    This one is bound to the active state: deactivating the skin deregisters it and the official mark returns.
  *
  * All three go through `ctx.effect` / disposers, so unloading removes attributes, clears variables, unregisters
@@ -46,7 +46,7 @@ const DOCK_OPEN_ATTRIBUTE = 'data-whale-girl-dock-open'
 const DOCK_STORAGE_KEY = 'whale-girl.dock.open'
 
 /**
- * 封面地址。由 host 半在 `/skin-cover/whale-girl.webp` 上提供（见 src/index.ts 的 COVER_ROUTE）。
+ * The cover URL, served by the host half at `/skin-cover/whale-girl.webp` (see COVER_ROUTE in src/index.ts).
  *
  * 🔴 No more inline data URIs: with several skins loaded, a few hundred KB of base64 each crushes the browser's
  * main thread (measured: with 21 installed the first paint did not arrive in 90 seconds). The browser now fetches

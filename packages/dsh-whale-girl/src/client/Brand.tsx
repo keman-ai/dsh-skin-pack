@@ -1,26 +1,26 @@
 /**
  * The whale mark and wordmark for the brand slots.
  *
- * 原型稿侧栏左上角是「🐋 deepseek / Whale Girl Lounge」两行，harness 把这两处都开成了
- * slot：`sidebar.brand.mark`、`sidebar.brand.name`，新会话页的大标还有一个
+ * The prototype's sidebar top-left carries two lines, "🐋 deepseek / Whale Girl Lounge", and the harness exposes both as
+ * slots: `sidebar.brand.mark` and `sidebar.brand.name`, with the new-session page's larger mark on another
  * `conversation.hero.brand.mark`。
  *
  * 🔴 All three are `{ kind: 'single' }`. The old conclusion — that an occupied single makes third-party registration throw —
  * **is out of date**: `SlotCore.register` in dsh 0.1.1-rc.2 detects occupancy only **at the same priority**,
  * and different priorities shadow (`entriesOfSlot` takes the live entry with the lowest priority in each cell).
- * 官方 `ui-brand-official` 注册在默认 0，所以我们注册 `priority: -1` 就能接管，且它那份
- * 只是被影子化、没被卸载——皮肤一停用就自动回到官方标。
+ * The official `ui-brand-official` registers at the default 0, so registering at `priority: -1` takes over while its entry
+ * is only shadowed, not unloaded — the official mark returns the moment the skin is deactivated.
  *
  * Taking over means honouring the other side's owner-props contract, so both components follow it strictly:
- *   SidebarBrandMarkOwnerProps { size }        —— 侧栏要 24px
- *   HeroBrandMarkOwnerProps    { size, className } —— 新会话页要 34px，还会塞一个类名
- *     进来保留默认的悬停动效，原样透传即可
- *   SidebarBrandNameOwnerProps {}              —— 名字位自己决定内容与宽度
+ *   SidebarBrandMarkOwnerProps { size }        — the sidebar wants 24px
+ *   HeroBrandMarkOwnerProps    { size, className } — the new-session page wants 34px and passes a class name
+ *     to preserve the default hover animation, so it is passed through verbatim
+ *   SidebarBrandNameOwnerProps {}              — the name slot decides its own content and width
  */
 
 import css from './Brand.module.css'
 
-/** 侧栏 / 新会话页共用的鲸鱼标契约。 */
+/** The whale-mark contract shared by the sidebar and the new-session page. */
 interface BrandMarkProps {
   /** The square size the host requires, in px. */
   size: number
@@ -29,14 +29,14 @@ interface BrandMarkProps {
 }
 
 /**
- * 鲸鱼标。
+ * The whale mark.
  *
- * 画成 svg 而不是用 🐋 emoji：emoji 在不同系统上是三种完全不同的画风（苹果的写实、
- * 安卓的卡通、部分 Linux 直接是缺字框），而品牌标必须到处长一个样。
- * 填色用 `currentColor`，跟着宿主给的文字色走，皮肤切换和悬停态都不用额外处理。
+ * Drawn as SVG rather than the 🐋 emoji: that emoji is three entirely different illustrations across systems (Apple's
+ * realistic one, Android's cartoon, and on some Linux systems a tofu box), while a brand mark must look the same everywhere.
+ * The fill is `currentColor`, following the host's text colour, so theme switches and hover states need no extra handling.
  *
  * @param props - Size and class name from the host.
- * @returns 鲸鱼轮廓。
+ * @returns The whale silhouette.
  */
 export function WhaleMark({ size, className }: BrandMarkProps) {
   return (
@@ -68,7 +68,7 @@ export function WhaleMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「deepseek / Whale Girl Lounge」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "deepseek / Whale Girl Lounge".
  *
  * The primary name stays deepseek — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *

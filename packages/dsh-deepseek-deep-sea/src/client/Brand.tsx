@@ -28,7 +28,7 @@ interface BrandMarkProps {
 }
 
 /**
- * 鲸鱼标。
+ * The whale mark.
  *
  * 底与描边在 CSS 里，鲸鱼是一段内联 svg —— 不裁封面：封面的主体是一个整身角色，
  * 裁成 24px 小方块只会得到一团蓝。圆角按 size 等比给（原型 34px 配 11px 圆角，约 0.31 倍），

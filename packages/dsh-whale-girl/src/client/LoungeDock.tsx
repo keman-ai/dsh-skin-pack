@@ -1,9 +1,9 @@
 /**
- * 右侧状态台：缩小版的鲸鱼娘封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced whale girl cover plus this session's real state.
  *
- * 原型稿的右栏是「会话状态 / Assistant Systems / 鲸鱼少女模式」三张卡。这里做**能对上真实
- * 数据的那些**：状态、模型、上下文占用、用量、待办进度；那五个 “Assistant Systems 在线”
- * 是纯装饰，harness 没有对应的心跳投影，不伪造。
+ * The prototype's right column has three cards: session state / Assistant Systems / whale girl modes. Only **those
+ * matching real data** are built: state, model, context occupancy, usage and todo progress. The five "Assistant Systems
+ * online" rows are pure decoration with no matching heartbeat projection, so nothing is fabricated.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1

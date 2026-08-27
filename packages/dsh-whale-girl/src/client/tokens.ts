@@ -1,22 +1,22 @@
 /**
- * 鲸鱼娘海岸休息室的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` /
- * `--dsw-specific-*` 语义层。
+ * Whale Girl Lounge's palette: the prototype's design variables → the harness's `--dsw-alias-*` /
+ * `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter paints
  * these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  * A harness redesign changes class names and layout but not what a semantic token means, so this layer lasts.
  *
- * 映射不是逐条抄色号，而是**按语义对位**：原型稿的 `--paper / --paper2 / 卡片白` 是
- * 三级容器，harness 的 `bg-base / layer-1 / layer-2 / layer-3` 也是逐级抬升，对上即可。
- * 原型没给的（遮罩、骨架屏、滚动条、危险态）从已有色阶推导，规则写在各段注释里。
+ * The mapping is not colour-by-colour transcription but **semantic alignment**: the prototype's `--paper / --paper2 /
+ * card white` are three container levels, and the harness's `bg-base / layer-1 / layer-2 / layer-3` rise likewise, so they line up.
+ * What the prototype omits (scrims, skeletons, scrollbars, the danger state) is derived from the existing ramp, with the rule stated in each section.
  *
- * 🔴 这是一套**浅色**皮肤（`colorScheme: 'light'`），跟之前那套暗色皮肤相反。原型稿
- * 的设计说明写死了这条：「整体控制在浅蓝、白色、深蓝三个层级，避免赛博朋克感，
- * 突出柔和、清爽、可爱但仍然专业」。所以没列出的 token 继承的是 harness 的**内置浅色基座**，
+ * 🔴 This is a **light** skin (`colorScheme: 'light'`), the opposite of the earlier dark ones. The prototype's design
+ * notes fix it: keep everything within pale blue, white and navy, avoid a cyberpunk feel, and emphasise
+ * softness, freshness and charm while staying professional. So unlisted tokens inherit the harness's **built-in light base**,
  * The override set is deliberately incomplete: listing everything would shut out built-in tokens added later.
  */
 
-/** 原型稿 `:root` 与 Appearance 色卡的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root` and Appearance swatch. Recolour here; everything below derives from these. */
 export const WHALE_PALETTE = {
   /** Deep Navy：最深的一级，用于反白块与强对比按钮。 */
   navy: '#18357f',
@@ -63,7 +63,7 @@ const p = WHALE_PALETTE
 /**
  * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置浅色基座。
+ * Only **what changes** is written; unlisted tokens inherit the harness's built-in light base.
  */
 export const WHALE_TOKENS: Record<string, string> = {
   // ── Container layers ──

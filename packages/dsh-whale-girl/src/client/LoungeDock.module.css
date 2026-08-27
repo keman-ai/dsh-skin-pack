@@ -4,7 +4,7 @@
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
- * `data-dsh-whale-girl` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * stamps `data-dsh-whale-girl` onto body, and the harness UI is already rendered before that. During that window the dock
  * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
  * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
@@ -89,8 +89,8 @@
 /*
  * The reduced cover.
  *
- * `contain` 而不是 `cover`：这张图是"左右各站一个人"的构图，按 300px 宽裁切必然切到人。
- * 3/2 的比例跟原型稿封面卡一致。
+ * `contain` rather than `cover`: the image has a figure standing at each side, and cropping to 300px inevitably cuts into them.
+ * The 3/2 ratio matches the prototype's cover card.
  */
 .cover {
   aspect-ratio: 3 / 2;
@@ -287,7 +287,7 @@
  * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
  * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
- * 同样必须带 `[data-dsh-whale-girl]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * This too must carry `[data-dsh-whale-girl]`: without it, the main area yields 300px during the window before the skin activates,
  * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-whale-girl][data-whale-girl-dock-open] > div:first-of-type) {

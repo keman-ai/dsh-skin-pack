@@ -11,7 +11,7 @@
  * 出现一次，其余全部是蓝白两色的深浅。**克制本身就是这套设计的内容**，别加装饰色。
  */
 
-/** 原型稿 `:root` 与 Appearance 色卡的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root` and Appearance swatch. Recolour here; everything below derives from these. */
 export const WAVE_PALETTE = {
   /** Primary：DeepSeek 蓝，主操作色。 */
   brand: '#4969ef',
@@ -49,7 +49,7 @@ const p = WAVE_PALETTE
 /**
  * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置浅色基座。
+ * Only **what changes** is written; unlisted tokens inherit the harness's built-in light base.
  */
 export const WAVE_TOKENS: Record<string, string> = {
   // ── Container layers ──

@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的鲸鱼娘封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced whale girl cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and

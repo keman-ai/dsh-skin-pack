@@ -1,24 +1,24 @@
 /**
- * 鲸鱼娘的装饰层。
+ * The Whale Girl decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-whale-girl]` 下：属性由 client 半在主题激活时打上、
- * 切走时摘掉，所以停用皮肤等于这些规则整体失效，不留残迹。
+ * Every rule hangs under `body[data-dsh-whale-girl]`: the client half stamps the attribute when the theme activates
+ * and removes it on switching away, so deactivating invalidates every rule at once, leaving no residue.
  *
- * 🔴 判据写成"没激活 = 插件不存在"，不写成"默认显示、靠皮肤规则去藏"。插件的 JS 要等
- * bundle 执行完才能给 body 打标记，而 harness 界面在那之前就渲染好了；默认可见的东西
- * 会在这段窗口里闪出来，看着像跳进了别的页面。
+ * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules". The
+ * plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything
+ * visible by default flashes during that window, as if the app had jumped to another page.
  *
- * 锚点优先用 harness 的语义 `data-*` 属性（对外契约，改版不会碎）；确实没有属性可用的
- * 地方才退到 `[class*='_xxx']` 前缀匹配 CSS Module 哈希类名——那些全部集中在文件末尾的
- * 「降级区」，并逐条写清楚失配时会怎样。
+ * Anchors prefer the harness's semantic `data-*` attributes (a public contract that survives redesigns); only where no
+ * attribute exists do they fall back to `[class*='_xxx']` prefix matches on hashed CSS Module names — all gathered in
+ * the degradation zone at the end of the file, each stating what happens on a mismatch.
  */
 
 /* ==========================================================================
- * 新会话页封面 —— 这套皮肤的主视觉。
+ * The new-session cover — this skin's hero visual.
  *
- * 🔴 原型稿的设计说明写死了它的作用域：「New Session 使用完整封面主视觉；
- * Chat / Trajectory 回归真实 Harness 工作态」。所以封面**只画在 hero**，
- * 不做对话区常驻水印——那会跟每一行字抢注意力。
+ * 🔴 The prototype's design notes fix its scope: New Session uses the full cover visual, while Chat and Trajectory
+ * return to the real Harness working state. So the cover is painted **on the hero only**,
+ * never as a permanent watermark in the conversation — that would compete with every line of text.
  *
  * `data-phase` 是三态 `settling / hero / active`，不是两态。`settling` 表示会话还在
  * 回放、落 hero 还是落对话页尚不可知，harness 这时把 composer 藏起来就是为了不猜；
@@ -29,15 +29,15 @@
  * ========================================================================== */
 
 /*
- * 🔴 先把 hero 变成定位祖先，再画封面。
+ * 🔴 Make hero a positioning ancestor first, then paint the cover.
  *
- * 实测踩过：`[data-phase='hero']` 本身**不是** positioned 元素，它的 `::before` 用
- * `position: absolute` 会去找最近的定位祖先——一个都没有的话就落到初始包含块，也就是
- * **整个视口**。表现是封面把左边的会话侧栏一起盖掉了（截图一看就是"整屏一张图"）。
+ * Learned the hard way: `[data-phase='hero']` is **not** itself positioned, so its `::before` with
+ * `position: absolute` looks for the nearest positioned ancestor — finding none it falls to the initial containing
+ * block, i.e. **the whole viewport**. The symptom is the cover burying the session sidebar too (a screenshot shows one full-screen image).
  *
- * 而原型稿明确要求「保留 Harness 的真实产品结构：左侧负责历史会话，右侧负责状态与模式，
- * 中心继续承担真实工作区」，末尾那段修正注释也写着 “Keep the actual Harness UI outside
- * the cover image.”——封面只属于中间那一列。
+ * The prototype explicitly requires keeping Harness's real product structure: history on the left, state and modes on
+ * the right, and the centre carrying the real workspace. Its closing correction note also reads "Keep the actual
+ * Harness UI outside the cover image." The cover belongs to the middle column alone.
  */
 :global(body[data-dsh-whale-girl] [data-phase='hero']) {
   position: relative;
@@ -72,9 +72,9 @@
 }
 
 /*
- * 输入框压在封面下沿，靠一层自下而上的浅幕保证可读性。
+ * The composer sits over the cover's lower edge, kept legible by a bottom-up light scrim.
  *
- * 浅色皮肤要压“白”不是压“黑”：压黑会把海洋的浅蓝洗成脏灰。
+ * A light skin fades to white, not to black: black would wash the ocean's pale blue into dirty grey.
  */
 :global(body[data-dsh-whale-girl] [data-phase='hero'])::after {
   content: '';
@@ -105,8 +105,8 @@
  * (`.root[data-phase='hero'] .scrollBody`) — changing the composer's own margin has no effect whatsoever.
  *
  * Why overflow / scrollbar-gutter are turned off: hero has nothing to scroll, and `overflow-y: auto` would
- * 因内容溢出冒出一条滚动条；`scrollbar-gutter: stable` 恒定预留一条滚动条宽度，在没有
- * 滚动条的 hero 里就变成把整列往一边推的偏移，看上去是"输入框没居中"。
+ * would raise a scrollbar on overflow, and `scrollbar-gutter: stable` permanently reserves a scrollbar's width, which in a
+ * hero with no scrollbar becomes an offset pushing the column aside — looking like an off-centre composer.
  */
 :global(body[data-dsh-whale-girl] [data-phase='hero'] [data-conversation-scroll]) {
   justify-content: flex-end;
@@ -115,11 +115,11 @@
 }
 
 /*
- * 输入区压在封面之上，但**留在中间列里**，不做"相对整个窗口居中"。
+ * The composer sits over the cover but **stays inside the middle column**; it is not centred on the whole window.
  *
- * ⚠️ 这跟另一套皮肤的做法相反，是原型稿决定的：那边 New Session 是全屏无侧栏，所以输入框
- * 必须相对视口居中；这边原型的 `.composer-shell` 写的是 `left: var(--sidebar);
- * right: var(--details)`——输入区就该在中间列里居中。把它 fixed 到视口反而会横跨侧栏。
+ * ⚠️ This is the opposite of another skin's approach, and the prototypes decide it: there New Session is full-screen
+ * with no sidebar, so the composer must centre on the viewport; here the prototype's `.composer-shell` reads
+ * `left: var(--sidebar); right: var(--details)` — it belongs centred in the middle column, and fixing it to the viewport would span the sidebar.
  */
 :global(body[data-dsh-whale-girl] [data-phase='hero'] [data-composer-seat]) {
   align-items: center;
@@ -132,12 +132,12 @@
 }
 
 /* ==========================================================================
- * 组件语言 —— 原型稿 Component language 那三条：
- *   Radius 8–12px · 1px 低对比描边 · almost-flat（几乎不用阴影）
+ * Component language — the prototype's three rules:
+ *   Radius 8–12px · 1px low-contrast borders · almost-flat (barely any shadow)
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：白底 + 1px 描边 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: white with a 1px border and a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-whale-girl] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -154,7 +154,7 @@
   opacity: 1;
 }
 
-/* 本轮失败：左侧一道珊瑚红，长对话里比纯文字更容易扫到。 */
+/* A failed turn: a coral stripe on the left, easier to spot in a long conversation than text alone. */
 :global(body[data-dsh-whale-girl] [data-chat-flow-kind='turn-error']) {
   box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
   border-radius: 8px;
@@ -162,8 +162,8 @@
 }
 
 /*
- * 权限确认卡：原型 `.permission` 是琥珀底 + 琥珀描边的一块提示区
- *（“这个操作会修改文件。需要你的确认后才能继续。”）。
+ * The permission card: the prototype's `.permission` is an amber panel with an amber border
+ * ("this operation will modify files and needs your confirmation to continue").
  *
  * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file.
  * The value comes from `kind === 'approval'` in the harness source (rendered by ChatNodeSeat as data-chat-flow-kind).
@@ -177,7 +177,7 @@
 }
 
 /*
- * 「正在深潜……」——把思考中的状态标签换成鲸鱼娘的说法。
+ * "Diving deep…" — the thinking label rewritten in the whale girl's voice.
  *
  * The harness forbids third parties overriding built-in copy (`locale.register` throws on a duplicate name), hence a pseudo-element:
  * No MutationObserver, no runtime cost; at worst a redesign makes a style stop matching, with no error and no blank screen.
@@ -195,7 +195,7 @@
   color: var(--dsw-alias-state-business-primary);
 }
 
-/* 会话正在跑时侧边栏那颗指示点：跟着"活动态"的海洋光走，而不是内置的中性色。 */
+/* The sidebar dot while a session runs: the ocean light of the active state rather than the built-in neutral. */
 :global(body[data-dsh-whale-girl] [data-state='ongoing']) {
   color: var(--dsw-alias-state-business-primary);
 }
@@ -203,13 +203,13 @@
 /* ==========================================================================
  * Degradation zone — the rules below have no semantic attribute to hang on and must prefix-match hashed
  * CSS Module class names (like `_1Onn0a_sidebarCol`). A harness redesign makes them silently stop matching: the look reverts to default,
- * 不报错、不影响其余部分。加规则前先想清楚值不值得。
+ * without an error and without affecting anything else. Think about whether a rule is worth it before adding one.
  * ========================================================================== */
 
 /*
- * 侧栏的竖向渐变（原型 `linear-gradient(180deg,#f7f9ff,#eef3ff)`）。
- * token 只能给单色，渐变必须在样式表里补；`--dsw-specific-sidebar-fill` 已经把单色兜住，
- * 这条失配也只是少一层渐变。
+ * The sidebar's vertical gradient (the prototype's `linear-gradient(180deg,#f7f9ff,#eef3ff)`).
+ * A token can only carry one colour, so the gradient must come from the stylesheet; `--dsw-specific-sidebar-fill`
+ * already covers the solid colour, so a mismatch here costs only the gradient.
  */
 :global(body[data-dsh-whale-girl] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #f7f9ff 0%, #eef3ff 100%);
@@ -217,7 +217,7 @@
 }
 
 /*
- * `＋ 新建对话` 是整个界面的**主操作**，原型里它是唯一的蓝色实心大按钮（44px 高、10px 圆角）。
+ * `+ New chat` is the interface's **primary action**, and in the prototype it is the only large solid blue button (44px tall, a 10px radius).
  * The harness styles it as secondary by default, leaving the primary action without visual weight unless changed.
  */
 /*
@@ -240,7 +240,7 @@
   background: var(--dsw-alias-button-primary-hover);
 }
 
-/* 图标跟着走：harness 的图标用 currentColor，父级换色即可。 */
+/* Icons follow along: harness icons use currentColor, so recolouring the parent is enough. */
 :global(body[data-dsh-whale-girl] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
   color: inherit;
 }
@@ -259,13 +259,13 @@
 /*
  * The card language of the right-hand details rail.
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「会话状态 / Assistant Systems / 鲸鱼少女模式」
- * 三张卡，而 harness 的详情栏是「某次工具调用的详情」，只有 Input / Output 两段——
- * 两者不是同一个东西，不是换皮的问题。那五个系统的在线状态 harness 根本没有对应投影，
- * 硬造就是假数据，所以这里只做视觉语言对齐，不伪造卡片。
+ * ⚠️ First, what is **not** done: the prototype's right column has three cards — session state / Assistant Systems /
+ * whale girl modes — while the harness's details rail shows one tool call's detail with just Input and Output.
+ * They are not the same thing, and this is not a matter of reskinning. The harness has no projection at all for those
+ * five system statuses, and inventing them would be fake data, so only the visual language is aligned and no card is fabricated.
  *
- * （`details` 这个 slot 现在其实**可以**用 `priority: -1` 接管，见 Brand.tsx 的说明；
- * 但接管等于要自己造那三张卡的数据，没有数据来源就不做。）
+ * (The `details` slot **could** in fact be taken over with `priority: -1` now, as explained in Brand.tsx, but taking
+ * it over would mean sourcing the data for those three cards ourselves, and without a source it is not done.)
  */
 :global(body[data-dsh-whale-girl] [data-slot='details'] [class*='_section']) {
   background: var(--dsw-alias-bg-layer-2);

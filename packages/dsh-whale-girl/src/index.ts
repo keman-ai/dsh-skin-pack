@@ -1,5 +1,5 @@
 /**
- * 鲸鱼娘海岸休息室皮肤 · host 半。
+ * The Whale Girl Lounge skin · host half.
  *
  * All of the skin's behaviour lives in the browser (registering the theme, spreading the cover, taking over the
  * brand slots); this host half is only the Loader's mount point. `cordis.patch.yml` inserts this package into

@@ -1,9 +1,9 @@
 /**
  * Wordmark typography. Sizes come from the prototype's `.brand strong` / `.brand small`
- * （15px 主名 + 9px 副标，副标 2px 上间距）。
+ * (a 15px primary name and a 9px subtitle, with 2px of space above the subtitle).
  *
- * 颜色全部走语义 token：主名用品牌文字色、副标用三级文字色，所以用户切到别的主题
- * （本组件在皮肤停用时会连同注册一起撤掉，这里只是双保险）也不会出现看不清的字。
+ * Every colour goes through semantic tokens: the primary name uses the brand text colour and the subtitle the tertiary,
+ * so nothing becomes illegible after a theme switch (the component is deregistered with the skin anyway; this is belt and braces).
  */
 
 .name {

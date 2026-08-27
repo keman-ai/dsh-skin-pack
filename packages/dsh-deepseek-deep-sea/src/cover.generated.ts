@@ -1,5 +1,5 @@
 /**
- * 鲸鱼娘封面 · 构建产物（不要手改）。
+ * The Whale Girl cover · build output (do not edit by hand).
  *
  * 原图 1672x941，是一张干净的插画（不像另外几套稿子那样把整屏 UI 也截了进去），
  * 所以只按 hero 的宽高比裁一刀：
