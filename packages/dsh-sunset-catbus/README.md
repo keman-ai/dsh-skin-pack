@@ -1,5 +1,4 @@
-✔ dsh-sunset-catbus/README.md
-巴士
+# dsh-sunset-catbus · Sunset Catbus
 
 DeepSeek Harness（dsh）的皮肤：深棕打底、夕阳橙做主操作、麦田金做描边与强调、冷蓝只给运行中，新会话页是一整幅黄昏横幅
 

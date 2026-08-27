@@ -1,5 +1,4 @@
-✔ dsh-blue-whale-ocean/README.md
-洋
+# dsh-blue-whale-ocean · Blue Whale Ocean
 
 DeepSeek Harness（dsh）的皮肤：深海蓝打底、透明青蓝做描边与状态、冰白只做高光，新会话页是一整幅鲸鱼海面横幅
 

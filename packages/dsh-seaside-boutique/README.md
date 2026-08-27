@@ -1,1 +1,1 @@
-✔ dsh-seaside-boutique/README.md
+# dsh-seaside-boutique · Seaside Boutique

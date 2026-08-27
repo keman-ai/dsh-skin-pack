@@ -1,5 +1,4 @@
-✔ dsh-mars-flight-deck/README.md
-驶舱
+# dsh-mars-flight-deck · Mars Flight Deck
 
 DeepSeek Harness（dsh）的皮肤：航天黑打底、冷蓝做遥测与描边、推进器橙做主操作、Nominal 绿只给成功，新会话页是一整幅驾驶舱主视觉
 

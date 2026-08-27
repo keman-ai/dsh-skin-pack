@@ -1,5 +1,4 @@
-✔ dsh-emerald-megacity/README.md
-城
+# dsh-emerald-megacity · Emerald Megacity
 
 DeepSeek Harness（dsh）的皮肤：墨绿打底、翡翠做主操作、玉青只给运行中、暖金只做描边与强调
 

@@ -1,5 +1,4 @@
-✔ dsh-dark-xianxia/README.md
- · 修仙版
+# dsh-dark-xianxia · Dark Xianxia
 
 DeepSeek Harness（dsh）的皮肤：墨青黑打底、古金做边与按钮、玉青只给运行中、朱砂只给危险，新会话页是一整幅召请天机主视觉
 

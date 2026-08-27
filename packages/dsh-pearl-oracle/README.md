@@ -1,1 +1,1 @@
-✔ dsh-pearl-oracle/README.md
+# dsh-pearl-oracle · Pearl Oracle

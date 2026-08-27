@@ -1,5 +1,4 @@
-✔ dsh-night-forest-companion/README.md
-伴
+# dsh-night-forest-companion · Night Forest Companion
 
 DeepSeek Harness（dsh）的皮肤：月夜蓝打底、月光青做描边与状态、主操作走蓝，新会话页是一整幅夜林横幅
 

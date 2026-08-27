@@ -1,5 +1,4 @@
-✔ dsh-qitian-cosmic-monkey/README.md
-Sea
+# dsh-qitian-cosmic-monkey · Qitian Cosmic Monkey
 
 A skin for DeepSeek Harness (dsh): a midnight cosmic blue ground, ember gold for borders and the primary action, starlight blue for running alone, and a full-bleed Monkey King starscape on the new-session page
 

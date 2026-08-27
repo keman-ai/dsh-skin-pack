@@ -1,5 +1,4 @@
-✔ dsh-deepseek-deep-sea/README.md
- Deep Sea
+# dsh-deepseek-deep-sea · Whale Girl Deep Sea
 
 A skin for DeepSeek Harness (dsh): a deep-sea blue ground, cool cyan for borders and state, DeepSeek Blue for the primary action, and a full-bleed deep-sea visual on the new-session page
 

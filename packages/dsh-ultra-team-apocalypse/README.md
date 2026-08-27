@@ -1,5 +1,4 @@
-✔ dsh-ultra-team-apocalypse/README.md
-Team · Apocalypse
+# dsh-ultra-team-apocalypse · Ultra Team Apocalypse
 
 A skin for DeepSeek Harness (dsh): a charred dark-red ground, firelight orange for the primary action, battle red for failure alone, energy cyan for running alone, and a full-bleed apocalypse squad visual on the new-session page
 

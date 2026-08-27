@@ -1,5 +1,4 @@
-✔ dsh-twilight-city/README.md
-市
+# dsh-twilight-city · Twilight City
 
 DeepSeek Harness（dsh）的皮肤：深蓝夜空打底、晚霞橙紫粉做氛围、暖黄只点亮按钮、天空蓝只给运行中，新会话页是一整幅黄昏城市主视觉
 

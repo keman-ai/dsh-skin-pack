@@ -1,5 +1,4 @@
-✔ dsh-cyber-tao/README.md
-Temple
+# dsh-cyber-tao · Cyber Tao
 
 A skin for DeepSeek Harness (dsh): an obsidian ground, bronze borders, rice-paper white text, cinnabar for emphasis, jade for state, and a full-bleed mountain-gate visual on the new-session page
 
