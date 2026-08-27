@@ -54,7 +54,7 @@ const p = QITIAN_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。
  */
 export const QITIAN_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.bg2,
   '--dsw-alias-bg-layer-2': p.surface,
@@ -71,7 +71,7 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(22, 33, 58, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(240, 188, 112, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场一条 `--line: rgba(240,188,112,.14)`——**带余烬金的暗描边**。
   // 暗底上的分层全靠它，而不是靠提亮底色。
   '--dsw-alias-border-l1': 'rgba(240, 188, 112, 0.1)',
@@ -82,7 +82,7 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(239, 233, 220, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(239, 233, 220, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#e6e5e0',
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -94,7 +94,7 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#211405',
   '--dsw-alias-label-primary-inverted': p.surface2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是余烬金（原型 `踏云出发 →`）。星辉蓝不做实心按钮：
   // 它在这套里是"状态"的语言，铺成大块会把星海压成蓝屏。
   '--dsw-alias-brand-primary': p.gold,
@@ -150,7 +150,7 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(240, 188, 112, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(240, 188, 112, 0.24)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(240, 188, 112, 0.26)',

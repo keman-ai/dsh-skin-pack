@@ -21,9 +21,9 @@ import css from './Brand.module.css'
 
 /** 侧栏 / 新会话页共用的标契约。 */
 interface BrandMarkProps {
-  /** 宿主要求的正方形边长（px）。 */
+  /** The square size the host requires, in px. */
   size: number
-  /** 宿主给的类名，只在新会话页出现；原样透传以保留默认动效。 */
+  /** The class the host provides, present only on the new-session page; passed through verbatim to keep the default animation. */
   className?: string | undefined
 }
 
@@ -33,7 +33,7 @@ interface BrandMarkProps {
  * 用 `background-image` 而不是 `<img>`：宿主在 hero 那处会传一个自己的类名进来（保留悬停
  * 动效），套在同一个元素上比包一层更省事，也不会多出一个会被 flex 拉伸的子节点。
  *
- * @param props - 宿主给的尺寸与类名。
+ * @param props - Size and class name from the host.
  * @returns 白底方标。
  */
 export function WorkMark({ size, className }: BrandMarkProps) {
@@ -63,7 +63,7 @@ export function WorkMark({ size, className }: BrandMarkProps) {
 /**
  * 站名：主名 + 副标，对应原型稿的「DeepSeek Harness / AI Work Mode」。
  *
- * @returns 两行站名。
+ * @returns The two-line wordmark.
  */
 export function WorkName() {
   return (

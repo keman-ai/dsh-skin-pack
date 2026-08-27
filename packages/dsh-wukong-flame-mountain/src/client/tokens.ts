@@ -54,7 +54,7 @@ const p = WUKONG_PALETTE
  * 将来新增的内置 token 挡在外面。
  */
 export const WUKONG_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   // 原型是「黑墨底 + 暗褐卡片」：bg → surface → surface2/3 逐级抬升，与 harness 的
   // base → layer-1/2/3 同构。
   '--dsw-alias-bg-base': p.bg,
@@ -74,7 +74,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(37, 27, 18, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(241, 231, 216, 0.06)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场只有一条 `--line: rgba(211,164,91,.16)`——**带金色倾向的暗描边**，不是中性灰。
   // harness 要四级：l1 更弱、l2 用原值，l3/l4 升到实心青铜与古金。
   '--dsw-alias-border-l1': 'rgba(211, 164, 91, 0.10)',
@@ -85,7 +85,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(241, 231, 216, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(241, 231, 216, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': p.text,
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -97,7 +97,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#21150b',
   '--dsw-alias-label-primary-inverted': p.surface3,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 🔴 <b>主操作是古金，不是余烬橙</b>。原型里橙（Ember）只出现在"正在跑"的指示上，
   // 而 Start task / 允许 / 发送 全是那条金渐变。拿橙做按钮会让"运行中"和"可以点"变成
   // 同一个视觉语言，状态就没法读了——这条与配比表里「8% 古金 / 2% 余烬橙」是一回事。
@@ -157,7 +157,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface2,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   // 用金色半透明而不是中性灰：滚动条是长期可见的元素，灰色会把整片暖调拉回中性。
   '--dsw-alias-scrollbar-bg-l1': 'rgba(211, 164, 91, 0.14)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(211, 164, 91, 0.26)',

@@ -52,7 +52,7 @@ const p = WAVE_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置浅色基座。
  */
 export const WAVE_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   // 原型是「极浅灰蓝底 + 白卡片」：bg → panel → 白，与 harness 的 base → layer-1/2/3 同构。
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': '#f4f8ff',
@@ -70,7 +70,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(214, 228, 255, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(67, 102, 205, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场一条 `--line: rgba(67,102,205,.13)`——带蓝的极淡描边，是"轻"的主要来源。
   // 四级都按它的色相走，l3/l4 才升到实色浅蓝。
   '--dsw-alias-border-l1': 'rgba(67, 102, 205, 0.09)',
@@ -81,7 +81,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(255, 255, 255, 0.16)',
   '--dsw-alias-border-inverted2': 'rgba(255, 255, 255, 0.26)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#3556c7',
   '--dsw-alias-label-primary-dimmed': p.muted,
@@ -93,7 +93,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#ffffff',
   '--dsw-alias-label-primary-inverted': p.panel,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是 DeepSeek 蓝（原型的「＋ 新建对话」「开始任务 →」「发送」都是这条蓝渐变）。
   // 绿被明确保留给在线态（色卡上就叫 Online），不参与操作。
   '--dsw-alias-brand-primary': p.brand,
@@ -151,7 +151,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': '#f3f7ff',
   '--dsw-alias-markdown-tag': '#f3f7ff',
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(67, 102, 205, 0.14)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(73, 105, 239, 0.26)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(67, 102, 205, 0.24)',

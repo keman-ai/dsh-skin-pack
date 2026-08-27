@@ -18,7 +18,7 @@
   font-size: 13px;
   font-weight: 730;
   color: var(--dsw-alias-label-primary);
-  /* 侧栏收窄时不要把副标顶出去，宁可省略号。 */
+  /* When the sidebar narrows, ellipsise rather than push the subtitle out. */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

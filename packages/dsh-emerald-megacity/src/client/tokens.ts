@@ -48,7 +48,7 @@ const p = EMERALD_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。
  */
 export const EMERALD_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.panelDeep,
   '--dsw-alias-bg-layer-2': p.panel,
@@ -65,7 +65,7 @@ export const EMERALD_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(20, 47, 80, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(235, 214, 164, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场一条 `--line: rgba(235,214,164,.14)`——**带暖金的暗描边**，正是那片灯火的余光。分层全靠它。
   '--dsw-alias-border-l1': 'rgba(235, 214, 164, 0.1)',
   '--dsw-alias-border-l2': 'rgba(235, 214, 164, 0.16)',
@@ -75,7 +75,7 @@ export const EMERALD_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(237, 247, 255, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(237, 247, 255, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#eae7dd',
   '--dsw-alias-label-primary-dimmed': p.muted,
@@ -86,7 +86,7 @@ export const EMERALD_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#ffffff',
   '--dsw-alias-label-primary-inverted': p.panel2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是那条夜蓝渐变（原型 `.new` / `.send` 的 `linear-gradient(135deg,#4b7fe8,#2f62ce)`）。
   // 月光青不做按钮：它在这套里是"描边与状态"的语言，实心铺开会把夜的安静打破。
   '--dsw-alias-brand-primary': p.blue,
@@ -142,7 +142,7 @@ export const EMERALD_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': '#0b211c',
   '--dsw-alias-markdown-tag': '#102c25',
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(235, 214, 164, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(235, 214, 164, 0.24)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(235, 214, 164, 0.26)',

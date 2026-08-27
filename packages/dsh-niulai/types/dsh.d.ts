@@ -5,11 +5,11 @@
  * 装不下来。这些模块运行时全是 external —— 主题服务由跑着本插件的 harness 提供，
  * 插件只通过 `ctx.theme` 拿它，不 import 它的实现。
  *
- * 宿主行为与这里的声明对不上时，先回 harness 源码核对，别改代码去迁就声明。
+ * When host behaviour disagrees with these declarations, check the harness source first — do not bend the code to fit the declarations.
  */
 
 declare module '@deepseek-ai/cordis' {
-  /** cordis Logger 门面是 `Record<'error'|'info'|'warn'|'debug', LoggerMethod>`，这里按用到的列。 */
+  /** cordis's Logger facade is `Record<'error'|'info'|'warn'|'debug', LoggerMethod>`; only what we use is listed. */
   export interface Logger {
     info(message: unknown, ...args: readonly unknown[]): void
     warn(message: unknown, ...args: readonly unknown[]): void
@@ -17,50 +17,50 @@ declare module '@deepseek-ai/cordis' {
     debug(message: unknown, ...args: readonly unknown[]): void
   }
 
-  /** 释放一次注册。 */
+  /** Release one registration. */
   export type Disposer = () => void
 
   // ── packages/client/ui-theme/src/client/index.ts ──
 
-  /** 主题 token 字典：以变量名为键的 `--dsw-alias-*` 覆盖。 */
+  /** Theme token map: `--dsw-alias-*` overrides keyed by variable name. */
   export type ThemeTokens = Record<string, string>
 
-  /** 一个可选主题：id、明暗基座、以及 alias 层覆盖。 */
+  /** One selectable theme: id, the light/dark base, and alias-layer overrides. */
   export interface ThemeDefinition {
-    /** 主题 id（`setTheme` 的参数）。`system` 是偏好不是 id，注册会抛。 */
+    /** Theme id (the argument to `setTheme`). `system` is a preference, not an id, and registering it throws. */
     id: string
     /**
      * 建立在哪套基座调色板上。presenter 据此切 `body[data-ds-dark-theme]`，
      * **不看 id**。
      */
     colorScheme: 'light' | 'dark'
-    /** alias 层覆盖，作为 inline CSS 变量盖在基座之上。 */
+    /** Alias-layer overrides, applied over the base as inline CSS variables. */
     tokens: ThemeTokens
   }
 
-  /** 每次变更发布的不可变主题状态。 */
+  /** The immutable theme state published on every change. */
   export interface ThemeSnapshot {
-    /** 持久化的偏好，可能是 `system`。 */
+    /** The persisted preference, possibly `system`. */
     preference: string
-    /** 解析后的当前主题（`system` 经 prefers-color-scheme 解析），覆盖层已折叠进 tokens。 */
+    /** The resolved current theme (`system` resolved via prefers-color-scheme), with overrides folded into tokens. */
     active: ThemeDefinition
-    /** 已注册主题，按注册顺序。 */
+    /** Registered themes, in registration order. */
     themes: readonly ThemeDefinition[]
-    /** 单调递增的变更计数。 */
+    /** A monotonically increasing change counter. */
     revision: number
   }
 
   /** 主题服务，客户端插件通过 `ctx.theme` 取用（`ctx.provide('theme', …)`）。 */
   export interface ThemeService {
     /**
-     * 注册一个主题。id 重复会抛。
-     * @returns disposer；注销当前生效的主题会把偏好重置回默认，
-     *   界面不会停留在一个已注销主题的 token 上。
+     * Register a theme. A duplicate id throws.
+     * @returns A disposer. Unregistering the active theme resets the preference to the default,
+     *   so the UI never stays on the tokens of an unregistered theme.
      */
     register(definition: ThemeDefinition): Disposer
-    /** 当前主题状态。 */
+    /** Current theme state. */
     getTheme(): ThemeSnapshot
-    /** 切到某个已注册主题；未知 id 会抛。 */
+    /** Switch to a registered theme; an unknown id throws. */
     setTheme(id: string): void
   }
 
@@ -88,9 +88,9 @@ declare module '@deepseek-ai/cordis' {
     order?: number
   }
 
-  /** slot 服务，只列本插件用到的。 */
+  /** The slot service; only what this plugin uses is listed. */
   export interface SlotsService {
-    /** 在目标 slot 就绪时执行注册；返回 disposer。 */
+    /** Register once the target slot is ready; returns a disposer. */
     inject(name: string, register: () => Disposer): Disposer
     /**
      * 注册一个 slot 条目。
@@ -101,10 +101,10 @@ declare module '@deepseek-ai/cordis' {
   }
 
   /**
-   * webserver 插件提供的 HTTP 路由表（`packages/host/webserver`）。
+   * The HTTP route table provided by the webserver plugin (`packages/host/webserver`).
    *
-   * `register` 加一条具名 route，返回的 disposer 摘掉它。⚠️ **同一张表里路径重复会直接抛错**
-   *（路由模式是组合层约定，冲突即配置错误），所以皮肤的封面路由要用主题 id 兜唯一。
+   * `register` adds one named route and the returned disposer removes it. ⚠️ **A duplicate path in the same table
+   * throws outright** (route patterns are a bundle-level convention, so a conflict is a config error), which is why a skin's cover route is made unique by its theme id.
    */
   export interface WebServerService {
     register(route: {
@@ -114,20 +114,20 @@ declare module '@deepseek-ai/cordis' {
     }): Disposer
   }
 
-  /** 插件 apply 收到的上下文（本插件用到的成员）。 */
+  /** The context a plugin's apply receives (only the members this plugin uses). */
   export interface Context {
     logger: Logger
-    /** `inject: ['slots']` 之后可用。 */
+    /** Available after `inject: ['slots']`. */
     slots: SlotsService
-    /** `inject: ['webServer']` 之后可用；host 半用它提供封面路由。 */
+    /** Available after `inject: ['webServer']`; the host half uses it to serve the cover route. */
     webServer: WebServerService
-    /** `inject: ['theme']` 声明之后才可用。 */
+    /** Available only after declaring `inject: ['theme']`. */
     theme: ThemeService
-    /** 注册即副作用：返回的 disposer 绑定在当前 fiber 上。 */
+    /** Registration is an effect: the returned disposer is bound to the current fiber. */
     effect(callback: () => Disposer | void, label?: string): Disposer
     /**
-     * 订阅事件。主题变更事件是 `theme/change`，在注册表或激活主题变化时触发。
-     * @returns 退订函数。
+     * Subscribe to an event. The theme change event is `theme/change`, fired when the registry or the active theme changes.
+     * @returns The unsubscribe function.
      */
     on(event: 'theme/change', listener: (snapshot?: ThemeSnapshot) => void): Disposer
   }

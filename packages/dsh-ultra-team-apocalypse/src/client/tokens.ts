@@ -52,7 +52,7 @@ const p = ULTRATEAM_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。
  */
 export const ULTRATEAM_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   // 🔴 原型只给了两级面板（`--panel` / `--panel2`），harness 要三级。
   // 第三级往上再抬一档而不是复用 panel2：层级塌成两级后，弹层和选中态会分不出来。
   '--dsw-alias-bg-base': p.bg,
@@ -71,7 +71,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(51, 25, 21, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(255, 151, 85, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场一条 `--line: rgba(255,151,85,.16)`——带火光的暗描边。分层全靠它。
   '--dsw-alias-border-l1': 'rgba(255, 151, 85, 0.11)',
   '--dsw-alias-border-l2': 'rgba(255, 151, 85, 0.16)',
@@ -81,7 +81,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(255, 242, 230, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(255, 242, 230, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   // 正文是米白偏暖的 `#fff2e6`，次要文字是 `#b08f7b`——都带一点烟熏的暖，
   // 跟这片火光是同一套光。放中性灰会像贴上去的。
   '--dsw-alias-label-primary': p.text,
@@ -94,7 +94,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#ffffff',
   '--dsw-alias-label-primary-inverted': p.panel2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是那条橙红渐变（原型 `.new`）。这里用它的中点 `#ff7b2c` 做实心，
   // 白字压得住。
   '--dsw-alias-brand-primary': p.orange,
@@ -150,7 +150,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.panel,
   '--dsw-alias-markdown-tag': p.panel2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(255, 151, 85, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(255, 151, 85, 0.24)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(255, 151, 85, 0.26)',

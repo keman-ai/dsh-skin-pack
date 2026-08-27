@@ -2,10 +2,10 @@
 # Applied automatically when a profile lists this package (see apps/cli/reference: dsh.profile.bundles).
 #
 # Without this layer, `dsh plugin add` installs the package as a plain dependency and the plugin is never loaded
-# —— dsh 会当场警告 “declares no dsh.bundle … not a profile layer”，
-# 皮肤集市则会判 NOT_A_BUNDLE 并把包卸回去。
+# — dsh warns on the spot: "declares no dsh.bundle … not a profile layer",
+# and the skin market reports NOT_A_BUNDLE and uninstalls the package again.
 #
-# id 要与 skin.json 的 id、client 半的 THEME_ID 三处一致；name 必须是包名。
+# The id must match skin.json's id and the client half's THEME_ID, all three; name must be the package name.
 - insert:
     - id: catbus
       name: dsh-sunset-catbus

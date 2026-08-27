@@ -53,7 +53,7 @@ const p = FISH_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。
  */
 export const FISH_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.bg2,
   '--dsw-alias-bg-layer-2': p.surface,
@@ -70,7 +70,7 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(15, 45, 74, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(118, 204, 255, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场两条：`--line: rgba(118,204,255,.13)` 与 `--line2: rgba(94,215,255,.14)`
   // ——**带冷青的暗描边**，就是海底那种发光线。暗底上的分层全靠它，而不是靠提亮底色。
   '--dsw-alias-border-l1': 'rgba(118, 204, 255, 0.1)',
@@ -81,7 +81,7 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(238, 248, 255, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(238, 248, 255, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#dceefb',
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -92,7 +92,7 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#ffffff',
   '--dsw-alias-label-primary-inverted': p.surface2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是 DeepSeek 蓝（原型 `开始下潜 →` 与 `＋ New Dive` 的渐变都以它为主）。
   // 冷青不做实心按钮：它在这套里是"描边与状态"的语言，铺成大块会把海底的安静打破。
   '--dsw-alias-brand-primary': p.blue,
@@ -148,7 +148,7 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(118, 204, 255, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(118, 204, 255, 0.24)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(118, 204, 255, 0.26)',

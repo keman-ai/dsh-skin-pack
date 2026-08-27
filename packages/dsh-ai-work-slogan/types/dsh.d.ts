@@ -1,15 +1,15 @@
 /**
- * 用到的那部分 DeepSeek Harness API 声明，照 `0.1.1-rc.2` 的源码抄写，每处标了出处。
+ * Declarations for the parts of the DeepSeek Harness API we use, transcribed from the `0.1.1-rc.2` source, each with its origin noted.
  *
- * 为什么自带而不是依赖 npm 包：npm 上的 `@deepseek-ai/dsh-client-*` 依赖链不完整，装不下来。
- * 这些模块运行时全是 external —— 主题服务与 slot 注册表由跑着本插件的 harness 提供，
- * 插件只通过 `ctx.theme` / `ctx.slots` 拿它们，不 import 它们的实现。
+ * Why vendored instead of depending on the npm packages: the `@deepseek-ai/dsh-client-*` dependency chain on npm is incomplete and cannot be installed.
+ * These modules are all external at runtime — the theme service and slot registry come from the harness hosting
+ * this plugin, which reaches them only through `ctx.theme` / `ctx.slots` and never imports their implementations.
  *
- * 宿主行为与这里的声明对不上时，先回 harness 源码核对，别改代码去迁就声明。
+ * When host behaviour disagrees with these declarations, check the harness source first — do not bend the code to fit the declarations.
  */
 
 declare module '@deepseek-ai/cordis' {
-  /** cordis Logger 门面是 `Record<'error'|'info'|'warn'|'debug', LoggerMethod>`，这里按用到的列。 */
+  /** cordis's Logger facade is `Record<'error'|'info'|'warn'|'debug', LoggerMethod>`; only what we use is listed. */
   export interface Logger {
     info(message: unknown, ...args: readonly unknown[]): void
     warn(message: unknown, ...args: readonly unknown[]): void
@@ -17,79 +17,79 @@ declare module '@deepseek-ai/cordis' {
     debug(message: unknown, ...args: readonly unknown[]): void
   }
 
-  /** 释放一次注册。 */
+  /** Release one registration. */
   export type Disposer = () => void
 
   // ── packages/client/ui-theme/src/client/index.ts ──
 
-  /** 主题 token 字典：以变量名为键的 `--dsw-alias-*` 覆盖。 */
+  /** Theme token map: `--dsw-alias-*` overrides keyed by variable name. */
   export type ThemeTokens = Record<string, string>
 
-  /** 一个可选主题：id、明暗基座、以及 alias 层覆盖。 */
+  /** One selectable theme: id, the light/dark base, and alias-layer overrides. */
   export interface ThemeDefinition {
-    /** 主题 id（`setTheme` 的参数）。`system` 是偏好不是 id，注册会抛。 */
+    /** Theme id (the argument to `setTheme`). `system` is a preference, not an id, and registering it throws. */
     id: string
     /**
-     * 建立在哪套基座调色板上。presenter 据此切 `body[data-ds-dark-theme]`，**不看 id**。
+     * Which base palette it builds on. The presenter toggles `body[data-ds-dark-theme]` from this, **not from the id**.
      */
     colorScheme: 'light' | 'dark'
-    /** alias 层覆盖，作为 inline CSS 变量盖在基座之上。 */
+    /** Alias-layer overrides, applied over the base as inline CSS variables. */
     tokens: ThemeTokens
   }
 
-  /** 每次变更发布的不可变主题状态。 */
+  /** The immutable theme state published on every change. */
   export interface ThemeSnapshot {
-    /** 持久化的偏好，可能是 `system`。 */
+    /** The persisted preference, possibly `system`. */
     preference: string
-    /** 解析后的当前主题（`system` 经 prefers-color-scheme 解析），覆盖层已折叠进 tokens。 */
+    /** The resolved current theme (`system` resolved via prefers-color-scheme), with overrides folded into tokens. */
     active: ThemeDefinition
-    /** 已注册主题，按注册顺序。 */
+    /** Registered themes, in registration order. */
     themes: readonly ThemeDefinition[]
-    /** 单调递增的变更计数。 */
+    /** A monotonically increasing change counter. */
     revision: number
   }
 
-  /** 主题服务，客户端插件通过 `ctx.theme` 取用。 */
+  /** The theme service, reached by client plugins through `ctx.theme`. */
   export interface ThemeService {
     /**
-     * 注册一个主题。id 重复会抛。
-     * @returns disposer；注销当前生效的主题会把偏好重置回默认，
-     *   界面不会停留在一个已注销主题的 token 上。
+     * Register a theme. A duplicate id throws.
+     * @returns A disposer. Unregistering the active theme resets the preference to the default,
+     *   so the UI never stays on the tokens of an unregistered theme.
      */
     register(definition: ThemeDefinition): Disposer
-    /** 当前主题状态。 */
+    /** Current theme state. */
     getTheme(): ThemeSnapshot
-    /** 切到某个已注册主题；未知 id 会抛。 */
+    /** Switch to a registered theme; an unknown id throws. */
     setTheme(id: string): void
   }
 
   // ── packages/client/ui-slots/src/index.ts ──
 
   /**
-   * 品牌位注册项。
+   * A brand-slot registration entry.
    *
-   * 🔴 `priority` 是 rc.2 的关键：`SlotCore.register` 只在**同一个 priority** 上判占用
-   *（`single` 的那一格、`list` 的同 id、`keyed` 的同 key），不同 priority 是**影子化**——
-   * `entriesOfSlot` 取每格里 priority 最小的那个存活条目来渲染。官方组件注册在默认 0，
-   * 所以第三方用 -1 就能接管，用正数则是"官方那份不在才轮到我"的兜底位。
+   * 🔴 `priority` is the key change in rc.2: `SlotCore.register` only detects occupancy **at the same priority**
+   * (a `single` cell, a `list` id, a `keyed` key), while different priorities **shadow** instead —
+   * `entriesOfSlot` renders the surviving entry with the lowest priority in each cell. Official components register
+   * at the default 0, so a third party takes over with -1, while a positive number is a fallback used only when the official one is absent.
    *
-   * 早期版本没有这个维度（single 被占就直接抛错、第三方只能追加 list），本插件的品牌位
-   * 依赖新行为，**装到更老的 harness 上会退回官方标**（register 抛错，被 attachBrand 吞掉
-   * 并记一条警告），配色与封面不受影响。
+   * Earlier versions had no such dimension (an occupied single threw outright and third parties could only append
+   * to a list). This plugin's brand slots rely on the new behaviour, so **on an older harness it falls back to the
+   * official mark** (register throws, attachBrand swallows it with a warning), leaving the palette and cover unaffected.
    */
   export interface BrandSlotRegistration {
     name: 'sidebar.brand.mark' | 'sidebar.brand.name' | 'conversation.hero.brand.mark'
-    /** 影子化排序，升序、最小的渲染；默认 0。 */
+    /** Shadowing order: ascending, lowest renders; defaults to 0. */
     priority?: number
   }
 
   /**
-   * `conversation.composer.dock` 条目注册项。
+   * A `conversation.composer.dock` entry registration.
    *
-   * 该 slot 是 `{ kind: 'list', scope: 'session' }`（见 ui-conversation 的 apply.ts /
-   * contract/slots.ts），官方 StatsLine 以 `id: 'stats'`、`order: 0` 挂在上面；
-   * list 的占用冲突条件是**同 id 且同 priority**，换个 id 追加不会顶掉它。
-   * scope 是 session，所以标准套件会把 `useSession` / `useProjection` 注进组件 props。
+   * That slot is `{ kind: 'list', scope: 'session' }` (see apply.ts / contract/slots.ts in ui-conversation), and
+   * the official StatsLine sits on it as `id: 'stats'`, `order: 0`;
+   * a list conflict requires **the same id at the same priority**, so appending under another id displaces nothing.
+   * The scope is session, so the standard kit injects `useSession` / `useProjection` into the component's props.
    */
   export interface DockSlotRegistration {
     name: 'conversation.composer.dock'
@@ -100,14 +100,14 @@ declare module '@deepseek-ai/cordis' {
   }
 
   /**
-   * `sidebar.footer.action` 条目注册项。
+   * A `sidebar.footer.action` entry registration.
    *
-   * 该 slot 是 `{ kind: 'list', scope: 'root' }`（见 ui-sidebar 的 contract/slots.ts），
-   * 渲染在侧栏最底部、「设置」那一行的**上方**，宿主只递一个 `wide`（false 是 56px 轨道态）。
+   * That slot is `{ kind: 'list', scope: 'root' }` (see contract/slots.ts in ui-sidebar), rendered at the very
+   * bottom of the sidebar **above** the Settings row, and the host passes only `wide` (false is the 56px track state).
    *
-   * ⚠️ scope 是 **root**，所以标准套件**不会**把 `useSession` / `useProjection` 注进来。
-   * 能量槽因此不从 props 取数，改为订阅 status-store——那边由挂在
-   * `conversation.composer.dock`（session scope）的采集器写入。
+   * ⚠️ The scope is **root**, so the standard kit does **not** inject `useSession` / `useProjection`.
+   * The gauge therefore takes no data from props and subscribes to status-store instead, written by the probe on
+   * `conversation.composer.dock` (session scope).
    */
   export interface SidebarFooterSlotRegistration {
     name: 'sidebar.footer.action'
@@ -117,29 +117,29 @@ declare module '@deepseek-ai/cordis' {
     order?: number
   }
 
-  /** slot 服务，只列本插件用到的。 */
+  /** The slot service; only what this plugin uses is listed. */
   export interface SlotsService {
-    /** 在目标 slot 就绪时执行注册；返回 disposer。 */
+    /** Register once the target slot is ready; returns a disposer. */
     inject(name: string, register: () => Disposer): Disposer
-    /** 注册一个 slot 条目。 */
+    /** Register one slot entry. */
     register(
       registration: BrandSlotRegistration | DockSlotRegistration | SidebarFooterSlotRegistration,
       component: unknown,
     ): Disposer
   }
 
-  /** 插件 apply 收到的上下文（本插件用到的成员）。 */
+  /** The context a plugin's apply receives (only the members this plugin uses). */
   export interface Context {
     logger: Logger
-    /** `inject: ['slots']` 之后可用。 */
+    /** Available after `inject: ['slots']`. */
     slots: SlotsService
-    /** `inject: ['theme']` 声明之后才可用。 */
+    /** Available only after declaring `inject: ['theme']`. */
     theme: ThemeService
-    /** 注册即副作用：返回的 disposer 绑定在当前 fiber 上。 */
+    /** Registration is an effect: the returned disposer is bound to the current fiber. */
     effect(callback: () => Disposer | void, label?: string): Disposer
     /**
-     * 订阅事件。主题变更事件是 `theme/change`，在注册表或激活主题变化时触发。
-     * @returns 退订函数。
+     * Subscribe to an event. The theme change event is `theme/change`, fired when the registry or the active theme changes.
+     * @returns The unsubscribe function.
      */
     on(event: 'theme/change', listener: (snapshot?: ThemeSnapshot) => void): Disposer
   }

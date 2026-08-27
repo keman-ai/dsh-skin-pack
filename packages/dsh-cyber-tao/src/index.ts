@@ -17,14 +17,14 @@ import { TAO_COVER } from './cover.generated.ts'
 export const name = 'tao'
 
 /**
- * 🔴 封面走 HTTP 路由，不再内联进浏览器半。
+ * 🔴 The cover is served over an HTTP route and no longer inlined into the browser half.
  *
- * 起因是实测：把 21 套皮肤同时装进一个 profile 后界面**打不开**。每套皮肤的 client bundle
+ * The cause was measured: with 21 skins installed into one profile the UI **would not open**. Each skin's
  * 都是 `<script>` 同步引入的，而封面以 data URI 直接编进了 bundle——单套 230–860 KB，
  * 21 套合计 9.4 MB 全部要先下完、解析完，主线程直接被压死（90 秒都渲染不出首屏，
- * 且控制台零报错，纯粹是卡）。
+ * and the console showed no errors at all — it simply hung.
  *
- * 所以图片挪到 host 半：这里是 Node 侧，只在启动时解一次 base64，浏览器半只留一个 URL
+ * So the image moved to the host half: on the Node side base64 is decoded once at startup, and the browser half keeps only a URL
  * 字符串。bundle 从 231 KB 掉到几十 KB，图片则由浏览器在**皮肤真的激活时**才去取，
  * 还能吃上 HTTP 缓存。
  *
@@ -36,7 +36,7 @@ export const COVER_ROUTE = '/skin-cover/tao.webp'
 /** 封面字节。data URI 只在这一侧解一次，之后常驻内存（几百 KB，Node 侧无所谓）。 */
 const COVER_BYTES = Buffer.from(TAO_COVER.slice(TAO_COVER.indexOf(',') + 1), 'base64')
 
-/** host 半要 webServer 提供封面路由；没有它（比如 headless）这一行不会激活。 */
+/** The host half needs webServer for the cover route; without it (headless, say) this row never activates. */
 export const inject = ['webServer']
 
 /** Theme id, matching the browser half; host-side scripts can import it to tell whether the skin is in use. */

@@ -1,12 +1,12 @@
 /**
- * 右侧状态台。宽度取原型稿的 `--details: 300px`。
+ * The right-hand status dock. Its width is the prototype's `--details: 300px`.
  *
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
- * 反过来写（默认显示、靠皮肤规则去藏）会漏掉一段窗口：插件的 JS 要等 bundle 执行完才能把
+ * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
  * `data-dsh-ponyo` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
- * 照常显示、主区照常让位，屏幕上就是"harness 原生配色 + 右边一根侧栏"，而窗口长短随机 ——
- * 表现就是"刷新几次两种界面来回切"。
+ * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
+ * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
  * Hence the rule kept here: skin not active means this plugin does not exist in the UI.
  */
@@ -32,7 +32,7 @@
   pointer-events: auto;
 }
 
-/* 把手：收起时是唯一可见的部分，够得着又不抢眼。 */
+/* The handle: the only visible part when collapsed — reachable without drawing attention. */
 .handle {
   align-self: center;
   width: 18px;
@@ -57,7 +57,7 @@
   color: var(--dsw-alias-label-primary);
 }
 
-/* 原型稿的 details 是一条竖栏；瞬间开合会让人分不清是收起了还是崩了，给一点过渡。 */
+/* The prototype's details is a vertical column; an instant toggle looks like a crash rather than a collapse, so it gets a transition. */
 .body {
   width: 300px;
   display: flex;
@@ -123,7 +123,7 @@
   letter-spacing: 0.06em;
 }
 
-/* 原型稿的卡片语言：12px 圆角、1px 低对比描边、几乎不用阴影。 */
+/* The prototype's card language: 12px radius, a 1px low-contrast border, almost no shadow. */
 .card {
   background: var(--dsw-alias-bg-layer-2);
   border: 1px solid var(--dsw-alias-border-l2);
@@ -170,17 +170,17 @@
   font-size: 10px;
 }
 
-/* 绿色在这套皮肤里保留给"在线 / 成功"，就绪态正好是它。 */
+/* Green is reserved for online / success in this skin, and ready is exactly that. */
 .ok {
   color: var(--dsw-alias-state-success-primary);
 }
 
-/* 运行中走 business（活动态）那档语义色，与官方 spinner 同源。 */
+/* Running uses the business (active) semantic colour, the same one as the official spinner. */
 .busy {
   color: var(--dsw-alias-state-business-primary);
 }
 
-/* 上下文占用条，对应原型稿 profile 卡里那根进度条的海洋渐变。 */
+/* The context occupancy bar, matching the ocean gradient of the progress bar in the prototype's profile card. */
 .progress {
   height: 5px;
   border-radius: 999px;
@@ -196,8 +196,8 @@
 }
 
 /*
- * 「等你拿主意」用琥珀卡：这套皮肤里琥珀专门留给"需要你确认的操作"（原型稿的权限卡就是
- * 这个色），跟绿色的在线态、海洋色的运行态区分得开，扫一眼就知道是哪一类。
+ * "Waiting on you" uses an amber card: in this skin amber is reserved for actions needing your confirmation
+ * (the prototype's permission card is this colour), distinct from green for online and ocean for running, so a glance tells you which it is.
  */
 .alert {
   background: var(--dsw-alias-state-warn-tertiary);
@@ -208,7 +208,7 @@
   color: var(--dsw-alias-state-warn-label);
 }
 
-/* 上下文构成：三段堆叠条，颜色跟下面的图例文字同源。 */
+/* Context composition: a three-segment stacked bar, coloured to match the legend text below. */
 .stack {
   display: flex;
   height: 6px;
@@ -290,11 +290,11 @@
 /*
  * When expanded, the main area yields an equal width.
  *
- * 挤压 harness 的根容器而不是给 body 加 padding：body 上有 fixed 定位的浮层（模态、菜单），
- * 给 body 加内边距不会影响它们，反而会让固定层与内容错位。这里只推真正承载布局的那一层。
+ * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
+ * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
  * 同样必须带 `[data-dsh-ponyo]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
- * 右边空一条、内容却还是原生配色。
+ * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-ponyo][data-ponyo-dock-open] > div:first-of-type) {
   padding-right: 300px;
@@ -307,17 +307,17 @@
 }
 
 /*
- * 新会话页收起状态台。
+ * Collapse the dock on the new-session page.
  *
- * hero 已经是一整幅封面主视觉，旁边再杵一根缩小版封面属于重复；何况新会话还没有任何
- * "状态"可看（没有模型、没有用量、没有待办）。
+ * The hero is already a full-bleed cover visual, and a shrunken copy beside it is redundant — besides, a new
+ * session has no state to show yet (no model, no usage, no todos).
  *
- * 🔴 `settling` 也要一起收起。harness 的阶段是**三**态 `settling / hero / active`，settling 是
- * "会话还在回放、落 hero 还是落对话页尚不可知"。早先只认 hero 的话，刷新后的 settling 窗口里
- * 状态台会先冒出来、主区先让出 300px，看起来像已经进了对话页，然后又跳回 hero。
- * 跟着 harness 取中立：未知就什么都不主张。
+ * 🔴 `settling` must collapse too. The harness has **three** phases, `settling / hero / active`, and settling
+ * means the session is still replaying and it is unknown whether it lands on hero or the conversation. Matching
+ * only hero made the dock appear and the main area yield 300px during the settling window after a refresh, looking like the conversation page, then snapping back to hero.
+ * Follow the harness and stay neutral: assert nothing while it is unknown.
  *
- * 逗号分组写不进 `:global()`（lightningcss 会在 Comma 处报错），所以两个阶段各写一条。
+ * A comma group cannot go inside `:global()` (lightningcss errors at the comma), so each phase gets its own rule.
  */
 :global(body[data-dsh-ponyo]:has([data-phase='hero'])) [data-ponyo-dock] {
   display: none;
@@ -335,7 +335,7 @@
   padding-right: 0;
 }
 
-/* 窄屏没有 300px 富余，整根收起，别把对话挤成一条缝。 */
+/* A narrow screen has no 300px to spare: collapse the whole rail rather than squeeze the conversation into a slit. */
 @media (max-width: 1180px) {
   :global(body[data-dsh-ponyo]) [data-ponyo-dock] {
     display: none;
@@ -348,8 +348,8 @@
 /* ==========================================================================
  * 流水列表 —— 神通调用与经卷注入两张卡共用。
  *
- * 每行是「名字 + 右侧一小段元信息」，名字长了用省略号收掉：右栏只有 300px 宽，
- * 让工具名换行会把这张卡撑成一面墙。
+ * Each row is a name plus a short piece of metadata on the right, with long names ellipsised: the column is only
+ * 300px wide, and wrapping tool names would turn this card into a wall.
  * ========================================================================== */
 
 .log {
@@ -367,7 +367,7 @@
   gap: 8px;
   font-size: 11px;
   line-height: 16px;
-  /* 左边一道 2px 的状态条：不占宽度、不改行高，扫一眼就知道哪次挂了。 */
+  /* A 2px status stripe on the left: it takes no width, changes no line height, and shows at a glance which run failed. */
   padding-left: 8px;
   border-left: 2px solid var(--dsw-alias-border-l2);
 }
@@ -384,7 +384,7 @@
   border-left-color: var(--dsw-alias-state-success-primary);
 }
 
-/* 从别的会话捞回来的上下文（role=recall）单独标一下：它不是本会话产生的。 */
+/* Context recalled from another session (role=recall) is marked separately: it did not originate here. */
 .logRow[data-role='recall'] {
   border-left-color: var(--dsw-alias-state-warn-primary);
 }
@@ -415,7 +415,7 @@
   color: var(--dsw-alias-state-error-primary);
 }
 
-/* 形态徽标（instructions / catalog / snapshot…）：小、淡、不与来源名争。 */
+/* The form badge (instructions / catalog / snapshot…): small, faint, and never competing with the source name. */
 .logTag {
   flex: none;
   padding: 1px 6px;

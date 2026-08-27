@@ -47,7 +47,7 @@ const p = COSMIC_PALETTE
 
 /** 交给 `ctx.theme.register()` 的 token 表。只写要改的，其余继承内置暗色基座。 */
 export const COSMIC_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.surface,
   '--dsw-alias-bg-layer-2': p.surface2,
@@ -64,7 +64,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(21, 34, 72, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(155, 214, 255, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型有两条线：冷蓝 `rgba(130,170,255,.12)` 与星云紫 `rgba(176,140,255,.14)`。
   // 低两级走冷蓝（大部分分层），高两级走紫（强调边）。
   '--dsw-alias-border-l1': 'rgba(130, 170, 255, 0.09)',
@@ -75,7 +75,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(237, 242, 251, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(237, 242, 251, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#dfe7f3',
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -87,7 +87,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#0d0a21',
   '--dsw-alias-label-primary-inverted': p.surface3,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 🔴 主操作是**星云紫**，不是暖色。规则原文：「少量暖色只用于重要状态与任务按钮」——
   // 这里的"任务按钮"在原型里指的是 hero 上那颗 START EXPLORATION，而它用的是紫渐变；
   // 真正的暖色只出现在 telemetry 与警告态上。拿暖色铺主按钮会让"该注意了"失效。
@@ -143,7 +143,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface2,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(130, 170, 255, 0.14)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(176, 140, 255, 0.26)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(130, 170, 255, 0.26)',

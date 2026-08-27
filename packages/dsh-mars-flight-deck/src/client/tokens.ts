@@ -53,7 +53,7 @@ const p = MARS_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。
  */
 export const MARS_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.bg2,
   '--dsw-alias-bg-layer-2': p.surface,
@@ -70,7 +70,7 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(20, 35, 49, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(142, 181, 203, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场两条：`--line: rgba(142,181,203,.12)`（冷蓝）与 `--line2: rgba(255,122,46,.14)`（橙）。
   // 冷蓝那条是"仪表盘的细线"，撑起全部分层；橙那条只出现在需要强调的框上。
   '--dsw-alias-border-l1': 'rgba(142, 181, 203, 0.09)',
@@ -81,7 +81,7 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(232, 237, 242, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(232, 237, 242, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#dde7ef',
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -93,7 +93,7 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#1a0d05',
   '--dsw-alias-label-primary-inverted': p.surface2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是推进器橙（原型 `LAUNCH MISSION →`）。冷蓝不做实心按钮：
   // 它在这套里是"遥测与描边"的语言，铺成大块会把仪表盘的层次压平。
   '--dsw-alias-brand-primary': p.orange,
@@ -151,7 +151,7 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(142, 181, 203, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(142, 181, 203, 0.24)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(142, 181, 203, 0.26)',

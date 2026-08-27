@@ -53,7 +53,7 @@ const p = GROVE_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。
  */
 export const GROVE_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.bg2,
   '--dsw-alias-bg-layer-2': p.surface,
@@ -70,7 +70,7 @@ export const GROVE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(31, 59, 43, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(187, 212, 180, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场两条：`--line: rgba(187,212,180,.14)`（草绿）与 `--line2: rgba(94,183,199,.12)`（溪水青）。
   // 暗底上的分层全靠它们，而不是靠提亮底色。
   '--dsw-alias-border-l1': 'rgba(187, 212, 180, 0.1)',
@@ -81,7 +81,7 @@ export const GROVE_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(238, 241, 232, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(238, 241, 232, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#e4ebe1',
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -92,7 +92,7 @@ export const GROVE_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#102014',
   '--dsw-alias-label-primary-inverted': p.surface2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是苔藓绿（原型 `.hero-send` 的 `linear-gradient(180deg,#8ebf7f,#5f8d5d)`），
   // 前景色配深林绿 `#102014`——原型自己就是这么配的：亮绿底上放白字对比度不够。
   '--dsw-alias-brand-primary': p.green,
@@ -149,7 +149,7 @@ export const GROVE_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(187, 212, 180, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(187, 212, 180, 0.24)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(187, 212, 180, 0.26)',

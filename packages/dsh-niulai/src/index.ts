@@ -16,7 +16,7 @@ import { NIULAI_COW_COVER } from './cover.generated.ts'
 /** Plugin name (the `name` of the loader entry). */
 export const name = 'niulai'
 
-/** host 半要 webServer 提供封面路由；没有它（比如 headless）这一行不会激活。 */
+/** The host half needs webServer for the cover route; without it (headless, say) this row never activates. */
 export const inject = ['webServer']
 
 /**

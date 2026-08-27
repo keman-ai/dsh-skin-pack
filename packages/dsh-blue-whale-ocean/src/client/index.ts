@@ -3,8 +3,8 @@
  *
  * 做三件事，稳定性依次递减，所以分开写：
  *
- * 1. **注册主题** —— 配色交给 `ctx.theme`，presenter 负责刷成 body 上的 inline 变量。
- *    只依赖语义 token，harness 改版不会动 token 的含义，这层能长期活着。
+ * 1. **Register the theme** — the palette goes to `ctx.theme`, and the presenter paints it as inline variables on body.
+ *    It depends on semantic tokens only, and harness redesigns do not change what a token means, so this layer lasts.
  * 2. **挂封面层** —— 往 body 打一个自有属性、把封面图以 CSS 变量交给样式表。只用自己的
  *    属性和自己的变量，不钩 harness 的类名或结构。
  * 3. **接管品牌位** —— 用 `priority: -1` 影子化官方的品牌标与站名（见 Brand.tsx）。
@@ -26,7 +26,7 @@ import './bwhale.module.css'
 
 export { BWHALE_PALETTE, BWHALE_TOKENS } from './tokens.ts'
 
-/** 主题 id，也是 `setTheme` 的参数。三处 id 必须一致：本常量、skin.json、cordis.patch.yml。 */
+/** Theme id, and the argument to `setTheme`. Three ids must agree: this constant, skin.json and cordis.patch.yml. */
 export const THEME_ID = 'bwhale'
 
 /** Body marker: the single hook for the decorative CSS, and a convenient handle for user overrides. */
@@ -65,10 +65,10 @@ const COVER_URL = '/skin-cover/bwhale.webp'
 const AUTO_APPLY_WINDOW_MS = 8_000
 
 /**
- * 品牌位的三个 slot 与它们要的组件。
+ * The three brand slots and the components they take.
  *
- * 注册 priority 取 -1：官方 `ui-brand-official` 在默认 0，priority 升序、**数字小的渲染**，
- * 所以 -1 会影子化官方那份（不是卸载它——我们撤销注册后官方立刻回来）。
+ * Registered at priority -1: the official `ui-brand-official` sits at the default 0, priority ascends and the
+ * **lower number renders**, so -1 shadows the official one (it is not unloaded — the moment we deregister, it returns).
  */
 const BRAND_SLOTS = [
   { name: 'sidebar.brand.mark', component: BwhaleMark },
@@ -76,7 +76,7 @@ const BRAND_SLOTS = [
   { name: 'conversation.hero.brand.mark', component: BwhaleMark },
 ] as const
 
-/** 主题服务与 slot 注册表；`inject` 保证它们先就绪。 */
+/** The theme service and slot registry; `inject` guarantees they are ready first. */
 export const inject = ['theme', 'slots']
 
 /** Browser-half config, with the same field names as the host half. */
@@ -90,34 +90,34 @@ export interface Config {
    * 每次启动 dsh 都得去皮肤集市的面板里重选一遍——装了皮肤却看不到皮肤，是这套机制下的
    * 默认结果。
    *
-   * 关掉它就回到「装上只是可选，去皮肤集市里手动选」的行为。
+   * Turning it off returns to "installing only makes it available; pick it in the skin market".
    */
   autoApply?: boolean
 }
 
 export function apply(ctx: Context, config: Config = {}): void {
   /*
-   * 右侧状态台：自建 fixed 节点 + 自己的 React root。
+   * The right-hand dock: our own fixed node with its own React root.
    *
-   * 不接管 harness 的 `details` slot —— 它现在**能**接管（`single` 的占用冲突只发生在同一
-   * priority），但那根装的是「点某次工具调用看 Input / Output」，是排障唯一的线索，
-   * 用状态台把它换掉是净损失。两根并存，互不干扰。
+   * It does not take over the harness's `details` slot — it **could** (a `single` conflict only arises at equal
+   * priority), but that rail holds "click a tool call to see its Input / Output", the only lead there is when
+   * debugging, so replacing it with a dock is a net loss. Both coexist without interfering.
    *
    * 挂载不区分皮肤是否激活，可见性交给 CSS（`body[data-dsh-bwhale]` 才 display）——
-   * 判据写成"没激活 = 不存在"，避免皮肤生效前那段窗口里露出半成品界面。
+   * The rule is "not active means not present", so no half-built UI shows during the window before the skin takes effect.
    */
   ctx.effect(() => mountDock(), 'bwhale: status dock')
 
   /*
-   * 状态采集器。
+   * The status probe.
    *
-   * 状态台是自建节点，拿不到 slot 注入的 `useProjection` / `useSession`，所以在
-   * `conversation.composer.dock` 上挂一个零渲染条目替它读（见 StatusProbe / status-store）。
-   * 那个 slot 是 `{ kind: 'list' }`，官方 StatsLine 也在上面（id `stats`、order 0），
-   * 追加不会顶掉它。
+   * The dock is our own node and receives no slot-injected `useProjection` / `useSession`, so a zero-render entry
+   * on `conversation.composer.dock` reads them on its behalf (see StatusProbe / status-store).
+   * That slot is `{ kind: 'list' }` and the official StatsLine is on it too (id `stats`, order 0), so appending
+   * does not displace it.
    *
-   * 用 `inject` 而不是直接 register：目标 slot 由 ui-conversation 声明，本插件的加载顺序
-   * 不保证在它之后，inject 会等它就绪再注册。
+   * Use `inject` rather than a bare register: the target slot is declared by ui-conversation, this plugin's load
+   * order after it is not guaranteed, and inject waits for it to be ready.
    */
   ctx.effect(() => ctx.slots.inject('conversation.composer.dock', () => ctx.slots.register({
     name: 'conversation.composer.dock',
@@ -129,9 +129,9 @@ export function apply(ctx: Context, config: Config = {}): void {
   /*
    * 侧栏底部的能量槽（原型稿那条写死的能量值的真数据版）。
    *
-   * `sidebar.footer.action` 是 `{ kind: 'list' }`，紧挨着「设置」那一行，追加不顶掉任何人。
-   * 它的 scope 是 `root`，拿不到会话投影——所以这个组件不读 props，而是订阅 status-store，
-   * 数据由上面那个 session scope 的采集器写入。一次采集，两处显示。
+   * `sidebar.footer.action` is `{ kind: 'list' }`, right beside the Settings row, and appending displaces nobody.
+   * Its scope is `root` and it receives no session projection, so this component reads no props and subscribes to
+   * status-store instead, written by the session-scoped probe above. Collected once, displayed twice.
    */
   ctx.effect(() => ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({
     name: 'sidebar.footer.action',
@@ -139,7 +139,7 @@ export function apply(ctx: Context, config: Config = {}): void {
     order: 100,
   }, NforestEnergyRail)), 'bwhale: energy rail')
 
-  // 注册与挂载放同一个 effect 并保证顺序：mountStage 里会 setTheme，
+  // Registration and mounting share one effect, in order: mountStage calls setTheme,
   // And setTheme throws outright on an unregistered id.
   ctx.effect(() => {
     const unregister = ctx.theme.register({ id: THEME_ID, colorScheme: 'light', tokens: BWHALE_TOKENS })
@@ -214,34 +214,34 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
 }
 
 /**
- * 跟随激活状态开合装饰与品牌位，并在启动窗口内把主题按住。
+ * Open and close the decorations and brand slots with the active state, and hold the theme during the startup window.
  *
  * 装饰**只在本皮肤激活时存在**：用户切回内置主题而封面还铺着、鲸鱼标还挂着，配色已经
  * 不是这套了，那是纯粹的视觉污染。
  *
  * @param ctx - Plugin context.
- * @param autoApply - 是否自动切到本皮肤。
- * @returns disposer：摘属性、清变量、撤销品牌注册、清定时器、退订。
+ * @param autoApply - Whether to switch to this skin automatically.
+ * @returns A disposer: removes attributes, clears variables, deregisters the brand slots, clears timers and unsubscribes.
  */
 function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => void {
   const body = document.body
   let attached = false
-  /** 品牌位的注册 disposer，只在皮肤激活期间存在。 */
+  /** Disposers for the brand-slot registrations, existing only while the skin is active. */
   let brandDisposers: (() => void)[] = []
   /** 推迟接管品牌位的定时器（见下面 sync 里的说明）。 */
   let brandTimer: ReturnType<typeof setTimeout> | undefined
 
   /**
-   * 启动窗口是否已过。窗口内负责把主题按住，窗口后完全不干预。
+   * Whether the startup window has passed. Inside it the theme is held; after it, nothing is touched.
    *
-   * 🔴 不能写成「切成功一次就收手」：ui-theme 的 `setTheme` 只把内置偏好写盘
+   * 🔴 It cannot be "stop after one successful switch": ui-theme's `setTheme` persists built-in preferences only
    *（`isThemePreference('bwhale')` 是 false，第三方 id 根本不进持久化），而 Host 快照
    * 到达时 `adopt()` 会拿盘上存的内置值**覆盖**当前偏好。顺序一旦是「插件先切好 → 快照后到」，
    * 皮肤就被悄悄换回内置主题，**且没有任何报错**；此时插件已经放手，就再也切不回来——
    * 表现是"装了皮肤，刷新几次又变回默认"。两者谁先谁后是竞态，所以时好时坏。
    *
-   * 窗口制的代价：每次刷新都会重新应用，用户在设置里切走只对当次有效。想永久换走要把
-   * `autoApply` 配成 false 或卸载本插件——这条已写进 README。
+   * The cost of the window: it reapplies on every refresh, so switching away in settings lasts only for that
+   * session. To change permanently, set `autoApply` to false or uninstall the plugin — this is documented in the README.
    */
   let settled = false
   const settleTimer = setTimeout(() => { settled = true }, AUTO_APPLY_WINDOW_MS)
@@ -263,9 +263,9 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
       try {
         ctx.theme.setTheme(THEME_ID)
       } catch (error) {
-        // 🔴 别写"去「设置 → 外观」手动选"——实测那一行只有 浅色 / 深色 / 跟随系统 三个内置
-        // 偏好（ui-theme 的 AppearanceRow 里 CUBES 是写死的三项），第三方主题根本不在里面。
-        // 能手动切的地方是皮肤集市自己的面板（设置 → 皮肤市场）。
+        // 🔴 Do not say "pick it under Settings → Appearance": measured, that row holds only the three built-in
+        // preferences light / dark / follow system (CUBES in ui-theme's AppearanceRow is hardcoded to three), and third-party themes are simply not there.
+        // The place to switch manually is the skin market's own panel (Settings → Skin Market).
         ctx.logger.warn('[bwhale] 自动应用失败，可到「设置 → 皮肤市场」手动切换', error)
       }
       return
@@ -318,15 +318,15 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
 }
 
 /**
- * 接管品牌位。
+ * Take over the brand slots.
  *
- * 用 `ctx.slots.inject(name, …)` 而不是裸调 `register`：目标 slot 由 ui-sidebar /
- * ui-conversation 声明，本插件的加载顺序不保证在它们之后，`inject` 会等目标就绪再注册。
+ * Use `ctx.slots.inject(name, …)` rather than a bare `register`: the target slots are declared by ui-sidebar /
+ * ui-conversation, this plugin's load order after them is not guaranteed, and `inject` waits for the target.
  *
- * 单个 slot 注册失败不该拖垮整套皮肤（配色才是主体），所以逐个 try 住并只记一条警告。
+ * One failed slot registration must not take down the whole skin (the palette is the substance), so each is wrapped in try and only warns.
  *
  * @param ctx - Plugin context.
- * @returns 每个成功注册的 disposer。
+ * @returns A disposer for each successful registration.
  */
 /**
  * On reactivation, restore the dock's expanded marker from the user's stored preference.
@@ -394,16 +394,16 @@ function soleSkin(ctx: Context): boolean {
 const REGISTRY_SETTLE_MS = 1_500
 
 /**
- * 挂载右侧状态台。
+ * Mount the right-hand status dock.
  *
- * 自建宿主节点 + React root：状态台不属于 harness 的任何 slot，生命周期完全由本插件负责，
- * dispose 时卸载组件树并移走节点，界面回到原样。
+ * Our own host node and React root: the dock belongs to no harness slot, its lifetime is entirely this plugin's
+ * responsibility, and disposing unmounts the tree and removes the node, restoring the UI.
  *
  * @returns disposer。
  */
 function mountDock(): () => void {
   const host = document.createElement('div')
-  // 样式表按这个属性收起整根（hero / settling / 窄屏），所以属性名不能改。
+  // The stylesheet collapses the whole rail by this attribute (hero / settling / narrow screens), so its name must not change.
   host.setAttribute('data-bwhale-dock', '')
   document.body.append(host)
   const root = createRoot(host)
@@ -421,19 +421,19 @@ function attachBrand(ctx: Context): (() => void)[] {
   for (const slot of BRAND_SLOTS) {
     disposers.push(ctx.slots.inject(slot.name, () => {
       /*
-       * 🔴 try 必须在**回调里面**。
+       * 🔴 The try must be **inside the callback**.
        *
-       * `inject` 只是"等目标 slot 就绪再执行"，register 的抛错发生在**回调被调用的那一刻**，
-       * 不在 inject() 这一行——把 try 写在外面等于没写。实测代价很大：同时装两套以上皮肤时，
-       * 第二套注册 `conversation.hero.brand.mark` 撞上第一套的 priority -1，抛出的错没人接，
-       * 直接冒泡成未捕获异常，**整个界面白屏、控制台只有那一条 slot 冲突**。
+       * `inject` only means "run once the target slot is ready", and register throws **at the moment the callback
+       * runs**, not on the inject() line — a try outside is no try at all. The cost is severe: with two or more skins
+       * installed, the second registering `conversation.hero.brand.mark` collides with the first at priority -1, and
+       * the throw goes uncaught, **blanking the entire UI with nothing in the console but that slot conflict**.
        *
-       * 单个 slot 接管失败不该拖垮整套皮肤（配色才是主体），所以吞掉并只记一条警告。
+       * One failed slot takeover must not take down the whole skin (the palette is the substance), so it is swallowed with a single warning.
        */
       try {
         return ctx.slots.register({
           name: slot.name,
-          // 官方在默认 0；-1 影子化它（升序、最小的渲染），皮肤停用后官方那份自动回来。
+          // The official one sits at the default 0; -1 shadows it (ascending, lowest renders), and it returns automatically when the skin is deactivated.
           priority: -1,
         }, slot.component)
       } catch (error) {

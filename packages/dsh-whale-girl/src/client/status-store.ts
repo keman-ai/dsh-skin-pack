@@ -1,12 +1,12 @@
 /**
- * 状态台的数据中转站。
+ * The relay that feeds the status dock.
  *
  * Why the relay is needed: state and usage all come from the harness's **projections** and **session
  * snapshots**, and `useProjection` / `useSession` are hooks injected into props at slot render time — only a
- * 组件才拿得到。右侧状态台是本插件自建的 fixed 节点、走自己的 React root，不在任何 slot 里。
+ * component mounted on a slot receives them. The right-hand dock is our own fixed node with its own React root and belongs to no slot.
  *
  * Hence the split in two: a zero-render probe mounted on `conversation.composer.dock` (a list slot third
- * 追加，官方 StatsLine 也在上面），把读到的值写进这里；状态台 `useSyncExternalStore` 订阅这里。
+ * parties may append to, and where the official StatsLine also lives) writes what it reads into here, and the dock subscribes with `useSyncExternalStore`.
  *
  * 🔴 数据一律来自官方投影/快照，**不解析 DOM、不伪造**。原型稿右栏那五个
  * “Assistant Systems 在线”是纯装饰，harness 没有对应的心跳投影，所以本皮肤不做那张卡。
@@ -35,7 +35,7 @@ export interface StatusSnapshot {
   /** One-line description of that preset; absent when not configured. */
   permissionHint?: string | undefined
 
-  // ── 实时计时（存的是时间戳，逐秒变化的那部分由状态台自己算） ──
+  // ── Live timing (timestamps are stored; the per-second part is computed by the dock) ──
   /** Start of the current turn (epoch ms); absent when no turn is in flight. */
   turnStartedAt?: number | undefined
   /** Start of the earliest tool call still running (epoch ms). */
@@ -74,7 +74,7 @@ export interface StatusSnapshot {
 let current: StatusSnapshot = {}
 const listeners = new Set<() => void>()
 
-/** 采集器每次读到新值时调用。值没变就不通知，避免状态台跟着流式输出空转。 */
+/** Called by the probe on every new reading. Unchanged values notify nobody, so the dock does not spin along with streaming output. */
 export function publishStatus(next: StatusSnapshot): void {
   if (sameStatus(current, next)) {
     return
@@ -85,7 +85,7 @@ export function publishStatus(next: StatusSnapshot): void {
   }
 }
 
-/** 供 `useSyncExternalStore` 用：值没变时返回同一个引用。 */
+/** For `useSyncExternalStore`: returns the same reference while the value is unchanged. */
 export function getStatus(): StatusSnapshot {
   return current
 }
@@ -95,7 +95,7 @@ export function subscribeStatus(listener: () => void): () => void {
   return () => { listeners.delete(listener) }
 }
 
-/** 采集器卸载（切走会话、皮肤停用）时清空，免得状态台挂着上一次会话的数字。 */
+/** Cleared when the probe unmounts (session switch, skin deactivation) so the dock does not keep the previous session's numbers. */
 export function clearStatus(): void {
   publishStatus({})
 }

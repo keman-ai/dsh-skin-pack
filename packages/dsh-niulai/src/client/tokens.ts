@@ -74,7 +74,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(43, 48, 34, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(243, 239, 228, 0.07)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 设计稿只有 --line(#373c2a) 与 --line-soft(白 6.5%) 两级，harness 要四级：
   // l1 最弱用 line-soft，l2 用实色 line，l3/l4 往草绿方向提亮，保持同一色相。
   '--dsw-alias-border-l1': 'rgba(243, 239, 228, 0.065)',
@@ -85,7 +85,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(243, 239, 228, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(243, 239, 228, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': p.text,
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -97,7 +97,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': p.bg,
   '--dsw-alias-label-primary-inverted': p.surface3,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 🔴 <b>主操作是口鼻米黄，不是橙</b>。设计稿的 Component language 写死了两条分工：
   // 「orange reserved for active state / run state」「straw yellow for primary action」，
   // 底部交接色卡把 Primary action 标成 #F0D28A。橙是牛在动的信号，不是按钮的默认色 ——
@@ -158,7 +158,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface2,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   // 用草绿系而不是中性灰：滚动条是长期可见的元素，灰色会把整片暖调拉回中性。
   '--dsw-alias-scrollbar-bg-l1': p.line,
   '--dsw-alias-scrollbar-bg-l2': p.grass,

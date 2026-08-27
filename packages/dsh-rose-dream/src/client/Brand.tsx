@@ -26,9 +26,9 @@ import css from './Brand.module.css'
 
 /** 侧栏 / 新会话页共用的印章契约。 */
 interface BrandMarkProps {
-  /** 宿主要求的正方形边长（px）。 */
+  /** The square size the host requires, in px. */
   size: number
-  /** 宿主给的类名，只在新会话页出现；原样透传以保留默认动效。 */
+  /** The class the host provides, present only on the new-session page; passed through verbatim to keep the default animation. */
   className?: string | undefined
 }
 
@@ -41,7 +41,7 @@ interface BrandMarkProps {
  * 用一个字而不是画道童：小到 24px 时人物轮廓会糊成一团色块，汉字仍然认得出——
  * 把店名收成一个字，24px 时仍然认得出。
  *
- * @param props - 宿主给的尺寸与类名。
+ * @param props - Size and class name from the host.
  * @returns 方形任务徽标。
  */
 export function RoseMark({ size, className }: BrandMarkProps) {
@@ -97,7 +97,7 @@ export function RoseMark({ size, className }: BrandMarkProps) {
  *
  * 主名保留 DeepSeek Harness —— 皮肤换的是外观，不冒充另一个产品；副标才是这套皮肤的身份。
  *
- * @returns 两行站名。
+ * @returns The two-line wordmark.
  */
 export function RoseName() {
   return (

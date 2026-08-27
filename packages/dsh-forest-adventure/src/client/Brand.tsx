@@ -21,9 +21,9 @@ import css from './Brand.module.css'
 
 /** 侧栏 / 新会话页共用的标契约。 */
 interface BrandMarkProps {
-  /** 宿主要求的正方形边长（px）。 */
+  /** The square size the host requires, in px. */
   size: number
-  /** 宿主给的类名，只在新会话页出现；原样透传以保留默认动效。 */
+  /** The class the host provides, present only on the new-session page; passed through verbatim to keep the default animation. */
   className?: string | undefined
 }
 
@@ -33,7 +33,7 @@ interface BrandMarkProps {
  * 用纯 CSS 的径向渐变复刻原型那枚标，不裁封面——封面是一整片林子，裁成小方块只会得到一块绿。圆角按 size 等比给（原型 35px 配 11px 圆角，约 0.31 倍），侧栏的 24px 与
  * hero 的 34px 因此是同一个形状。
  *
- * @param props - 宿主给的尺寸与类名。
+ * @param props - Size and class name from the host.
  * @returns 方形光斑标。
  */
 export function GroveMark({ size, className }: BrandMarkProps) {
@@ -55,7 +55,7 @@ export function GroveMark({ size, className }: BrandMarkProps) {
  *
  * 主名保留 DeepSeek Harness —— 皮肤换的是外观，不冒充另一个产品；副标才是这套皮肤的身份。
  *
- * @returns 两行站名。
+ * @returns The two-line wordmark.
  */
 export function GroveName() {
   return (

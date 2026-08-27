@@ -2,10 +2,10 @@
  * 黄昏城市的装饰层。
  *
  * 全部规则挂在 `body[data-dsh-twilight]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
- * 所以停用皮肤等于这些规则整体失效，不留残迹。
+ * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
- * 🔴 判据写成"没激活 = 插件不存在"，不写成"默认显示、靠皮肤规则去藏"。插件的 JS 要等 bundle
- * 执行完才能给 body 打标记，而 harness 界面在那之前就渲染好了；默认可见的东西会在这段窗口里
+ * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
+ * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
  * 闪出来，看着像跳进了别的页面。
  *
  * 锚点优先用 harness 的语义 `data-*` 属性（对外契约，改版不会碎）；没有属性可用的地方才退到
@@ -99,10 +99,10 @@
 /*
  * 输入区贴底 —— 原型的 `.hero-product-dock` 就钉在 hero 底部居中。
  *
- * 🔴 居中不是 composer 自己做的，是它祖先的 `justify-content: center` 干的
- *（`.root[data-phase='hero'] .scrollBody`）——去改 composer 自己的 margin 没有任何效果。
+ * 🔴 The centring is not the composer's own; it comes from an ancestor's `justify-content: center`
+ * (`.root[data-phase='hero'] .scrollBody`) — changing the composer's own margin has no effect whatsoever.
  *
- * 关掉 overflow / scrollbar-gutter 的原因：hero 没有可滚内容，`overflow-y: auto` 会在贴底后
+ * Why overflow / scrollbar-gutter are turned off: hero has nothing to scroll, and `overflow-y: auto` would
  * 因内容溢出冒出一条滚动条；`scrollbar-gutter: stable` 恒定预留一条滚动条宽度，在没有滚动条
  * 的 hero 里就变成把整列往一边推的偏移，看上去是"输入框没居中"。
  */
@@ -223,8 +223,8 @@
 }
 
 /* ==========================================================================
- * 降级区 —— 下面这些没有语义属性可挂，只能前缀匹配 CSS Module 的哈希类名
- *（形如 `_1Onn0a_sidebarCol`）。harness 改版会让它们静默失配：观感退回默认，
+ * Degradation zone — the rules below have no semantic attribute to hang on and must prefix-match hashed
+ * CSS Module class names (like `_1Onn0a_sidebarCol`). A harness redesign makes them silently stop matching: the look reverts to default,
  * 不报错、不影响其余部分。
  * ========================================================================== */
 
@@ -279,7 +279,7 @@
 }
 
 /*
- * 分组标题（今天 / 过去 7 天）：小号大写、字距拉开、压到说明文字色。
+ * Group headings (Today / Last 7 days): small caps, wide tracking, muted to the description colour.
  * 原型用这个把时间分组降成背景信息，不与会话标题争注意力。
  */
 :global(body[data-dsh-twilight] [class*='_groupSection'] > :first-child) {

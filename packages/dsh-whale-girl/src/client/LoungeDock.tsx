@@ -5,13 +5,13 @@
  * 数据的那些**：状态、模型、上下文占用、用量、待办进度；那五个 “Assistant Systems 在线”
  * 是纯装饰，harness 没有对应的心跳投影，不伪造。
  *
- * 为什么自己造一根而不是接管 harness 的右侧详情栏（`details` slot）：
- * 它确实**可以**接管（`{ kind: 'single' }` 的占用冲突只发生在同一 priority，注册 -1 就能影子化
- * 官方那份），但官方那根装的是「点某次工具调用看 Input / Output」——那是排障时唯一的线索，
- * 拿状态台把它换掉是净损失。所以开一根自己的：`position: fixed` 贴右边，展开时通过 body 上的
- * 标记让主区让出等宽的空间，收起时只留一个把手，两者可以同时存在。
+ * Why build our own rail instead of taking over the harness's details slot:
+ * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1
+ * shadows the official one), but that rail holds "click a tool call to see its Input / Output" — the only lead
+ * there is when debugging, so replacing it with a status dock is a net loss. Hence our own: `position: fixed`
+ * against the right edge, a body marker making the main area yield an equal width while expanded, and only a handle when collapsed. Both can coexist.
  *
- * 收起状态记在 localStorage：状态台是长期可见的东西，每次刷新都弹回来会很烦。
+ * The collapsed state lives in localStorage: the dock is a long-lived fixture, and springing back on every refresh would be annoying.
  */
 
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
@@ -30,7 +30,7 @@ const SKIN_ATTRIBUTE = 'data-dsh-whale-girl'
 
 function readOpen(): boolean {
   try {
-    // 默认展开：状态台存在的意义就是被看见；用户收起过才记住收起。
+    // Expanded by default: the dock exists to be seen, and collapse is remembered only once the user chooses it.
     return window.localStorage.getItem(STORAGE_KEY) !== 'false'
   } catch {
     // localStorage throws in private mode; fall back to the default expanded state, which changes nothing functionally.
@@ -39,10 +39,10 @@ function readOpen(): boolean {
 }
 
 /**
- * 紧凑 token 计数：517 / 12.2K / 1.2M。
+ * Compact token counts: 517 / 12.2K / 1.2M.
  *
- * 口径与官方 `formatTokens` 对齐（StatsLine.tsx），免得同一个值在状态台和输入框下方
- * 显示成两个数字。
+ * Aligned with the official `formatTokens` (StatsLine.tsx), so one value does not appear as two different
+ * numbers in the dock and below the composer.
  * @param n - Token count.
  * @returns The display string.
  */
@@ -132,8 +132,8 @@ export function WhaleLoungeDock() {
   // Context composition: all three are estimates, used only for proportions and never for a total.
   const ctx = [
     { key: 'system', label: 'System', tokens: status.ctxSystemTokens },
-    { key: 'tools', label: '工具 schema', tokens: status.ctxToolsTokens },
-    { key: 'message', label: '对话', tokens: status.ctxMessageTokens },
+    { key: 'tools', label: 'Tool schema', tokens: status.ctxToolsTokens },
+    { key: 'message', label: 'Conversation', tokens: status.ctxMessageTokens },
   ].filter((part): part is { key: string; label: string; tokens: number } => part.tokens !== undefined)
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
@@ -144,13 +144,13 @@ export function WhaleLoungeDock() {
         className={css.handle}
         onClick={toggle}
         aria-expanded={open}
-        title={open ? '收起状态台' : '展开状态台'}
+        title={open ? 'Collapse the status dock' : 'Expand the status dock'}
       >
         {open ? '›' : '‹'}
       </button>
       {open && (
         <div className={css.body}>
-          <div className={css.header}>会话状态</div>
+          <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
               缩小版封面。用的是同一张内联图（不额外增加体积），contain 保证两个角色都完整
@@ -168,29 +168,29 @@ export function WhaleLoungeDock() {
               <section className={`${css.card} ${css.alert}`}>
                 <div className={css.cardTitle}>Waiting on you</div>
                 {approvals.map((tool, index) => (
-                  <Line key={`${tool}-${index}`} label="待授权">
+                  <Line key={`${tool}-${index}`} label="Awaiting approval">
                     <span className={css.mono}>{tool}</span>
                   </Line>
                 ))}
-                {questions > 0 && <Line label="待回答">{`${questions} 个问题`}</Line>}
-                <p className={css.hint}>回到对话里确认后才会继续。</p>
+                {questions > 0 && <Line label="Awaiting answer">{`${questions} question(s)`}</Line>}
+                <p className={css.hint}>Nothing continues until you confirm in the conversation.</p>
               </section>
             )}
 
             <section className={css.card}>
               <div className={css.cardTitle}>Current Session</div>
-              <Line label="状态">
+              <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
                   {busy ? '● 鲸鱼娘正在忙' : '● 就绪 READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
-                <Line label="本轮已跑">
+                <Line label="This turn">
                   <span className={css.busy}>{formatDuration(Math.max(0, now - status.turnStartedAt))}</span>
                 </Line>
               )}
               {tools.length > 0 && (
-                <Line label="正在执行">
+                <Line label="Running">
                   <span className={css.mono}>
                     {tools.join(' · ')}
                     {status.toolStartedAt !== undefined
@@ -199,23 +199,23 @@ export function WhaleLoungeDock() {
                 </Line>
               )}
               {(queued > 0 || steering > 0) && (
-                <Line label="收件箱">
+                <Line label="Inbox">
                   {[queued > 0 ? `${queued} queued` : '', steering > 0 ? `${steering} steering` : '']
                     .filter(Boolean).join(' · ')}
                 </Line>
               )}
-              <Line label="模型">{status.model ?? '—'}</Line>
+              <Line label="Model">{status.model ?? '—'}</Line>
             </section>
 
             <section className={css.card}>
               <div className={css.cardTitle}>Context</div>
-              <Line label="占用">{occupancy === undefined ? '—' : `${occupancy}%`}</Line>
+              <Line label="Occupancy">{occupancy === undefined ? '—' : `${occupancy}%`}</Line>
               {occupancy !== undefined && (
                 <div className={css.progress}>
                   <span style={{ width: `${occupancy}%` }} />
                 </div>
               )}
-              <Line label="Token 负载">
+              <Line label="Token load">
                 {status.usedTokens === undefined || status.contextWindow === undefined
                   ? '—'
                   : `${formatTokens(status.usedTokens)} / ${formatTokens(status.contextWindow)}`}
@@ -242,7 +242,7 @@ export function WhaleLoungeDock() {
                     🔴 This sentence is mandatory: the three are fixed-density estimates (systematically low for CJK and JSON
                     schema), so they do not add up to the token load above. This is composition, not a total.
                   */}
-                  <p className={css.hint}>构成为估算，与上方负载不同源，不可相加。</p>
+                  <p className={css.hint}>The composition is estimated from a different source than the load above; the two must not be added.</p>
                 </>
               )}
             </section>
@@ -250,7 +250,7 @@ export function WhaleLoungeDock() {
             {status.permissionLabel !== undefined && (
               <section className={css.card}>
                 <div className={css.cardTitle}>Permission</div>
-                <Line label="当前模式">{status.permissionLabel}</Line>
+                <Line label="Mode">{status.permissionLabel}</Line>
                 {status.permissionHint !== undefined && (
                   <p className={css.hint}>{status.permissionHint}</p>
                 )}
@@ -259,22 +259,22 @@ export function WhaleLoungeDock() {
 
             <section className={css.card}>
               <div className={css.cardTitle}>Usage</div>
-              <Line label="输入">
+              <Line label="Input">
                 {status.inputTokens === undefined ? '—' : formatTokens(status.inputTokens)}
               </Line>
-              <Line label="输出">
+              <Line label="Output">
                 {status.outputTokens === undefined ? '—' : formatTokens(status.outputTokens)}
               </Line>
-              <Line label="缓存命中">
+              <Line label="Cache hits">
                 {status.cacheHitPercent === undefined ? '—' : `${status.cacheHitPercent}%`}
               </Line>
-              <Line label="耗时">
+              <Line label="Time spent">
                 {status.llmMs === undefined && status.toolMs === undefined
                   ? '—'
-                  : `LLM ${formatDuration(status.llmMs ?? 0)} · 工具 ${formatDuration(status.toolMs ?? 0)}`}
+                  : `LLM ${formatDuration(status.llmMs ?? 0)} · tools ${formatDuration(status.toolMs ?? 0)}`}
               </Line>
-              <Line label="轮次">
-                {status.turns === undefined ? '—' : `${status.turns} 轮 · ${status.steps ?? 0} 步`}
+              <Line label="Turns">
+                {status.turns === undefined ? '—' : `${status.turns} turns · ${status.steps ?? 0} steps`}
               </Line>
             </section>
 
@@ -282,7 +282,7 @@ export function WhaleLoungeDock() {
             {status.todosTotal !== undefined && (
               <section className={css.card}>
                 <div className={css.cardTitle}>Plan</div>
-                <Line label="进度">{`${status.todosDone ?? 0} / ${status.todosTotal}`}</Line>
+                <Line label="Progress">{`${status.todosDone ?? 0} / ${status.todosTotal}`}</Line>
                 {status.todoActive !== undefined && (
                   <p className={css.todo}>{status.todoActive}</p>
                 )}
@@ -297,9 +297,9 @@ export function WhaleLoungeDock() {
 }
 
 /**
- * 一行「标签 — 值」，对应原型稿 `.line` 的两列排版。
- * @param props - 标签与值。
- * @returns 一行。
+ * One label–value row, matching the two-column layout of the prototype's `.line`.
+ * @param props - Label and value.
+ * @returns One row.
  */
 function Line({ label, children }: { label: string; children: ReactNode }) {
   return (

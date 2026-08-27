@@ -50,7 +50,7 @@ const p = COSMIC_PALETTE
  * 新增的内置 token 挡在外面。
  */
 export const COSMIC_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   // 原型是「深空底 + 蓝黑面板」：bg → panel → panel2 逐级抬升，与 harness 的
   // base → layer-1/2/3 同构；layer-3 再抬一档给弹层，免得弹层与卡片分不开。
   '--dsw-alias-bg-base': p.bg,
@@ -69,7 +69,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(17, 47, 74, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(233, 248, 255, 0.06)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场只有一条 `--line: rgba(102,213,255,.16)`——**带青色倾向的暗描边**，不是中性灰。
   // 这条线是整套皮肤"科技感"的来源，四级都按它的色相走。
   '--dsw-alias-border-l1': 'rgba(102, 213, 255, 0.10)',
@@ -80,7 +80,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(233, 248, 255, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(233, 248, 255, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#dceef7',
   '--dsw-alias-label-primary-dimmed': '#89a4b6',
@@ -92,7 +92,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#ffffff',
   '--dsw-alias-label-primary-inverted': p.panel2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 🔴 <b>主操作是蓝，不是红也不是青</b>。原型里红只在 logo 外圈、头像与"当前模式"描边上出现，
   // 青是描边与强调；唯一的实心大按钮 `＋ New Session` 走蓝渐变。拿红做按钮会让"出错了"和
   // "可以点"变成同一个视觉语言。
@@ -152,7 +152,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.panel,
   '--dsw-alias-markdown-tag': p.panel,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   // 用青色半透明而不是中性灰：滚动条长期可见，灰色会把整片蓝调拉回中性。
   '--dsw-alias-scrollbar-bg-l1': 'rgba(102, 213, 255, 0.14)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(102, 213, 255, 0.26)',

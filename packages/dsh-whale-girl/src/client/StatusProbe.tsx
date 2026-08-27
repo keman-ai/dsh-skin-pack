@@ -2,7 +2,7 @@
  * Status probe: a slot entry mounted on `conversation.composer.dock` that renders nothing.
  *
  * Its only reason to exist is receiving the slot-injected `useProjection` / `useSession`, so the numbers the
- * 投影和会话快照递给右侧状态台（见 status-store）。
+ * passes the projections and session snapshot to the right-hand dock (see status-store).
  *
  * Three reasons for choosing `conversation.composer.dock`:
  *   1. it is `{ kind: 'list' }`, so appending does not displace the official StatsLine (also there, id `stats`, order 0);
@@ -10,7 +10,7 @@
  *   3. its lifetime matches the conversation page, so switching sessions remounts this entry and clears the previous numbers.
  *
  * Rendering null is deliberate: this slot sits below the composer and we want nothing extra there,
- * 原型稿把这些信息放在右栏。
+ * The prototype puts this information in the right column.
  */
 
 import { useEffect } from 'react'
@@ -21,7 +21,7 @@ import { clearStatus, publishStatus } from './status-store.ts'
  *
  * Minimal hand-written declarations for the keys we use, rather than importing types from
  * `@deepseek-ai/dsh-client-ui-slots`: that package and its dependency chain cannot be installed (see
- * `token-meter` / `session-stats` / `tool-todo` 一致，对不上时以 harness 源码为准。
+ * `token-meter` / `session-stats` / `tool-todo`; when they disagree, the harness source wins.
  */
 export interface UseProjection {
   (key: 'contextPressure'): ContextPressure | undefined
@@ -49,7 +49,7 @@ interface TokenUsage {
   cacheWriteTokens: number
 }
 
-/** packages/client/ui-conversation/.../StatsLine.tsx 的 WindowStats 同名字段。 */
+/** The same-named fields of WindowStats in packages/client/ui-conversation/.../StatsLine.tsx. */
 interface SessionStats {
   turns: number
   steps: number
@@ -99,9 +99,9 @@ interface ConversationSnapshotLike {
    *
    * 🔴 The model name can only come from here: the Chat assembly (`chat.legacy.nodes`) does **not** fill
    * `provenance` (see finalNode in ui-conversation/conversation-nodes/assistant.ts — it fills only blocks /
-   * usage / timing），填 provenance 的是 Trajectory 那套
-   * （ui-trajectory/trajectory-assistant-definition.ts）。第一版照着类型声明去读 chat 节点的
-   * provenance，结果永远是 undefined，界面上模型那行一直是"—"：**字段声明为可选 ≠ 有人填**。
+   * usage / timing); provenance is filled by the Trajectory assembly
+   * (ui-trajectory/trajectory-assistant-definition.ts). The first version read provenance off chat nodes as the
+   * type declaration suggested and always got undefined, leaving the model row as "—": **a field declared optional is not a field someone fills**.
    */
   views: { get(target: 'trajectory'): { eventNodes: readonly ConversationNodeLike[] } | undefined }
   chat: { legacy: { nodes: readonly ConversationNodeLike[] } }
@@ -175,7 +175,7 @@ export function WhaleStatusProbe({ useProjection, useSession }: StatusProbeProps
   const queuedCount = queue.filter(item => item.placement === 'queued').length
   const steeringCount = queue.filter(item => item.placement === 'steering').length
 
-  // 当前轮的开始时刻：没有 endTime 的那一轮。逐秒变化的"已跑多久"交给状态台算，
+  // Start of the current turn: the one without an endTime. The per-second elapsed time is computed by the dock,
   // Only the timestamp is passed — otherwise this would publish every second and re-render the whole rail for nothing.
   let turnStartedAt: number | undefined
   for (const [, timing] of turnTimings) {
@@ -229,7 +229,7 @@ export function WhaleStatusProbe({ useProjection, useSession }: StatusProbeProps
     })
   })
 
-  // 换会话时这个条目会重新挂载，卸载时清掉，免得状态台留着上一次会话的数字。
+  // and switching sessions remounts this entry, clearing on unmount so the dock does not keep the previous session's numbers.
   useEffect(() => clearStatus, [])
 
   return null

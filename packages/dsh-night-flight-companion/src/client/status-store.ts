@@ -1,54 +1,54 @@
 /**
- * 状态台的数据中转站。
+ * The relay that feeds the status dock.
  *
  * Why the relay is needed: state and usage all come from the harness's **projections** and **session
  * snapshots**, and `useProjection` / `useSession` are hooks injected into props at slot render time — only a
- * 组件才拿得到。右侧状态台是本插件自建的 fixed 节点、走自己的 React root，不在任何 slot 里。
+ * component mounted on a slot receives them. The right-hand dock is our own fixed node with its own React root and belongs to no slot.
  *
  * Hence the split in two: a zero-render probe mounted on `conversation.composer.dock` (a list slot third
- * 追加，官方 StatsLine 也在上面），把读到的值写进这里；状态台 `useSyncExternalStore` 订阅这里。
+ * parties may append to, and where the official StatsLine also lives) writes what it reads into here, and the dock subscribes with `useSyncExternalStore`.
  *
  * 🔴 数据一律来自官方投影/快照，**不解析 DOM、不伪造**。原型稿右栏那五个
  * “Assistant Systems 在线”是纯装饰，harness 没有对应的心跳投影，所以本皮肤不做那张卡。
  */
 
 /**
- * 一次工具调用的读数。
+ * One tool call's reading.
  *
- * 数据来自 `views.get('trajectory').eventNodes` 里的 `tool-result` 节点，以及快照的
- * `runningCalls`。这正是原型稿右栏「神通调用」那张卡要的东西——只不过稿子里的
- * `已完成 2.1s` 是写死的，这里是真的。
+ * The data comes from `tool-result` nodes in `views.get('trajectory').eventNodes` plus the snapshot's
+ * `runningCalls`. This is exactly what the prototype's tool-call card in the right column wanted — except that
+ * its "finished 2.1s" was hardcoded, and here it is real.
  */
 export interface ToolCallEntry {
-  /** 工具名。调用头被窗口截断时（`call` 为 null）退回 callId 的短前缀。 */
+  /** Tool name. When the call head is truncated by the window (`call` is null), falls back to a short callId prefix. */
   name: string
   /**
-   * 墙钟耗时（毫秒）。
+   * Wall-clock duration in milliseconds.
    *
-   * ⚠️ 只有配对的 `tool/call` 还在窗口内（`callTime !== null`）时才算得出来。
-   * 窗口截断掉调用头的老调用没有这个值——**缺席就缺席，不猜**。
+   * ⚠️ Computable only while the matching `tool/call` is still inside the window (`callTime !== null`).
+   * Older calls whose head the window truncated have no value — **absent stays absent; nothing is guessed**.
    */
   ms?: number | undefined
-  /** 跑完了但失败（`ToolResultNode.isError`）。 */
+  /** Finished but failed (`ToolResultNode.isError`). */
   failed?: boolean | undefined
-  /** 还在跑。此时 `ms` 缺席，逐秒的耗时由状态台按 `startedAt` 自己算。 */
+  /** Still running. `ms` is absent, and the dock computes the per-second duration from `startedAt`. */
   running?: boolean | undefined
-  /** 正在跑的那条的开始时刻（epoch ms，`RunningToolCall.time`）。 */
+  /** Start of the running call (epoch ms, `RunningToolCall.time`). */
   startedAt?: number | undefined
 }
 
 /**
- * 一次上下文注入的读数（`ContextMessageNode`）。
+ * One context injection's reading (`ContextMessageNode`).
  *
- * 对应原型稿的「经卷 / 天书 / Context files」那张卡。⚠️ 稿子每行还带一个 token 数
- *（`1.3K` / `820`），**harness 没有按注入项计价的投影**，所以这里只给来源与形态，不编数字。
+ * This is the prototype's context-files card. ⚠️ Its rows also carry a token count (`1.3K` / `820`), but the
+ * **harness has no projection pricing individual injections**, so only source and form are given, with no invented numbers.
  */
 export interface ContextEntry {
-  /** 生产者名（`ContextProvenanceView.label`）：AGENTS.md 路径、skill 名、插件 id…… */
+  /** Producer name (`ContextProvenanceView.label`): an AGENTS.md path, a skill name, a plugin id… */
   label: string
-  /** 生产者自报的信息形态（instructions / catalog / snapshot / notice / relay / recall）。 */
+  /** The form the producer reports (instructions / catalog / snapshot / notice / relay / recall). */
   form?: string | undefined
-  /** `inject` 是本会话注入，`recall` 是从别的会话捞回来的。 */
+  /** `inject` was injected in this session; `recall` was pulled in from another. */
   role?: string | undefined
 }
 
@@ -75,7 +75,7 @@ export interface StatusSnapshot {
   /** One-line description of that preset; absent when not configured. */
   permissionHint?: string | undefined
 
-  // ── 实时计时（存的是时间戳，逐秒变化的那部分由状态台自己算） ──
+  // ── Live timing (timestamps are stored; the per-second part is computed by the dock) ──
   /** Start of the current turn (epoch ms); absent when no turn is in flight. */
   turnStartedAt?: number | undefined
   /** Start of the earliest tool call still running (epoch ms). */
@@ -110,29 +110,29 @@ export interface StatusSnapshot {
   /** Title of the todo currently in progress. */
   todoActive?: string | undefined
 
-  // ── 工具调用与上下文注入：从 trajectory 的事件节点里读，最近的排前面 ──
-  /** 最近若干次工具调用，正在跑的排最前。 */
+  // ── Tool calls and context injections: read from trajectory event nodes, most recent first ──
+  /** The most recent tool calls, running ones first. */
   toolCalls?: readonly ToolCallEntry[] | undefined
-  /** 本会话累计的工具调用次数（不截断，用来显示"另有 N 次"）。 */
+  /** Total tool calls this session (untruncated, used for the "N more" line). */
   toolCallTotal?: number | undefined
-  /** 最近若干条上下文注入。 */
+  /** The most recent context injections. */
   contextInjections?: readonly ContextEntry[] | undefined
-  /** 本会话累计的注入条数。 */
+  /** Total injections this session. */
   contextTotal?: number | undefined
 
-  // ── 压缩（CompactionSummaryNode）：会话被折叠过几次、折掉了多少 ──
-  /** 落地过的压缩次数。 */
+  // ── Compaction (CompactionSummaryNode): how often the session was folded, and by how much ──
+  /** Number of compactions that landed. */
   compactedCount?: number | undefined
-  /** 被折叠掉的条目数合计；投影没给时缺席。 */
+  /** Total items folded away; absent when the projection does not provide it. */
   compactedItems?: number | undefined
-  /** 被折叠掉的 token 估算合计；投影没给时缺席。 */
+  /** Total estimated tokens folded away; absent when the projection does not provide it. */
   compactedTokens?: number | undefined
 }
 
 let current: StatusSnapshot = {}
 const listeners = new Set<() => void>()
 
-/** 采集器每次读到新值时调用。值没变就不通知，避免状态台跟着流式输出空转。 */
+/** Called by the probe on every new reading. Unchanged values notify nobody, so the dock does not spin along with streaming output. */
 export function publishStatus(next: StatusSnapshot): void {
   if (sameStatus(current, next)) {
     return
@@ -143,7 +143,7 @@ export function publishStatus(next: StatusSnapshot): void {
   }
 }
 
-/** 供 `useSyncExternalStore` 用：值没变时返回同一个引用。 */
+/** For `useSyncExternalStore`: returns the same reference while the value is unchanged. */
 export function getStatus(): StatusSnapshot {
   return current
 }
@@ -153,7 +153,7 @@ export function subscribeStatus(listener: () => void): () => void {
   return () => { listeners.delete(listener) }
 }
 
-/** 采集器卸载（切走会话、皮肤停用）时清空，免得状态台挂着上一次会话的数字。 */
+/** Cleared when the probe unmounts (session switch, skin deactivation) so the dock does not keep the previous session's numbers. */
 export function clearStatus(): void {
   publishStatus({})
 }
@@ -172,7 +172,7 @@ function sameStatus(a: StatusSnapshot, b: StatusSnapshot): boolean {
   if (!keys.every(key => a[key] === b[key])) {
     return false
   }
-  // 数组的引用每次都新，按内容比——否则状态台会跟着流式输出每帧重渲染。
+  // Array references are new every time, so compare by content — otherwise the dock re-renders every frame of streaming output.
   return sameNames(a.runningTools, b.runningTools)
     && sameNames(a.pendingApprovals, b.pendingApprovals)
     && sameTools(a.toolCalls, b.toolCalls)

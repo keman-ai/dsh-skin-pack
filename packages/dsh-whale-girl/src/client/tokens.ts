@@ -66,7 +66,7 @@ const p = WHALE_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置浅色基座。
  */
 export const WHALE_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   // 原型是「浅蓝底 + 白卡片」：底最沉、卡片最亮，与 harness 的 base → layer-1/2/3
   // 逐级抬升同构。这里刻意让 layer-3 到纯白，弹层比卡片再亮一档才分得开。
   '--dsw-alias-bg-base': p.base,
@@ -86,7 +86,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(210, 226, 255, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(37, 70, 145, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型只有一个 --line: rgba(37,70,145,.12)。harness 要四级：l1 弱一点、l2 用原值，
   // l3/l4 往天蓝方向加强，保持同一色相（原型 Component language 要的是
   // 「1px 低对比描边」，所以四级全部克制）。
@@ -99,7 +99,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(255, 255, 255, 0.16)',
   '--dsw-alias-border-inverted2': 'rgba(255, 255, 255, 0.26)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.ink,
   '--dsw-alias-label-primary-bluish': p.navy2,
   '--dsw-alias-label-primary-dimmed': p.ink2,
@@ -111,7 +111,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#ffffff',
   '--dsw-alias-label-primary-inverted': p.paper,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 🔴 <b>主操作是 DeepSeek Blue，不是 Ocean Cyan，也不是绿</b>。原型稿里蓝色实心只出现在
   // 「＋ 新建对话」「允许」「发送」这三处主操作上；绿色被明确<b>保留给在线 / 成功态</b>
   // （五个 Assistant Systems 的"在线"、工具调用的 ✓）。拿绿做按钮会让"成功"和"可以点"
@@ -175,7 +175,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.paper2,
   '--dsw-alias-markdown-tag': p.paper2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   // 用深蓝半透明而不是中性灰：滚动条是长期可见的元素，灰色会把整片蓝调拉回中性。
   '--dsw-alias-scrollbar-bg-l1': 'rgba(37, 70, 145, 0.14)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(83, 105, 239, 0.28)',

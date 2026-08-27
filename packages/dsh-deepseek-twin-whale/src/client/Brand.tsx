@@ -21,9 +21,9 @@ import css from './Brand.module.css'
 
 /** 侧栏 / 新会话页共用的标契约。 */
 interface BrandMarkProps {
-  /** 宿主要求的正方形边长（px）。 */
+  /** The square size the host requires, in px. */
   size: number
-  /** 宿主给的类名，只在新会话页出现；原样透传以保留默认动效。 */
+  /** The class the host provides, present only on the new-session page; passed through verbatim to keep the default animation. */
   className?: string | undefined
 }
 
@@ -37,7 +37,7 @@ interface BrandMarkProps {
  * svg 而不是 emoji 🐋：emoji 的字形由系统字体决定，同一枚标在 mac / Windows / Linux 上
  * 会长成三个样子，还会被系统的彩色字体强行上色，压不住这套皮肤的冷青。
  *
- * @param props - 宿主给的尺寸与类名。
+ * @param props - Size and class name from the host.
  * @returns 方形鲸鱼标。
  */
 export function TwinwhaleMark({ size, className }: BrandMarkProps) {
@@ -70,7 +70,7 @@ export function TwinwhaleMark({ size, className }: BrandMarkProps) {
  *
  * 主名保留 DeepSeek Harness —— 皮肤换的是外观，不冒充另一个产品；副标才是这套皮肤的身份。
  *
- * @returns 两行站名。
+ * @returns The two-line wordmark.
  */
 export function TwinwhaleName() {
   return (

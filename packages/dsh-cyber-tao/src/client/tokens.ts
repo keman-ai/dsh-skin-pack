@@ -50,7 +50,7 @@ const p = TAO_PALETTE
 
 /** 交给 `ctx.theme.register()` 的 token 表。只写要改的，其余继承内置暗色基座。 */
 export const TAO_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.surface,
   '--dsw-alias-bg-layer-2': p.surface2,

@@ -50,7 +50,7 @@ const p = FOREST_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。
  */
 export const FOREST_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': '#091812',
   '--dsw-alias-bg-layer-2': p.panel,
@@ -67,7 +67,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(22, 58, 46, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(151, 220, 190, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场一条 `--line: rgba(151,220,190,.15)`——带草绿的暗描边。林子里的分层全靠它。
   '--dsw-alias-border-l1': 'rgba(151, 220, 190, 0.09)',
   '--dsw-alias-border-l2': 'rgba(151, 220, 190, 0.15)',
@@ -77,7 +77,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(237, 248, 241, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(237, 248, 241, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#e4f0e9',
   '--dsw-alias-label-primary-dimmed': p.muted,
@@ -88,7 +88,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#ffffff',
   '--dsw-alias-label-primary-inverted': p.panel2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是那条 135° 绿渐变（原型 `.new` 与 `.send`）。米色与粉都不做按钮：
   // 前者是光、后者是呼应，实心铺开会把这套的安静打破。
   '--dsw-alias-brand-primary': p.green,
@@ -147,7 +147,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': '#0d2119',
   '--dsw-alias-markdown-tag': '#11291f',
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(151, 220, 190, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(151, 220, 190, 0.24)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(151, 220, 190, 0.26)',

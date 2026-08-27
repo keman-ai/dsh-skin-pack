@@ -16,18 +16,18 @@ import { PEARL_COVER } from './cover.generated.ts'
 /** Plugin name (the `name` of the loader entry). */
 export const name = 'pearl'
 
-/** host 半要 webServer 提供封面路由；没有它（比如 headless）这一行不会激活。 */
+/** The host half needs webServer for the cover route; without it (headless, say) this row never activates. */
 export const inject = ['webServer']
 
 /**
- * 🔴 封面走 HTTP 路由，不再内联进浏览器半。
+ * 🔴 The cover is served over an HTTP route and no longer inlined into the browser half.
  *
- * 起因是实测：把 21 套皮肤同时装进一个 profile 后界面**打不开**。每套皮肤的 client bundle
+ * The cause was measured: with 21 skins installed into one profile the UI **would not open**. Each skin's
  * 都是 `<script>` 同步引入的，而封面以 data URI 直接编进了 bundle——单套 150–860 KB，
  * 合计 9.4 MB 全部要先下完、解析完，主线程直接被压死（实测 90 秒渲染不出首屏，
- * 且控制台零报错，纯粹是卡）。
+ * and the console showed no errors at all — it simply hung.
  *
- * 所以图片挪到 host 半：这里是 Node 侧，只在启动时解一次 base64，浏览器半只留一个 URL
+ * So the image moved to the host half: on the Node side base64 is decoded once at startup, and the browser half keeps only a URL
  * 字符串。bundle 掉到几十 KB，图片则由浏览器在**皮肤真的激活时**才去取，还能吃 HTTP 缓存。
  *
  * ⚠️ 路径必须全局唯一：`webServer.register` 对同一路径重复注册会直接抛错

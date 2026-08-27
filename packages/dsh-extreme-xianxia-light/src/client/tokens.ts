@@ -55,7 +55,7 @@ const p = MIST_PALETTE
  * 覆盖集不完整是有意的：列全反而会把将来新增的内置 token 挡在外面。
  */
 export const MIST_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   // 🔴 浅色皮肤的层级方向与暗色相反：底最亮，往上逐级压暗一点点。
   '--dsw-alias-bg-base': p.paper,
   '--dsw-alias-bg-layer-1': '#faf9f6',
@@ -73,7 +73,7 @@ export const MIST_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(177, 138, 80, 0.14)',
   '--dsw-alias-bg-skeleton': 'rgba(72, 69, 60, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场两条：`--line: #d7d2c8` 与 `--line2: #c9c2b5`——**暖灰实线**。
   // 浅色界面的分层靠线，不靠阴影：满屏投影会把"纸"变成"卡片堆"。
   '--dsw-alias-border-l1': '#e6e2d9',
@@ -84,7 +84,7 @@ export const MIST_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(49, 51, 49, 0.1)',
   '--dsw-alias-border-inverted2': 'rgba(49, 51, 49, 0.16)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.ink,
   '--dsw-alias-label-primary-bluish': '#33403c',
   '--dsw-alias-label-primary-dimmed': p.ink2,
@@ -97,7 +97,7 @@ export const MIST_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#fdfcf9',
   '--dsw-alias-label-primary-inverted': '#fdfcf9',
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   '--dsw-alias-brand-primary': p.gold,
   '--dsw-alias-brand-text': p.gold3,
   '--dsw-alias-brand-primary-invert': '#fdfcf9',
@@ -155,7 +155,7 @@ export const MIST_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.paper2,
   '--dsw-alias-markdown-tag': '#efece4',
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(72, 69, 60, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(72, 69, 60, 0.22)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(72, 69, 60, 0.26)',

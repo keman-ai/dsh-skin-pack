@@ -2,7 +2,7 @@
  * Status probe: a slot entry mounted on `conversation.composer.dock` that renders nothing.
  *
  * Its only reason to exist is receiving the slot-injected `useProjection` / `useSession`, so the numbers the
- * 投影和会话快照递给右侧状态台（见 status-store）。
+ * passes the projections and session snapshot to the right-hand dock (see status-store).
  *
  * Three reasons for choosing `conversation.composer.dock`:
  *   1. it is `{ kind: 'list' }`, so appending does not displace the official StatsLine (also there, id `stats`, order 0);
@@ -10,7 +10,7 @@
  *   3. its lifetime matches the conversation page, so switching sessions remounts this entry and clears the previous numbers.
  *
  * Rendering null is deliberate: this slot sits below the composer and we want nothing extra there,
- * 原型稿把这些信息放在右栏。
+ * The prototype puts this information in the right column.
  */
 
 import { useEffect } from 'react'
@@ -22,7 +22,7 @@ import type { ContextEntry, ToolCallEntry } from './status-store.ts'
  *
  * Minimal hand-written declarations for the keys we use, rather than importing types from
  * `@deepseek-ai/dsh-client-ui-slots`: that package and its dependency chain cannot be installed (see
- * `token-meter` / `session-stats` / `tool-todo` 一致，对不上时以 harness 源码为准。
+ * `token-meter` / `session-stats` / `tool-todo`; when they disagree, the harness source wins.
  */
 export interface UseProjection {
   (key: 'contextPressure'): ContextPressure | undefined
@@ -50,7 +50,7 @@ interface TokenUsage {
   cacheWriteTokens: number
 }
 
-/** packages/client/ui-conversation/.../StatsLine.tsx 的 WindowStats 同名字段。 */
+/** The same-named fields of WindowStats in packages/client/ui-conversation/.../StatsLine.tsx. */
 interface SessionStats {
   turns: number
   steps: number
@@ -100,9 +100,9 @@ interface ConversationSnapshotLike {
    *
    * 🔴 The model name can only come from here: the Chat assembly (`chat.legacy.nodes`) does **not** fill
    * `provenance` (see finalNode in ui-conversation/conversation-nodes/assistant.ts — it fills only blocks /
-   * usage / timing），填 provenance 的是 Trajectory 那套
-   * （ui-trajectory/trajectory-assistant-definition.ts）。第一版照着类型声明去读 chat 节点的
-   * provenance，结果永远是 undefined，界面上模型那行一直是"—"：**字段声明为可选 ≠ 有人填**。
+   * usage / timing); provenance is filled by the Trajectory assembly
+   * (ui-trajectory/trajectory-assistant-definition.ts). The first version read provenance off chat nodes as the
+   * type declaration suggested and always got undefined, leaving the model row as "—": **a field declared optional is not a field someone fills**.
    */
   views: { get(target: 'trajectory'): { eventNodes: readonly ConversationNodeLike[] } | undefined }
   chat: { legacy: { nodes: readonly ConversationNodeLike[] } }
@@ -121,35 +121,35 @@ interface ConversationSnapshotLike {
 }
 
 /**
- * 事件节点。这里只声明用到的字段，字段名与
- * `packages/client/runtime/src/client/sessions/conversation.ts` 的 `ConversationNode` 一致。
+ * Event nodes. Only the fields we use are declared, with names matching `ConversationNode` in
+ * `packages/client/runtime/src/client/sessions/conversation.ts`.
  *
- * 🔴 三种 kind 各有各的用处：
- *   - `assistant` → `provenance.model`，最近一次回复实际用的模型；
+ * 🔴 Each of the three kinds has its own use:
+ *   - `assistant` → `provenance.model`, the model that actually served the latest reply;
  *   - `tool-result` → 工具名 + 真实耗时 + 成败，喂「神通调用」那张卡；
- *   - `context` → 注入来源与形态，喂「经卷注入」那张卡；
- *   - `compaction` → 会话被折叠掉多少，喂「压缩」那一行。
+ *   - `context` → the injection's source and form, feeding the context-injection card;
+ *   - `compaction` → how much of the session was folded away, feeding the compaction row.
  */
 interface ConversationNodeLike {
   kind: string
   /**
-   * 两种节点都叫 `provenance`，但形状不同：assistant 的是"哪个模型完成的"，
-   * context 的是"哪个生产者注入的"。这里合成一个宽松形状，读之前按 kind 分流。
+   * Both node kinds call it `provenance`, but the shapes differ: on assistant it is which model completed the
+   * reply, on context which producer injected it. A loose combined shape is declared here and read per kind.
    */
   provenance?: { model?: string; role?: string; label?: string | null }
-  /** epoch ms，来源事件的时刻。 */
+  /** epoch ms, the time of the source event. */
   time?: number
-  /** tool-result：配对的 tool/call 的时刻；窗口把调用头截掉时是 null。 */
+  /** tool-result: the time of the matching tool/call; null once the window has cut off the call head. */
   callTime?: number | null
-  /** tool-result：调用头；被窗口截断时是 null。 */
+  /** tool-result: the call head; null once truncated by the window. */
   call?: { name?: string } | null
-  /** tool-result：调用 id，调用头缺席时拿它兜底显示。 */
+  /** tool-result: the call id, used for display when the call head is absent. */
   callId?: string
-  /** tool-result：这次调用是否失败。 */
+  /** tool-result: whether this call failed. */
   isError?: boolean
-  /** context：生产者自报的信息形态；不认识的形态是 null。 */
+  /** context: the form the producer reports; null for an unrecognised one. */
   form?: string | null
-  /** compaction：被折叠掉的条目数 / token 估算；投影拿不到时是 null。 */
+  /** compaction: the count of folded items / estimated tokens; null when the projection has none. */
   shadowedItemCount?: number | null
   shadowedTokenCount?: number | null
 }
@@ -203,11 +203,11 @@ export function OperaStatusProbe({ useProjection, useSession }: StatusProbeProps
   const toolNames = runningCalls.map(call => call.name)
 
   /*
-   * 工具调用流水：正在跑的排最前，然后是最近跑完的。
+   * The tool-call feed: running calls first, then the most recently finished.
    *
-   * 🔴 耗时只在**配对的 `tool/call` 还在窗口内**时算得出来（`callTime !== null`）。
-   * 会话窗口滚动后老调用的调用头会被截掉，那些只报名字与成败，耗时留空——
-   * 原型稿那张卡每行都有一个漂亮的 `2.1s`，但那是写死的；这里宁可空着。
+   * 🔴 A duration can only be computed while **the matching `tool/call` is still inside the window**
+   * (`callTime !== null`). Once the session window scrolls, older calls lose their head and report only name and
+   * outcome, leaving the duration blank — the prototype's card shows a neat `2.1s` on every row, but that is hardcoded, and blank is better.
    */
   const settledTools: ToolCallEntry[] = []
   let toolCallTotal = 0
@@ -226,7 +226,7 @@ export function OperaStatusProbe({ useProjection, useSession }: StatusProbeProps
         const started = node.callTime
         const ended = node.time
         settledTools.push({
-          name: node.call?.name ?? (node.callId === undefined ? '未知工具' : `#${node.callId.slice(0, 6)}`),
+          name: node.call?.name ?? (node.callId === undefined ? 'unknown tool' : `#${node.callId.slice(0, 6)}`),
           ms: typeof started === 'number' && typeof ended === 'number'
             ? Math.max(0, ended - started)
             : undefined,
@@ -240,7 +240,7 @@ export function OperaStatusProbe({ useProjection, useSession }: StatusProbeProps
       if (contextEntries.length < CONTEXT_LOG_LIMIT) {
         const provenance = node.provenance
         contextEntries.push({
-          label: provenance?.label ?? '未署名来源',
+          label: provenance?.label ?? 'unattributed source',
           form: node.form ?? undefined,
           role: provenance?.role,
         })
@@ -258,7 +258,7 @@ export function OperaStatusProbe({ useProjection, useSession }: StatusProbeProps
     }
   }
 
-  // 正在跑的接在最前面：它们才是"现在发生了什么"，跑完的是流水。
+  // Running calls go first: they are what is happening now, while finished ones are history.
   const toolCalls: ToolCallEntry[] = [
     ...runningCalls.map((call): ToolCallEntry => ({
       name: call.name,
@@ -276,7 +276,7 @@ export function OperaStatusProbe({ useProjection, useSession }: StatusProbeProps
   const queuedCount = queue.filter(item => item.placement === 'queued').length
   const steeringCount = queue.filter(item => item.placement === 'steering').length
 
-  // 当前轮的开始时刻：没有 endTime 的那一轮。逐秒变化的"已跑多久"交给状态台算，
+  // Start of the current turn: the one without an endTime. The per-second elapsed time is computed by the dock,
   // Only the timestamp is passed — otherwise this would publish every second and re-render the whole rail for nothing.
   let turnStartedAt: number | undefined
   for (const [, timing] of turnTimings) {
@@ -337,7 +337,7 @@ export function OperaStatusProbe({ useProjection, useSession }: StatusProbeProps
     })
   })
 
-  // 换会话时这个条目会重新挂载，卸载时清掉，免得状态台留着上一次会话的数字。
+  // and switching sessions remounts this entry, clearing on unmount so the dock does not keep the previous session's numbers.
   useEffect(() => clearStatus, [])
 
   return null

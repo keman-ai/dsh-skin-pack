@@ -53,7 +53,7 @@ const p = TWILIGHT_PALETTE
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。
  */
 export const TWILIGHT_TOKENS: Record<string, string> = {
-  // ── 容器层次 ──
+  // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
   '--dsw-alias-bg-layer-1': p.bg2,
   '--dsw-alias-bg-layer-2': p.surface,
@@ -70,7 +70,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(32, 45, 71, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(255, 255, 255, 0.07)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场两条：`--line: rgba(255,255,255,.08)`（中性）与 `--line2: rgba(255,138,76,.14)`（晚霞橙）。
   // 中性那条撑起全部分层，橙那条只出现在需要"暖一点"的框上——这就是"情绪重点"的用法。
   '--dsw-alias-border-l1': 'rgba(255, 255, 255, 0.06)',
@@ -81,7 +81,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(238, 241, 247, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(238, 241, 247, 0.1)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#e4eaf5',
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -93,7 +93,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': '#241505',
   '--dsw-alias-label-primary-inverted': p.surface2,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 主操作是暖黄（原型 Theme rules：「暖黄色只负责**点亮窗口与按钮**」）。
   // 晚霞橙不做实心大按钮：它是氛围色，铺开会把这张画的黄昏感搬进界面，变得吵。
   '--dsw-alias-brand-primary': p.amber,
@@ -152,7 +152,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(255, 255, 255, 0.1)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(255, 255, 255, 0.2)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(255, 255, 255, 0.26)',

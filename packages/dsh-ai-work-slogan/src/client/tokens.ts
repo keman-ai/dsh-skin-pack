@@ -65,7 +65,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(37, 84, 168, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(255, 255, 255, 0.08)',
 
-  // ── 描边 ──
+  // ── Borders ──
   // 原型全场一条 `--line: rgba(255,255,255,.12)`——**白色半透明**，不是彩色描边。
   // 玻璃面板靠它勾边，这是"玻璃感"的一半。
   '--dsw-alias-border-l1': 'rgba(255, 255, 255, 0.08)',
@@ -76,7 +76,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(23, 59, 113, 0.16)',
   '--dsw-alias-border-inverted2': 'rgba(23, 59, 113, 0.26)',
 
-  // ── 文字 ──
+  // ── Text ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': '#d9e9ff',
   '--dsw-alias-label-primary-dimmed': p.muted,
@@ -88,7 +88,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-label-primary-foreground': p.onWhite,
   '--dsw-alias-label-primary-inverted': p.onWhite,
 
-  // ── 品牌与主按钮 ──
+  // ── Brand and primary button ──
   // 🔴 主操作 = 白。见文件头的说明：在这片蓝上，白是唯一比蓝更强的东西。
   '--dsw-alias-brand-primary': p.white,
   // 文字上的品牌色不能也用白（正文本来就是近白），用亮青蓝拉开层次。
@@ -146,7 +146,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': 'rgba(255, 255, 255, 0.06)',
   '--dsw-alias-markdown-tag': 'rgba(255, 255, 255, 0.1)',
 
-  // ── 滚动条 ──
+  // ── Scrollbar ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(255, 255, 255, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(255, 255, 255, 0.22)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(255, 255, 255, 0.24)',

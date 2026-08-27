@@ -2,10 +2,10 @@
  * AI 工作模式的装饰层。
  *
  * 全部规则挂在 `body[data-dsh-ai-work]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
- * 所以停用皮肤等于这些规则整体失效，不留残迹。
+ * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
- * 🔴 判据写成"没激活 = 插件不存在"，不写成"默认显示、靠皮肤规则去藏"。插件的 JS 要等 bundle
- * 执行完才能给 body 打标记，而 harness 界面在那之前就渲染好了；默认可见的东西会在这段窗口里
+ * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
+ * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
  * 闪出来。
  */
 
