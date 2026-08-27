@@ -1,10 +1,10 @@
 /**
- * 右侧状态台：一条品牌行 + 这场会话的真实状态。
+ * The right-hand dock: a brand row plus this session's real state.
  *
- * 原型稿的右栏是「Current Session / Harness Systems / Work Modes」三张卡。这里做**能对上真实
- * 数据的那些**：等你拿主意、状态与计时、模型、上下文占用与构成、权限模式、用量、待办进度。
- * `Harness Systems` 那五行 ONLINE 和 `Work Modes` 四张模式卡都是纯装饰，harness 没有对应的
- * 心跳投影，不伪造、也不做成装饰卡占位置。
+ * The prototype's right column has three cards: Current Session / Harness Systems / Work Modes. Only **those matching
+ * real data** are built: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage, todo progress.
+ * The five ONLINE rows of `Harness Systems` and the four `Work Modes` cards are pure decoration; the harness has no
+ * heartbeat projection for them, so nothing is fabricated and no placeholder card takes the space.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1

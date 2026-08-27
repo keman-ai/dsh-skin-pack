@@ -1,5 +1,5 @@
 /**
- * 站名的排版。尺寸取自原型稿的 `.brand strong` / `.brand small`
+ * Wordmark typography. Sizes come from the prototype's `.brand strong` / `.brand small`
  * （15px 主名 + 9px 副标，副标 2px 上间距）。
  *
  * 颜色全部走语义 token：主名用品牌文字色、副标用三级文字色，所以用户切到别的主题

@@ -81,13 +81,13 @@ or uninstall the plugin. It is implemented as an 8-second window after startup (
 
 ## Version requirements
 
-需要 **dsh 0.1.1-rc.2 或更新**。品牌位的接管依赖 slot 的 `priority` 影子化；更老的版本上
-这三处注册会抛错并被吞掉，**只是退回官方品牌标**，配色与主视觉照常工作。
+Requires **dsh 0.1.1-rc.2 or newer**. The brand-slot takeover relies on slot `priority` shadowing; on older versions
+these three registrations throw and are swallowed, **merely falling back to the official brand mark**, while the palette and hero keep working.
 
 ## Assets
 
 主视觉是一张 1672×941 的插画，压成 webp（q92，307 KB）内联进 bundle，不外链图床——
-断网 / 内网也要能看。生成方式与分辨率上限写在 `src/client/cover.generated.ts` 的头部注释里。
+from an image host — it has to work offline and on an intranet. How it is generated and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development
 

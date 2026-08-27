@@ -1,10 +1,10 @@
 /**
  * 右侧状态台：缩小版的焚山主视觉 + 这场会话的真实状态。
  *
- * 原型稿的右栏是「Session setup / Workspace context / Keyboard / Theme note」四张卡。这里做
+ * The prototype's right column has four cards: Session setup / Workspace context / Keyboard / Theme note. Only
  * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
- * 待办进度。`Workspace context` 那三行（哪些文件被索引了）harness 没有对应投影，
- * `Keyboard` 是静态速查表——都不伪造、也不做成装饰卡占位置。
+ * todo progress are built. The three Workspace context rows (which files are indexed) have no matching projection,
+ * and `Keyboard` is a static cheat sheet — neither is fabricated, and no placeholder card takes the space.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1

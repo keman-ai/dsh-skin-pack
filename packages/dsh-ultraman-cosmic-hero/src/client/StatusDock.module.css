@@ -4,7 +4,7 @@
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
- * `data-dsh-cosmic-hero` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * stamps `data-dsh-cosmic-hero` onto body, and the harness UI is already rendered before that. During that window the dock
  * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
  * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
@@ -309,7 +309,7 @@
  * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
  * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
- * 同样必须带 `[data-dsh-cosmic-hero]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * This too must carry `[data-dsh-cosmic-hero]`: without it, the main area yields 300px during the window before the skin activates,
  * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-cosmic-hero][data-cosmic-hero-dock-open] > div:first-of-type) {
@@ -363,11 +363,11 @@
 }
 
 /* ==========================================================================
- * 能量核心 —— 原型稿右栏那颗 radial 圆（`Energy Core`）。
+ * The energy core — the radial circle in the prototype's right column (`Energy Core`).
  *
- * 原型里它是死的（固定颜色 + 写死的 STABLE）。这里让它跟着**真实的上下文占用**变色，
- * 用的正是这套皮肤的计时器三色：青（充盈）→ 琥珀（告警）→ 红（告急）。
- * 没有数据时是灰蓝的 idle，不假装"稳定"。
+ * In the prototype it is dead (a fixed colour and a hardcoded STABLE). Here it changes colour with **real context
+ * occupancy**, using this skin's timer colours: cyan (full) → amber (caution) → red (critical).
+ * With no data it sits at a grey-blue idle rather than pretending to be stable.
  * ========================================================================== */
 
 .core {
@@ -398,7 +398,7 @@
   --core-glow: rgba(255, 219, 83, 0.18);
 }
 
-/* 告急态才让红出场——这套皮肤里红是稀缺色，出现即有分量。 */
+/* Red appears only in the critical state — it is scarce in this skin, so its presence carries weight. */
 .core[data-level='critical'] {
   --core-color: #ef3943;
   --core-ring: #4a1013;

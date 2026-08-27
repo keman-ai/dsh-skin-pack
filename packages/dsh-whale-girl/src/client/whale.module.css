@@ -218,7 +218,7 @@
 
 /*
  * `＋ 新建对话` 是整个界面的**主操作**，原型里它是唯一的蓝色实心大按钮（44px 高、10px 圆角）。
- * harness 默认给它次级样式，不改的话主操作反而没有视觉重量。
+ * The harness styles it as secondary by default, leaving the primary action without visual weight unless changed.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.

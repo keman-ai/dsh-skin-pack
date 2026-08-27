@@ -1,12 +1,12 @@
 /**
- * 品牌位的白色方标与站名。
+ * The white square mark and wordmark for the brand slots.
  *
- * 原型稿有两处标：顶栏那枚 34px 的裸标，和 hero 中央那块 84px 的**白色圆角方块**
- *（`background: rgba(255,255,255,.96)`、24px 圆角、一层柔和投影，里面嵌 58px 的鲸鱼图）。
- * 在这片深蓝渐变上，白方块是整屏最亮的一点，也是"品牌"的落点。
+ * The prototype has two marks: the bare 34px one in the top bar, and the 84px **white rounded square** at the
+ * centre of the hero (`background: rgba(255,255,255,.96)`, a 24px radius, a soft shadow, with a 58px whale inside).
+ * Against this deep blue gradient the white square is the brightest point on screen, and where the brand lands.
  *
- * 这里两处都用同一个组件：宿主给多大就画多大，白底方块 + 居中的鲸鱼，圆角按尺寸等比
- *（原型 84px 配 24px 圆角 ≈ 0.29 倍）。
+ * Both places use one component: it draws at whatever size the host gives, a white square with a centred whale and a radius scaled to size
+ * (the prototype's 84px with a 24px radius ≈ 0.29×).
  *
  * 🔴 三个 slot 都是 `{ kind: 'single' }`。以前的结论是"single 已被官方占用，第三方注册直接
  * 抛错"，**那条已经过时**：dsh 0.1.1-rc.2 的 `SlotCore.register` 只在**同一个 priority** 上
@@ -28,13 +28,13 @@ interface BrandMarkProps {
 }
 
 /**
- * 白色方标。
+ * The white square mark.
  *
- * 用 `background-image` 而不是 `<img>`：宿主在 hero 那处会传一个自己的类名进来（保留悬停
- * 动效），套在同一个元素上比包一层更省事，也不会多出一个会被 flex 拉伸的子节点。
+ * `background-image` rather than an `<img>`: on the hero the host passes in a class of its own (preserving the hover
+ * animation), and applying it to one element is simpler than wrapping, with no extra child for flex to stretch.
  *
  * @param props - Size and class name from the host.
- * @returns 白底方标。
+ * @returns The white square mark.
  */
 export function WorkMark({ size, className }: BrandMarkProps) {
   return (
@@ -61,7 +61,7 @@ export function WorkMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「DeepSeek Harness / AI Work Mode」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "DeepSeek Harness / AI Work Mode".
  *
  * @returns The two-line wordmark.
  */

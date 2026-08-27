@@ -1,6 +1,6 @@
-# dsh-ultraman-cosmic-hero · 宇宙英雄
+# dsh-ultraman-cosmic-hero · Cosmic Hero
 
-DeepSeek Harness（dsh）的暗色皮肤：深空蓝黑 + 彩色计时器三色，新会话页是一整幅宇宙英雄主视觉。
+A dark skin for DeepSeek Harness (dsh): deep-space blue-black with the colour timer's three colours, and a full-bleed cosmic hero visual on the new-session page.
 
 ![New session](preview/dark.webp)
 
@@ -8,33 +8,33 @@ DeepSeek Harness（dsh）的暗色皮肤：深空蓝黑 + 彩色计时器三色�
 
 | Surface | Content |
 |---|---|
-| 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（暗色基座），描边全部是带青色倾向的 1px 细线 |
-| 新会话页 | 15px 圆角卡片 + 青描边 + 大投影里铺满主视觉，输入框贴在卡片下沿；进对话页自动收起 |
-| 品牌位 | 侧栏与新会话页的标换成「青芯 / 深蓝环 / 红外壳」的计时器剖面徽标，站名副标 `Cosmic Hero Skin` |
-| 右侧状态台 | 对话页常驻：缩小版主视觉 + 六类真实状态 + **会变色的能量核心**，可收起（记住选择） |
+| Palette | A full set of `--dsw-alias-*` / `--dsw-specific-*` semantic tokens on the dark base, with every border a 1px line tinted cyan |
+| New session | The visual fills a 15px-radius card with a cyan border and a large shadow, the composer sitting at its lower edge; it collapses on entering a conversation |
+| Brand slots | The sidebar and new-session marks become a timer cross-section badge — cyan core, deep-blue ring, red shell — with the subtitle `Cosmic Hero Skin` |
+| Status dock | Always present on the conversation page: a reduced visual, six kinds of real state and **an energy core that changes colour**, collapsible (the choice is remembered) |
 
-### 配色分工（从原型稿读出来的）
+### The colour division (read from the prototype)
 
-- **蓝**＝主操作，界面里唯一的实心大按钮（`＋ 新会话`）；
-- **青**＝描边、图标、以及「正在运行」；
-- **绿**＝就绪 / 成功；**琥珀**＝需要你确认的操作；
-- **红是稀缺色**——原型里它只出现在徽标外圈上，所以这里只留给错误态，一出现就有分量。
+- **Blue** = the primary action, the interface's only large solid button (`+ New session`);
+- **Cyan** = borders, icons and running;
+- **Green** = ready and success; **amber** = actions needing your confirmation;
+- **Red is scarce** — in the prototype it appears only on the badge's outer ring, so here it is reserved for errors and carries weight whenever it shows.
 
-### 能量核心是真的
+### The energy core is real
 
-原型稿右栏那颗 `Energy Core` 是装饰：固定颜色 + 写死的 `STABLE`。这里让它跟着**真实的上下文
-占用**变色，用的正是彩色计时器的三色：
+The `Energy Core` in the prototype's right column is decoration: a fixed colour and a hardcoded `STABLE`. Here it
+follows **real context occupancy**, using exactly the colour timer's three colours:
 
-| 占用 | 核心 | 核心状态 |
+| Occupancy | Core | Core state |
 |---|---|---|
-| < 60% | 青 | `STABLE` |
-| < 85% | 琥珀 | `CAUTION` |
-| ≥ 85% | 红 | `CRITICAL` |
-| 无数据 | 灰蓝 | `—`（不假装稳定） |
+| < 60% | Cyan | `STABLE` |
+| < 85% | Amber | `CAUTION` |
+| ≥ 85% | Red | `CRITICAL` |
+| No data | Grey-blue | `—` (it does not pretend to be stable) |
 
-上方的占用条用同一套分档取**单色**，而不是照抄原型那条三色渐变——原型的条宽写死 72%，
-渐变铺在上面刚好读成"青→琥珀→红"；而我们的条宽等于真实占用，占用 3% 时整条渐变会被压进 3%
-的宽度里，三色挤成一小撮，看着像已经告急，与事实相反。
+The occupancy bar above takes **one colour** per band rather than copying the prototype's three-colour gradient — the
+prototype's bar is a hardcoded 72% wide, across which the gradient reads cyan → amber → red, while ours is as wide as
+the real occupancy: at 3% the whole gradient compresses into 3%, crushing three colours together and reading as critical when the opposite is true.
 
 ### What the status dock shows
 
@@ -43,11 +43,11 @@ DeepSeek Harness（dsh）的暗色皮肤：深空蓝黑 + 彩色计时器三色�
 | Waiting on you | Tools awaiting approval, questions awaiting an answer | `ConversationSnapshot.pending`. **Appears only when something is genuinely waiting** |
 | Current Session | State, elapsed turn time, current tool duration, inbox, model | `running` / `turnTimings` / `runningCalls` / `queue`; the model comes from the latest assistant message's `provenance.model` |
 | Context | Occupancy %, token load, and the System / tool-schema / conversation composition bar | The `contextPressure` and `contextBreakdown` projections |
-| Energy Core | 核心颜色与状态 | 由上面的占用推导，见上表 |
+| Energy Core | The core's colour and state | Derived from the occupancy above; see the table |
 | Permission | The active permission and sandbox mode | The `permissions` projection |
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
-| 光线调用 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
+| Beam calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
 | Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
@@ -56,12 +56,12 @@ DeepSeek Harness（dsh）的暗色皮肤：深空蓝黑 + 彩色计时器三色�
 ⚠️ **Composition is not a total**: the three `contextBreakdown` figures use fixed-density estimates (systematically low for Chinese and JSON schema)
 and **do not add up** to the token load, which is anchored to the provider's reported value. The UI says so too.
 
-原型右栏的「Harness Systems」那五行 ONLINE 与两张「Hero Modes」模式卡都是纯装饰，
-harness 没有对应投影——不做，也不拿假数据凑。
+The five ONLINE rows under Harness Systems and the two Hero Modes cards in the prototype's right column are pure decoration;
+the harness has no matching projection, so they are not built and no fake data fills the space.
 
 ## Install
 
-**皮肤集市**（推荐）：在皮肤集市里搜「宇宙英雄」安装，装完**重启 dsh**。
+**Skin market** (recommended): search for "Cosmic Hero" in the market and install, then **restart dsh**.
 
 Manual install (during development):
 
@@ -69,7 +69,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-ultraman-cosmic-hero
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-ultraman-cosmic-hero 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-ultraman-cosmic-hero to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -83,20 +83,20 @@ switching manually requires the skin market's own panel (**Settings → Skin Mar
 The cost: **it reapplies on every refresh**, so switching away lasts only for that session. To change permanently, set `autoApply` to `false`
 or uninstall the plugin. It is implemented as an 8-second window after startup (long enough to outlast the Host preference snapshot), after which it lets go entirely.
 
-## 关于文案
+## About the copy
 
-**本皮肤不替换任何宿主文案。** 这份原型稿只画了 New Session 一屏，没有 Agent 文案规范；
-没有依据就自己加人格化台词是加戏。前面几套皮肤替换文案，是因为它们的设计稿里明确列了对照表。
+**This skin replaces no host copy.** The prototype draws only the New Session screen and gives no agent-copy specification;
+inventing personified lines without a basis is embellishment. Earlier skins replaced copy because their drafts listed an explicit mapping.
 
 ## Version requirements
 
-需要 **dsh 0.1.1-rc.2 或更新**。品牌位的接管依赖 slot 的 `priority` 影子化；更老的版本上
-这三处注册会抛错并被吞掉，**只是退回官方品牌标**，配色与主视觉照常工作。
+Requires **dsh 0.1.1-rc.2 or newer**. The brand-slot takeover relies on slot `priority` shadowing; on older versions
+these three registrations throw and are swallowed, **merely falling back to the official brand mark**, while the palette and hero keep working.
 
 ## Assets
 
-主视觉是一张 2048×1150 的插画，压成 webp（q92，215 KB）内联进 bundle，不外链图床——
-断网 / 内网也要能看。生成方式与分辨率上限写在 `src/client/cover.generated.ts` 的头部注释里。
+The hero is a 2048×1150 illustration compressed to webp (q92, 215 KB) and inlined into the bundle rather than linked
+from an image host — it has to work offline and on an intranet. How it is generated and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development
 

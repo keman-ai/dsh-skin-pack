@@ -1,8 +1,8 @@
 /**
- * 站名的排版。尺寸取自原型稿的 `.brand strong` / `.brand small`
- * （13px 主名、9px 副标、2px 上间距，副标是次级蓝灰）。
+ * Wordmark typography. Sizes come from the prototype's `.brand strong` / `.brand small`
+ * (a 13px primary name, a 9px subtitle, 2px of space above; the subtitle in the secondary blue-grey).
  *
- * 颜色全部走语义 token，即使用户切到别的主题也不会出现看不清的字。
+ * Every colour goes through semantic tokens, so nothing becomes illegible even after the user switches theme.
  */
 
 .name {

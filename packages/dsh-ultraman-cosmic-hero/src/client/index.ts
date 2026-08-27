@@ -1,11 +1,11 @@
 /**
- * Cosmic Hero · 浏览器半。
+ * Cosmic Hero · browser half.
  *
  * It does four things, in decreasing order of robustness, hence kept separate:
  *
  * 1. **Register the theme** — the palette goes to `ctx.theme`, and the presenter paints it as inline variables on body.
  *    It depends on semantic tokens only, and harness redesigns do not change what a token means, so this layer lasts.
- * 2. **挂主视觉** —— 往 body 打一个自有属性、把主视觉以 CSS 变量交给样式表。只用自己的属性和
+ * 2. **Mount the hero visual** — stamp our own attribute on body and hand the visual to the stylesheet as a CSS variable. Only our own attributes and
  *    our own variables; no hooks into harness class names or structure.
  * 3. **Take over the brand slots** — shadow the official mark and wordmark with `priority: -1` (see Brand.tsx).
  *    This one is bound to the active state: deactivating deregisters it and the official mark returns.
@@ -47,7 +47,7 @@ const DOCK_OPEN_ATTRIBUTE = 'data-cosmic-hero-dock-open'
 const DOCK_STORAGE_KEY = 'cosmic-hero'
 
 /**
- * 封面地址。由 host 半在 `/skin-cover/cosmic-hero.webp` 上提供（见 src/index.ts 的 COVER_ROUTE）。
+ * The cover URL, served by the host half at `/skin-cover/cosmic-hero.webp` (see COVER_ROUTE in src/index.ts).
  *
  * 🔴 No more inline data URIs: with several skins loaded, a few hundred KB of base64 each crushes the browser's
  * main thread (measured: with 21 installed the first paint did not arrive in 90 seconds). The browser now fetches

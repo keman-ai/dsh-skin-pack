@@ -98,7 +98,7 @@ rm -rf ~/.dsh/profiles/web/node_modules/dsh-whale-girl
 ## Assets
 
 封面是一张 1672×941 的插画，压成 webp（q92，427 KB）内联进 bundle，不外链图床——
-断网 / 内网也要能看。生成方式与分辨率上限写在 `src/client/cover.generated.ts` 的头部注释里。
+from an image host — it has to work offline and on an intranet. How it is generated and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development
 

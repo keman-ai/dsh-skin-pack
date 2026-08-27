@@ -1,32 +1,32 @@
 /**
- * AI 工作模式的装饰层。
+ * The AI Work Mode decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-ai-work]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-ai-work]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
  * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
- * 闪出来。
+ * would flash into view.
  */
 
 /* ==========================================================================
- * 底：一整片渐变，不是一块实色。
+ * The ground: one gradient, not a flat colour.
  *
- * 原型稿的 `.app` 背景是
+ * The prototype's `.app` background is
  *   radial-gradient(circle at 50% -12%, rgba(67,132,255,.18), transparent 30%),
  *   linear-gradient(180deg,#071936 0%,#0a2a60 62%,#2f79ef 100%)
- * ——**越往下越亮**，跟常规暗色主题相反，配上顶部一团蓝光。所有面板都是半透明玻璃浮在它上面
- *（见 tokens.ts 里那一堆 rgba）。
+ * — **brighter towards the bottom**, the reverse of a usual dark theme, with a pool of blue light at the top. Every panel is translucent glass floating on it
+ * (see the run of rgba values in tokens.ts).
  *
- * 🔴 铺在**哪一层**是实测出来的，不是猜的。
+ * 🔴 **Which layer** it goes on was measured, not guessed.
  *
- * 第一版铺在根容器（`> div:first-of-type`）上，界面却是一片平的深蓝——探针一量才看到：
- * 真正铺满视口、且画着不透明 `bg-base` 的是里面那层 `_frame`，它把根容器上的渐变整个盖住了。
- * 所以渐变要画在 `_frame` 自己身上（`background-image` 画在 `background-color` 之上，天然覆盖）。
+ * The first version painted it on the root container (`> div:first-of-type`) and the UI came out flat deep blue — probing showed why:
+ * the layer that actually fills the viewport and paints an opaque `bg-base` is `_frame` inside it, which covered the root's gradient entirely.
+ * So the gradient must be painted on `_frame` itself (a `background-image` is drawn above `background-color` and naturally covers it).
  *
- * 两条都写：`_frame` 是命中项，根容器那条是它改名后的兜底（那时至少不会全黑，只是层级不同）。
- * ⚠️ `_frame` 是 CSS Module 哈希类名，属于降级区：宿主改版后渐变会退回平色 `bg-base`，
- * 不报错、其余配色照常。
+ * Both rules are kept: `_frame` is the hit, and the root-container rule is the fallback if it is renamed (the result is then merely a different layer, not a black screen).
+ * ⚠️ `_frame` is a hashed CSS Module class and belongs to the degradation zone: after a host redesign the gradient reverts to flat `bg-base`,
+ * without an error and with the rest of the palette unaffected.
  * ========================================================================== */
 :global(body[data-dsh-ai-work] > div:first-of-type),
 :global(body[data-dsh-ai-work] [class*='_frame']) {
@@ -37,64 +37,64 @@
 }
 
 /*
- * 🔴 让中间那列透出渐变。
+ * 🔴 Letting the middle column show the gradient.
  *
- * 第二次实测才找到的：`_frame` 上画好渐变之后界面**仍然是平的**——因为 ConversationRoot
- *（也就是 `[data-phase]` 那个元素）自己又画了一整块不透明的 `bg-base`，1320×950 盖在中间列上。
- * 把它设成透明，渐变才真的看得见。
+ * Found on the second round of measurement: with the gradient on `_frame` the UI was **still flat** — because
+ * ConversationRoot (the `[data-phase]` element) paints its own opaque `bg-base`, 1320×950, over the middle column.
+ * Only once it is transparent does the gradient truly show.
  *
- * 锚点用语义属性 `[data-phase]` 而不是哈希类名：它是对外契约，比 `_1Onn0a_root` 稳。
+ * The anchor is the semantic `[data-phase]` attribute rather than a hashed class: it is a public contract and far sturdier than `_1Onn0a_root`.
  */
 :global(body[data-dsh-ai-work] [data-phase]) {
   background: transparent;
 }
 
 /*
- * 侧栏与右栏：只加一条分隔线，**不做磨砂**。
+ * Sidebar and right column: a divider only, **no frosting**.
  *
- * 🔴 这里原本是 `backdrop-filter: blur(14px)`，两次翻车后拿掉：
+ * 🔴 This was `backdrop-filter: blur(14px)` and was removed after breaking twice:
  *
- *   1. 挂在侧栏容器上时，它给 **fixed 定位的后代创建了包含块**（和 `filter`、`transform`
- *      同一类行为）。「设置」按钮就在侧栏里，它打开的设置弹窗是 fixed 的——于是弹窗不再相对
- *      视口定位，被钉进侧栏那 280px 的盒子，整个设置面板被压成左边一条竖排文字。
- *   2. 改挂到 `::before` 伪元素后，弹窗正常了，但侧栏里**非直接子元素**（品牌行、底部那条）
- *      仍然落在模糊层之下被糊掉——要救得逐个提层级，等于跟宿主的 DOM 结构较劲。
+ *   1. On the sidebar container it **creates a containing block for fixed-position descendants** (the same behaviour
+ *      as `filter` and `transform`). The Settings button lives in the sidebar and opens a fixed modal — which then
+ *      stopped being positioned against the viewport, got pinned inside the sidebar's 280px box, and was squeezed into a vertical strip of text.
+ *   2. Moving it to a `::before` fixed the modal, but the sidebar's **non-direct children** (the brand row, the
+ *      bottom row) still fell beneath the blur and were smeared — rescuing them meant raising each one's layer, i.e. fighting the host's DOM.
  *
- * 底色在 tokens 里已经是半透明 rgba，渐变照样透得出来，少的只是那层模糊。
- * 用两个难查的定位/层级 bug 换一点点磨砂，不值。
+ * The grounds in tokens are already translucent rgba, so the gradient still shows through; only the blur is missing.
+ * Two hard-to-diagnose positioning and layering bugs are not worth a little frosting.
  */
 :global(body[data-dsh-ai-work] [class*='_sidebarCol']) {
   border-right: 1px solid var(--dsw-alias-border-l2);
 }
 
 /* ==========================================================================
- * 空屏的口号。
+ * The slogan on the empty screen.
  *
- * 这套原型稿的主视觉**不是图，是一句话**——`<h1>工作你不干，有的是 AI 干</h1>` 配一行副标，
- * 底下四张能力卡。所以这套皮肤的 hero 处理跟前几套完全不同：没有封面图要铺，要做的是把
- * harness 那行标题**换成这句口号**。
+ * This prototype's hero visual is **not an image but a sentence** — an `<h1>` slogan with a subtitle beneath and
+ * four capability cards below. So this skin's hero differs entirely from the others: there is no cover to spread, and the job is to
+ * **replace the harness's heading with that slogan**.
  *
- * 🔴 harness 不允许第三方覆盖内置文案（`locale.register` 同名直接抛错，只给新增不给替换），
- * 所以走伪元素：把原文 `font-size: 0` 收起来，用 `::after` 显示口号。代价是**所有语言**都会
- * 看到这句中文——这套皮肤本来就是中文口号皮肤，接受；但要写在 README 里。
+ * 🔴 The harness forbids third parties overriding built-in copy (`locale.register` throws on a duplicate name; addition only, never replacement),
+ * so this goes through a pseudo-element: the original is collapsed with `font-size: 0` and `::after` shows the slogan. The cost is that the Chinese slogan appears
+ * in **every language** — acceptable for a Chinese-slogan skin by design, but it belongs in the README.
  *
- * 锚点是实测出来的（playwright 打的 DOM 树）：
- *   .ZErCpa_headline > span.ZErCpa_headlineText   ← "探索未至之境"
- *   .ZErCpa_headline ~ .ZErCpa_body               ← 标题下方的空容器，正好放副标
- * 两个都是 CSS Module 哈希类名，属于降级区：改版会让口号退回宿主原文，不报错。
+ * The anchors were measured from a DOM tree dumped with playwright:
+ *   .ZErCpa_headline > span.ZErCpa_headlineText   ← the host's own heading text
+ *   .ZErCpa_headline ~ .ZErCpa_body               ← the empty container below the heading, exactly right for the subtitle
+ * Both are hashed CSS Module classes and belong to the degradation zone: a redesign reverts the slogan to the host's own text, without an error.
  * ========================================================================== */
 /*
- * ⚠️ 选择器要写成 `_headline` 但排除 `_headlineText`——子串匹配下前者会把后者一起选中
- *（`ZErCpa_headlineText` 里就含 `_headline`）。第一版没排除，结果那颗状态胶囊在标题里画了一遍、
- * 又在口号文字里画了一遍，后者被 `font-size: 0` 的窄盒子挤成了竖排的一条。
+ * ⚠️ The selector must target `_headline` while excluding `_headlineText` — by substring the former also matches the
+ * latter (`ZErCpa_headlineText` contains `_headline`). Without the exclusion the status pill was painted once in the
+ * heading and again inside the slogan text, where the `font-size: 0` box squeezed it into a vertical strip.
  */
 
 /*
- * 🔴 版式：标 → 口号 → 副标，**竖着排**。
+ * 🔴 Layout: mark → slogan → subtitle, **stacked vertically**.
  *
- * harness 的标题行是一条 flex 横排（标 · 文字 · 预览版徽标），所以第一版做出来是"小图标贴在
- * 口号左边"，跟原型完全不是一回事——原型是一块 84px 的白方块**居中压在口号正上方**。
- * 把这行改成 column 居中即可，DOM 一个都不用动。
+ * The harness's heading is a horizontal flex row (mark · text · preview badge), so the first version put a small icon
+ * beside the slogan — nothing like the prototype, where an 84px white square sits **centred directly above** it.
+ * Changing that row to a centred column is enough; not one DOM node has to move.
  */
 :global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headline']:not([class*='_headlineText'])) {
   display: flex;
@@ -104,10 +104,10 @@
 }
 
 /*
- * 白方块放大到原型的量级。
+ * Enlarging the white square to the prototype's scale.
  *
- * 宿主只给 34px，而这里要的是 84px 量级：`--mark-size` 由品牌位组件读取（见 Brand.tsx），
- * 覆盖它就能放大，不必跟内联样式抢优先级。外面那层 hitbox 自带 34px 宽高，一并放开。
+ * The host gives only 34px where 84px is wanted: `--mark-size` is read by the brand component (see Brand.tsx),
+ * so overriding it enlarges without fighting inline-style precedence. The hitbox around it carries its own 34px and is released too.
  */
 :global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_fishHitbox']) {
   --mark-size: clamp(56px, 5vw, 78px);
@@ -116,11 +116,11 @@
 }
 
 /*
- * 口号：原型是 clamp(34px, 4.2vw, 68px)。
+ * The slogan: the prototype uses clamp(34px, 4.2vw, 68px).
  *
- * ⚠️ 第一版收到了 clamp(22px,2.4vw,38px)，怕把输入框挤下去——结果是"字不够大"，
- * 整屏没有重量。实测这块上方有 600px 以上的空间，放到 54px 完全放得下，
- * 于是按原型的量级给回去，只把上限收一点点（原型是整页落地页，这里下面还有输入区）。
+ * ⚠️ The first version shrank it to clamp(22px,2.4vw,38px) for fear of pushing the composer down — and the result was
+ * type too small to carry the screen. Measurement showed over 600px of space above, easily enough for 54px,
+ * so the prototype's scale was restored with only the ceiling trimmed (the prototype is a full landing page; here a composer sits below).
  */
 :global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headlineText']) {
   font-size: 0;
@@ -139,8 +139,8 @@
 }
 
 /*
- * 顶部那颗状态胶囊（原型 `.kicker`：一个绿点 + 「DeepSeek Harness · AI Work Mode」）。
- * 挂在标题行的 `::before` 上，column 排版下它天然落在白方块之上。
+ * The status pill at the top (the prototype's `.kicker`: a green dot plus "DeepSeek Harness · AI Work Mode").
+ * It hangs on the heading's `::before`, and in the column layout falls naturally above the white square.
  */
 :global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headline']:not([class*='_headlineText']))::before {
   content: '● DeepSeek Harness · AI Work Mode';
@@ -154,7 +154,7 @@
   letter-spacing: 0.02em;
 }
 
-/* 副标：原型 `.sub` 那段"从深度调研、定时任务，到制作 PPT……"。 */
+/* The subtitle: the prototype's `.sub` paragraph listing what the agent handles. */
 :global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_headline']:not([class*='_headlineText']) ~ [class*='_body'])::after {
   content: '从深度调研、定时任务，到制作 PPT、处理文档表格、整理文件、调用工具与执行多步骤工作流，都交给 DeepSeek Harness。';
   display: block;
@@ -167,8 +167,8 @@
 }
 
 /*
- * ⚠️ 原型 hero 底部那两颗 CTA（开始让 AI 干活 / 查看执行轨迹）与四张能力卡**没有做**。
- * 在真实产品里那块位置属于输入框和工作区选择器：CTA 会和"发送"重复，四张静态卡会把主操作
+ * ⚠️ The two CTAs at the bottom of the prototype's hero and its four capability cards are **not implemented**.
+ * In the real product that space belongs to the composer and workspace picker: a CTA would duplicate Send, and four static cards would push the primary action
  * 挤下去，而且它们都不表达任何运行时状态。
  */
 

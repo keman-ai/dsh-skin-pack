@@ -11,19 +11,19 @@
  * Anchors prefer the harness's semantic `data-*` attributes (a public contract that survives redesigns); only
  * where no attribute exists do they fall back to `[class*='_xxx']` prefix matches on hashed CSS Module names — all gathered in the degradation zone at the end of the file.
  *
- * ⚠️ 这套原型稿**没有** Agent 文案规范（它只画了 New Session 一屏），所以这里**不替换任何宿主
- * 文案**：没有依据的人格化文案是自己加戏。前两套皮肤替换文案是因为设计稿明确列了对照表。
+ * ⚠️ This prototype has **no** agent-copy specification (it draws only the New Session screen), so **no host copy is
+ * replaced**: unfounded personified copy is embellishment. The two earlier skins replaced copy because their drafts listed an explicit mapping.
  */
 
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 原型稿的 hero 是**一张卡片**：外层 `.hero-wrap` 给 14px 内边距，卡片本身 15px 圆角、
+ * The prototype's hero is **a card**: `.hero-wrap` gives 14px of padding, and the card itself has a 15px radius,
  * 火光橙描边、大投影，图 `object-fit: cover` 铺满。这里照做。
  *
  * `data-phase` has three states, `settling / hero / active`. `settling` means the session is still replaying and
  * it is unknown whether it lands on hero or the conversation; the harness hides the composer then precisely so as not to guess, and this takes the same stance:
- * **不抢先画**（抢画会闪一下再消失）。对话页与轨迹页一点不铺——主视觉只属于空屏。
+ * **paint nothing early** (painting early flashes then vanishes). Nothing is spread on the conversation or trajectory pages — the hero belongs to the empty screen alone.
  * ========================================================================== */
 
 /*
@@ -56,9 +56,9 @@
 }
 
 /*
- * 压幕。原型只压了很轻的一层（`linear-gradient(180deg,rgba(0,0,0,.04),transparent 60%,
- * rgba(0,0,0,.2))`），因为它的 hero 上没有输入框；我们的输入框要贴在卡片下沿，所以底部再多压
- * 一段，保证 placeholder 与控件读得清。上半张画面维持原样，不去压英雄。
+ * The scrim. The prototype darkens only lightly (`linear-gradient(180deg,rgba(0,0,0,.04),transparent 60%,
+ * rgba(0,0,0,.2))`) because its hero has no composer; ours sits at the card's lower edge, so the bottom is darkened
+ * a little more to keep the placeholder and controls legible. The upper half is left alone, so the hero is not dimmed.
  */
 :global(body[data-dsh-ultrateam] [data-phase='hero'])::after {
   content: '';
@@ -82,7 +82,7 @@
 }
 
 /*
- * 输入区贴底 —— 压在卡片下沿，像原型那颗浮在 hero 底部的胶囊工具条。
+ * The composer sits at the bottom, on the card's lower edge, like the prototype's pill toolbar floating there.
  *
  * 🔴 The centring is not the composer's own; it comes from an ancestor's `justify-content: center`
  * (`.root[data-phase='hero'] .scrollBody`) — changing the composer's own margin has no effect whatsoever.
@@ -104,7 +104,7 @@
   padding-bottom: 10px;
 }
 
-/* 对话页：消息滚到输入框附近自然淡出，而不是被硬边切断。 */
+/* Conversation: messages fade out near the composer rather than being cut by a hard edge. */
 :global(body[data-dsh-ultrateam] [data-composer-seat]) {
   background: linear-gradient(180deg, rgba(3, 8, 16, 0) 0%, var(--dsw-alias-bg-base) 26%);
 }
@@ -114,7 +114,7 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：11px 圆角（对齐原型 `.card`）。 */
+/* User messages: an 11px radius, matching the prototype's `.card`. */
 :global(body[data-dsh-ultrateam] [data-chat-flow-kind='user']) {
   border-radius: 11px;
 }
@@ -131,7 +131,7 @@
   opacity: 1;
 }
 
-/* 本轮失败：左侧一道红——这套皮肤里红只出现在错误上，所以它一出现就很显眼。 */
+/* A failed turn: a red stripe on the left — red appears only on errors in this skin, so it stands out the moment it does. */
 :global(body[data-dsh-ultrateam] [data-chat-flow-kind='turn-error']) {
   box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
   border-radius: 9px;
@@ -139,10 +139,10 @@
 }
 
 /*
- * 权限确认卡：琥珀底 + 琥珀描边（计时器三色的中段，代表"该由你决定了"）。
+ * The permission card: an amber ground with an amber border — the timer's middle band, meaning it is yours to decide.
  *
- * ⚠️ 这条的锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里节点
- * 类型的 `kind === 'approval'`（由 ChatNodeSeat 渲染成 data-chat-flow-kind）。
+ * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file. The
+ * value comes from `kind === 'approval'` in the harness source (rendered by ChatNodeSeat as data-chat-flow-kind).
  * On a mismatch this rule simply does not apply, leaving the rest unaffected.
  */
 :global(body[data-dsh-ultrateam] [data-chat-flow-kind='approval']) {
@@ -227,10 +227,10 @@
 /*
  * 右侧详情栏的卡片语言：两级竖向渐变 + 橙描边（原型 `.card`）。
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「Current Mission / Harness Systems / Hero Modes /
- * Energy Core」四张卡，其中 `Harness Systems` 那五行 ONLINE 和 `Hero Modes` 两张模式卡都是
- * 纯装饰，harness 没有对应的心跳投影，本皮肤不伪造（见 StatusDock）。这里只做视觉语言对齐，
- * 不去接管官方那根详情栏——它装的是工具调用的 Input / Output，是排障唯一线索。
+ * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Mission / Harness Systems / Hero Modes /
+ * Energy Core — of which the five ONLINE rows under `Harness Systems` and the two `Hero Modes` cards are pure
+ * decoration with no matching heartbeat projection, and this skin does not fabricate them (see StatusDock). Only the
+ * visual language is aligned here; the official details rail is not taken over — it holds a tool call's Input / Output, the only lead there is when debugging.
  */
 :global(body[data-dsh-ultrateam] [data-slot='details'] [class*='_section']) {
   background-image: linear-gradient(180deg, #251311, #1a1010);

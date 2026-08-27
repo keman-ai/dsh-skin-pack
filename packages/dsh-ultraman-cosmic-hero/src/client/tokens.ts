@@ -1,18 +1,18 @@
 /**
- * 宇宙英雄的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Cosmic Hero's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。harness 改版会动
- * class 名和布局，但不会动语义 token 的含义，所以这层能长期活着。
+ * these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale. A harness redesign changes
+ * class names and layout but not what a semantic token means, so this layer lasts.
  *
- * 🔴 这套配色最要紧的一条：**红是稀缺色**。原型里红只出现在三处——logo 的外圈、头像渐变、
- * 「当前模式」卡的描边，其余全是深空蓝黑 + 青。所以映射时红只给 `state-error-*`，绝不拿它
- * 做主操作或运行态；主操作是**蓝**（`.new` 那颗 `linear-gradient(135deg,#1a7dff,#2154d7)`），
- * 运行态是**青**。
+ * 🔴 The most important rule of this palette: **red is scarce**. The prototype uses it in three places only — the logo's
+ * outer ring, the avatar gradient and the current-mode card's border — everything else is deep-space blue-black and cyan.
+ * So red maps only to `state-error-*` and never to the primary action or the running state; the primary action is **blue**
+ * (`.new`'s `linear-gradient(135deg,#1a7dff,#2154d7)`) and running is **cyan**.
  *
- * 另一条：原型的能量条是 `linear-gradient(90deg,#22d8ff,#ffdb53,#ef3943)`——青 → 琥珀 → 红，
- * 正是彩色计时器由充盈到告急的顺序。这个三色序在状态台里被复用成"上下文占用条"和"能量核心"，
- * 让占用变高这件事自己讲出紧迫感（见 StatusDock.module.css）。
+ * And another: the prototype's energy bar is `linear-gradient(90deg,#22d8ff,#ffdb53,#ef3943)` — cyan → amber → red,
+ * exactly the colour timer's order from full to critical. That sequence is reused in the dock for the occupancy bar and
+ * the energy core, letting rising occupancy convey its own urgency (see StatusDock.module.css).
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
@@ -46,8 +46,8 @@ const p = COSMIC_PALETTE
 /**
  * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。覆盖集不完整是有意的——列全反而会把将来
- * 新增的内置 token 挡在外面。
+ * Only **what changes** is written; unlisted tokens inherit the harness's built-in dark base. The incomplete override set
+ * is deliberate — listing everything would shut out built-in tokens added later.
  */
 export const COSMIC_TOKENS: Record<string, string> = {
   // ── Container layers ──

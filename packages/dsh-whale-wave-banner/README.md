@@ -53,7 +53,7 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 原型右栏那五行「Harness Systems ONLINE」是纯装饰、`Theme Mode` 三行是写死的主题说明——
 都不做，不拿假数据凑。
 
-## 关于文案
+## About the copy
 
 **本皮肤不替换任何宿主文案。** 这份原型稿没有 Agent 文案规范，没有依据就自己加人格化台词是加戏。
 
@@ -83,7 +83,7 @@ The cost: **it reapplies on every refresh**, so switching away lasts only for th
 
 ## Version requirements
 
-需要 **dsh 0.1.1-rc.2 或更新**。品牌位的接管依赖 slot 的 `priority` 影子化；更老的版本上
+Requires **dsh 0.1.1-rc.2 or newer**. The brand-slot takeover relies on slot `priority` shadowing; on older versions
 这三处注册会抛错并被吞掉，**只是退回官方品牌标**，配色与横幅照常工作。
 
 ## Assets

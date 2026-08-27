@@ -1,6 +1,6 @@
 /**
- * 白色方标与站名。尺寸取自原型稿的 `.hero-mark`（84px 方块 / 24px 圆角 / 柔投影）
- * 与 `.brand strong` / `.brand small`（14px 主名、9px 副标）。
+ * The white square mark and wordmark. Sizes come from the prototype's `.hero-mark` (an 84px square, a 24px radius, a soft shadow)
+ * and `.brand strong` / `.brand small` (a 14px primary name, a 9px subtitle).
  */
 
 .mark {

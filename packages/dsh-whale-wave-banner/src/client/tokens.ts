@@ -2,8 +2,8 @@
  * 鲸跃横幅的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。harness 改版会动
- * class 名和布局，但不会动语义 token 的含义，所以这层能长期活着。
+ * these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale. A harness redesign changes
+ * class names and layout but not what a semantic token means, so this layer lasts.
  *
  * 🔴 原型稿 Appearance 面板里的第 4 条实现建议是硬约束：
  * 「色彩尽量控制在 **DeepSeek 蓝 + 白 + 极浅灰蓝**，保持轻、干净、品牌化」。
