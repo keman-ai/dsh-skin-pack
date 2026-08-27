@@ -5,8 +5,8 @@
  *
  * 1. **Register the theme** — the palette goes to `ctx.theme`, and the presenter paints it as inline variables on body.
  *    It depends on semantic tokens only, and harness redesigns do not change what a token means, so this layer lasts.
- * 2. **打 body 标记** —— 装饰 CSS 全挂在这个自有属性下。这套没有主视觉图要注入，
- *    空屏的口号与白色方标分别由样式表和品牌位组件负责。
+ * 2. **Stamp the body marker** — all the decoration CSS hangs under this own attribute. This skin has no hero image to inject;
+ *    the empty screen's slogan and white mark are handled by the stylesheet and the brand component respectively.
  * 3. **Take over the brand slots** — shadow the official mark and wordmark with `priority: -1` (see Brand.tsx).
  *    This one is bound to the active state: deactivating deregisters it and the official mark returns.
  * 4. **The right-hand dock** — our own fixed column plus a zero-render probe (see StatusDock / StatusProbe).
@@ -45,11 +45,11 @@ const DOCK_OPEN_ATTRIBUTE = 'data-ai-work-dock-open'
 const DOCK_STORAGE_KEY = 'ai-work.dock.open'
 
 /*
- * ⚠️ 这套皮肤**没有主视觉图**，所以也没有"把封面塞进 CSS 变量"那一步。
+ * ⚠️ This skin has **no hero image**, so there is no step that pushes a cover into a CSS variable.
  *
- * 它的空屏靠一句口号 + 一块白色方标（见 aiwork.module.css 与 Brand.tsx），鲸鱼标由品牌位组件
- * 自己引用常量渲染。前几套皮肤在这里注入 `--xxx-cover`，这套删掉——留着一个没人读的变量，
- * 下一个看代码的人会去找那张不存在的图。
+ * Its empty screen rests on a slogan plus a white square mark (see aiwork.module.css and Brand.tsx), with the whale rendered by the brand component
+ * from its own constant. Earlier skins inject `--xxx-cover` here; this one drops it — leaving a variable nobody reads sends
+ * the next reader hunting for an image that does not exist.
  */
 
 /**
@@ -98,7 +98,7 @@ export function apply(ctx: Context, config: Config = {}): void {
    * priority), but that rail holds "click a tool call to see its Input / Output", the only lead there is when
    * debugging, so replacing it with a dock is a net loss. Both coexist without interfering.
    *
-   * 挂载不区分皮肤是否激活，可见性交给 CSS（`body[data-dsh-ai-work]` 才 display）——
+   * Mounting does not depend on whether the skin is active; visibility is left to CSS (display only under `body[data-dsh-ai-work]`) —
    * The rule is "not active means not present", so no half-built UI shows during the window before the skin takes effect.
    */
   ctx.effect(() => mountDock(), 'ai-work: status dock')
@@ -201,7 +201,7 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
     return false
   }
   if (scope[CLAIM_KEY] !== undefined) {
-    ctx.logger.info('[ai-work] 已有皮肤占了自动应用名额（%s），本套改为待选', String(scope[CLAIM_KEY]))
+    ctx.logger.info('[ai-work] another skin already claimed the auto-apply slot (%s); this one waits to be picked', String(scope[CLAIM_KEY]))
     return false
   }
   scope[CLAIM_KEY] = THEME_ID
@@ -230,7 +230,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
    * Whether the startup window has passed. Inside it the theme is held; after it, nothing is touched.
    *
    * 🔴 It cannot be "stop after one successful switch": ui-theme's `setTheme` persists built-in preferences only
-   *（`isThemePreference('ai-work')` 是 false，第三方 id 根本不进持久化），而 Host 快照到达时
+   * (`isThemePreference('ai-work')` is false and third-party ids never reach persistence), and when the Host snapshot arrives
    * `adopt()` **overrides** the current preference with the built-in value from disk. Once the order is
    * plugin-switches-then-snapshot-arrives, the skin is quietly swapped back **with no error at all**, and the plugin
    * has already let go so it never returns — the symptom being "installed a skin, refreshed a few times, back to default". The order is a race, hence the intermittency.
@@ -261,7 +261,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
         // 🔴 Do not say "pick it under Settings → Appearance": measured, that row holds only the three built-in
         // preferences light / dark / follow system (CUBES in ui-theme's AppearanceRow is hardcoded to three), and third-party themes are simply not there.
         // The place to switch manually is the skin market's own panel (Settings → Skin Market).
-        ctx.logger.warn('[ai-work] 自动应用失败，可到「设置 → 皮肤市场」手动切换', error)
+        ctx.logger.warn('[ai-work] auto-apply failed; you can switch manually under Settings → Skin Market', error)
       }
       return
     }
@@ -423,7 +423,7 @@ function attachBrand(ctx: Context): (() => void)[] {
           priority: -1,
         }, slot.component)
       } catch (error) {
-        ctx.logger.warn('[ai-work] 品牌位 %s 接管失败，保留官方标', slot.name, error)
+        ctx.logger.warn('[ai-work] brand slot %s takeover failed; keeping the official mark', slot.name, error)
         return () => {}
       }
     }))

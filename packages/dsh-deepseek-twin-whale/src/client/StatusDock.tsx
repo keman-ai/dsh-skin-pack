@@ -163,7 +163,7 @@ export function TwinwhaleStatusDock() {
               The cover centres a full figure, and at sidebar width a 1.55:1 strip keeps the character whole.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--twinwhale-cover)' }}>
-              <span className={css.coverName}>双胞胎鲸鱼娘</span>
+              <span className={css.coverName}>Twin Whale Girl</span>
             </div>
 
             {/*
@@ -187,7 +187,7 @@ export function TwinwhaleStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 正在打理' : '● 就绪 READY'}
+                  {busy ? '● TIDYING UP' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -214,13 +214,13 @@ export function TwinwhaleStatusDock() {
             </section>
 
             {/*
-              打理记录 —— 原型稿右栏那张卡的真数据版。
+              Tidy-up log — the real-data version of that card in the prototype's right column.
               The draft's `Ocean Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>打理记录</div>
+                <div className={css.cardTitle}>Tidy-up log</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>

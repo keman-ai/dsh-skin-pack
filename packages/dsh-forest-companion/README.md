@@ -50,7 +50,7 @@ likewise `column` plus `.hero { flex: 1 }` with a separate `.composer` below. So
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
 
-⚠️ **构成不是总量**：`contextBreakdown` 三项是固定密度估算，加起来**不等于** Token 负载。
+⚠️ **Composition is not a total**: the three `contextBreakdown` figures are fixed-density estimates and **do not add up** to the token load.
 
 ## Four things deliberately not done
 
@@ -78,13 +78,13 @@ mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "
 
 ## 🔴 The side effect of autoApply
 
-装上默认就切到本皮肤。harness **不持久化第三方主题 id**，且内置「设置 → 外观」只有
-浅色 / 深色 / 跟随系统三个格子——手动切换要用皮肤集市自己的面板。代价是每次刷新都会重新应用，
-你切走只对当次有效；想永久换走把 `autoApply` 设成 `false` 或卸载。
+Installing switches to this skin by default. The harness **does not persist third-party theme ids**, and the built-in Settings → Appearance offers only
+three cells — light / dark / follow system — so switching manually requires the skin market's own panel. The cost is that it reapplies on every refresh:
+switching away lasts only for that session. To change permanently, set `autoApply` to `false` or uninstall.
 
 ## Version requirements
 
-需要 **dsh 0.1.1-rc.2 或更新**（品牌位接管依赖 slot 的 `priority` 影子化；更老的版本只是退回
+Requires **dsh 0.1.1-rc.2 or newer** (the brand-slot takeover relies on slot `priority` shadowing; older versions simply fall back to
 官方品牌标，配色与横幅照常）。
 
 ## Assets
@@ -99,7 +99,7 @@ npm run check   # tsc --noEmit
 npm run build   # produces lib/index.js (host half) and lib/client.js (browser half)
 ```
 
-`lib/` 要提交进仓库：皮肤靠 `github:owner/repo` 安装，装的是仓库里的构建产物。
+`lib/` must be committed: skins install via `github:owner/repo`, which installs the build output from the repository.
 
 ## License
 

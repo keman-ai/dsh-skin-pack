@@ -2,7 +2,7 @@
  * The energy gauge at the bottom of the sidebar.
  *
  * Nearly every prototype places one there: the cyber temple has "today's practice · 76 spirit", the oracle
- * 「灵力 68,250 / 108,000」，齐天星海是「战意」，鲸鱼娘是「Bubble 82%」，
+ * a spirit-energy gauge at 68,250 / 108,000, the monkey skin a battle gauge, the whale girl a "Bubble 82%",
  * pavilion another, and the Mars flight deck "Compute Load 71%". It is the most recognisable part of those drafts.
  *
  * 🔴 Every number in the drafts is hardcoded. Here it is **real**: context occupancy (`projectedTokens /

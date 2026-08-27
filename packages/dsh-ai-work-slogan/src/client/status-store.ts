@@ -8,9 +8,9 @@
  * Hence the split in two: a zero-render probe mounted on `conversation.composer.dock` (a list slot third
  * parties may append to, and where the official StatsLine also lives) writes what it reads into here, and the dock subscribes with `useSyncExternalStore`.
  *
- * 🔴 数据一律来自官方投影/快照，**不解析 DOM、不伪造**。原型稿右栏的
- * `Harness Systems`（五行 ONLINE）与 `Work Modes`（四张模式卡）都是装饰，harness 没有对应投影，
- * 所以本皮肤不做那两张卡，也不拿假状态凑数。
+ * 🔴 All data comes from official projections and snapshots; **the DOM is never parsed and nothing is faked**. In the prototype's right column,
+ * `Harness Systems` (five ONLINE rows) and `Work Modes` (four mode cards) are decoration with no matching projection in the harness,
+ * so this skin builds neither card and pads nothing out with fake state.
  */
 
 /**

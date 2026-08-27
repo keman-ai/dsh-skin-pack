@@ -2,7 +2,7 @@
  * The whale mark and wordmark for the brand slots.
  *
  * The prototype's sidebar top-left carries a 15px-radius square holding a whale, with a cool cyan inner border and a faint blue glow;
- * 旁边两行「DeepSeek Harness / 双胞胎鲸鱼娘 Theme」。
+ * beside two lines reading "DeepSeek Harness / Twin Whale Girl Theme".
  *
  * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
  * "a single slot occupied by the official component makes third-party registration throw" is **out of date**:
@@ -66,7 +66,7 @@ export function TwinwhaleMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「DeepSeek Harness / 双胞胎鲸鱼娘 Theme」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "DeepSeek Harness / Twin Whale Girl Theme".
  *
  * The primary name stays DeepSeek Harness — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *
@@ -76,7 +76,7 @@ export function TwinwhaleName() {
   return (
     <span className={css.name}>
       <strong className={css.title}>DeepSeek Harness</strong>
-      <small className={css.subtitle}>双胞胎鲸鱼娘</small>
+      <small className={css.subtitle}>Twin Whale Girl</small>
     </span>
   )
 }

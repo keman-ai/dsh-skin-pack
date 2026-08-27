@@ -8,11 +8,11 @@
  * Both places use one component: it draws at whatever size the host gives, a white square with a centred whale and a radius scaled to size
  * (the prototype's 84px with a 24px radius ≈ 0.29×).
  *
- * 🔴 三个 slot 都是 `{ kind: 'single' }`。以前的结论是"single 已被官方占用，第三方注册直接
- * 抛错"，**那条已经过时**：dsh 0.1.1-rc.2 的 `SlotCore.register` 只在**同一个 priority** 上
- * 判占用，不同 priority 是影子化（`entriesOfSlot` 取每个 cell 里 priority 最小的那个 live
- * entry）。官方 `ui-brand-official` 注册在默认 0，所以注册 `priority: -1` 就能接管，
- * 且它那份只是被影子化、没被卸载——皮肤一停用就自动回到官方标。
+ * 🔴 All three slots are `{ kind: 'single' }`. The old conclusion — that single slots are taken by the official entry and a third-party registration
+ * simply throws — is **out of date**: in dsh 0.1.1-rc.2 `SlotCore.register` treats a slot as occupied only at the **same priority**,
+ * while different priorities shadow instead (`entriesOfSlot` takes the live entry with the lowest priority in each cell).
+ * The official `ui-brand-official` registers at the default 0, so registering at `priority: -1` takes over,
+ * and its entry is only shadowed rather than unloaded — disabling the skin returns to the official mark automatically.
  */
 
 import type { CSSProperties } from 'react'

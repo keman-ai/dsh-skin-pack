@@ -169,25 +169,25 @@
 /*
  * ⚠️ The two CTAs at the bottom of the prototype's hero and its four capability cards are **not implemented**.
  * In the real product that space belongs to the composer and workspace picker: a CTA would duplicate Send, and four static cards would push the primary action
- * 挤下去，而且它们都不表达任何运行时状态。
+ * pushed down, and none of them express any runtime state.
  */
 
-/* 预览版徽标跟着口号走，别停在原来那个字号上。 */
+/* The preview badge follows the slogan rather than staying at its original size. */
 :global(body[data-dsh-ai-work] [data-phase='hero'] [class*='_previewBadge']) {
   align-self: center;
 }
 
 /* ==========================================================================
- * 组件语言：玻璃卡 + 白描边。
+ * The component language: glass cards with white borders.
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：白 8% 玻璃 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: 8% white glass with a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-ai-work] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
 
-/* 上下文注入行：压成背景信息，悬停还原。 */
+/* Context-injection rows: pushed back to background information, restored on hover. */
 :global(body[data-dsh-ai-work] [data-chat-flow-kind='context']) {
   opacity: 0.62;
 }
@@ -196,7 +196,7 @@
   opacity: 1;
 }
 
-/* 本轮失败：左侧一道亮红——这套皮肤里红只用于错误。 */
+/* A failed turn: a bright red stripe on the left — red is used for errors only in this skin. */
 :global(body[data-dsh-ai-work] [data-chat-flow-kind='turn-error']) {
   box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
   border-radius: 10px;
@@ -204,10 +204,10 @@
 }
 
 /*
- * 权限确认卡：琥珀玻璃。
+ * The permission card: amber glass.
  *
  * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file. The value comes from the node type in the harness source,
- * `kind === 'approval'`。失配的话这一条不显示，不影响其余规则。
+ * `kind === 'approval'`. On a mismatch this rule simply does not apply, leaving the rest unaffected.
  */
 :global(body[data-dsh-ai-work] [data-chat-flow-kind='approval']) {
   background: var(--dsw-alias-state-warn-tertiary);
@@ -216,33 +216,33 @@
   padding: 11px 12px;
 }
 
-/* 会话正在跑时侧边栏那颗指示点：亮青，在这片蓝里最跳。 */
+/* The sidebar dot while a session runs: bright cyan, the most visible thing in all this blue. */
 :global(body[data-dsh-ai-work] [data-state='ongoing']) {
   color: var(--dsw-alias-state-business-primary);
 }
 
 /*
- * 对话页：消息滚到输入框附近自然淡出，而不是被硬边切断。
+ * The chat page: messages fade out naturally as they scroll towards the composer rather than being cut by a hard edge.
  *
- * 🔴 限定在 `[data-phase='active']`，**不能**像前几套那样对所有阶段生效。
- * 那几套的 hero 铺着一整张图，输入区压在图上，加不加这层淡出都看不出来；这套 hero 底下是
- * 通透的渐变，一旦给输入区糊上 86% 的深蓝，就会在渐变中间切出一条笔直的暗带——
- * 实测截图里那道横线就是这么来的。
+ * 🔴 Scoped to `[data-phase='active']`; it **must not** apply to every phase the way earlier skins do.
+ * Those skins lay a full image behind the hero with the composer over it, where the fade makes no visible difference. Here the hero sits on
+ * a clear gradient, and smearing 86% deep blue over the composer cuts a straight dark band across the middle of it —
+ * which is exactly where that horizontal line in the test screenshot came from.
  */
 :global(body[data-dsh-ai-work] [data-phase='active'] [data-composer-seat]) {
   background: linear-gradient(180deg, rgba(7, 25, 54, 0) 0%, rgba(7, 25, 54, 0.86) 30%);
 }
 
 /* ==========================================================================
- * 降级区 —— 前缀匹配 CSS Module 哈希类名，改版会静默失配（观感退回默认，不报错）。
+ * The degradable zone — these prefix-match hashed CSS Module class names, so a redesign silently stops matching (the look falls back to default, without error).
  * ========================================================================== */
 
 /*
- * 🔴 `＋ 新会话` 是**白底深蓝字**，不是蓝底白字。
+ * 🔴 New session is **deep blue on white**, not white on blue.
  *
- * 原型的 `.new`、`.cta.primary`、顶栏的 `启动 Harness` 全是 `background:#fff; color:#16386c`
- * ——在这片蓝渐变上，白是唯一比蓝更强的东西；拿蓝做主按钮会直接淹没在背景里。
- * token 里 `--dsw-alias-brand-primary` 已经是白，这里补圆角、字重与投影。
+ * The prototype's `.new`, `.cta.primary` and the top bar's launch button are all `background:#fff; color:#16386c`
+ * — on this blue gradient white is the only thing stronger than blue, and a blue primary button drowns straight into the background.
+ * `--dsw-alias-brand-primary` is already white in the tokens; the radius, weight and shadow are added here.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
@@ -270,8 +270,8 @@
 }
 
 /*
- * 会话选中态：白 10% 底 + 左侧一道白竖条（原型 `.session.active` 的
- * `box-shadow: inset 2px 0 #fff`）。用 inset 阴影而不是 border，避免改变盒宽让行错位。
+ * Selected session: a 10% white ground with a white stripe on the left (the prototype's `.session.active`:
+ * `box-shadow: inset 2px 0 #fff`). An inset shadow rather than a border, so the box width does not change and rows stay aligned.
  */
 :global(body[data-dsh-ai-work] [class*='_sessionRow'][class*='_selected']) {
   background: var(--dsw-specific-sidebar-nav-item-active);
@@ -279,7 +279,7 @@
   border-radius: 9px;
 }
 
-/* 分组标题：小号大写、字距拉开（原型 `.label` 的 letter-spacing: 1.2px）。 */
+/* Group headings: small caps with wide tracking (the prototype's `.label` uses letter-spacing: 1.2px). */
 :global(body[data-dsh-ai-work] [class*='_groupSection'] > :first-child) {
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -288,11 +288,11 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：白 6% 玻璃 + 11px 圆角（原型 `.card`）。
+ * The details rail's card language: 6% white glass with an 11px radius (the prototype's `.card`).
  *
- * ⚠️ 没做的：原型右栏的「Harness Systems」五行 ONLINE 与「Work Modes」四张模式卡都是纯装饰，
- * harness 没有对应投影，不伪造。真实状态由本皮肤自己那根状态台承担（见 StatusDock）；
- * 官方这根详情栏只做视觉对齐——它装的是工具调用的 Input / Output，是排障唯一线索。
+ * ⚠️ Not done: the five ONLINE rows under Harness Systems and the four Work Modes cards in the prototype's right column are pure decoration,
+ * with no matching projection in the harness, and they are not faked. Real state is carried by this skin's own status dock (see StatusDock);
+ * the official rail is only aligned visually — it holds the Input / Output of tool calls, the one thread you have when debugging.
  */
 :global(body[data-dsh-ai-work] [data-slot='details'] [class*='_section']) {
   background: var(--dsw-alias-bg-layer-2);

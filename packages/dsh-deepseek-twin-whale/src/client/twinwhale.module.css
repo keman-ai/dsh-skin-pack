@@ -1,7 +1,7 @@
 /**
- * 双胞胎鲸鱼娘的装饰层。
+ * The Twin Whale Girl decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-twinwhale]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-twinwhale]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -55,10 +55,10 @@
   background-repeat: no-repeat;
   background-color: #061425;
   /*
-   * 🔴 这张封面**不压亮度**。
+   * 🔴 This cover's brightness is **not** reduced.
    *
-   * 同盘的「鲸鱼娘」是暗底画，压一档亮度才不抢界面；这张是亮底——白背景、满屏气泡——
-   * 一压就发灰，气泡和高光全糊。所以滤镜留空，只靠下面那层底部压幕给输入区让路。
+   * Its sibling Whale Girl is a dark image that needs a step taken off so it does not overpower the interface; this one is light — a white background, bubbles everywhere —
+   * and darkening turns it grey, smearing the bubbles and highlights away. So the filter is left empty and only the bottom scrim below makes room for the composer.
    */
   filter: none;
 }
@@ -170,7 +170,7 @@
 }
 
 /*
- * Thinking → 两位鲸鱼娘正在整理上下文……
+ * Thinking → the two whale girls are tidying up the context…
  *
  * The prototype's Appearance panel lists six agent-copy lines. Three have anchors and are implemented (thinking,
  * failure, permission); Tool and Context have nothing to hang on in the harness (tool rows have only ok / error, no running), so they are not forced.
@@ -182,7 +182,7 @@
 }
 
 :global(body[data-dsh-twinwhale] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '两位鲸鱼娘正在整理上下文……';
+  content: 'The two whale girls are tidying up the context…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -190,12 +190,12 @@
 }
 
 /*
- * Error → 手滑了，请再来一次。
+ * Error → slipped; please try again.
  *
  * Appended rather than replaced: the original error line carries the specific reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-twinwhale] [data-state='error'] [class*='_title'])::after {
-  content: ' · 手滑了，请再来一次。';
+  content: ' · Slipped; please try again.';
   font-weight: 400;
   color: var(--dsw-alias-state-error-primary);
 }
@@ -255,7 +255,7 @@
  * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-twinwhale] [data-chat-flow-kind='approval'])::before {
-  content: '这一步需要主人点头 · ';
+  content: 'This step needs your nod · ';
   font-weight: 600;
   color: var(--dsw-alias-brand-text);
 }

@@ -1,17 +1,17 @@
 /**
- * 双胞胎鲸鱼娘的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Twin Whale Girl's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 这套与「鲸鱼娘」共用同一张 `:root`（深海蓝 + 冷青 + DeepSeek 蓝），
- * 但**封面是亮底**的：白背景、蓝头发、满屏气泡。所以两者的分寸不同——
+ * 🔴 This skin shares a `:root` with Whale Girl (deep-ocean blue, cool cyan and DeepSeek blue),
+ * but its **cover is light**: a white background, blue hair and bubbles everywhere. So the two are measured differently —
  *
- *   - 配色照旧走深海：底 #03101f，冷青做描边与"正在跑"，DeepSeek 蓝做主操作；
- *   - **压幕要收轻**。同款的暗色封面要压一档亮度才不抢界面，这张亮底画一压就发灰、
- *     气泡和高光全糊掉。所以这里只在底部压一段（给输入区让路），画面本身几乎不动。
+ *   - the palette still runs deep-ocean: a #03101f ground, cool cyan for borders and running, DeepSeek blue for the primary action;
+ *   - **the scrim must be lighter**. The dark cover of its sibling needs a step of brightness taken off so it does not overpower the interface, but darkening this light one turns it grey
+ *     and smears the bubbles and highlights away. So only the bottom is darkened (to make room for the composer), leaving the image itself almost untouched.
  *
- * 金（#e8ba72）依旧是全场唯一的暖色，只给上下文占用条的末端。
+ * Gold (#e8ba72) remains the only warm colour anywhere, reserved for the end of the context-usage bar.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */

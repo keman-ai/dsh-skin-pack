@@ -1,5 +1,5 @@
 /**
- * 波妞水面的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Ponyo Water Orbit's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
@@ -15,7 +15,7 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const PONYO_PALETTE = {
-  /** 海底，带阳光的深蓝。 */
+  /** The seabed: a deep blue with sunlight in it. */
   bg: '#061d3c',
   bg2: '#04162e',
   /** Two panel levels. */
@@ -28,13 +28,13 @@ export const PONYO_PALETTE = {
   muted: '#91b2c9',
   muted2: '#7d9db3',
 
-  /** 亮蓝：主操作。 */
+  /** Bright blue: the primary action. */
   blue: '#2b8ed8',
   blue2: '#3ba0e8',
   blueDeep: '#1f6ba6',
-  /** 水青：描边、强调、"正在跑"。 */
+  /** Water cyan: borders, emphasis and running. */
   cyan: '#6dd9ff',
-  /** 珊瑚粉：只做点缀。 */
+  /** Coral pink: an accent only. */
   ice: '#d86698',
   /** Online green. */
   green: '#72d7a5',
@@ -66,7 +66,7 @@ export const PONYO_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(161, 220, 255, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(161,220,255,.16)`——**带水青的描边**，正是涟漪的高光。分层全靠它。
+  // The prototype uses exactly one, `--line: rgba(161,220,255,.16)` — **a border tinted water cyan**, the highlight on the ripples. All layering rests on it.
   '--dsw-alias-border-l1': 'rgba(161, 220, 255, 0.1)',
   '--dsw-alias-border-l2': 'rgba(161, 220, 255, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(161, 220, 255, 0.12)',
