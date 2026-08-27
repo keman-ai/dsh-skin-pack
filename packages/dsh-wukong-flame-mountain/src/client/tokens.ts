@@ -122,7 +122,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(198, 122, 50, 0.24)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(23, 20, 17, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   // 暗底用"加暖白"做 hover：加金会让每一次悬停都像点亮了什么，与金的稀缺性冲突。
   '--dsw-alias-interactive-bg-hover': 'rgba(241, 231, 216, 0.06)',
   '--dsw-alias-interactive-bg-active': 'rgba(241, 231, 216, 0.12)',
@@ -130,7 +130,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(209, 94, 47, 0.2)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(183, 70, 50, 0.2)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   '--dsw-alias-state-success-primary': p.jade,
   '--dsw-alias-state-success-secondary': p.jade,
   '--dsw-alias-state-success-tertiary': '#1c2620',
@@ -146,7 +146,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.ember,
   '--dsw-alias-state-business-tertiary': '#2a1710',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   // 代码块比正文容器更沉（原型 .tool-body 是 #0b0907），读长代码时不刺眼。
   '--dsw-alias-markdown-code-block': '#0b0907',
   '--dsw-alias-markdown-code-block-banner': p.surface2,
@@ -164,7 +164,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(211, 164, 91, 0.28)',
   '--dsw-alias-scrollbar-hover-l2': p.gold,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface3,
   '--dsw-alias-tooltip-bg': p.surface3,
 

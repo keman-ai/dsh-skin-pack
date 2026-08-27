@@ -109,14 +109,14 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(200, 167, 104, 0.22)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(19, 24, 29, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(228, 207, 168, 0.06)',
   '--dsw-alias-interactive-bg-active': 'rgba(228, 207, 168, 0.12)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(185, 66, 53, 0.2)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(190, 102, 92, 0.2)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   '--dsw-alias-state-success-primary': p.ok,
   '--dsw-alias-state-success-secondary': p.jade,
   '--dsw-alias-state-success-tertiary': 'rgba(110, 151, 136, 0.16)',
@@ -131,7 +131,7 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.jade,
   '--dsw-alias-state-business-tertiary': 'rgba(110, 151, 136, 0.16)',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#0c1013',
   '--dsw-alias-markdown-code-block-banner': p.surface2,
   '--dsw-alias-markdown-inline-code': p.surface2,
@@ -147,7 +147,7 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(228, 207, 168, 0.24)',
   '--dsw-alias-scrollbar-hover-l2': p.bronzeLight,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface3,
   '--dsw-alias-tooltip-bg': p.surface3,
 

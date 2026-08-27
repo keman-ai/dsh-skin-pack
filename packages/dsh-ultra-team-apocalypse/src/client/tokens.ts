@@ -117,14 +117,14 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(255, 123, 44, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(26, 16, 16, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(255, 151, 85, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(255, 151, 85, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': '#331915',
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(255, 123, 44, 0.22)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(239, 59, 47, 0.24)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': '#79e5b1',
   '--dsw-alias-state-success-tertiary': '#0f3025',
@@ -140,7 +140,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#0f3444',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#0d0605',
   '--dsw-alias-markdown-code-block-banner': p.panel,
   '--dsw-alias-markdown-inline-code': p.panel2,
@@ -156,7 +156,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(255, 151, 85, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.orange,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': p.panel2,
 

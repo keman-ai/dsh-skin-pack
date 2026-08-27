@@ -109,14 +109,14 @@ export const PEARL_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(115, 213, 255, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(10, 25, 41, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(238, 234, 219, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(238, 234, 219, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': '#233033',
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(59, 120, 232, 0.24)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(220, 110, 110, 0.2)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': '#86cfa4',
   '--dsw-alias-state-success-tertiary': '#16241d',
@@ -132,7 +132,7 @@ export const PEARL_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#1b2b33',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#0d1315',
   '--dsw-alias-markdown-code-block-banner': '#1a2326',
   '--dsw-alias-markdown-inline-code': '#202c30',
@@ -148,7 +148,7 @@ export const PEARL_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(238, 234, 219, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.cyan,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': p.panel2,
 

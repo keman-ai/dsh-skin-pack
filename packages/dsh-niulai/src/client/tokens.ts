@@ -123,7 +123,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(115, 119, 70, 0.66)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(32, 35, 26, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   // hover 用暖白低透明度，落在任何一级容器上都能看出来又不抢眼。
   '--dsw-alias-interactive-bg-hover': 'rgba(243, 239, 228, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(243, 239, 228, 0.13)',
@@ -131,7 +131,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(255, 122, 20, 0.22)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(219, 115, 91, 0.18)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 设计稿的四个状态色直接对位；tertiary（浅底）按同色相压暗到容器层级。
   '--dsw-alias-state-success-primary': p.good,
   '--dsw-alias-state-success-secondary': p.good,
@@ -147,7 +147,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.orange,
   '--dsw-alias-state-business-tertiary': '#3a2a18',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   // 代码块比正文容器更沉，压到 bg-2，读长代码时不刺眼。
   '--dsw-alias-markdown-code-block': p.bg2,
   '--dsw-alias-markdown-code-block-banner': p.surface2,
@@ -165,7 +165,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': p.grass,
   '--dsw-alias-scrollbar-hover-l2': p.straw,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface3,
   '--dsw-alias-tooltip-bg': p.surface3,
 

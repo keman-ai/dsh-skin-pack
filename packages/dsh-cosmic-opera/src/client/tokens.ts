@@ -114,14 +114,14 @@ export const OPERA_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(114, 184, 255, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(11, 19, 41, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(155, 214, 255, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(155, 214, 255, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': '#152248',
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(140, 116, 255, 0.24)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(255, 123, 123, 0.2)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   '--dsw-alias-state-success-primary': p.ok,
   '--dsw-alias-state-success-secondary': p.ok,
   '--dsw-alias-state-success-tertiary': '#10281f',
@@ -136,7 +136,7 @@ export const OPERA_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.teal,
   '--dsw-alias-state-business-tertiary': '#0d3330',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#070c1a',
   '--dsw-alias-markdown-code-block-banner': p.surface2,
   '--dsw-alias-markdown-inline-code': p.surface2,
@@ -152,7 +152,7 @@ export const OPERA_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(130, 170, 255, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.violet2,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface3,
   '--dsw-alias-tooltip-bg': p.surface3,
 

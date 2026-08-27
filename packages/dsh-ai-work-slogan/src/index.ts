@@ -11,13 +11,13 @@
 
 import type { Context } from '@deepseek-ai/cordis'
 
-/** 插件名（loader 行的 name）。 */
+/** Plugin name (the `name` of the loader entry). */
 export const name = 'ai-work'
 
-/** 主题 id，与浏览器半一致；宿主侧脚本可以引它来判断皮肤是否在用。 */
+/** Theme id, matching the browser half; host-side scripts can import it to tell whether the skin is in use. */
 export const THEME_ID = 'ai-work'
 
-/** 配置在 cordis.yml 里给，Loader 会连同这一行一起传给浏览器半。 */
+/** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
    * 装上就切到AI 工作模式，默认开。关掉则只注册、不应用，等用户自己去皮肤集市里选。

@@ -29,19 +29,19 @@ export { TWILIGHT_PALETTE, TWILIGHT_TOKENS } from './tokens.ts'
 /** 主题 id，也是 `setTheme` 的参数。三处 id 必须一致：本常量、skin.json、cordis.patch.yml。 */
 export const THEME_ID = 'twilight'
 
-/** body 标记：装饰 CSS 的唯一挂点，同时便于用户自写覆盖规则。 */
+/** Body marker: the single hook for the decorative CSS, and a convenient handle for user overrides. */
 export const BODY_ATTRIBUTE = 'data-dsh-twilight'
 
 /** 主视觉变量名：CSS 里读它，值在这里注入，图片资源不进样式表（否则样式表被撑爆且不好清）。 */
 const COVER_VARIABLE = '--twilight-cover'
 
 /**
- * 状态台的展开标记与存储键，与 StatusDock 里的同名常量一一对应。
+ * The dock's expanded marker and storage key, matching the same-named constants in StatusDock.
  *
- * 🔴 这两个也归主题切换管：状态台组件是**一直挂着**的（可见性交给 CSS），它在自己的
- * effect 里把展开标记打到 body 上，不关心皮肤是否激活。装 21 套时 body 上就同时挂着
- * 21 个 `data-*-dock-open`——CSS 都带 `body[data-dsh-*]` 前缀所以不会串样式，但属性堆在
- * 那里就是残留，排查时看着像串台。所以皮肤停用时顺手摘掉，重新激活时按存的值还原。
+ * 🔴 These belong to theme switching too: the dock component is **always mounted** (visibility is left to CSS)
+ * and its effect stamps the expanded marker onto body regardless of whether the skin is active. With 21 installed,
+ * body carries 21 `data-*-dock-open` attributes — the CSS is all prefixed with `body[data-dsh-*]` so styles never
+ * cross, but the pile-up is residue that looks like a leak when debugging. So it is removed on deactivation and restored from storage on reactivation.
  */
 const DOCK_OPEN_ATTRIBUTE = 'data-twilight-dock-open'
 const DOCK_STORAGE_KEY = 'twilight'
@@ -57,7 +57,7 @@ const COVER_URL = '/skin-cover/twilight.webp'
 
 
 /**
- * 自动应用的启动窗口。
+ * The startup window for auto-apply.
  *
  * 要盖过的是 ui-theme 的 `adopt()` —— Host 偏好快照到达时把主题覆盖回内置值。实测它在 300ms
  * 上下到达，冷启动更慢，取 8 秒留足余量；窗口一过插件彻底松手。
@@ -79,7 +79,7 @@ const BRAND_SLOTS = [
 /** 主题服务与 slot 注册表；`inject` 保证它们先就绪。 */
 export const inject = ['theme', 'slots']
 
-/** 浏览器半的配置，与 host 半同名字段。 */
+/** Browser-half config, with the same field names as the host half. */
 export interface Config {
   /**
    * 装上就切到本皮肤，默认开。
@@ -121,7 +121,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   ctx.effect(() => ctx.slots.inject('conversation.composer.dock', () => ctx.slots.register({
     name: 'conversation.composer.dock',
     id: 'twilight-status',
-    // 排在官方 stats（order 0）之后；反正不画东西，只是不去打乱既有顺序。
+    // Ordered after the official stats (order 0); it draws nothing anyway and simply avoids disturbing the existing order.
     order: 100,
   }, TwilightStatusProbe)), 'twilight: status probe')
 
@@ -139,7 +139,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   }, TwilightEnergyRail)), 'twilight: energy rail')
 
   // 注册与挂载放同一个 effect 并保证顺序：mountStage 里会 setTheme，
-  // 而 setTheme 一个未注册的 id 会直接抛错。
+  // And setTheme throws outright on an unregistered id.
   ctx.effect(() => {
     const unregister = ctx.theme.register({ id: THEME_ID, colorScheme: 'dark', tokens: TWILIGHT_TOKENS })
     const unmount = mountStage(ctx, shouldAutoApply(ctx, config.autoApply !== false), userPicked())
@@ -150,28 +150,28 @@ export function apply(ctx: Context, config: Config = {}): void {
   }, 'twilight: theme + cover + brand')
 }
 
-/** 皮肤集市记住用户选择的键（见 dsh-skin-market 的 appearance.ts）。 */
+/** The key the skin market remembers the user's choice under (see appearance.ts in dsh-skin-market). */
 const MARKET_THEME_KEY = 'skin-market.theme'
 
-/** 本次页面生命周期里"谁占了自动应用名额"的全局标记。 */
+/** Page-lifetime global marker for who claimed the auto-apply slot. */
 const CLAIM_KEY = '__dshSkinAutoApplyClaim__'
 
 /**
- * 多套皮肤同时装着时，决定这一套要不要自动应用。
+ * With several skins installed, decide whether this one auto-applies.
  *
- * 🔴 这一层是必须的。皮肤的 `autoApply` 配在 Loader 行上，**host 半读得到，浏览器半读不到**
- *（client 的 boot 行只带 id / url / rev / inject / external，不带 config）。所以哪怕在
- * `cordis.patch.yml` 里把每套都写成 `autoApply: false`，浏览器里仍然是每套都想把主题按成自己：
- * 装 3 套就足以让第二套注册品牌位时撞车，整个界面白屏。
+ * 🔴 This layer is mandatory. A skin's `autoApply` is configured on the Loader row, which **the host half can
+ * read and the browser half cannot** (a client boot row carries only id / url / rev / inject / external, no
+ * config). So even with `autoApply: false` written for every skin in `cordis.patch.yml`, in the browser every
+ * skin still tries to force the theme to itself: three installed is enough for the second to collide when registering the brand slot, blanking the whole UI.
  *
- * 两条规则：
- *   1. **用户选过就一切听用户的**——皮肤集市把选择记在 localStorage，那才是权威，
- *      任何皮肤都不再自动应用（否则刷新一次就把用户的选择顶掉）；
- *   2. 用户没选过时，**只有第一个加载到的皮肤能占这个名额**，其余安静注册、等着被选。
+ * Two rules:
+ *   1. **once the user has chosen, the user decides everything** — the skin market records the choice in
+ *      localStorage, that is authoritative, and no skin auto-applies any more (or one refresh would override the choice);
+ *   2. with no choice made, **only the first skin to load claims the slot**, and the rest register quietly and wait to be picked.
  *
- * @param ctx - 插件上下文，仅用于记日志。
- * @param configured - host 半配的意图（浏览器半拿不到，只在单皮肤场景下由默认值生效）。
- * @returns 这一套是否自动应用。
+ * @param ctx - Plugin context, used only for logging.
+ * @param configured - The intent configured on the host half (unreachable from the browser half; its default only matters in the single-skin case).
+ * @returns Whether this skin auto-applies.
  */
 function shouldAutoApply(ctx: Context, configured: boolean): boolean {
   if (!configured) {
@@ -182,26 +182,26 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
   try {
     stored = localStorage.getItem(MARKET_THEME_KEY)
   } catch {
-    // 隐私模式下读不到就当没选过，按下面的先到先得走。
+    // Unreadable in private mode counts as no choice, falling through to first-come-first-served below.
   }
   if (stored === THEME_ID) {
     /*
-     * 🔴 用户在集市里选的就是本套——自己应用，不指望集市替我们重放。
+     * 🔴 The user picked this skin in the market — apply it ourselves rather than relying on the market to replay it.
      *
-     * 集市的 `restoreSaved` 只在 `theme/change` 事件里等目标主题出现，而**注册主题本身
-     * 不一定发这个事件**：实测点选切换 → 刷新，皮肤就丢了，body 上一个属性都没有。
-     * 以前没暴露，是因为总有某套皮肤在自动应用、顺带把事件发了出来。
+     * The market's `restoreSaved` waits for the target theme inside a `theme/change` event, but **registering a
+     * theme does not necessarily emit one**: measured, selecting a skin then refreshing loses it, with not a single attribute left on body.
+     * It stayed hidden because some skin was always auto-applying and emitting the event as a side effect.
      *
-     * 选择是用户明确表达过的，本套认账即可，不必绕一圈。
+     * The choice was made explicitly, so this skin simply honours it rather than taking the long way round.
      */
     return true
   }
   if (stored !== null) {
-    // 用户选的是别的皮肤（或内置），本套一律不插手。
+    // The user picked another skin (or a built-in); this one keeps out of it entirely.
     return false
   }
   if (stored !== null) {
-    // 用户选的是别的皮肤（或内置），本套一律不插手。
+    // The user picked another skin (or a built-in); this one keeps out of it entirely.
     return false
   }
   if (scope[CLAIM_KEY] !== undefined) {
@@ -218,7 +218,7 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
  * 装饰**只在本皮肤激活时存在**：用户切回内置主题而主视觉还铺着、印章还挂着，配色已经不是这套了，
  * 那是纯粹的视觉污染。
  *
- * @param ctx - 插件上下文。
+ * @param ctx - Plugin context.
  * @param autoApply - 是否自动切到本皮肤。
  * @returns disposer：摘属性、清变量、撤销品牌注册、清定时器、退订。
  */
@@ -245,7 +245,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
   let settled = false
   const settleTimer = setTimeout(() => { settled = true }, AUTO_APPLY_WINDOW_MS)
 
-  /** 注册表是否已长齐（见 REGISTRY_SETTLE_MS）。 */
+  /** Whether the registry has settled (see REGISTRY_SETTLE_MS). */
   let registrySettled = false
   const registryTimer = setTimeout(() => {
     registrySettled = true
@@ -254,8 +254,8 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
 
   const sync = (): void => {
     /*
-     * `picked`（用户在集市里选的就是本套）直接生效，不等注册表长齐、也不管装了几套——
-     * 那是用户的明确选择。其余情况才走"只装一套才自动应用"的仲裁。
+     * `picked` (the user chose this skin in the market) takes effect immediately, without waiting for the registry
+     * to settle and regardless of how many are installed — it is an explicit choice. Everything else goes through the "auto-apply only when alone" arbitration.
      */
     const mayApply = picked || (registrySettled && soleSkin(ctx))
     if (ctx.theme.getTheme().active.id !== THEME_ID && autoApply && !settled && mayApply) {
@@ -317,10 +317,10 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
 }
 
 /**
- * 皮肤重新激活时，按用户存的偏好还原状态台的展开标记。
+ * On reactivation, restore the dock's expanded marker from the user's stored preference.
  *
- * 停用时这个属性被摘掉了（免得 21 套的标记堆在 body 上），而状态台组件的 effect 只在
- * 展开状态**变化**时才写，不会自己补回来——所以这里按存储值还原。默认展开。
+ * Deactivation removes the attribute (so 21 skins' markers do not pile up on body), and the dock component's
+ * effect writes only when the expanded state **changes**, so it never restores itself — hence this restore from storage. Expanded by default.
  * @param body - document.body。
  */
 function restoreDockOpen(body: HTMLElement): void {
@@ -328,7 +328,7 @@ function restoreDockOpen(body: HTMLElement): void {
   try {
     open = window.localStorage.getItem(DOCK_STORAGE_KEY) !== 'false'
   } catch {
-    // 隐私模式读不到就按默认展开。
+    // Unreadable in private mode falls back to expanded.
   }
   if (open) {
     body.setAttribute(DOCK_OPEN_ATTRIBUTE, '')
@@ -338,8 +338,8 @@ function restoreDockOpen(body: HTMLElement): void {
 }
 
 /**
- * 用户在皮肤集市里选中的是不是本套。
- * @returns 是则本套自行应用，不等集市重放。
+ * Did the user select this skin in the skin market?
+ * @returns True when this skin applies itself rather than waiting for the market to replay.
  */
 function userPicked(): boolean {
   try {
@@ -350,18 +350,18 @@ function userPicked(): boolean {
 }
 
 /**
- * 当前注册表里是不是只有本套皮肤。
+ * Is this the only skin currently in the registry?
  *
- * 🔴 判断放在 `theme/change` 的回调里，而不是插件 apply 的那一刻——那时别的皮肤可能还没加载完，
- * 数出来必然是 1。主题注册表是异步长齐的，所以每次变化都重新数。
+ * 🔴 The check lives in the `theme/change` callback rather than at plugin apply time — other skins may still be
+ * loading then, and the count would inevitably be 1. The theme registry fills asynchronously, so recount on every change.
  *
- * 规则：只装一套时自动应用（装了就见效，符合单皮肤用户的预期）；装了多套时**谁都不抢**，
- * 保持 harness 默认外观，由用户在「设置 → 皮肤市场 → 已安装 → 外观」里选。
- * 多套里谁先谁后取决于 bundle 加载顺序，抢先生效等于每次启动随机换一套。
+ * Rule: auto-apply when only one is installed (installing it makes it take effect, which is what a single-skin
+ * user expects); with several installed **nobody claims it**, the harness default look stays, and the user chooses under Settings → Skin Market → Installed → Appearance.
+ * Which of several loads first depends on bundle order, so claiming it would mean a random skin on every start.
  *
- * `light` / `dark` 是内置项，不算皮肤。
- * @param ctx - 插件上下文。
- * @returns 注册表里的第三方主题是否只有本套。
+ * `light` / `dark` are built-ins and do not count as skins.
+ * @param ctx - Plugin context.
+ * @returns Whether this is the only third-party theme in the registry.
  */
 function soleSkin(ctx: Context): boolean {
   const builtin = new Set(['light', 'dark'])
@@ -370,14 +370,14 @@ function soleSkin(ctx: Context): boolean {
 }
 
 /**
- * 注册表"长齐"之前不许自动应用。
+ * No auto-apply before the registry has settled.
  *
- * 🔴 这条是补 soleSkin 的漏：主题注册表是**异步**长齐的（每套皮肤的 bundle 各自加载），
- * 最先注册的那套在只看到自己时 soleSkin 就是 true，于是它照样自动应用了——装了 21 套，
- * 表现是"每次启动被某一套劫持，且随加载顺序变"。实测就是这么被 wukong 抢走的。
+ * 🔴 This closes a hole in soleSkin: the theme registry fills **asynchronously** (each skin's bundle loads on
+ * its own), so the first to register sees only itself, soleSkin is true, and it auto-applies anyway. With 21
+ * installed the symptom is a different skin hijacking each start, following load order. Measured: this is exactly how wukong took over.
  *
- * 所以推迟到 REGISTRY_SETTLE_MS 之后再判：那时所有 bundle 都已执行完，数出来的才是真数。
- * 这段延迟落在 8 秒自动应用窗口之内，单皮肤场景照样能自动生效，只是晚一点点。
+ * So the check is deferred past REGISTRY_SETTLE_MS, by which point every bundle has run and the count is real.
+ * The delay fits inside the 8-second auto-apply window, so a single skin still applies automatically, just slightly later.
  */
 const REGISTRY_SETTLE_MS = 1_500
 
@@ -397,7 +397,7 @@ function mountDock(): () => void {
   const root = createRoot(host)
   root.render(createElement(TwilightStatusDock))
   return () => {
-    // 异步卸载：React 不允许在自己的渲染周期内同步 unmount。
+    // Unmount asynchronously: React forbids a synchronous unmount inside its own render cycle.
     queueMicrotask(() => { root.unmount() })
     host.remove()
     document.body.removeAttribute('data-twilight-dock-open')
@@ -412,7 +412,7 @@ function mountDock(): () => void {
  *
  * 单个 slot 注册失败不该拖垮整套皮肤（配色才是主体），所以逐个 try 住并只记一条警告。
  *
- * @param ctx - 插件上下文。
+ * @param ctx - Plugin context.
  * @returns 每个成功注册的 disposer。
  */
 function attachBrand(ctx: Context): (() => void)[] {

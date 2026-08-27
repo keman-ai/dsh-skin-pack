@@ -117,14 +117,14 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(240, 188, 112, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(12, 20, 36, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(240, 188, 112, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(240, 188, 112, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(211, 154, 82, 0.22)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(202, 90, 73, 0.22)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 🔴 成功用余烬橙（#d97a3c 提亮一档），不用绿：这套稿子的调色盘里没有绿，
   // 硬塞一个会同时破坏"9% 金"和"64% 宇宙蓝"两条配比。用亮度与色相跟主操作金拉开。
   '--dsw-alias-state-success-primary': '#e0a06a',
@@ -140,7 +140,7 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.blue2,
   '--dsw-alias-state-business-tertiary': '#152a4d',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#050810',
   '--dsw-alias-markdown-code-block-banner': p.surface,
   '--dsw-alias-markdown-inline-code': p.surface2,
@@ -156,7 +156,7 @@ export const QITIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(240, 188, 112, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.gold,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 

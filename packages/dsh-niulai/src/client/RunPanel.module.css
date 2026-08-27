@@ -169,8 +169,8 @@
 }
 
 /*
- * 图例：一颗小方块 + 文字。方块用 `::before` 而不是给整行上底色——底色会把这行变成一块
- * 色带，跟上面的堆叠条抢视觉；这里它只是个索引。
+ * Legend: a small square plus text. The square uses `::before` rather than a background on the whole
+ * row — a background would turn the row into a colour band competing with the stacked bar above; here it is just an index.
  */
 .legend {
   display: inline-flex;

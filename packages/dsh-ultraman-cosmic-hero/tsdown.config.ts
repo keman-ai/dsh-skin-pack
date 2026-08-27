@@ -1,10 +1,10 @@
 /**
- * 两个产物：
- *   lib/index.js   host 半，普通 Node ESM，由 Loader import。
- *   lib/client.js  浏览器半，闭包工厂形态的 CJS —— 这个形状是 dsh 的模块表规定的，
- *                  不是自选：bundle 执行时调 window.__ModuleLoader__.load({id, factory})，
- *                  外部依赖由注入的 require 从宿主模块表取（没有全局、没有 import map）。
- *                  见 harness 的 packages/client/tsdown.client.ts。
+ * Two outputs:
+ *   lib/index.js   host half, plain Node ESM, imported by the Loader.
+ *   lib/client.js  browser half, CJS in closure-factory form — a shape dictated by dsh's module table,
+ *                  not chosen: on execution the bundle calls window.__ModuleLoader__.load({id, factory}),
+ *                  and external deps come from the host module table via an injected require (no globals, no import map).
+ *                  See the harness packages/client/tsdown.client.ts.
  */
 
 import { readFile } from 'node:fs/promises'
@@ -12,13 +12,13 @@ import { basename, dirname, relative, resolve } from 'node:path'
 import { defineConfig } from 'tsdown'
 import { transform } from 'lightningcss'
 
-/** 包名，同时是模块表里的 entry id —— 必须与 package.json 的 name 一致。 */
+/** Package name, and the entry id in the module table — must match package.json's name. */
 const ID = 'dsh-ultraman-cosmic-hero'
 
 /**
- * 宿主共享进模块表的模块。这些保持 external，由注入的 require 解析；
- * 其余一切（含本包自己的依赖）都必须内联，因为那张表答不出来。
- * 与 harness 的 PLATFORM_MODULES 保持一致。
+ * Modules the host shares through the module table. These stay external and are resolved by the injected
+ * require; everything else — including this package's own dependencies — must be inlined, because the table cannot answer for them.
+ * Kept in sync with the harness PLATFORM_MODULES.
  */
 const EXTERNALS = [
   'react',
@@ -34,21 +34,21 @@ const EXTERNALS = [
   '@deepseek-ai/dsh-client-runtime/client',
 ]
 
-/** 虚拟 id 前缀：把 module.css 挡在 tsdown 自己的 css 流水线之外（它要求 @tsdown/css）。 */
+/** Virtual id prefix, keeping module.css out of tsdown's own CSS pipeline (which needs @tsdown/css). */
 const CSS_PREFIX = '\0cosmic-hero-css:'
 const CSS_SUFFIX = '.mjs'
 
 /**
- * CSS Modules 内联：import 得到哈希类名表，样式文本在工厂执行时注入一个
- * <style data-plugin> 标签（宿主卸载插件时按这个属性清理）。
+ * Inline CSS Modules: the import yields a hashed class-name map, and the style text is injected as a
+ * <style data-plugin> tag when the factory runs (the host cleans up by that attribute when unloading the plugin).
  */
 const cssModules = {
   name: 'skin-market-css-modules',
   resolveId(source: string, importer: string | undefined): string | null {
     if (!source.endsWith('.module.css')) return null
     const absolute = importer === undefined ? source : resolve(dirname(importer), source)
-    // 存相对路径：这个虚拟 id 会被 rolldown 原样写进产物的 chunk 注释里，
-    // 用绝对路径就等于把构建机的目录结构（/Users/<谁>/…）发进公开仓库。
+    // Store a relative path: rolldown writes this virtual id verbatim into the output's chunk comments,
+    // so an absolute path would publish the build machine's directory layout into a public repository.
     return CSS_PREFIX + relative(process.cwd(), absolute) + CSS_SUFFIX
   },
   async load(this: { addWatchFile(id: string): void }, virtualId: string): Promise<string | null> {
@@ -91,12 +91,12 @@ export default defineConfig([
     dts: false,
     clean: true,
     /*
-     * 把依赖一起打进来，产物零运行时依赖。
+     * Bundle dependencies in, so the output has zero runtime dependencies.
      *
-     * 分发方式决定了这一条：用户 clone 仓库后直接 `pnpm add <本地目录>`，那只是
-     * 建一个符号链接，不会去装这个目录自己的 dependencies —— 于是 host 半
-     * `import 'yaml'` 找不到包，dsh 启动直接失败。打进来就没有这个问题，
-     * 无论走 clone、npm 还是 tarball 都一样能跑。
+     * Distribution dictates this: after cloning, users run `pnpm add <local directory>`, which only creates a
+     * symlink and never installs that directory's own dependencies — so the host half's `import 'yaml'` finds
+     * nothing and dsh fails to start. Bundling removes the problem, and the package works the same
+     * via clone, npm or tarball.
      */
     noExternal: (id: string) => !id.startsWith('node:'),
   },
@@ -108,13 +108,13 @@ export default defineConfig([
     platform: 'browser',
     target: 'es2023',
     dts: false,
-    // 产物要提交进仓库，sourcemap 占一半体积且对使用者无用。
+    // The output is committed; sourcemaps are half the size and useless to consumers.
     sourcemap: false,
-    // host 半刚写进 lib/，这里再 clean 会把它删掉。
+    // The host half was just written to lib/; cleaning again here would delete it.
     clean: false,
     external: EXTERNALS,
-    // tsdown 默认把 dependencies 外部化，但模块表答不出 react 之外的任何东西 ——
-    // 不在 EXTERNALS 里的一律内联，否则运行时 require 直接抛。
+    // tsdown externalises dependencies by default, but the module table cannot answer for anything beyond
+    // react — inline everything not in EXTERNALS, or require throws at runtime.
     noExternal: (id: string) => (EXTERNALS.includes(id) ? undefined : true),
     plugins: [cssModules],
     outputOptions: {

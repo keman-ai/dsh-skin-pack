@@ -1,7 +1,7 @@
 /** 牛来右侧边栏：常驻、可收起。宽度取设计稿的 details ≈ 322px。 */
 
 /*
- * 🔴 默认不可见，只有皮肤真的激活了才现身。
+ * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * 反过来写（默认显示、靠皮肤规则去藏）会漏掉一段窗口：插件的 JS 要等 bundle 执行完
  * 才能把 `data-dsh-niulai` 打到 body 上，而 harness 的界面在那之前就渲染好了。实测
@@ -9,7 +9,7 @@
  * 时间里侧栏照常显示、主区照常让位，屏幕上就是"harness 原生样式 + 一根侧栏"——
  * 看起来像进了对话页，而窗口长短随机，表现就是"刷新几次两种界面来回切"。
  *
- * 所以判据放在这里：皮肤没激活 = 这个插件在界面上不存在。
+ * Hence the rule kept here: skin not active means this plugin does not exist in the UI.
  */
 .dock {
   display: none;
@@ -23,7 +23,7 @@
   z-index: 40;
   display: flex;
   align-items: stretch;
-  /* 收起态只占把手的宽度，不挡任何东西。 */
+  /* Collapsed, it occupies only the handle's width and blocks nothing. */
   width: auto;
   pointer-events: none;
 }
@@ -79,7 +79,7 @@
 }
 
 /*
- * 展开时把主区让出等宽的空间。
+ * When expanded, the main area yields an equal width.
  *
  * 挤压 harness 的根容器而不是给 body 加 padding：body 上有 fixed 定位的浮层
  * （模态、菜单），给 body 加内边距不会影响它们，反而会让固定层与内容错位。

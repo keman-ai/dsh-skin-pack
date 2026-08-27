@@ -113,14 +113,14 @@ export const TWINWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(94, 215, 255, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(7, 26, 45, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(118, 204, 255, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(118, 204, 255, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(78, 127, 242, 0.24)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(255, 124, 134, 0.2)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   '--dsw-alias-state-success-primary': p.ok,
   '--dsw-alias-state-success-secondary': '#7fdcb2',
   '--dsw-alias-state-success-tertiary': '#0c2f2a',
@@ -136,7 +136,7 @@ export const TWINWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#0d3550',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#020c18',
   '--dsw-alias-markdown-code-block-banner': p.surface,
   '--dsw-alias-markdown-inline-code': p.surface2,
@@ -152,7 +152,7 @@ export const TWINWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(118, 204, 255, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.cyan,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 

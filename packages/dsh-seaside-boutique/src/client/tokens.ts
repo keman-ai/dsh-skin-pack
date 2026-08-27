@@ -115,7 +115,7 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(177, 138, 80, 0.18)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(255, 255, 255, 0.6)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(72, 69, 60, 0.05)',
   '--dsw-alias-interactive-bg-active': 'rgba(72, 69, 60, 0.09)',
   '--dsw-alias-interactive-bg-hover-solid': p.paper2,
@@ -123,7 +123,7 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   // 那 1% 朱砂的其中一处：危险操作的悬停。
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(181, 90, 82, 0.14)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 🔴 成功也走玉青。这套稿子的调色盘里根本没有绿——硬塞一个会同时破坏
   // "2% 玉青"和"80% 灰白"两条配比。用深浅区分：成功用深一档的 jade2。
   '--dsw-alias-state-success-primary': p.jade2,
@@ -142,7 +142,7 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.jade2,
   '--dsw-alias-state-business-tertiary': '#e7eeec',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#f7f6f2',
   '--dsw-alias-markdown-code-block-banner': p.paper2,
   '--dsw-alias-markdown-inline-code': '#efece4',
@@ -158,7 +158,7 @@ export const SEASIDE_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(72, 69, 60, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.gold3,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   // 浅色皮肤里 toast / tooltip 通常反过来做成暗底，否则浮在纸白上分不出层。
   '--dsw-alias-toast-bg': '#3a3c39',
   '--dsw-alias-tooltip-bg': '#3a3c39',

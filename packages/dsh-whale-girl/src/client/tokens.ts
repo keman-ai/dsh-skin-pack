@@ -138,7 +138,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(83, 105, 239, 0.18)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(255, 255, 255, 0)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   // 浅底不能用"加白"做 hover（看不见），用极低透明度的深蓝压一层。
   '--dsw-alias-interactive-bg-hover': 'rgba(37, 70, 145, 0.06)',
   '--dsw-alias-interactive-bg-active': 'rgba(37, 70, 145, 0.12)',
@@ -146,7 +146,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(83, 105, 239, 0.14)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(224, 104, 95, 0.14)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 绿与琥珀直接来自原型；错误色原型没给（稿子里没有失败态），按同一套海洋色相推导一个
   // 偏珊瑚的红——纯红在这套浅蓝里会跳出画面。
   '--dsw-alias-state-success-primary': p.green,
@@ -164,7 +164,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': '#2f9fd8',
   '--dsw-alias-state-business-tertiary': '#dff2fd',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   // 原型的工具输出块是淡蓝底 + 等宽字（.toolbody），代码块照它。
   '--dsw-alias-markdown-code-block': p.code,
   '--dsw-alias-markdown-code-block-banner': p.paper2,
@@ -182,7 +182,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(37, 70, 145, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.sky,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   // tooltip 在浅色界面里要反过来用深底白字，否则贴在白卡片上看不出是浮层。
   '--dsw-alias-toast-bg': '#ffffff',
   '--dsw-alias-tooltip-bg': '#26418f',

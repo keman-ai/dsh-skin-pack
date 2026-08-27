@@ -1,15 +1,15 @@
 /**
- * 状态采集器：挂在 `conversation.composer.dock` 上、什么都不画的一个 slot 条目。
+ * Status probe: a slot entry mounted on `conversation.composer.dock` that renders nothing.
  *
- * 它存在的唯一理由是拿到 slot 注入的 `useProjection` / `useSession`，把 harness 已经算好的
+ * Its only reason to exist is receiving the slot-injected `useProjection` / `useSession`, so the numbers the
  * 投影和会话快照递给右侧状态台（见 status-store）。
  *
- * 选 `conversation.composer.dock` 的三个理由：
- *   1. 它是 `{ kind: 'list' }`，追加不会顶掉官方 StatsLine（那条也在上面，id `stats`、order 0）；
- *   2. 它的 scope 是 session，标准套件会把 `useSession` / `useProjection` 一起注进 props；
- *   3. 它的生存期正好和对话页一致，换会话时本条目重新挂载，正好清掉上一场的数字。
+ * Three reasons for choosing `conversation.composer.dock`:
+ *   1. it is `{ kind: 'list' }`, so appending does not displace the official StatsLine (also there, id `stats`, order 0);
+ *   2. its scope is session, so the standard kit injects `useSession` / `useProjection` into props;
+ *   3. its lifetime matches the conversation page, so switching sessions remounts this entry and clears the previous numbers.
  *
- * 渲染 null 是刻意的：这个 slot 在输入框下方，我们不想在那儿多出任何东西，
+ * Rendering null is deliberate: this slot sits below the composer and we want nothing extra there,
  * 原型稿把这些信息放在右栏。
  */
 
@@ -18,10 +18,10 @@ import { clearStatus, publishStatus } from './status-store.ts'
 import type { ContextEntry, ToolCallEntry } from './status-store.ts'
 
 /**
- * harness 的投影读取口，由 slot 在渲染时注入。
+ * The harness projection accessors, injected by the slot at render time.
  *
- * 按用到的 key 手写最小声明，不从 `@deepseek-ai/dsh-client-ui-slots` 引类型：那个包和它的
- * 依赖链装不下来（见 types/dsh.d.ts），而运行期它们本来就是 external。字段名与 harness 的
+ * Minimal hand-written declarations for the keys we use, rather than importing types from
+ * `@deepseek-ai/dsh-client-ui-slots`: that package and its dependency chain cannot be installed (see
  * `token-meter` / `session-stats` / `tool-todo` 一致，对不上时以 harness 源码为准。
  */
 export interface UseProjection {
@@ -35,14 +35,14 @@ export interface UseProjection {
 
 /** packages/llm/token-meter/src/projection.ts */
 interface ContextPressure {
-  /** 最近一次请求的提示词大小，供应商上报。 */
+  /** Prompt size of the most recent request, as reported by the provider. */
   pressureTokens?: number
-  /** 下一次请求的预估大小：上面那个加上此后界面增删的重新计价，压缩后会立刻反映。 */
+  /** Estimated size of the next request: the above plus repricing for UI additions and removals since; compaction shows up immediately. */
   projectedTokens?: number
   contextWindow?: number
 }
 
-/** packages/llm/token-meter/src/projection.ts —— 四个桶互不重叠（推理 token 已计入 output）。 */
+/** packages/llm/token-meter/src/projection.ts — the four buckets are disjoint (reasoning tokens count towards output). */
 interface TokenUsage {
   uncachedInputTokens: number
   outputTokens: number
@@ -59,11 +59,11 @@ interface SessionStats {
 }
 
 /**
- * packages/llm/token-meter/src/projection.ts —— 下一次请求的**构成**估算。
+ * packages/llm/token-meter/src/projection.ts — an estimate of the next request's **composition**.
  *
- * ⚠️ 三项用的是固定密度估算（对 CJK 与 JSON schema 系统性低估），**加起来不等于**
- * `contextPressure.projectedTokens`（那个锚在供应商上报值）。所以只能当"被什么撑满的"看，
- * 不能当总量，界面上必须说清楚。
+ * ⚠️ The three use fixed-density estimates (systematically low for CJK and JSON schema) and **do not add up**
+ * to `contextPressure.projectedTokens` (which is anchored to the provider's reported value). So read them as
+ * what is filling the window, never as a total, and the UI must say so.
  */
 interface ContextBreakdown {
   systemTokens: number
@@ -80,26 +80,26 @@ interface TodoItem {
 /** packages/interaction/permission-presets/src/types.ts */
 interface PermissionSelect {
   options: readonly { value: string; name: string; description?: string }[]
-  /** 当前生效的预设 key，或匹配不上任何预设时的 `custom`。 */
+  /** The active preset key, or `custom` when nothing matches. */
   currentValue: string
 }
 
-/** 会话快照选择器，同样由 slot 注入（官方 StatsLine 用的是同一个口）。 */
+/** Session snapshot selector, also slot-injected (the official StatsLine uses the same accessor). */
 export interface UseSession {
   <T>(selector: (snapshot: ConversationSnapshotLike) => T): T
 }
 
-/** packages/client/runtime/src/client/sessions/conversation.ts 里用到的那几个字段。 */
+/** The few fields we use from packages/client/runtime/src/client/sessions/conversation.ts. */
 interface ConversationSnapshotLike {
-  /** 本会话是否正在跑。 */
+  /** Whether this session is running. */
   running: boolean
-  /** 正在执行中的工具调用；`time` 是 tool/call 事件被记录的 epoch ms。 */
+  /** Tool calls in flight; `time` is the epoch ms when the tool/call event was recorded. */
   runningCalls: readonly { name: string; time: number }[]
   /**
-   * 各个已注册视图各自装配出来的快照。
+   * The snapshot each registered view assembles for itself.
    *
-   * 🔴 模型名只能从这里拿：Chat 那套装配（`chat.legacy.nodes`）**不填** `provenance`
-   * （见 ui-conversation/conversation-nodes/assistant.ts 的 finalNode——它只填 blocks /
+   * 🔴 The model name can only come from here: the Chat assembly (`chat.legacy.nodes`) does **not** fill
+   * `provenance` (see finalNode in ui-conversation/conversation-nodes/assistant.ts — it fills only blocks /
    * usage / timing），填 provenance 的是 Trajectory 那套
    * （ui-trajectory/trajectory-assistant-definition.ts）。第一版照着类型声明去读 chat 节点的
    * provenance，结果永远是 undefined，界面上模型那行一直是"—"：**字段声明为可选 ≠ 有人填**。
@@ -107,16 +107,16 @@ interface ConversationSnapshotLike {
   views: { get(target: 'trajectory'): { eventNodes: readonly ConversationNodeLike[] } | undefined }
   chat: { legacy: { nodes: readonly ConversationNodeLike[] } }
   /**
-   * 正在等你的交互。`kind` 只有 `approval`（工具要授权）与 `question`（智能体在提问），
-   * approval 的 payload 带 `toolName`。这是唯一一类"你不理它就一直停着"的状态。
+   * Interactions waiting on you. `kind` is only `approval` (a tool needs consent) or `question` (the agent is
+   * asking), and an approval's payload carries `toolName`. This is the one state that stalls until you act.
    */
   pending: readonly {
     kind: string
     payload?: { toolName?: string; questions?: readonly unknown[] }
   }[]
-  /** 收件箱：queued 排队等下一轮，steering 会并进当前轮，context 是纯上下文注入。 */
+  /** Inbox: queued waits for the next turn, steering merges into the current one, context is pure context injection. */
   queue: readonly { placement: 'queued' | 'steering' | 'context' }[]
-  /** 每一轮的起止时刻；没有 endTime 的那一轮就是正在跑的这轮。 */
+  /** Start and end of each turn; the one without an endTime is the turn currently running. */
   turnTimings: ReadonlyMap<number, { startTime: number; endTime?: number }>
 }
 
@@ -178,19 +178,19 @@ export function PearlStatusProbe({ useProjection, useSession }: StatusProbeProps
   const pending = useSession(s => s.pending)
   const queue = useSession(s => s.queue)
   const turnTimings = useSession(s => s.turnTimings)
-  // Trajectory 视图的节点带 provenance；没装 ui-trajectory 时它是 undefined，退回 chat 节点
-  // （那套目前不填 provenance，于是模型显示"—"，不猜也不编）。
+  // Trajectory view nodes carry provenance; without ui-trajectory it is undefined and we fall back to chat
+  // nodes (which currently do not fill provenance, so the model shows "—" rather than a guess).
   const nodes = useSession(s => s.views.get('trajectory')?.eventNodes ?? s.chat.legacy.nodes)
 
-  // 用 projectedTokens 而不是 pressureTokens：压缩不上报用量，只有前者会立刻回落，
-  // 否则界面会在压缩后继续显示旧的高占用（harness 自己的上下文圆环同样取它）。
+  // Use projectedTokens, not pressureTokens: compaction reports no usage and only the former drops immediately,
+  // or the UI would keep showing the old high occupancy after compaction (the harness's own context ring reads it too).
   const usedTokens = pressure?.projectedTokens ?? pressure?.pressureTokens
   const billedInput = usage === undefined
     ? undefined
     : usage.uncachedInputTokens + usage.cacheReadTokens + usage.cacheWriteTokens
 
-  // 模型：从后往前找最近一条带 provenance 的助手节点。provenance 是"实际完成这次请求的
-  // 模型"，比输入框那个选择器更可信——用户中途换模型时，历史那几轮仍然是旧模型跑的。
+  // Model: scan backwards for the most recent assistant node carrying provenance. provenance is the model that
+  // actually served the request, which is more trustworthy than the composer's picker — after a mid-session switch, earlier turns still ran on the old model.
   let model: string | undefined
   for (let index = nodes.length - 1; index >= 0; index -= 1) {
     const node = nodes[index]
@@ -268,28 +268,28 @@ export function PearlStatusProbe({ useProjection, useSession }: StatusProbeProps
     ...settledTools,
   ].slice(0, TOOL_LOG_LIMIT)
 
-  // 等你拿主意：审批带工具名，提问只报条数（问题正文在对话里，右栏不重复）。
+  // Waiting on you: approvals carry the tool name, questions report only a count (the question text is in the conversation, not repeated here).
   const pendingApprovals = pending
     .filter(item => item.kind === 'approval')
-    .map(item => item.payload?.toolName ?? '未知工具')
+    .map(item => item.payload?.toolName ?? 'unknown tool')
   const pendingQuestions = pending.filter(item => item.kind === 'question').length
   const queuedCount = queue.filter(item => item.placement === 'queued').length
   const steeringCount = queue.filter(item => item.placement === 'steering').length
 
   // 当前轮的开始时刻：没有 endTime 的那一轮。逐秒变化的"已跑多久"交给状态台算，
-  // 这里只传时间戳——否则每秒都要 publish 一次，白白把整根侧栏重渲染。
+  // Only the timestamp is passed — otherwise this would publish every second and re-render the whole rail for nothing.
   let turnStartedAt: number | undefined
   for (const [, timing] of turnTimings) {
     if (timing.endTime === undefined && (turnStartedAt === undefined || timing.startTime > turnStartedAt)) {
       turnStartedAt = timing.startTime
     }
   }
-  // 同理，取最早那个仍在跑的工具调用——那个才是"是不是卡住了"的判断依据。
+  // Likewise, take the earliest tool call still running — that is what tells you whether things are stuck.
   const toolStartedAt = runningCalls.length === 0
     ? undefined
     : Math.min(...runningCalls.map(call => call.time))
 
-  // 权限：显示名从 options 里按 currentValue 找；找不到就退回原始值（`custom` 也走这条）。
+  // Permissions: the display name is looked up in options by currentValue, falling back to the raw value (which is also how `custom` is handled).
   const permissionOption = permissions?.options.find(option => option.value === permissions.currentValue)
 
   const todoList = todos ?? []

@@ -116,7 +116,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(241, 181, 111, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(19, 28, 49, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(255, 255, 255, 0.05)',
   '--dsw-alias-interactive-bg-active': 'rgba(255, 255, 255, 0.1)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
@@ -125,7 +125,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   // 落到"需要你多看一眼的那一个"上，比铺成装饰更有用。
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(201, 101, 148, 0.24)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 🔴 成功用青绿 #7fc9a8：稿子的调色盘里没有绿，但"成功"必须跟"正在跑"（天空蓝）
   // 和"主操作"（暖黄）都区分得开。取一档低饱和的青绿，是这一整片暖调里最不吵的选择。
   '--dsw-alias-state-success-primary': '#7fc9a8',
@@ -142,7 +142,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.blue,
   '--dsw-alias-state-business-tertiary': '#16294d',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#080d1a',
   '--dsw-alias-markdown-code-block-banner': p.surface,
   '--dsw-alias-markdown-inline-code': p.surface2,
@@ -158,7 +158,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(255, 255, 255, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.amber,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 

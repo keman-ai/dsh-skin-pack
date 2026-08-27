@@ -194,7 +194,7 @@
 
 /* ==========================================================================
  * 组件语言 —— 原型的卡片/气泡：10–12px 圆角、1px 金调低对比描边、几乎不用阴影。
- * 锚点用 harness 的 data-chat-flow-kind（对话流节点类型，实测过的对外属性）。
+ * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
 /* 用户消息：11px 圆角（原型 `.user-msg`）。 */
@@ -267,12 +267,12 @@
  * 5% 的淡金要留给"边和字"，一旦铺成实心大按钮，配比立刻破掉。
  */
 /*
- * 🔴 `:not([class*='_newSessionLabel'])` 不能省。
+ * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
  *
- * 前缀匹配 `[class*='_newSession']` 会**同时命中按钮本身和它里面的文字节点**
- *（harness 的类名是 `_newSession` 与 `_newSessionLabel`），于是渐变底与描边被画了两遍，
- * 文字外面多出一个小方框。暗色皮肤上两层底色接近、几乎看不出来，浅色皮肤上一眼就是 bug。
- * 同一个坑在 `_headline` / `_headlineText` 上踩过一次。
+ * The prefix match `[class*='_newSession']` hits **both the button and the text node inside it**
+ * (the harness class names are `_newSession` and `_newSessionLabel`), so the gradient and border are painted
+ * twice and a small box appears around the text. On dark skins the two layers are close enough to hide it; on light skins it is obviously a bug.
+ * We fell into the same trap once on `_headline` / `_headlineText`.
  */
 :global(body[data-dsh-seaside] [class*='_newSession']:not([class*='_newSessionLabel'])) {
   background: linear-gradient(180deg, #ffffff, #e9f4f8);

@@ -1,7 +1,7 @@
-# 本包贡献的配置层：把皮肤插进 Loader 树。
-# profile 列出这个包时自动应用（见 apps/cli/reference：dsh.profile.bundles）。
+# The config layer this package contributes: it inserts the skin into the Loader tree.
+# Applied automatically when a profile lists this package (see apps/cli/reference: dsh.profile.bundles).
 #
-# 没有这一层的话，`dsh plugin add` 只会把包装成普通依赖，插件永远不会被加载
+# Without this layer, `dsh plugin add` installs the package as a plain dependency and the plugin is never loaded
 # —— dsh 会当场警告 “declares no dsh.bundle … not a profile layer”，
 # 皮肤集市则会判 NOT_A_BUNDLE 并把包卸回去。
 #

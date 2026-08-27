@@ -30,8 +30,8 @@ export interface EnergyRailProps {
 
 /**
  * 紧凑 token 计数，口径与状态台、官方 StatsLine 一致。
- * @param n - token 数。
- * @returns 展示字符串。
+ * @param n - Token count.
+ * @returns The display string.
  */
 function formatTokens(n: number): string {
   const scaled = (v: number): string =>

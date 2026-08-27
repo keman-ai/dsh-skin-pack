@@ -93,9 +93,9 @@ declare module '@deepseek-ai/cordis' {
    */
   export interface DockSlotRegistration {
     name: 'conversation.composer.dock'
-    /** 条目 id，同一 slot 内唯一。 */
+    /** Entry id, unique within one slot. */
     id: string
-    /** 展示排序，数字越大越靠后。 */
+    /** Display order; larger numbers come later. */
     order?: number
   }
 
@@ -111,9 +111,9 @@ declare module '@deepseek-ai/cordis' {
    */
   export interface SidebarFooterSlotRegistration {
     name: 'sidebar.footer.action'
-    /** 条目 id，同一 slot 内唯一。 */
+    /** Entry id, unique within one slot. */
     id: string
-    /** 展示排序，数字越大越靠后。 */
+    /** Display order; larger numbers come later. */
     order?: number
   }
 

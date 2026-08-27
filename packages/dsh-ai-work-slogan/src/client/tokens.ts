@@ -111,7 +111,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(255, 255, 255, 0.16)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(255, 255, 255, 0)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   // 玻璃界面的 hover 就是"再加一点白"，与面板本身同一种语言。
   '--dsw-alias-interactive-bg-hover': 'rgba(255, 255, 255, 0.08)',
   '--dsw-alias-interactive-bg-active': 'rgba(255, 255, 255, 0.16)',
@@ -119,7 +119,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(66, 132, 255, 0.28)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(240, 100, 100, 0.24)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 绿来自原型的 `● HARNESS READY` 胶囊与 `.online`。
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': '#9ceabb',
@@ -135,7 +135,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': 'rgba(122, 217, 255, 0.18)',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   // 代码块比面板更沉一档（原型 `.toolbody` 是 rgba(5,14,32,.45)），读长代码时不刺眼。
   '--dsw-alias-markdown-code-block': 'rgba(5, 14, 32, 0.45)',
   '--dsw-alias-markdown-code-block-banner': 'rgba(255, 255, 255, 0.06)',
@@ -152,7 +152,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(255, 255, 255, 0.24)',
   '--dsw-alias-scrollbar-hover-l2': 'rgba(255, 255, 255, 0.4)',
 
-  // ── 浮层 ──
+  // ── Overlays ──
   // 浮层要**不透明**：飘在渐变上的半透明弹层会把底下的内容一起读进来，看不清。
   '--dsw-alias-toast-bg': '#0d2247',
   '--dsw-alias-tooltip-bg': '#0d2247',

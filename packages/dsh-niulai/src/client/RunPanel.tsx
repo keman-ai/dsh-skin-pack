@@ -31,9 +31,9 @@ function formatTokens(n: number): string {
 }
 
 /**
- * 紧凑时长：不足一分钟 45.2s，之后 2m42s。同样对齐官方 `formatDuration`。
- * @param ms - 毫秒。
- * @returns 展示字符串。
+ * Compact durations: 45.2s under a minute, then 2m42s. Also aligned with the official `formatDuration`.
+ * @param ms - Milliseconds.
+ * @returns The display string.
  */
 function formatDuration(ms: number): string {
   const s = ms / 1_000
@@ -56,10 +56,10 @@ export function NiulaiRunPanel() {
   const usage = useSyncExternalStore(subscribeUsage, getUsage, getUsage)
 
   /*
-   * 逐秒重画，只在真有东西在跑的时候。
+   * Repaints every second, and only while something is actually running.
    *
-   * 采集器传过来的是**时间戳**而不是"已跑多久"：后者每秒都变，会让采集器每秒 publish 一次、
-   * 把整根侧栏跟着重渲染。计时留在这里算，定时器也只在有进行中的轮次/工具时才起。
+   * The probe passes a **timestamp** rather than an elapsed duration: the latter changes every second,
+   * which would make the probe publish every second and re-render the whole rail. The clock is computed here, and the timer runs only while a turn or tool is in flight.
    */
   const timing = usage.turnStartedAt ?? usage.toolStartedAt
   const [now, setNow] = useState(() => Date.now())
@@ -84,7 +84,7 @@ export function NiulaiRunPanel() {
   const steering = usage.steeringCount ?? 0
   const waitingOnYou = approvals.length > 0 || questions > 0
 
-  // 上下文构成：三项都是估算值，只用来分比例，不参与任何总量计算。
+  // Context composition: all three are estimates, used only for proportions and never for a total.
   const ctx = [
     { key: 'system', label: 'System', tokens: usage.ctxSystemTokens },
     { key: 'tools', label: '工具 schema', tokens: usage.ctxToolsTokens },
@@ -104,12 +104,12 @@ export function NiulaiRunPanel() {
       </div>
 
       {/*
-        「等你拿主意」排在最上面、且只在真的有东西等你时出现。
-        这是右栏里唯一一类"你不理它就一直停着"的状态，比任何用量数字都重要。
+        "Waiting on you" sits at the top and appears only when something is genuinely waiting.
+        It is the one state in this column that stalls until you act, which outranks any usage number.
       */}
       {waitingOnYou && (
         <section className={`${css.card} ${css.alert}`}>
-          <div className={css.cardTitle}>等你拿主意</div>
+          <div className={css.cardTitle}>Waiting on you</div>
           {approvals.map((tool, index) => (
             <Row key={`${tool}-${index}`} label="待授权">
               <span className={css.mono}>{tool}</span>
@@ -143,7 +143,7 @@ export function NiulaiRunPanel() {
         )}
         {(queued > 0 || steering > 0) && (
           <Row label="收件箱">
-            {[queued > 0 ? `${queued} 条排队` : '', steering > 0 ? `${steering} 条插话` : '']
+            {[queued > 0 ? `${queued} queued` : '', steering > 0 ? `${steering} steering` : '']
               .filter(Boolean).join(' · ')}
           </Row>
         )}
@@ -182,8 +182,8 @@ export function NiulaiRunPanel() {
               </Row>
             ))}
             {/*
-              🔴 必须写这句：这三项是固定密度估算（对中文和 JSON schema 系统性低估），
-              加起来跟上面的 Token 负载对不上。是"构成"，不是"总量"。
+              🔴 This sentence is mandatory: the three are fixed-density estimates (systematically low for CJK and JSON
+              schema), so they do not add up to the token load above. This is composition, not a total.
             */}
             <p className={css.note}>构成为估算，与上方负载不同源，不可相加。</p>
           </>
@@ -217,7 +217,7 @@ export function NiulaiRunPanel() {
         </Row>
       </section>
 
-      {/* 待办卡只在真的有清单时出现——没有计划的会话不该看到一张空卡。 */}
+      {/* The todo card appears only when there really is a list — a session with no plan should not see an empty card. */}
       {usage.todosTotal !== undefined && (
         <section className={css.card}>
           <div className={css.cardTitle}>Plan</div>

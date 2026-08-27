@@ -13,7 +13,7 @@ import type { Context } from '@deepseek-ai/cordis'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { ROSE_COVER } from './cover.generated.ts'
 
-/** 插件名（loader 行的 name）。 */
+/** Plugin name (the `name` of the loader entry). */
 export const name = 'rose'
 
 /** host 半要 webServer 提供封面路由；没有它（比如 headless）这一行不会激活。 */
@@ -38,10 +38,10 @@ export const COVER_ROUTE = '/skin-cover/rose.webp'
 /** 封面字节。data URI 只在这一侧解一次，之后常驻内存（几百 KB，Node 侧无所谓）。 */
 const COVER_BYTES = Buffer.from(ROSE_COVER.slice(ROSE_COVER.indexOf(',') + 1), 'base64')
 
-/** 主题 id，与浏览器半一致；宿主侧脚本可以引它来判断皮肤是否在用。 */
+/** Theme id, matching the browser half; host-side scripts can import it to tell whether the skin is in use. */
 export const THEME_ID = 'rose'
 
-/** 配置在 cordis.yml 里给，Loader 会连同这一行一起传给浏览器半。 */
+/** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
    * 装上就切到玫瑰梦境，默认开。关掉则只注册、不应用，等用户自己去皮肤集市里选。

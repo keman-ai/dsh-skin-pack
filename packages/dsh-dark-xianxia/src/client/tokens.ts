@@ -114,7 +114,7 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(192, 155, 92, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(11, 22, 25, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(189, 151, 88, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(189, 151, 88, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
@@ -122,7 +122,7 @@ export const XIAN_TOKENS: Record<string, string> = {
   // 那 1% 朱砂的其中一处：危险操作的悬停（原型是「终止运行」）。
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(191, 90, 71, 0.22)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 🔴 成功也走玉青。这套稿子的调色盘里根本没有绿——硬塞一个会同时破坏
   // "3% 玉青"和"70% 墨青黑"两条配比。
   '--dsw-alias-state-success-primary': p.jade2,
@@ -140,7 +140,7 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.jade,
   '--dsw-alias-state-business-tertiary': '#0d2a27',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#050d0f',
   '--dsw-alias-markdown-code-block-banner': p.bg3,
   '--dsw-alias-markdown-inline-code': p.surface2,
@@ -156,7 +156,7 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(189, 151, 88, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.gold,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 

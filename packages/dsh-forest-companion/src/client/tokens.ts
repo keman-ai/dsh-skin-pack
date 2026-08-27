@@ -111,7 +111,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(89, 201, 139, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(10, 30, 23, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(151, 220, 190, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(151, 220, 190, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': '#123426',
@@ -120,7 +120,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   // 「当前模式」的描边上，也就是"需要你注意的那一个"；这里落到同一类语义上。
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(217, 111, 149, 0.22)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   '--dsw-alias-state-success-primary': '#76dfa0',
   '--dsw-alias-state-success-secondary': '#78d698',
   '--dsw-alias-state-success-tertiary': '#10261d',
@@ -137,7 +137,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.teal,
   '--dsw-alias-state-business-tertiary': '#0f3330',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#07130f',
   '--dsw-alias-markdown-code-block-banner': '#0d2119',
   '--dsw-alias-markdown-inline-code': '#11291f',
@@ -153,7 +153,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(151, 220, 190, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.green,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': p.panel2,
 

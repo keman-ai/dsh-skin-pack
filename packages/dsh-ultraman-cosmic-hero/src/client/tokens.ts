@@ -117,14 +117,14 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(35, 217, 255, 0.22)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(9, 23, 38, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(102, 213, 255, 0.08)',
   '--dsw-alias-interactive-bg-active': 'rgba(102, 213, 255, 0.16)',
   '--dsw-alias-interactive-bg-hover-solid': '#0d2940',
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(39, 135, 255, 0.22)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(230, 49, 58, 0.2)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 绿 = ONLINE / READY（原型的 `.online` 与那颗 `● COSMIC HERO ONLINE` 胶囊）。
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': p.green,
@@ -142,7 +142,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#0a2a3a',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#04101a',
   '--dsw-alias-markdown-code-block-banner': p.panel,
   '--dsw-alias-markdown-inline-code': p.panel,
@@ -159,7 +159,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(102, 213, 255, 0.28)',
   '--dsw-alias-scrollbar-hover-l2': p.cyan,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': p.panel2,
 

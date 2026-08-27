@@ -20,13 +20,13 @@ import type { ReactNode } from 'react'
 import { getStatus, subscribeStatus } from './status-store.ts'
 import css from './StatusDock.module.css'
 
-/** 展开状态的存储键。 */
+/** Storage key for the expanded state. */
 const STORAGE_KEY = 'swing.dock.open'
 
-/** 展开时打在 body 上，供样式表把主区让出来。 */
+/** Set on body while expanded, so the stylesheet can free up the main area. */
 const OPEN_ATTRIBUTE = 'data-swing-dock-open'
 
-/** 本皮肤激活时打在 body 上的标记，与 client/index.ts 的 BODY_ATTRIBUTE 一致。 */
+/** Marker set on body while this skin is active; matches BODY_ATTRIBUTE in client/index.ts. */
 const SKIN_ATTRIBUTE = 'data-dsh-swing'
 
 function readOpen(): boolean {
@@ -34,7 +34,7 @@ function readOpen(): boolean {
     // 默认展开：状态台存在的意义就是被看见；用户收起过才记住收起。
     return window.localStorage.getItem(STORAGE_KEY) !== 'false'
   } catch {
-    // 隐私模式下 localStorage 会抛，此时按默认展开处理，不影响功能。
+    // localStorage throws in private mode; fall back to the default expanded state, which changes nothing functionally.
     return true
   }
 }
@@ -44,8 +44,8 @@ function readOpen(): boolean {
  *
  * 口径与官方 `formatTokens` 对齐（StatsLine.tsx），免得同一个值在状态台和输入框下方
  * 显示成两个数字。
- * @param n - token 数。
- * @returns 展示字符串。
+ * @param n - Token count.
+ * @returns The display string.
  */
 function formatTokens(n: number): string {
   const scaled = (v: number): string =>
@@ -56,9 +56,9 @@ function formatTokens(n: number): string {
 }
 
 /**
- * 紧凑时长：不足一分钟 45.2s，之后 2m42s。同样对齐官方 `formatDuration`。
- * @param ms - 毫秒。
- * @returns 展示字符串。
+ * Compact durations: 45.2s under a minute, then 2m42s. Also aligned with the official `formatDuration`.
+ * @param ms - Milliseconds.
+ * @returns The display string.
  */
 function formatDuration(ms: number): string {
   const s = ms / 1_000
@@ -72,10 +72,10 @@ export function SwingStatusDock() {
   const status = useSyncExternalStore(subscribeStatus, getStatus)
 
   /*
-   * 逐秒重画，只在真有东西在跑的时候。
+   * Repaints every second, and only while something is actually running.
    *
-   * 采集器传过来的是**时间戳**而不是"已跑多久"：后者每秒都变，会让采集器每秒 publish 一次、
-   * 把整根侧栏跟着重渲染。计时留在这里算，定时器也只在有进行中的轮次/工具时才起。
+   * The probe passes a **timestamp** rather than an elapsed duration: the latter changes every second,
+   * which would make the probe publish every second and re-render the whole rail. The clock is computed here, and the timer runs only while a turn or tool is in flight.
    */
   const timing = status.turnStartedAt ?? status.toolStartedAt
   const [now, setNow] = useState(() => Date.now())
@@ -91,15 +91,15 @@ export function SwingStatusDock() {
   useEffect(() => {
     const body = document.body
     /*
-     * 🔴 只有**本皮肤正激活**时才动这个标记。
+     * 🔴 Touch this marker only while **this skin is active**.
      *
-     * 状态台组件是一直挂着的（可见性交给 CSS），它不知道皮肤有没有被选中。装了多套时，
-     * 每套的状态台都会在启动时把自己的 `data-*-dock-open` 打到 body 上——CSS 都带
-     * `body[data-dsh-*]` 前缀所以不会串样式，但 body 上堆着十几个别的皮肤的标记，
-     * 排查时看着就像串台。
+     * The status dock component is always mounted (visibility is left to CSS) and does not know whether its
+     * skin is selected. With several installed, every dock would stamp its own `data-*-dock-open` onto body at
+     * startup — the CSS is all prefixed with `body[data-dsh-*]` so styles never cross, but a dozen other skins'
+     * markers piled on body look exactly like a leak when debugging.
      *
-     * 皮肤激活时由 client/index.ts 的 `restoreDockOpen` 按存储值补上，这里只管
-     * 用户手动开合（那时皮肤必然是激活的）。
+     * On activation, `restoreDockOpen` in client/index.ts restores it from storage; this only handles the user
+     * opening and closing it by hand, at which point the skin is necessarily active.
      */
     if (body.hasAttribute(SKIN_ATTRIBUTE)) {
       if (open) {
@@ -111,7 +111,7 @@ export function SwingStatusDock() {
     try {
       window.localStorage.setItem(STORAGE_KEY, String(open))
     } catch {
-      // 存不下就只影响"刷新后是否记住"，当前这次开合照常。
+      // Failing to store only affects whether it is remembered after a refresh; this toggle still works.
     }
     return () => { body.removeAttribute(OPEN_ATTRIBUTE) }
   }, [open])
@@ -135,7 +135,7 @@ export function SwingStatusDock() {
   const steering = status.steeringCount ?? 0
   const waitingOnYou = approvals.length > 0 || questions > 0
 
-  // 上下文构成：三项都是估算值，只用来分比例，不参与任何总量计算。
+  // Context composition: all three are estimates, used only for proportions and never for a total.
   const ctx = [
     { key: 'system', label: 'System', tokens: status.ctxSystemTokens },
     { key: 'tools', label: '工具 schema', tokens: status.ctxToolsTokens },
@@ -167,12 +167,12 @@ export function SwingStatusDock() {
             </div>
 
             {/*
-              「等你拿主意」排在最上面、且只在真的有东西等你时出现。
-              这是右栏里唯一一类"你不理它就一直停着"的状态，比任何用量数字都重要。
+              "Waiting on you" sits at the top and appears only when something is genuinely waiting.
+              It is the one state in this column that stalls until you act, which outranks any usage number.
             */}
             {waitingOnYou && (
               <section className={`${css.card} ${css.alert}`}>
-                <div className={css.cardTitle}>等你拿主意</div>
+                <div className={css.cardTitle}>Waiting on you</div>
                 {approvals.map((tool, index) => (
                   <Line key={`${tool}-${index}`} label="待授权">
                     <span className={css.mono}>{tool}</span>
@@ -206,7 +206,7 @@ export function SwingStatusDock() {
               )}
               {(queued > 0 || steering > 0) && (
                 <Line label="收件箱">
-                  {[queued > 0 ? `${queued} 条排队` : '', steering > 0 ? `${steering} 条插话` : '']
+                  {[queued > 0 ? `${queued} queued` : '', steering > 0 ? `${steering} steering` : '']
                     .filter(Boolean).join(' · ')}
                 </Line>
               )}
@@ -299,8 +299,8 @@ export function SwingStatusDock() {
                     </Line>
                   ))}
                   {/*
-                    🔴 必须写这句：这三项是固定密度估算（对中文和 JSON schema 系统性低估），
-                    加起来跟上面的 Token 负载对不上。是"构成"，不是"总量"。
+                    🔴 This sentence is mandatory: the three are fixed-density estimates (systematically low for CJK and JSON
+                    schema), so they do not add up to the token load above. This is composition, not a total.
                   */}
                   <p className={css.hint}>构成为估算，与上方负载不同源，不可相加。</p>
                 </>
@@ -352,7 +352,7 @@ export function SwingStatusDock() {
               </Line>
             </section>
 
-            {/* 待办卡只在真的有清单时出现——没有计划的会话不该看到一张空卡。 */}
+            {/* The todo card appears only when there really is a list — a session with no plan should not see an empty card. */}
             {status.todosTotal !== undefined && (
               <section className={css.card}>
                 <div className={css.cardTitle}>Plan</div>

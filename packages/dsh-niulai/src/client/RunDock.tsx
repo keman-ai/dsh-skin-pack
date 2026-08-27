@@ -15,13 +15,13 @@ import { useCallback, useEffect, useState } from 'react'
 import { NiulaiRunPanel } from './RunPanel.tsx'
 import css from './RunDock.module.css'
 
-/** 展开状态的存储键。 */
+/** Storage key for the expanded state. */
 const STORAGE_KEY = 'niulai.dock.open'
 
-/** 展开时打在 body 上，供样式表把主区让出来。 */
+/** Set on body while expanded, so the stylesheet can free up the main area. */
 const OPEN_ATTRIBUTE = 'data-niulai-dock-open'
 
-/** 本皮肤激活时打在 body 上的标记，与 client/index.ts 的 BODY_ATTRIBUTE 一致。 */
+/** Marker set on body while this skin is active; matches BODY_ATTRIBUTE in client/index.ts. */
 const SKIN_ATTRIBUTE = 'data-dsh-niulai'
 
 function readOpen(): boolean {
@@ -29,7 +29,7 @@ function readOpen(): boolean {
     // 默认展开：面板存在的意义就是被看见；用户收起过才记住收起。
     return window.localStorage.getItem(STORAGE_KEY) !== 'false'
   } catch {
-    // 隐私模式下 localStorage 会抛，此时按默认展开处理，不影响功能。
+    // localStorage throws in private mode; fall back to the default expanded state, which changes nothing functionally.
     return true
   }
 }
@@ -40,15 +40,15 @@ export function NiulaiRunDock() {
   useEffect(() => {
     const body = document.body
     /*
-     * 🔴 只有**本皮肤正激活**时才动这个标记。
+     * 🔴 Touch this marker only while **this skin is active**.
      *
-     * 状态台组件是一直挂着的（可见性交给 CSS），它不知道皮肤有没有被选中。装了多套时，
-     * 每套的状态台都会在启动时把自己的 `data-*-dock-open` 打到 body 上——CSS 都带
-     * `body[data-dsh-*]` 前缀所以不会串样式，但 body 上堆着十几个别的皮肤的标记，
-     * 排查时看着就像串台。
+     * The status dock component is always mounted (visibility is left to CSS) and does not know whether its
+     * skin is selected. With several installed, every dock would stamp its own `data-*-dock-open` onto body at
+     * startup — the CSS is all prefixed with `body[data-dsh-*]` so styles never cross, but a dozen other skins'
+     * markers piled on body look exactly like a leak when debugging.
      *
-     * 皮肤激活时由 client/index.ts 的 `restoreDockOpen` 按存储值补上，这里只管
-     * 用户手动开合（那时皮肤必然是激活的）。
+     * On activation, `restoreDockOpen` in client/index.ts restores it from storage; this only handles the user
+     * opening and closing it by hand, at which point the skin is necessarily active.
      */
     if (body.hasAttribute(SKIN_ATTRIBUTE)) {
       if (open) {
@@ -60,7 +60,7 @@ export function NiulaiRunDock() {
     try {
       window.localStorage.setItem(STORAGE_KEY, String(open))
     } catch {
-      // 存不下就只影响"刷新后是否记住"，当前这次开合照常。
+      // Failing to store only affects whether it is remembered after a refresh; this toggle still works.
     }
     return () => { body.removeAttribute(OPEN_ATTRIBUTE) }
   }, [open])

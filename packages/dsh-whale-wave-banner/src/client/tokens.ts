@@ -116,7 +116,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(73, 105, 239, 0.16)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(255, 255, 255, 0)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   // 浅底不能用"加白"做 hover（看不见），用极低透明度的蓝压一层。
   '--dsw-alias-interactive-bg-hover': 'rgba(67, 102, 205, 0.06)',
   '--dsw-alias-interactive-bg-active': 'rgba(67, 102, 205, 0.12)',
@@ -124,7 +124,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-interactive-bg-hover-accent': 'rgba(73, 105, 239, 0.14)',
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(214, 96, 88, 0.14)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 绿直接来自色卡的 Online；琥珀与红原型没给（稿子里没有失败态与确认态），
   // 按"轻、干净"的基调各推一个低饱和值——它们在这套皮肤里出现得越少越好。
   '--dsw-alias-state-success-primary': p.green,
@@ -141,7 +141,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.brand2,
   '--dsw-alias-state-business-tertiary': '#e6edff',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': p.code,
   '--dsw-alias-markdown-code-block-banner': '#f3f7ff',
   '--dsw-alias-markdown-inline-code': '#f3f7ff',
@@ -157,7 +157,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(67, 102, 205, 0.24)',
   '--dsw-alias-scrollbar-hover-l2': p.brand3,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   // tooltip 在浅色界面里要反过来用深底白字，否则贴在白卡片上看不出是浮层。
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': '#27418a',

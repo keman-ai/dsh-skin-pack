@@ -116,7 +116,7 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-button-tool-bar-hover': 'rgba(255, 122, 46, 0.2)',
   '--dsw-alias-button-tool-bar-fill-invisible': 'rgba(10, 18, 27, 0.4)',
 
-  // ── 交互态 ──
+  // ── Interaction states ──
   '--dsw-alias-interactive-bg-hover': 'rgba(142, 181, 203, 0.07)',
   '--dsw-alias-interactive-bg-active': 'rgba(142, 181, 203, 0.14)',
   '--dsw-alias-interactive-bg-hover-solid': p.surface3,
@@ -124,7 +124,7 @@ export const MARS_TOKENS: Record<string, string> = {
   // 那 1% 红的其中一处：危险操作的悬停。
   '--dsw-alias-interactive-bg-hover-danger': 'rgba(217, 80, 63, 0.22)',
 
-  // ── 状态色 ──
+  // ── Status colours ──
   // 🔴 成功 = Nominal 绿，进行中 = 冷蓝，主操作 = 橙。三者各司其职，一处都不串。
   '--dsw-alias-state-success-primary': p.green,
   '--dsw-alias-state-success-secondary': '#8ac9ad',
@@ -141,7 +141,7 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-state-business-primary': p.cyan,
   '--dsw-alias-state-business-tertiary': '#123141',
 
-  // ── Markdown 与代码 ──
+  // ── Markdown and code ──
   '--dsw-alias-markdown-code-block': '#040710',
   '--dsw-alias-markdown-code-block-banner': p.surface,
   '--dsw-alias-markdown-inline-code': p.surface2,
@@ -157,7 +157,7 @@ export const MARS_TOKENS: Record<string, string> = {
   '--dsw-alias-scrollbar-hover-l1': 'rgba(142, 181, 203, 0.26)',
   '--dsw-alias-scrollbar-hover-l2': p.orange,
 
-  // ── 浮层 ──
+  // ── Overlays ──
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 
