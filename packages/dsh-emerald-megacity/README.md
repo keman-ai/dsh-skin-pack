@@ -1,34 +1,34 @@
 # dsh-emerald-megacity · Emerald Megacity
 
-DeepSeek Harness（dsh）的皮肤：墨绿打底、翡翠做主操作、玉青只给运行中、暖金只做描边与强调
+A skin for DeepSeek Harness (dsh): ink green as the ground, emerald for the primary action, jade green only for running and warm gold only for borders and emphasis.
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色墨绿 `#071512`，面板两级往上抬，全场一条带暖金的暗描边
-  `rgba(235,214,164,.14)`——正是那片万家灯火的余光。约 80 个 `--dsw-alias-*` /
-  `--dsw-specific-*` 一次性换掉。
-- **新会话页整张横幅**：尖塔、吊桥与悬空的楼群，16px 圆角配暖金描边和很深的投影；
-  输入区独立放在下方，两者不重叠。进对话页后横幅收起。
-- **品牌标接管**：暖金芯 → 翡翠环 → 墨绿底的圆标，副标「Emerald Megacity」。
+- **A full set of semantic tokens**: an ink-green ground `#071512`, two rising panel levels and a single dark border tinted warm gold,
+  `rgba(235,214,164,.14)` — the afterglow of all those city lights. Around 80 `--dsw-alias-*` /
+  `--dsw-specific-*` variables change at once.
+- **A full banner on the new-session page**: the spire, the suspension bridge and the floating towers, with a 16px radius, a warm-gold border and a deep shadow;
+  the composer sits separately below and the two never overlap. The banner retracts once you enter the chat page.
+- **Brand mark takeover**: a round mark of warm-gold core, emerald ring and ink-green ground, subtitled "Emerald Megacity".
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
-这套的用色是三样东西：**翡翠绿的城、暖金的灯、雾青的空气**。
+Three things make up this palette: **an emerald city, warm gold lights and misty green air**.
 
 | Colour | Value | Used for |
 |---|---|---|
-| 墨绿 | `#071512` / `#0b211c` / `#102c25` | 底与面板——绝大部分界面 |
-| 翡翠 | `#2f7e66` | 主操作 |
-| 玉青 | `#7db99f` | **正在跑**。深的按，浅的亮 |
-| 暖金 | `#d9ad62` | 描边与强调。画里那片万家灯火 |
-| 雾青 | `#b7c9c2` | 次要文字 |
+| Ink green | `#071512` / `#0b211c` / `#102c25` | Ground and panels — most of the interface |
+| Emerald | `#2f7e66` | The primary action |
+| Jade green | `#7db99f` | **Running**. The deeper step presses, the lighter one glows |
+| Warm gold | `#d9ad62` | Borders and emphasis. All those city lights in the picture |
+| Misty green | `#b7c9c2` | Secondary text |
 
-🔴 **暖金不做实心块**：它是灯，一旦铺开，整座城的冷雾感就没了——所以只落在描边与强调上。
+🔴 **Warm gold is never a solid block**: it is light, and once it spreads the city's cool haze is gone — so it lands only on borders and emphasis.
 
-🔴 **次要文字用带绿的雾青，不用中性灰**：这座城的空气是绿的，中性灰会从画面里脱开。
+🔴 **Secondary text uses a green-tinted mist, not a neutral grey**: this city's air is green, and a neutral grey detaches from the picture.
 
 ### What the status dock shows
 
@@ -41,22 +41,22 @@ DeepSeek Harness（dsh）的皮肤：墨绿打底、翡翠做主操作、玉青�
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
 | Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
-| 上下文注入 | 每条注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
+| Context injections | The source and form of each injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
-⚠️ **工具耗时可能缺席**：只有配对的 `tool/call` 还在会话窗口内时才算得出来。
-窗口滚过去的老调用只报名字与成败——宁可空着，也不编一个好看的秒数。
+⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window.
+Older calls that scrolled past report only name and outcome — better blank than an invented figure.
 
 ⚠️ **Composition is not a total**: the three `contextBreakdown` figures use fixed-density estimates (systematically low for Chinese and JSON schema)
 and **do not add up** to the token load, which is anchored to the provider's reported value. The UI says so too.
 
 ## Deliberately not done
 
-原型右栏那几行写死的 ONLINE、几张模式卡与固定的能量值，以及封面右上角的状态角标，
-**harness 都没有对应的投影**，一律不做。
+The hardcoded ONLINE rows in the prototype's right column, its mode cards, its fixed energy value and the status badge in the cover's top-right corner
+**all have no matching projection in the harness**, and none are built.
 
-装饰可以，假状态不行：一个永远不变的能量值，第二次看见就没人信了，
-而它旁边那些真数字会跟着一起被怀疑。
+Decoration is fine; fake state is not. An energy value that never changes convinces nobody the second time they see it,
+and the real numbers beside it get doubted along with it.
 
 **This draft gives no agent-copy specification either**, so not one line of host copy is replaced.
 
@@ -70,7 +70,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-emerald-megacity
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-emerald-megacity 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-emerald-megacity to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -92,7 +92,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面是原型稿里那张巨城图（1672x941），比例与横幅接近，一刀不裁，cwebp q95 原生分辨率——万家灯火那些细碎暖点经不起压缩。
+The cover is the megacity image from the prototype (1672×941), close enough to the banner's ratio to need no crop, at cwebp q95 in native resolution — the fine warm points of all those city lights cannot survive compression.
 
 ## Development
 

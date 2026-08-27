@@ -1,5 +1,5 @@
 /**
- * 翡翠巨城的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Emerald Megacity's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
@@ -15,7 +15,7 @@
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const EMERALD_PALETTE = {
-  /** 城底，接近黑的墨绿。 */
+  /** The city ground: an ink green close to black. */
   bg: '#071512',
   bg2: '#050f0d',
   /** Two panel levels. */
@@ -28,13 +28,13 @@ export const EMERALD_PALETTE = {
   muted: '#9aada5',
   muted2: '#87998f',
 
-  /** 翡翠：主操作。 */
+  /** Emerald: the primary action. */
   blue: '#2f7e66',
   blue2: '#3a967a',
   blueDeep: '#22624f',
-  /** 玉青：描边、强调、"正在跑"。 */
+  /** Jade green: borders, emphasis and running. */
   cyan: '#7db99f',
-  /** 暖金：万家灯火，只做描边与强调。 */
+  /** Warm gold: the city lights, used only for borders and emphasis. */
   ice: '#d9ad62',
   /** Online green. */
   green: '#72d39b',
@@ -66,7 +66,7 @@ export const EMERALD_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(235, 214, 164, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(235,214,164,.14)`——**带暖金的暗描边**，正是那片灯火的余光。分层全靠它。
+  // The prototype uses exactly one, `--line: rgba(235,214,164,.14)` — **a dark border tinted warm gold**, the afterglow of those lights. All layering rests on it.
   '--dsw-alias-border-l1': 'rgba(235, 214, 164, 0.1)',
   '--dsw-alias-border-l2': 'rgba(235, 214, 164, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(235, 214, 164, 0.12)',

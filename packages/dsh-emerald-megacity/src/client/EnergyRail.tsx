@@ -21,7 +21,7 @@ import { getStatus, subscribeStatus } from './status-store.ts'
 import css from './EnergyRail.module.css'
 
 /** What this skin calls the gauge. */
-const RAIL_LABEL = '灯火'
+const RAIL_LABEL = 'City lights'
 
 export interface EnergyRailProps {
   /** The column-width state from the host: false is the 56px track state. */

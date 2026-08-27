@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的巨城封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced megacity cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
@@ -187,7 +187,7 @@ export function EmeraldStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 正在推演' : '● 就绪 READY'}
+                  {busy ? '● WORKING IT OUT' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (

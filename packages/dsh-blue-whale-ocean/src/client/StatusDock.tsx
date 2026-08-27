@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的海面封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced sea-surface cover plus this session's real state.
  *
  * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
  * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
@@ -214,13 +214,13 @@ export function BwhaleStatusDock() {
             </section>
 
             {/*
-              潜航记录 —— 原型稿右栏那张卡的真数据版。
+              Dive log — the real-data version of that card in the prototype's right column.
               The draft's `Harness Systems` is five hardcoded ONLINE rows; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>潜航记录</div>
+                <div className={css.cardTitle}>Dive log</div>
                 <ul className={css.log}>
                   {toolCalls.map((call, index) => (
                     <li key={`${call.name}-${index}`} className={css.logRow} data-state={callState(call)}>
@@ -235,7 +235,7 @@ export function BwhaleStatusDock() {
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 段更早的潜航`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier dive(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.

@@ -1,5 +1,5 @@
 /**
- * 蓝鲸海洋的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Blue Whale Ocean's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
@@ -28,13 +28,13 @@ export const BWHALE_PALETTE = {
   muted: '#87aabe',
   muted2: '#7096ab',
 
-  /** 主操作蓝（原型 `.new` 的 135° 渐变取中点）。 */
+  /** The primary action blue (the midpoint of the prototype's 135° gradient on `.new`). */
   blue: '#2f91d5',
   blue2: '#3da7e4',
   blueDeep: '#2472b9',
-  /** 透明青蓝：描边、强调、"正在跑"。 */
+  /** Translucent cyan-blue: borders, emphasis and running. */
   cyan: '#79dfff',
-  /** 冰白高光。 */
+  /** The ice-white highlight. */
   ice: '#d9f3ff',
   /** Online green. */
   green: '#70d6a0',
@@ -66,7 +66,7 @@ export const BWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-skeleton': 'rgba(173, 226, 255, 0.08)',
 
   // ── Borders ──
-  // 原型全场一条 `--line: rgba(173,226,255,.15)`——**带青蓝的暗描边**。深色界面的分层全靠它。
+  // The prototype uses exactly one, `--line: rgba(173,226,255,.15)` — **a dark border tinted cyan-blue**. All layering in a dark interface rests on it.
   '--dsw-alias-border-l1': 'rgba(173, 226, 255, 0.1)',
   '--dsw-alias-border-l2': 'rgba(173, 226, 255, 0.16)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(173, 226, 255, 0.12)',
