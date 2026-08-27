@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的焚山主视觉 + 这场会话的真实状态。
+ * The right-hand dock: a reduced Flame Mountain visual plus this session's real state.
  *
  * The prototype's right column has four cards: Session setup / Workspace context / Keyboard / Theme note. Only
  * **only those matching real data**: waiting on you, state and timing, model, context occupancy and composition, permission mode, usage,
@@ -144,7 +144,7 @@ export function WukongStatusDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="焚山状态台">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Flame Mountain status dock">
       <button
         type="button"
         className={css.handle}
@@ -163,7 +163,7 @@ export function WukongStatusDock() {
               a colossus centred between snow peaks, and cropping to sidebar width removes exactly those peaks, making the subject stand out more.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--wukong-cover)' }}>
-              <span className={css.coverName}>黑神话悟空 · 焚山版</span>
+              <span className={css.coverName}>Black Myth Wukong · Flame Mountain</span>
             </div>
 
             {/*
@@ -215,7 +215,7 @@ export function WukongStatusDock() {
 
             {/*
               Tool calls — the real-data version of that card in the prototype's right column.
-              稿子里那几行工具演示是写死的；这里是本会话真实跑过的工具：
+              The draft's tool rows are hardcoded demos; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
@@ -247,13 +247,13 @@ export function WukongStatusDock() {
             )}
 
             {/*
-              卷宗注入 —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              Scroll injection — what is actually pushed into the context each turn (AGENTS.md, skill directories, system prompts…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}
             {contextEntries.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>卷宗注入</div>
+                <div className={css.cardTitle}>Scroll injection</div>
                 <ul className={css.log}>
                   {contextEntries.map((entry, index) => (
                     <li key={`${entry.label}-${index}`} className={css.logRow} data-role={entry.role}>

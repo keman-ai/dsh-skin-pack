@@ -157,7 +157,7 @@ interface ConversationNodeLike {
 /** How many rows the tool-call card lists at most. Beyond that only a total is reported — the right column is a status dock, not a log. */
 const TOOL_LOG_LIMIT = 6
 
-/** 「卷宗注入」卡最多列几条。 */
+/** How many rows the scroll-injection card lists at most. */
 const CONTEXT_LOG_LIMIT = 5
 
 export interface StatusProbeProps {

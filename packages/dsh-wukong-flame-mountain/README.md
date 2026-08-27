@@ -1,6 +1,6 @@
-# dsh-wukong-flame-mountain · 黑神话悟空 · 焚山版
+# dsh-wukong-flame-mountain · Black Myth Wukong · Flame Mountain
 
-DeepSeek Harness（dsh）的暗色皮肤：黑墨、古金与余烬橙，新会话页是一整幅焚山主视觉。
+A dark skin for DeepSeek Harness (dsh): black ink, old gold and ember orange, with a full-bleed Flame Mountain visual on the new-session page.
 
 ![New session](preview/dark.webp)
 
@@ -8,23 +8,23 @@ DeepSeek Harness（dsh）的暗色皮肤：黑墨、古金与余烬橙，新会�
 
 | Surface | Content |
 |---|---|
-| 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（暗色基座）+ 全局 170px 经纬细纹 |
-| 新会话页 | 整幅焰发悟空横版主视觉 + 输入框贴底。**强角色视觉只出现在空屏**——进对话页就收起 |
-| 品牌位 | 侧栏与新会话页的标换成「悟」字金印，站名副标 `黑神话悟空 · 焚山版` |
+| Palette | A full set of `--dsw-alias-*` / `--dsw-specific-*` semantic tokens on the dark base, plus a global 170px warp-and-weft texture |
+| New session | A full landscape visual of the flame-haired Wukong with the composer at the bottom. **Strong character visuals appear on the empty screen only** — they collapse on entering a conversation |
+| Brand slots | The sidebar and new-session marks become a gold seal bearing the character 悟, with the subtitle `Black Myth Wukong · Flame Mountain` |
 | 右侧状态台 | 对话页常驻：缩小版主视觉 + 六类真实状态，可收起（记住选择） |
-| 身份化文案 | 思考中 →「正在思考……」、失败 →「执行失败，请重试。」 |
+| Identity copy | Thinking → "Thinking…", failure → "Execution failed, please retry." |
 
-### 🔴 配比是设计稿写死的
+### 🔴 The ratios are fixed by the draft
 
-> 72% 黑墨 / 14% 暗褐 Surface / 8% 古金 / 3% 青铜 / 2% 余烬橙 / 1% 危险红
+> 72% black ink / 14% dark brown surface / 8% old gold / 3% bronze / 2% ember orange / 1% danger red
 
-这不是色卡，是**用量约束**，实现时逐条守住：
+This is not a swatch but a **usage constraint**, held to line by line:
 
-- **古金**只给主操作与品牌位，不铺面；
-- **余烬橙**只给"正在运行"那一档语义（`state-business-*`）——它出现得越少，「在跑」这个信号越有效；
-- 连 **`＋ 新建会话` 都不是金色实心**（原型里它是金字 + 金描边 + 暗底），真正的金色实心只属于发送；
-- 身份化文案刻意克制：设计稿两处写明「避免过度仙侠化文案」「只接管视觉气质与少量身份化文案，
-  交互 / 信息架构 / 权限逻辑继续遵循 DeepSeek Harness」。
+- **Old gold** goes to the primary action and the brand slots only, never across a surface;
+- **Ember orange** goes only to the running semantic (`state-business-*`) — the rarer it is, the more the running signal means;
+- even **`+ New session` is not solid gold** (in the prototype it is gold text and border on a dark ground); solid gold belongs to Send alone;
+- the identity copy is deliberately restrained: the draft says twice to avoid over-stylised wording and to take over only
+  the visual character and a little identity copy, with interaction, information architecture and permission logic still following DeepSeek Harness.
 
 ### What the status dock shows
 
@@ -37,7 +37,7 @@ DeepSeek Harness（dsh）的暗色皮肤：黑墨、古金与余烬橙，新会�
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
 | Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
-| 卷宗注入 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
+| Scroll injection | The source and form of each context injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
@@ -45,12 +45,12 @@ DeepSeek Harness（dsh）的暗色皮肤：黑墨、古金与余烬橙，新会�
 ⚠️ **Composition is not a total**: the three `contextBreakdown` figures use fixed-density estimates (systematically low for Chinese and JSON schema)
 and **do not add up** to the token load, which is anchored to the provider's reported value. The UI says so too.
 
-原型稿右栏的 `Workspace context`（哪些文件被索引了）harness 没有对应投影，
-`Keyboard` 是静态速查表——都不做，不拿假数据凑。
+The prototype's `Workspace context` (which files are indexed) has no matching projection in the harness, and
+`Keyboard` is a static cheat sheet — neither is built, and no fake data fills the space.
 
 ## Install
 
-**皮肤集市**（推荐）：在 dsh 的皮肤集市里搜「悟空」安装，装完**重启 dsh**。
+**Skin market** (recommended): search for "Wukong" in dsh's skin market and install, then **restart dsh**.
 
 Manual install (during development):
 
@@ -58,7 +58,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-wukong-flame-mountain
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-wukong-flame-mountain 加进 ~/.dsh/profiles/web/package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-wukong-flame-mountain to ~/.dsh/profiles/web/package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -72,12 +72,12 @@ switching manually requires the skin market's own panel (**Settings → Skin Mar
 The cost: **it reapplies on every refresh**, so switching away lasts only for that session. To change permanently, set `autoApply` to `false`
 or uninstall the plugin. It is implemented as an 8-second window after startup (long enough to outlast the Host preference snapshot), after which it lets go entirely.
 
-## 做不到的
+## What cannot be done
 
-- **hero 的大标题文案**（原型是楷体「踏 火 前 行」）：harness 的空屏标题走内置 locale，
-  第三方 `locale.register` 同名直接抛错，只给新增不给替换。硬用伪元素盖会连带盖住其它语言，
-  所以保留宿主原文。
-- 原型右栏那几张卡（Workspace context / Keyboard）：见上。
+- **The hero's headline** (the prototype sets it in a brush serif): the harness's empty-screen heading comes from the
+  built-in locale, and a third-party `locale.register` throws on a duplicate name — addition only, never replacement. Forcing a pseudo-element over it would cover every other language too,
+  so the host's own text stays.
+- The prototype's right-column cards (Workspace context / Keyboard): see above.
 
 ## Version requirements
 
@@ -86,7 +86,7 @@ these three registrations throw and are swallowed, **merely falling back to the 
 
 ## Assets
 
-主视觉是一张 1672×941 的插画，压成 webp（q92，307 KB）内联进 bundle，不外链图床——
+The hero is a 1672×941 illustration compressed to webp (q92, 307 KB) and inlined into the bundle rather than linked from an image host —
 from an image host — it has to work offline and on an intranet. How it is generated and its resolution ceiling are documented at the top of `src/client/cover.generated.ts`.
 
 ## Development

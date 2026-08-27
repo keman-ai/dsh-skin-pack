@@ -1,5 +1,5 @@
 /**
- * 黑神话悟空 · 焚山版皮肤 · host 半。
+ * The Black Myth Wukong · Flame Mountain skin · host half.
  *
  * All of the skin's behaviour lives in the browser (registering the theme, spreading the hero, taking over the
  * brand slots, mounting the dock); this host half is only the Loader's mount point. `cordis.patch.yml` inserts

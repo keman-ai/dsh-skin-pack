@@ -1,8 +1,8 @@
 /**
- * 品牌位的「悟」字印与站名。
+ * The 悟 seal and wordmark for the brand slots.
  *
- * 原型稿侧栏左上角是一枚圆形金边印章（里面一个「悟」字）+ 两行站名
- * 「DeepSeek Harness / 黑神话悟空 · 焚山版」。harness 把这两处都开成了 slot：
+ * The prototype's sidebar top-left carries a round gold-rimmed seal holding the character 悟, beside two lines reading
+ * "DeepSeek Harness / Black Myth Wukong · Flame Mountain". The harness exposes both as slots:
  * `sidebar.brand.mark`, `sidebar.brand.name`, and the new-session page's larger mark has another
  * `conversation.hero.brand.mark`。
  *
@@ -33,13 +33,13 @@ interface BrandMarkProps {
 }
 
 /**
- * 「悟」字金印。
+ * The gold 悟 seal.
  *
- * 整枚印做成 svg 而不是 DOM + CSS：宿主给的 `size` 在侧栏（24）与 hero（34）不同，
- * svg 用 viewBox 缩放，字号、环宽、间距按同一比例走，两处都不用另配一套样式。
+ * The whole seal is SVG rather than DOM + CSS: the host's `size` differs between sidebar (24) and hero (34), and
+ * a viewBox scales type size, ring width and spacing by one ratio, so neither place needs its own styles.
  *
  * @param props - Size and class name from the host.
- * @returns 金边圆印。
+ * @returns The round gold-rimmed seal.
  */
 export function WukongMark({ size, className }: BrandMarkProps) {
   return (
@@ -60,7 +60,7 @@ export function WukongMark({ size, className }: BrandMarkProps) {
         </radialGradient>
       </defs>
       <circle cx="16" cy="16" r="15" fill="url(#wukong-seal)" />
-      {/* 金环：用 currentColor，跟着宿主给的文字色走，主题切换和悬停都不用额外处理。 */}
+      {/* The gold ring uses currentColor, following the host's text colour, so theme switches and hover need no extra handling. */}
       <circle cx="16" cy="16" r="15" stroke="currentColor" strokeOpacity="0.55" strokeWidth="1.4" />
       <text
         x="16"
@@ -69,7 +69,7 @@ export function WukongMark({ size, className }: BrandMarkProps) {
         dominantBaseline="central"
         fontSize="17"
         fontWeight="700"
-        /* 楷体优先：原型的大标题用的就是楷体，印章跟着走才是一套字。找不到就退回系统衬线。 */
+        /* A brush serif first: the prototype's headline uses one, and the seal follows to stay one typeface. Falls back to the system serif. */
         fontFamily='"STKaiti", "KaiTi", "Songti SC", serif'
         fill="currentColor"
       >
@@ -90,7 +90,7 @@ export function WukongName() {
   return (
     <span className={css.name}>
       <strong className={css.title}>DeepSeek Harness</strong>
-      <small className={css.subtitle}>黑神话悟空 · 焚山版</small>
+      <small className={css.subtitle}>Black Myth Wukong · Flame Mountain</small>
     </span>
   )
 }

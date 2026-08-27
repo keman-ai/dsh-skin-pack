@@ -1,7 +1,7 @@
 /**
- * 焚山悟空的装饰层。
+ * The Flame Mountain Wukong decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-wukong]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-wukong]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -13,9 +13,9 @@
  */
 
 /* ==========================================================================
- * 全局底纹 —— 原型稿 `body:before`：170px 的经纬细线，14% 不透明度。
+ * The global texture — the prototype's `body:before`: a 170px warp-and-weft weave at 14% opacity.
  *
- * 这层是"黑墨压迫感"的来源之一：没有它，界面只是一片纯黑；有了它才有拓片/绢本的颗粒。
+ * It is part of where the ink's weight comes from: without it the interface is plain black; with it there is the grain of a rubbing or of silk.
  * Its intensity is low enough not to affect any text, and `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-wukong])::before {
@@ -34,9 +34,9 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿的设计说明写死了作用域：「强角色视觉只出现在 New Session、Empty State 与少量
- * 身份化组件」「人物主视觉只在 New Session 和 Empty State 出现，工作态保持克制、清晰、可读」。
- * 所以主视觉**只画在 hero**，对话页与轨迹页一点不铺。
+ * 🔴 The prototype's design notes fix the scope: strong character visuals appear only on New Session, the empty state
+ * and a few identity components, and the character hero appears only on New Session and the empty state, with the working state restrained, clear and readable.
+ * So the hero visual is painted **on the hero only**, with nothing on the conversation or trajectory pages.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
  * replaying and it is unknown whether it lands on hero or the conversation; the harness hides the composer then
@@ -72,7 +72,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-color: #0b0907;
-  /* 原型给主视觉压了一档亮度、提了一点对比，让它退到界面之后而不是压住界面。 */
+  /* The prototype dims the hero a step and lifts contrast slightly, so it recedes behind the UI rather than dominating it. */
   filter: contrast(1.03) brightness(0.9);
 }
 
@@ -143,17 +143,17 @@
  * ========================================================================== */
 
 /*
- * Thinking → 正在思考……
+ * Thinking → "Thinking…"
  *
  * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
- * `font-size: 0` 让原文本不占位，伪元素显式给回量到的 14px。
+ * `font-size: 0` collapses the original text, and the pseudo-element restores the measured 14px.
  */
 :global(body[data-dsh-wukong] [data-variant='think'][data-state='running'] [class*='_title']) {
   font-size: 0;
 }
 
 :global(body[data-dsh-wukong] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '正在思考……';
+  content: 'Thinking…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -161,12 +161,12 @@
 }
 
 /*
- * Error → 执行失败，请重试。
+ * Error → "Execution failed, please retry."
  *
  * Appended rather than replaced: the original error line carries the specific reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-wukong] [data-state='error'] [class*='_title'])::after {
-  content: ' · 执行失败，请重试。';
+  content: ' · execution failed, please retry.';
   font-weight: 400;
   color: var(--dsw-alias-state-error-primary);
 }
@@ -236,11 +236,11 @@
 }
 
 /*
- * 🔴 `＋ 新建会话` 在这套设计里**不是**金色实心。
+ * 🔴 `+ New session` is **not** solid gold in this design.
  *
- * 原型的 `.new-session` 是「暗褐渐变底 + 金描边 + 金字」，真正的金色实心只留给
- * hero 上那颗 `Start task →`（也就是发送）。这跟配比表里「8% 古金」是一回事：金一旦铺开，
- * 就不再是"最重要的那一下"。上一套浅色皮肤把新建会话做成了品牌实心，这里刻意不照抄。
+ * The prototype's `.new-session` is a dark brown gradient with a gold border and gold text, and solid gold is reserved
+ * for the hero's `Start task →` (that is, Send). This is the same point as the 8% gold ratio: once gold spreads,
+ * it stops being the one most important touch. The previous light skin made New session a solid brand button, and this deliberately does not copy it.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.

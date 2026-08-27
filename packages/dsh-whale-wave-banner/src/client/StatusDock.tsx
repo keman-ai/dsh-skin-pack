@@ -214,7 +214,7 @@ export function WaveStatusDock() {
 
             {/*
               Tool calls — the real-data version of that card in the prototype's right column.
-              稿子里那几行工具演示是写死的；这里是本会话真实跑过的工具：
+              The draft's tool rows are hardcoded demos; here are the tools this session actually ran:
               Running calls come first with a per-second clock; finished ones are listed newest first with duration and outcome.
             */}
             {toolCalls.length > 0 && (
