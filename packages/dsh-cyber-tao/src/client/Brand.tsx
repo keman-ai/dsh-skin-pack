@@ -1,7 +1,7 @@
 /**
  * The mission badge and wordmark for the brand slots.
  *
- * 原型稿侧栏左上角是一枚圆角方标（深蓝渐变 + 冷蓝描边 + 一圈青色辉光，里面是一个「道」字）
+ * The prototype's sidebar top-left carries a rounded square (a deep blue gradient, a cool blue border and a cyan glow) holding the character 道
  * plus a two-line wordmark, "DeepSeek Harness / Cosmic Exploration". The harness exposes both as slots:
  * `sidebar.brand.mark`, `sidebar.brand.name`, and the new-session page's larger mark has another
  * `conversation.hero.brand.mark`。
@@ -39,7 +39,7 @@ interface BrandMarkProps {
  * scaling, so type size, radius and spacing follow one ratio and neither place needs its own styles.
  *
  * A single character rather than a drawn figure: at 24px any silhouette blurs into a blob of colour while a Chinese character stays recognisable —
- * 原型稿的侧栏标本身也是一个「道」字。
+ * The prototype's sidebar mark is itself the character 道.
  *
  * @param props - Size and class name from the host.
  * @returns The square mission badge.
@@ -103,7 +103,7 @@ export function TaoName() {
   return (
     <span className={css.name}>
       <strong className={css.title}>DeepSeek Harness</strong>
-      <small className={css.subtitle}>赛博道观</small>
+      <small className={css.subtitle}>Cyber Tao Temple</small>
     </span>
   )
 }

@@ -1,44 +1,44 @@
 /**
- * 赛博道观的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Cyber Tao Temple's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
- * 🔴 原型稿在对话里把这套的分寸写死了：
- *   「视觉上转译成"赛博道观"：**黑曜石底色、青铜描边、宣纸白文字、朱砂强调、玉石青状态**。」
- *   「道观气质要深，但**产品可用性不能被吞掉**——按钮、卡片、信息层级仍然是现代开发工具，
- *   只在氛围、用词、材质与动效上完成"修仙化"。」
+ * 🔴 The prototype fixes this skin's restraint in its own notes:
+ *   translate it visually into a cyber Tao temple: **an obsidian ground, bronze borders, rice-paper white text, cinnabar for emphasis, jade for state**;
+ *   the temple's character must run deep **without swallowing the product's usability** — buttons, cards and information
+ *   hierarchy stay those of a modern development tool, and only atmosphere, wording, texture and motion take on the temple.
  *
- * 五种材质各有各的位置，别互相串：
- *   - **黑曜石**（#0a0d10）：底与三级面板；
- *   - **青铜 / 宣纸**（rgba(228,207,168,.12)）：所有描边——这套的"材质感"全在这条线上；
- *   - **宣纸白**（#efe7d7）：正文，不是纯白，带暖；
- *   - **朱砂**（#b94235）：强调——选中的那一条会话，仅此而已；
- *   - **玉石青**（#6e9788）：**状态**。原型的原话就是"玉石青状态"，所以它落在"正在运行"上。
- * 主操作是**赤金**（`.send` 的 `linear-gradient(180deg,#d8b977,#b89252)` 配深字 #261f14）。
+ * Each of the five materials has its own place; never let them cross:
+ *   - **obsidian** (#0a0d10): ground and the three panel levels;
+ *   - **bronze / rice paper** (rgba(228,207,168,.12)): every border — this skin's whole sense of material rests on that line;
+ *   - **rice-paper white** (#efe7d7): body text — not pure white, and warm;
+ *   - **cinnabar** (#b94235): emphasis — the selected session, and nothing else;
+ *   - **jade** (#6e9788): **state**. The prototype's own words are "jade for state", so it lands on running.
+ * The primary action is **red gold** (`.send`'s `linear-gradient(180deg,#d8b977,#b89252)` with #261f14 text).
  */
 
-/** 原型稿 `:root` 的原始色。 */
+/** The raw colours from the prototype's `:root`. */
 export const TAO_PALETTE = {
-  /** 黑曜石。 */
+  /** Obsidian. */
   bg: '#0a0d10',
   bg2: '#0f1317',
   surface: '#13181d',
   surface2: '#171d22',
   surface3: '#1d242a',
 
-  /** 宣纸白（正文）与它的次级。 */
+  /** Rice-paper white for body text, and its secondary. */
   text: '#efe7d7',
   text2: '#b9b0a1',
   text3: '#8a857c',
 
-  /** 青铜三档：描边与低饱和金属面。 */
+  /** Three bronze steps: borders and desaturated metal surfaces. */
   bronze: '#8f6d42',
   bronzeDeep: '#6d5230',
   bronzeLight: '#b59260',
-  /** 赤金：主操作。 */
+  /** Red gold: the primary action. */
   gold: '#c8a768',
   goldLight: '#e0c58f',
-  /** 朱砂：强调，只给"选中的那一个"。 */
+  /** Cinnabar: emphasis, only ever for the selected one. */
   cinnabar: '#b94235',
-  /** 玉石青：状态色。 */
+  /** Jade: the state colour. */
   jade: '#6e9788',
 
   ok: '#7ca06e',
@@ -48,7 +48,7 @@ export const TAO_PALETTE = {
 
 const p = TAO_PALETTE
 
-/** 交给 `ctx.theme.register()` 的 token 表。只写要改的，其余继承内置暗色基座。 */
+/** The token table handed to `ctx.theme.register()`. Only what changes is written; the rest inherits the built-in dark base. */
 export const TAO_TOKENS: Record<string, string> = {
   // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
@@ -66,7 +66,7 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-bg-mask-drop': 'rgba(45, 37, 25, 0.72)',
   '--dsw-alias-bg-skeleton': 'rgba(228, 207, 168, 0.07)',
 
-  // ── 描边：青铜 / 宣纸的那条线，这套的材质感全在这里 ──
+  // ── Borders: the bronze / rice-paper line, where this skin's whole sense of material lives ──
   '--dsw-alias-border-l1': 'rgba(228, 207, 168, 0.08)',
   '--dsw-alias-border-l2': 'rgba(228, 207, 168, 0.12)',
   '--dsw-alias-border-l2-darkmode-thin': 'rgba(228, 207, 168, 0.1)',
@@ -75,7 +75,7 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-border-inverted': 'rgba(239, 231, 215, 0.06)',
   '--dsw-alias-border-inverted2': 'rgba(239, 231, 215, 0.1)',
 
-  // ── 文字：宣纸白，不是纯白 ──
+  // ── Text: rice-paper white, not pure white ──
   '--dsw-alias-label-primary': p.text,
   '--dsw-alias-label-primary-bluish': p.text,
   '--dsw-alias-label-primary-dimmed': p.text2,
@@ -83,11 +83,11 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-label-tertiary': p.text3,
   '--dsw-alias-label-caption': '#7d786f',
   '--dsw-alias-label-dimmed': '#7d786f',
-  // 赤金底上压深字（原型 `.send` 的 `color:#261f14`）。
+  // Deep text on red gold (the prototype's `.send` uses `color:#261f14`).
   '--dsw-alias-label-primary-foreground': '#261f14',
   '--dsw-alias-label-primary-inverted': p.surface3,
 
-  // ── 品牌与主按钮：赤金 ──
+  // ── Brand and primary button: red gold ──
   '--dsw-alias-brand-primary': p.gold,
   '--dsw-alias-brand-text': p.goldLight,
   '--dsw-alias-brand-primary-invert': '#261f14',
@@ -102,7 +102,7 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-button-ghost-active-fill': '#1d242a',
   '--dsw-alias-button-ghost-active-hover': '#242c33',
   '--dsw-alias-button-ghost-active-border': 'rgba(228, 207, 168, 0.24)',
-  // info 走青铜：比赤金低一档，不与主操作抢。
+  // info uses bronze: a step below red gold, never competing with the primary action.
   '--dsw-alias-button-info-fill': p.bronzeDeep,
   '--dsw-alias-button-info-hover': p.bronze,
   '--dsw-alias-button-tool-bar-fill': 'rgba(200, 167, 104, 0.12)',
@@ -126,8 +126,8 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-state-warn-tertiary': '#2a2318',
   '--dsw-alias-state-error-primary': p.danger,
   '--dsw-alias-state-error-secondary': p.cinnabar,
-  // 🔴 business = 进行中：玉石青。原型写的就是"玉石青状态"——朱砂是强调（选中的那一条），
-  // 不是运行态；把两者对调会让"在跑"和"选中"变成同一个信号。
+  // 🔴 business = in progress: jade. The prototype's own words are "jade for state" — cinnabar is emphasis (the
+  // selected row), not the running state; swapping them would make running and selected the same signal.
   '--dsw-alias-state-business-primary': p.jade,
   '--dsw-alias-state-business-tertiary': 'rgba(110, 151, 136, 0.16)',
 
@@ -141,7 +141,7 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-markdown-placeholder': p.surface2,
   '--dsw-alias-markdown-tag': p.surface2,
 
-  // ── 滚动条：青铜，不用中性灰 ──
+  // ── Scrollbar: bronze, never neutral grey ──
   '--dsw-alias-scrollbar-bg-l1': 'rgba(228, 207, 168, 0.12)',
   '--dsw-alias-scrollbar-bg-l2': 'rgba(228, 207, 168, 0.22)',
   '--dsw-alias-scrollbar-hover-l1': 'rgba(228, 207, 168, 0.24)',
@@ -151,7 +151,7 @@ export const TAO_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.surface3,
   '--dsw-alias-tooltip-bg': p.surface3,
 
-  // ── specific 层 ──
+  // ── The specific layer ──
   '--dsw-specific-sidebar-fill': '#0c1013',
   '--dsw-specific-sidebar-nav-item-hover': p.surface,
   '--dsw-specific-sidebar-nav-item-active': p.surface3,

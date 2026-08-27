@@ -1,10 +1,10 @@
 /**
- * 右侧状态台：缩小版的道观封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced temple cover plus this session's real state.
  *
- * 原型稿的右栏是「Current run / Context files / Usage」三张卡。这里做**能对上真实数据的那些**：
+ * The prototype's right column has three cards: Current run / Context files / Usage. Only **those matching real data** are built:
  * waiting on you, state and timing, model, context occupancy and composition, permission mode, usage, todo progress.
- * `Goal` 那条「完成一套研发可落地的主题设计」与 `72% · 5/7 checkpoints`、以及 `Context files`
- * 里那几个文件名，都是稿子里写死的，harness 没有对应投影，不伪造。
+ * the `Goal` line and its `72% · 5/7 checkpoints`, and the file names under `Context files`,
+ * are all hardcoded in the draft with no matching projection, so nothing is fabricated.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1
@@ -144,7 +144,7 @@ export function TaoStatusDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="道观状态台">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Temple status dock">
       <button
         type="button"
         className={css.handle}
@@ -159,12 +159,12 @@ export function TaoStatusDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              缩小版封面。用的是 body 上那个 CSS 变量（`--tao-cover`），和主视觉同一个 URL、
-              同一份 HTTP 缓存，不额外发请求；`cover` 居中裁——
-              这张图是道童与山门的大景，裁掉两侧不影响主体。
+              A reduced cover, using the CSS variable on body (`--tao-cover`) — the same URL and the same HTTP cache as the
+              hero, so no extra request; centre-cropped with `cover` —
+              the image is a wide shot of the acolyte and the mountain gate, and cropping the sides leaves the subject intact.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--tao-cover)' }}>
-              <span className={css.coverName}>赛博道观</span>
+              <span className={css.coverName}>Cyber Tao Temple</span>
             </div>
 
             {/*
@@ -248,13 +248,13 @@ export function TaoStatusDock() {
             )}
 
             {/*
-              经卷注入 —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              Scripture injection — what is actually pushed into the context each turn (AGENTS.md, skill directories, system prompts…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}
             {contextEntries.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>经卷注入</div>
+                <div className={css.cardTitle}>Scripture injection</div>
                 <ul className={css.log}>
                   {contextEntries.map((entry, index) => (
                     <li key={`${entry.label}-${index}`} className={css.logRow} data-role={entry.role}>

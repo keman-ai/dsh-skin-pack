@@ -45,7 +45,7 @@ export const COSMIC_PALETTE = {
 
 const p = COSMIC_PALETTE
 
-/** 交给 `ctx.theme.register()` 的 token 表。只写要改的，其余继承内置暗色基座。 */
+/** The token table handed to `ctx.theme.register()`. Only what changes is written; the rest inherits the built-in dark base. */
 export const COSMIC_TOKENS: Record<string, string> = {
   // ── Container layers ──
   '--dsw-alias-bg-base': p.bg,
@@ -153,7 +153,7 @@ export const COSMIC_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.surface3,
   '--dsw-alias-tooltip-bg': p.surface3,
 
-  // ── specific 层 ──
+  // ── The specific layer ──
   '--dsw-specific-sidebar-fill': '#060b18',
   '--dsw-specific-sidebar-nav-item-hover': '#121e3a',
   '--dsw-specific-sidebar-nav-item-active': '#152248',

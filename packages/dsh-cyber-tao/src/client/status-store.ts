@@ -8,8 +8,8 @@
  * Hence the split in two: a zero-render probe mounted on `conversation.composer.dock` (a list slot third
  * parties may append to, and where the official StatsLine also lives) writes what it reads into here, and the dock subscribes with `useSyncExternalStore`.
  *
- * 🔴 数据一律来自官方投影/快照，**不解析 DOM、不伪造**。稿子里写死的那些演示值
- *（`Goal 72% · 5/7 checkpoints`、固定的 Context files 体积）没有对应投影，一律不做。
+ * 🔴 All data comes from official projections and snapshots — **no DOM parsing, nothing fabricated**. The draft's
+ * hardcoded demo values (`Goal 72% · 5/7 checkpoints`, fixed Context files sizes) have no matching projection and are not built.
  */
 
 /**

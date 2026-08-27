@@ -1,7 +1,7 @@
 /**
- * 赛博道观的装饰层。
+ * The Cyber Tao Temple decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-tao]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-tao]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -13,9 +13,9 @@
  */
 
 /* ==========================================================================
- * 全局符纸格纹 —— 原型 `body::before` 那层 140px 的暗金网格，8% 不透明度、screen 混合。
+ * The global talisman grid — the prototype's `body::before`, a 140px dark-gold grid at 8% opacity with screen blending.
  *
- * 没有它，界面只是一片深灰；有了它才有"符纸"的材质。强度低到不影响任何文字可读性，
+ * Without it the interface is just dark grey; with it there is the texture of talisman paper. It is faint enough to affect no text,
  * `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-tao])::before {
@@ -35,8 +35,8 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 🔴 原型稿的 handoff plan 写死了分寸：「保持 DSH 三栏与信息密度，**不做过度戏剧化重排**」
- * 「New Session 改造成"召请道童"的**全屏空状态**」「道观气质要深，但**产品可用性不能被吞掉**」。
+ * 🔴 The prototype's handoff plan fixes the restraint: keep DSH's three columns and information density, **with no
+ * over-dramatised rearrangement**; turn New Session into a **full-screen empty state** summoning the acolyte; and let the temple's character run deep **without swallowing the product's usability**.
  * so the full cover is painted **on the hero only** (which is exactly the empty state), with nothing on the conversation or trajectory pages and no layout touched.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
@@ -143,7 +143,7 @@
  * ========================================================================== */
 
 /*
- * Thinking → 道童正在参悟天机……
+ * Thinking → "The acolyte is contemplating the workings of fate…"
  *
  * The prototype's handoff plan calls for personified copy across Thinking / Tool / Permission / Error.
  * Three of them have anchors and are implemented (thinking, failure, permission); the Tool line has nothing to hang on in the harness
@@ -156,7 +156,7 @@
 }
 
 :global(body[data-dsh-tao] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '道童正在参悟天机……';
+  content: 'The acolyte is contemplating the workings of fate…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -164,12 +164,12 @@
 }
 
 /*
- * Error → 天机紊乱，请重新推演。
+ * Error → "The workings are disturbed — recalculate."
  *
  * Appended rather than replaced: the original error line carries the specific reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-tao] [data-state='error'] [class*='_title'])::after {
-  content: ' · 天机紊乱，请重新推演。';
+  content: ' · the workings are disturbed — recalculate.';
   font-weight: 400;
   color: var(--dsw-alias-state-error-primary);
 }
@@ -229,7 +229,7 @@
  * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-tao] [data-chat-flow-kind='approval'])::before {
-  content: '此事涉及因果，请真人裁决 · ';
+  content: 'this carries consequences; a human decides · ';
   font-weight: 600;
   color: var(--dsw-alias-brand-text);
 }
@@ -250,7 +250,7 @@
 }
 
 /*
- * `＋ 新会话`：原型 `.new-btn` 是一条赤金渐变（#e0c58f → #c8a768）配深褐字。
+ * `+ New session`: the prototype's `.new-btn` is a red-gold gradient (#e0c58f → #c8a768) with deep brown text.
  * The harness styles it as secondary by default, leaving the primary action without visual weight unless changed.
  */
 /*

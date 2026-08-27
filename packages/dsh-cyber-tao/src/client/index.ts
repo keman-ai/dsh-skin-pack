@@ -1,5 +1,5 @@
 /**
- * 赛博道观 · 浏览器半。
+ * Cyber Tao Temple · browser half.
  *
  * It does four things, in decreasing order of robustness, hence kept separate:
  *
@@ -47,10 +47,10 @@ const DOCK_OPEN_ATTRIBUTE = 'data-tao-dock-open'
 const DOCK_STORAGE_KEY = 'tao.dock.open'
 
 /**
- * 封面地址。由 host 半在 `/skin-cover/tao.webp` 上提供（见 src/index.ts 的 COVER_ROUTE）。
+ * The cover URL, served by the host half at `/skin-cover/tao.webp` (see COVER_ROUTE in src/index.ts).
  *
- * 🔴 不再内联 data URI：21 套皮肤同时装载时，每套几百 KB 的 base64 会把浏览器主线程压死
- *（实测首屏 90 秒渲染不出来）。现在浏览器只在皮肤**真的激活**、CSS 用到这个变量时才去取图。
+ * 🔴 No longer an inline data URI: with 21 skins loaded, a few hundred KB of base64 each crushes the browser's main
+ * thread (measured: no first paint in 90 seconds). The browser now fetches the image only once the skin is **actually active** and the CSS uses this variable.
  */
 const COVER_URL = '/skin-cover/tao.webp'
 
@@ -100,7 +100,7 @@ export function apply(ctx: Context, config: Config = {}): void {
    * priority), but that rail holds "click a tool call to see its Input / Output", the only lead there is when
    * debugging, so replacing it with a dock is a net loss. Both coexist without interfering.
    *
-   * 挂载不区分皮肤是否激活，可见性交给 CSS（`body[data-dsh-tao]` 才 display）——
+   * Mounting does not depend on whether the skin is active; visibility is left to CSS (display only under `body[data-dsh-tao]`) —
    * The rule is "not active means not present", so no half-built UI shows during the window before the skin takes effect.
    */
   ctx.effect(() => mountDock(), 'tao: status dock')
@@ -124,7 +124,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   }, TaoStatusProbe)), 'tao: status probe')
 
   /*
-   * 侧栏底部的能量槽（原型稿那条「今日修行 · 心神值」的真数据版）。
+   * The sidebar energy gauge — the real-data version of the prototype's daily-practice spirit figure.
    *
    * `sidebar.footer.action` is `{ kind: 'list' }`, right beside the Settings row, and appending displaces nobody.
    * Its scope is `root` and it receives no session projection, so this component reads no props and subscribes to
@@ -199,7 +199,7 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
     return false
   }
   if (scope[CLAIM_KEY] !== undefined) {
-    ctx.logger.info('[tao] 已有皮肤占了自动应用名额（%s），本套改为待选', String(scope[CLAIM_KEY]))
+    ctx.logger.info('[tao] another skin already claimed the auto-apply slot (%s); this one waits to be picked', String(scope[CLAIM_KEY]))
     return false
   }
   scope[CLAIM_KEY] = THEME_ID
@@ -228,7 +228,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
    * Whether the startup window has passed. Inside it the theme is held; after it, nothing is touched.
    *
    * 🔴 It cannot be "stop after one successful switch": ui-theme's `setTheme` persists built-in preferences only
-   *（`isThemePreference('tao')` 是 false，第三方 id 根本不进持久化），而 Host 快照到达时
+   * (`isThemePreference('tao')` is false and third-party ids never reach persistence), and when the Host snapshot arrives
    * `adopt()` **overrides** the current preference with the built-in value from disk. Once the order is
    * plugin-switches-then-snapshot-arrives, the skin is quietly swapped back **with no error at all**, and the plugin
    * has already let go so it never returns — the symptom being "installed a skin, refreshed a few times, back to default". The order is a race, hence the intermittency.
@@ -259,7 +259,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
         // 🔴 Do not say "pick it under Settings → Appearance": measured, that row holds only the three built-in
         // preferences light / dark / follow system (CUBES in ui-theme's AppearanceRow is hardcoded to three), and third-party themes are simply not there.
         // The place to switch manually is the skin market's own panel (Settings → Skin Market).
-        ctx.logger.warn('[tao] 自动应用失败，可到「设置 → 皮肤市场」手动切换', error)
+        ctx.logger.warn('[tao] auto-apply failed; you can switch manually under Settings → Skin Market', error)
       }
       return
     }
@@ -276,10 +276,10 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
        *
        * Switching from another skin, both respond to the **same** `theme/change`, and which runs first depends on
        * plugin registration order. If the new skin runs first, it registers `conversation.hero.brand.mark` (a single
-       * priority -1）时，旧皮肤还没来得及在自己的回调里注销——撞车、被 attachBrand 吞掉，
-       * 结果是**切过去了但品牌位还是官方标**。实测切 4 次能撞上 2 次，且完全静默。
+       * slot at priority -1) before the old skin has deregistered in its own callback — they collide, attachBrand swallows it,
+       * and the result is **a switched skin still showing the official mark**. Measured: two collisions in four switches, entirely silent.
        *
-       * setTimeout(0) 把接管排到本轮所有 theme/change 回调之后，那时旧皮肤必定已注销。
+       * setTimeout(0) queues the takeover after every theme/change callback of this round, by which point the old skin has certainly deregistered.
        */
       clearTimeout(brandTimer)
       brandTimer = setTimeout(() => { brandDisposers = attachBrand(ctx) }, 0)
@@ -430,7 +430,7 @@ function attachBrand(ctx: Context): (() => void)[] {
           priority: -1,
         }, slot.component)
       } catch (error) {
-        ctx.logger.warn('[tao] 品牌位 %s 接管失败，保留官方标', slot.name, error)
+        ctx.logger.warn('[tao] brand slot %s takeover failed; keeping the official mark', slot.name, error)
         return () => {}
       }
     }))

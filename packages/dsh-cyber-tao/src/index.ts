@@ -1,5 +1,5 @@
 /**
- * 赛博道观皮肤 · host 半。
+ * The Cyber Tao Temple skin · host half.
  *
  * All of the skin's behaviour lives in the browser (registering the theme, spreading the hero, taking over the
  * brand slots, mounting the dock); this host half is only the Loader's mount point. `cordis.patch.yml` inserts
@@ -20,13 +20,13 @@ export const name = 'tao'
  * 🔴 The cover is served over an HTTP route and no longer inlined into the browser half.
  *
  * The cause was measured: with 21 skins installed into one profile the UI **would not open**. Each skin's
- * 都是 `<script>` 同步引入的，而封面以 data URI 直接编进了 bundle——单套 230–860 KB，
- * 21 套合计 9.4 MB 全部要先下完、解析完，主线程直接被压死（90 秒都渲染不出首屏，
+ * is loaded by a synchronous `<script>`, and the cover was compiled into it as a data URI — 230–860 KB each,
+ * 9.4 MB across 21, all of which had to download and parse first, crushing the main thread (no first paint in 90 seconds,
  * and the console showed no errors at all — it simply hung.
  *
  * So the image moved to the host half: on the Node side base64 is decoded once at startup, and the browser half keeps only a URL
- * 字符串。bundle 从 231 KB 掉到几十 KB，图片则由浏览器在**皮肤真的激活时**才去取，
- * 还能吃上 HTTP 缓存。
+ * string. The bundle drops from 231 KB to tens of KB, and the browser fetches the image only once the skin is **actually active**,
+ * with HTTP caching on top.
  *
  * ⚠️ The path must be globally unique: `webServer.register` throws outright on a duplicate path
  * (the route table is a bundle-level convention, so a conflict is a config error). The theme id guarantees it here.
@@ -45,7 +45,7 @@ export const THEME_ID = 'tao'
 /** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
-   * 装上就切到赛博道观，默认开。关掉则只注册、不应用，等用户自己去皮肤集市里选。
+   * Switch to Cyber Tao Temple on install; on by default. Turning it off registers without applying, leaving the user to pick it in the skin market.
    *
    * On by default because third-party theme ids never enter the built-in settings schema and the choice is not
    * persisted, while Settings → Appearance lists only light / dark / follow system: without auto-apply, every start would need reselecting.
@@ -55,7 +55,7 @@ export interface Config {
 
 export function apply(ctx: Context, config: Config = {}): void {
   /*
-   * 封面路由。内容按内容寻址不变，所以给一年的不可变缓存——切来切去不会重复下载。
+   * The cover route. Its content is addressed by content and never changes, so a one-year immutable cache — switching skins re-downloads nothing.
    */
   ctx.effect(() => ctx.webServer.register({
     kind: 'exact',
@@ -71,5 +71,5 @@ export function apply(ctx: Context, config: Config = {}): void {
   }), `tao: ${COVER_ROUTE}`)
 
   const mode = config.autoApply === false ? 'select it manually under Settings → Skin Market' : 'applied automatically'
-  ctx.logger.info('[tao] 赛博道观已挂载（%s）', mode)
+  ctx.logger.info('[tao] Cyber Tao Temple mounted (%s)', mode)
 }

@@ -158,7 +158,7 @@
  * ========================================================================== */
 
 /*
- * Thinking → 道童正在参悟天机……
+ * Thinking → "The acolyte is contemplating the workings of fate…"
  *
  * The prototype's handoff plan calls for personified copy across Thinking / Tool / Permission / Error.
  * Three of them have anchors and are implemented (thinking, failure, permission); the Tool line has nothing to hang on in the harness
@@ -171,7 +171,7 @@
 }
 
 :global(body[data-dsh-mist] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '道童正在参悟天机……';
+  content: 'The acolyte is contemplating the workings of fate…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -179,12 +179,12 @@
 }
 
 /*
- * Error → 天机紊乱，请重新推演。
+ * Error → "The workings are disturbed — recalculate."
  *
  * Appended rather than replaced: the original error line carries the specific reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-mist] [data-state='error'] [class*='_title'])::after {
-  content: ' · 天机紊乱，请重新推演。';
+  content: ' · the workings are disturbed — recalculate.';
   font-weight: 400;
   color: var(--dsw-alias-state-error-primary);
 }
@@ -244,7 +244,7 @@
  * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-mist] [data-chat-flow-kind='approval'])::before {
-  content: '此事涉及因果，请真人裁决 · ';
+  content: 'this carries consequences; a human decides · ';
   font-weight: 600;
   color: var(--dsw-alias-brand-text);
 }

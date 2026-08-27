@@ -14,8 +14,8 @@ DeepSeek Harness（dsh）的皮肤：墨青黑打底、古金做边与按钮、�
   让墨黑底不至于死板。`pointer-events: none` 保证不拦点击。
 - **新会话页整幅封面**：书法「参悟天机 · 万象归一」、仗剑的道友与那条神龙。进入对话与轨迹页后封面收起。
 - **品牌标接管**：侧栏与 hero 的标都换成一枚「天」字金章，副标「天机阁 · 修仙版」。
-- **人格化文案**：思考中 → 「道童正在参悟天机……」；失败 → 「天机紊乱，请重新推演。」；
-  需要你确认时前缀一句「此事涉及因果，请真人裁决」——**原文照旧留着**，那才是你做判断的依据。
+- **Personified copy**: thinking → "The acolyte is contemplating the workings of fate…"; failure → "The workings are disturbed — recalculate.";
+  and a confirmation prompt is prefixed with "this carries consequences; a human decides" — **the original text stays**, since that is what you judge by.
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules

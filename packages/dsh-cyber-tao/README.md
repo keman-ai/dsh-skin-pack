@@ -1,38 +1,38 @@
 ✔ dsh-cyber-tao/README.md
-观
+Temple
 
-DeepSeek Harness（dsh）的皮肤：黑曜石底、青铜描边、宣纸白文字，朱砂强调、玉石青状态，新会话页是一整幅山门主视觉
+A skin for DeepSeek Harness (dsh): an obsidian ground, bronze borders, rice-paper white text, cinnabar for emphasis, jade for state, and a full-bleed mountain-gate visual on the new-session page
 
 ![New session](preview/dark.webp)
 
 ## What it changes
 
-- **整套语义 token**：底色黑曜石 `#0a0d10`，面板 `#13181d`，全场一条 `rgba(228,207,168,.12)` 的暗金描边，
-  文字宣纸白 `#efe7d7`。约 80 个 `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
-- **一层符纸格纹**：`body::before` 铺 140px 的暗金网格，8% 不透明度、`mix-blend-mode: screen` —— 原型稿的材质层。
-  弱到不干扰任何文字，`pointer-events: none` 保证不拦点击。
-- **新会话页整幅封面**：道童、山门云海与那幅「参悟天机 · 道通万象」的书法。进入对话与轨迹页后封面收起。
-- **品牌标接管**：侧栏与 hero 的标都换成一枚「道」字铜章，副标「赛博道观」。
-- **人格化文案**：思考中 → 「道童正在参悟天机……」；失败 → 「天机紊乱，请重新推演。」；
-  需要你确认时前缀一句「此事涉及因果，请真人裁决」——**原文照旧留着**，那才是你做判断的依据。
+- **A full set of semantic tokens**: an obsidian ground `#0a0d10`, panels `#13181d`, and exactly one dark gold border `rgba(228,207,168,.12)`,
+  with rice-paper white text `#efe7d7`. About 80 `--dsw-alias-*` / `--dsw-specific-*` tokens change at once, and every layer follows.
+- **A talisman grid**: `body::before` lays a 140px dark-gold grid at 8% opacity with `mix-blend-mode: screen` — the prototype's texture layer.
+  It is faint enough to disturb no text, and `pointer-events: none` guarantees it intercepts no click.
+- **A full cover on the new-session page**: the acolyte, the mountain gate above the clouds, and the calligraphy. It collapses on entering a conversation or the trajectory.
+- **Brand takeover**: the sidebar and hero marks both become a bronze seal bearing the character 道, with the subtitle "Cyber Tao Temple".
+- **Personified copy**: thinking → "The acolyte is contemplating the workings of fate…"; failure → "The workings are disturbed — recalculate.";
+  and a confirmation prompt is prefixed with "this carries consequences; a human decides" — **the original text stays**, since that is what you judge by.
 - **A right-hand status dock**: always present; see the table below.
 
 ## Palette rules
 
-原型稿自己把规则写死成一句话：**黑曜石底色、青铜描边、宣纸白文字、朱砂强调、玉石青状态**。
-五个词对应五种用量，越界就不是这套皮肤了：
+The prototype states the rule in one line: **an obsidian ground, bronze borders, rice-paper white text, cinnabar for emphasis, jade for state.**
+Five words, five uses; stray beyond them and this is no longer the skin:
 
 | Colour | Value | Used for |
 |---|---|---|
-| 黑曜石 | `#0a0d10` / `#13181d` | 底与面板——绝大部分界面 |
-| 青铜 | `rgba(228,207,168,.12)` | 描边。暗底上的分层全靠这条细线 |
-| 宣纸白 | `#efe7d7` | 正文 |
-| 朱砂 | `#b94235` | **强调**：会话列表里选中的那一项、危险操作的悬停。只给「就是它」的那一个 |
-| 玉石青 | `#6e9788` | **状态**：正在跑。与成功绿拉开一档，运行和成功不会看成同一件事 |
-| 赤金 | `#e0c58f → #c8a768` | 主操作按钮（原型 `.new-btn` 那条渐变） |
+| Obsidian | `#0a0d10` / `#13181d` | Ground and panels — most of the interface |
+| Bronze | `rgba(228,207,168,.12)` | Borders. All layering on a dark ground rests on this one line |
+| Rice-paper white | `#efe7d7` | Body text |
+| Cinnabar | `#b94235` | **Emphasis**: the selected session, and hovering a destructive action. Only ever for "this is the one" |
+| Jade | `#6e9788` | **State**: running. A step apart from the success green, so running and success never read as one |
+| Red gold | `#e0c58f → #c8a768` | The primary action button (the prototype's `.new-btn` gradient) |
 
-还有一句同样是原型稿写的：**道观气质要深，但产品可用性不能被吞掉**。
-所以三栏布局、信息密度、按钮与卡片层级一处不动，只在氛围、用词、材质上「修仙化」。
+The prototype writes another line too: **the temple's character must run deep, but the product's usability must not be swallowed.**
+So the three-column layout, the information density and the button and card hierarchy are untouched; only atmosphere, wording and texture take on the temple.
 
 ### What the status dock shows
 
@@ -45,7 +45,7 @@ DeepSeek Harness（dsh）的皮肤：黑曜石底、青铜描边、宣纸白文�
 | Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
 | Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
 | Tool calls | Tool name · real duration · outcome | Trajectory `tool-result` nodes (duration = `time - callTime`) plus the snapshot's `runningCalls`. **Appears only once a call has happened** |
-| 经卷注入 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
+| Scripture injection | The source and form of each context injection | Trajectory `context` nodes (`provenance.label` / `form`) |
 | Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
 ⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
@@ -55,14 +55,14 @@ and **do not add up** to the token load, which is anchored to the provider's rep
 
 ## Deliberately not done
 
-原型稿右栏那条 `Goal · 72% · 5 / 7 checkpoints`、三个写死的 `Context files`
-（`ui-theme/src/client/index.ts` 8.1 KB 之类）、以及封面上的「今日修行 · 76 心神值」，
-**harness 都没有对应的投影**。
+The prototype's right column has a `Goal · 72% · 5 / 7 checkpoints` line, three hardcoded `Context files`
+(entries such as `ui-theme/src/client/index.ts` at 8.1 KB), and a daily-practice figure on the cover —
+**the harness has a projection for none of them**.
 
-装饰可以，假状态不行：一个永远显示 76 的心神值，第二次看见就没人信了，
-而它旁边那些真数字会跟着一起被怀疑。所以这些一律不做，右栏只留能对上真实数据的卡。
+Decoration is fine; fake state is not. A spirit figure permanently reading 76 is disbelieved the second time it is seen,
+and the real numbers beside it get doubted along with it. So none of them are built, and the right column keeps only cards backed by real data.
 
-原型 Agent copy 里的 `Tool run → 正在调用神通……` 与 `Context → 正在翻阅经卷……` 也没做：
+The prototype's agent copy for Tool run and Context is also not implemented:
 The harness's tool rows have only ok / error and no running to hang on, and forcing one would produce a permanently lit fake state.
 
 ## Install
@@ -75,7 +75,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-cyber-tao
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-cyber-tao 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-cyber-tao to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -97,7 +97,7 @@ priorities count as a conflict; different priorities shadow, and the lower numbe
 
 ## Assets
 
-封面来自原型稿的整屏设计图，裁去了稿子里的假侧栏、假面板与标题按钮，只留画面（652x500 webp，内联成 data URI）。
+The cover comes from the prototype's full-screen design, with its mock sidebar, mock panels and title buttons cropped away, leaving only the artwork (652×500 webp, inlined as a data URI).
 
 ## Development
 
