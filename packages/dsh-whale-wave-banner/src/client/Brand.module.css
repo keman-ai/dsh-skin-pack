@@ -8,10 +8,10 @@
   flex: none;
   background-color: #eef3ff;
   background-size: cover;
-  /* 横幅正中就是鲸鱼，裁方时对准中心即可。 */
+  /* The whale sits dead centre in the banner, so a square crop just needs to be centred. */
   background-position: center;
   background-repeat: no-repeat;
-  /* 原型给了一层很淡的品牌色投影，让标"浮"在侧栏上而不是贴上去。 */
+  /* The prototype adds a faint brand-coloured shadow so the mark floats above the sidebar rather than sitting flat on it. */
   box-shadow: 0 8px 20px rgba(73, 105, 239, 0.12);
 }
 

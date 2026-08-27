@@ -1,5 +1,5 @@
 /**
- * 右侧状态台：缩小版的鲸跃封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced Whale Wave cover plus this session's real state.
  *
  * The prototype's right column has three cards: session state / Assistant Systems / whale girl modes. Only **those
  * matching real data** are built: state, model, context occupancy, usage and todo progress. The five "Assistant Systems
@@ -186,7 +186,7 @@ export function WaveStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 鲸跃正在忙' : '● 就绪 READY'}
+                  {busy ? '● THE WHALE IS BUSY' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (

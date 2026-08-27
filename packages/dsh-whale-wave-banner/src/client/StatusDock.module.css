@@ -4,7 +4,7 @@
  * 🔴 Hidden by default; it appears only once the skin is actually active.
  *
  * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
- * `data-dsh-whale-wave` 打到 body 上，而 harness 的界面在那之前就渲染好了。那段时间里状态台
+ * stamps `data-dsh-whale-wave` onto body, and the harness UI is already rendered before that. During that window the dock
  * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
  * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
  *
@@ -89,8 +89,8 @@
 /*
  * The reduced cover.
  *
- * `contain` 配白底：横幅本身就是 2.5:1 的完整构图，缩到侧栏宽度正好整幅呈现，不需要裁——
- * 跟 hero 那张是同一张图、同一个比例。
+ * `contain` on a white ground: the banner is already a complete 2.5:1 composition, and scaled to the rail's width it shows whole, needing no crop —
+ * it is the same image at the same ratio as the hero's.
  */
 .cover {
   aspect-ratio: 2.5 / 1;
@@ -287,7 +287,7 @@
  * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
  * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
  *
- * 同样必须带 `[data-dsh-whale-wave]`：漏了它，皮肤还没激活的那段窗口里主区已经让出 300px，
+ * This too must carry `[data-dsh-whale-wave]`: without it, the main area yields 300px during the window before the skin activates,
  * leaving a strip on the right while the content keeps its native palette.
  */
 :global(body[data-dsh-whale-wave][data-whale-wave-dock-open] > div:first-of-type) {

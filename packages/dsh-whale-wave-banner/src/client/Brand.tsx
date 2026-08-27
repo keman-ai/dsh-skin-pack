@@ -2,7 +2,7 @@
  * The whale mark and wordmark for the brand slots.
  *
  * The prototype's sidebar has a 12px-radius square mark in the top left containing **the banner itself** (cropped square with `object-fit: cover`),
- * 配一层很淡的蓝色投影；旁边两行「deepseek / Whale Wave Theme」。
+ * with a faint blue shadow, beside two lines reading "deepseek / Whale Wave Theme".
  *
  * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
  * "a single slot occupied by the official component makes third-party registration throw" is **out of date**:
@@ -28,11 +28,11 @@ interface BrandMarkProps {
 }
 
 /**
- * 鲸鱼标：横幅裁方。
+ * The whale mark: the banner cropped square.
  *
- * 直接复用那张内联横幅，不额外增加体积——`background-size: cover` 从中间裁一个正方形，
- * 而横幅正中就是鲸鱼，裁出来正好是它的头身。圆角按 size 等比给（原型是 34px 配 12px 圆角，
- * 也就是 0.35 倍），这样侧栏的 24px 与 hero 的 34px 是同一个形状。
+ * It reuses the inlined banner rather than adding weight — `background-size: cover` crops a square from the centre,
+ * and since the whale sits dead centre the crop lands exactly on its head and body. The radius scales with size (the prototype's 34px carries
+ * a 12px radius, 0.35×), so the sidebar's 24px and the hero's 34px are the same shape.
  *
  * @param props - Size and class name from the host.
  * @returns The square whale mark.
@@ -53,7 +53,7 @@ export function WaveMark({ size, className }: BrandMarkProps) {
 }
 
 /**
- * 站名：主名 + 副标，对应原型稿的「deepseek / Whale Wave Theme」。
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "deepseek / Whale Wave Theme".
  *
  * The primary name stays deepseek — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *

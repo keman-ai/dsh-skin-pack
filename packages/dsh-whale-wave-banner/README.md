@@ -1,35 +1,35 @@
-# dsh-whale-wave-banner · 鲸跃横幅
+# dsh-whale-wave-banner · Whale Wave Banner
 
-DeepSeek Harness（dsh）的浅色皮肤：DeepSeek 蓝 + 白 + 极浅灰蓝，新会话页是一张横幅封面，
-输入区独立在封面下方。
+A light skin for DeepSeek Harness (dsh): DeepSeek blue, white and a very pale grey-blue, with a banner cover on the
+new-session page and the composer sitting separately below it.
 
-![新会话页](preview/light.webp)
+![New session page](preview/light.webp)
 
 ## What it changes
 
 | Surface | Content |
 |---|---|
-| 配色 | 一整套 `--dsw-alias-*` / `--dsw-specific-*` 语义 token（浅色基座），描边全是带蓝的 1px 淡线 |
-| 新会话页 | **横幅只占上半屏**，20px 圆角卡片；输入区独立在下方，两者不重叠，封面上不叠任何文案 |
-| 品牌位 | 侧栏与新会话页的标就是横幅裁方（复用同一张内联图），站名副标 `Whale Wave Theme` |
+| Palette | A full set of `--dsw-alias-*` / `--dsw-specific-*` semantic tokens on the light base, with every border a pale 1px line tinted blue |
+| New session | **The banner takes only the upper half**, as a card with a 20px radius; the composer sits separately below, the two never overlap, and no copy is laid over the cover |
+| Brand slots | The sidebar and new-session marks are the banner cropped square (reusing the same inlined image), with the subtitle `Whale Wave Theme` |
 | 右侧状态台 | 对话页常驻：缩小版横幅 + 六类真实状态，可收起（记住选择） |
 
-### 🔴 这套跟其它几套的做法相反
+### 🔴 This skin does the opposite of the others
 
-原型稿 Appearance 面板里的实现建议，第 1、2 条是全部要害：
+Points 1 and 2 of the implementation notes in the prototype's Appearance panel are the whole point:
 
-> 1. New Session 顶部直接使用这张横幅图，**不在封面里叠加任何大段说明文案**。
-> 2. **输入区独立放在封面下方**，避免破坏主视觉。
+> 1. Use this banner image directly at the top of New Session, **laying no block of explanatory copy over the cover**.
+> 2. **Place the composer separately below the cover** so the hero visual stays intact.
 
-它的 handoff 里也写着 `hero.copy = none` / `composer = below cover`。所以别的皮肤把输入框
-贴底压在整幅图上，这套**不能**那么做——横幅吃掉输入区以上的全部高度，输入区在它下面。
+Its handoff likewise says `hero.copy = none` / `composer = below cover`. So where other skins pin the composer to the
+bottom over the full image, this one **must not** — the banner takes all the height above the composer, which sits below it.
 
-（实现细节：一开始按原图比例 `aspect-ratio: 2.5/1` 画，结果封面比可用空间矮，中间空出一大条，
-看着像没加载完。原型的 `.home` 是 `grid-template-rows: minmax(0,1fr) auto`——封面吃掉全部剩余
-高度、图用 `object-fit: cover` 裁掉多余。改成填满 + `background-size: cover` 才对上。）
+(Implementation detail: drawing it at the source ratio `aspect-ratio: 2.5/1` first left the cover shorter than the space available, with a wide gap in the middle that
+looked half-loaded. The prototype's `.home` is `grid-template-rows: minmax(0,1fr) auto` — the cover takes all the remaining
+height and `object-fit: cover` trims the excess. Filling the space with `background-size: cover` is what finally matched.)
 
-第 4 条同样是硬约束：**色彩控制在 DeepSeek 蓝 + 白 + 极浅灰蓝**。所以这套皮肤里几乎没有第五种
-颜色：绿只在「在线 / 成功」出现，连「正在运行」都用品牌蓝的亮一档，而不是另起一个强调色。
+Point 4 is just as binding: **keep the colours to DeepSeek blue, white and a very pale grey-blue**. So this skin has almost no fifth
+colour: green appears only for online and success, and even running uses a brighter step of the brand blue rather than a new accent.
 
 ### What the status dock shows
 
@@ -50,16 +50,16 @@ DeepSeek Harness（dsh）的浅色皮肤：DeepSeek 蓝 + 白 + 极浅灰蓝，�
 ⚠️ **Composition is not a total**: the three `contextBreakdown` figures use fixed-density estimates (systematically low for Chinese and JSON schema)
 and **do not add up** to the token load, which is anchored to the provider's reported value. The UI says so too.
 
-原型右栏那五行「Harness Systems ONLINE」是纯装饰、`Theme Mode` 三行是写死的主题说明——
-都不做，不拿假数据凑。
+The five "Harness Systems ONLINE" rows in the prototype's right column are pure decoration, and the three `Theme Mode` rows are a hardcoded theme description —
+neither is built; nothing is padded out with fake data.
 
 ## About the copy
 
-**本皮肤不替换任何宿主文案。** 这份原型稿没有 Agent 文案规范，没有依据就自己加人格化台词是加戏。
+**This skin replaces no host copy.** The prototype gives no agent-copy specification, and inventing personified lines without a basis is embellishment.
 
 ## Install
 
-**皮肤集市**（推荐）：搜「鲸跃」安装，装完**重启 dsh**。
+**Skin market** (recommended): search for "Whale Wave", install, then **restart dsh**.
 
 Manual install (during development):
 
@@ -67,7 +67,7 @@ Manual install (during development):
 npm install && npm run build
 DST=~/.dsh/profiles/web/node_modules/dsh-whale-wave-banner
 mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "$DST/"
-# 再把 dsh-whale-wave-banner 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
+# then add dsh-whale-wave-banner to the profile package.json's dependencies and dsh.profile.bundles
 ```
 
 After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
@@ -79,18 +79,18 @@ and the **built-in Settings → Appearance has only three cells: light / dark / 
 switching manually requires the skin market's own panel (**Settings → Skin Market**).
 
 The cost: **it reapplies on every refresh**, so switching away lasts only for that session. To change permanently, set `autoApply` to `false`
-或者卸载本插件。
+or uninstall this plugin.
 
 ## Version requirements
 
 Requires **dsh 0.1.1-rc.2 or newer**. The brand-slot takeover relies on slot `priority` shadowing; on older versions
-这三处注册会抛错并被吞掉，**只是退回官方品牌标**，配色与横幅照常工作。
+those three registrations throw and the error is swallowed — it **simply falls back to the official brand mark**, while the palette and banner keep working.
 
 ## Assets
 
-横幅是一张 1983×793 的插画，压成 webp（q92）只有 **56 KB**——扁平色块比照片级插画好压得多。
-原型稿把同一张图内嵌了三次（封面 / 品牌标 / 头像，md5 相同，单份 1.08 MB），这里只内联一份，
-品牌标那处从中间裁方。
+The banner is a 1983×793 illustration compressed to webp (q92) at just **56 KB** — flat colour compresses far better than photographic art.
+The prototype embeds the same image three times (cover / brand mark / avatar, identical md5, 1.08 MB each); only one copy is inlined here, with
+the brand mark cropped square from the centre.
 
 ## Development
 

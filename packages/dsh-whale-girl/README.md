@@ -2,7 +2,7 @@
 
 A light skin for DeepSeek Harness (dsh): three levels of pale blue, pearl white and deep-sea navy, with a full-bleed whale girl cover on the new-session page.
 
-![新会话页](preview/light.webp)
+![New session page](preview/light.webp)
 
 ## What it changes
 

@@ -1,7 +1,7 @@
 /**
- * 鲸跃横幅的装饰层。
+ * The Whale Wave Banner decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-whale-wave]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-whale-wave]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -15,13 +15,13 @@
 /* ==========================================================================
  * The new-session banner.
  *
- * 🔴 原型稿 Appearance 面板里的实现建议，第 1、2 条是这套设计的全部要害：
- *   「1. New Session 顶部直接使用这张横幅图，**不在封面里叠加任何大段说明文案**。」
- *   「2. **输入区独立放在封面下方**，避免破坏主视觉。」
- * 它的 handoff 里也写着 `hero.copy = none` / `composer = below cover`。
+ * 🔴 Points 1 and 2 of the implementation notes in the prototype's Appearance panel are the whole point of this design:
+ *   1. Use this banner image directly at the top of New Session, **laying no block of explanatory copy over the cover**.
+ *   2. **Place the composer separately below the cover** so the hero visual stays intact.
+ * Its handoff likewise says `hero.copy = none` / `composer = below cover`.
  *
- * 所以这套跟前几套皮肤**做法相反**：那几套是输入框贴底压在整幅图上，这套的横幅只占上半屏，
- * 输入区在它下面，两者不重叠。封面上不放任何文字。
+ * So this skin does the **opposite** of the earlier ones: they pin the composer to the bottom over the full image, while here the banner takes only the upper half
+ * and the composer sits below it, the two never overlapping. No text goes on the cover.
  *
  * `data-phase` has three states, `settling / hero / active`. `settling` means the session is still replaying and
  * it is unknown whether it lands on hero or the conversation; the harness hides the composer then precisely so as not to guess, and this takes the same stance:
@@ -62,7 +62,7 @@
   min-height: 150px;
   z-index: 0;
   pointer-events: none;
-  /* 原型 `.cover`：20px 圆角、淡蓝描边、一层很轻的投影。 */
+  /* The prototype's `.cover`: a 20px radius, a pale blue border and a very light shadow. */
   border-radius: 20px;
   border: 1px solid rgba(67, 102, 205, 0.13);
   box-shadow: 0 22px 50px rgba(52, 76, 137, 0.07);
@@ -110,7 +110,7 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：白底 + 淡蓝描边 + 12px 圆角（原型 `.userbox`）。 */
+/* User messages: a white ground with a pale blue border and a 12px radius (the prototype's `.userbox`). */
 :global(body[data-dsh-whale-wave] [data-chat-flow-kind='user']) {
   border-radius: 12px;
 }
@@ -127,7 +127,7 @@
   opacity: 1;
 }
 
-/* 本轮失败：左侧一道低饱和红，长对话里比纯文字更容易扫到。 */
+/* A failed turn: a low-saturation red stripe on the left, easier to spot in a long conversation than text alone. */
 :global(body[data-dsh-whale-wave] [data-chat-flow-kind='turn-error']) {
   box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
   border-radius: 10px;
@@ -159,15 +159,15 @@
  * without an error and without affecting anything else.
  * ========================================================================== */
 
-/* 侧栏：竖向渐变 + 淡蓝分隔线（原型 `.sidebar` 是 #f8fbff → #f0f5fd）。 */
+/* Sidebar: a vertical gradient with a pale blue divider (the prototype's `.sidebar` runs #f8fbff → #f0f5fd). */
 :global(body[data-dsh-whale-wave] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #f8fbff 0%, #f0f5fd 100%);
   border-right: 1px solid var(--dsw-alias-border-l2);
 }
 
 /*
- * `＋ 新会话` 是这套设计里唯一的实心大按钮：44px 高、13px 圆角、蓝渐变 + 一层蓝投影
- *（原型 `.new-btn`）。harness 默认给它次级样式，不改的话主操作没有视觉重量。
+ * New session is the one large solid button in this design: 44px tall, a 13px radius, a blue gradient and a blue shadow
+ * (the prototype's `.new-btn`). The harness styles it as secondary by default, which leaves the primary action without visual weight.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
@@ -196,10 +196,10 @@
 }
 
 /*
- * 会话选中态：浅蓝底 + 一圈更实的浅蓝描边（原型 `.session.active`）。
+ * Selected session: a pale blue ground inside a more solid pale blue border (the prototype's `.session.active`).
  *
- * ⚠️ 前几套皮肤用的是"左侧一道竖条"，这套**故意不用**——原型给的就是描边胶囊。
- * 用 inset box-shadow 画描边而不是 border，避免改变盒宽让选中行相对其它行错位。
+ * ⚠️ Earlier skins use a stripe on the left; this one **deliberately does not** — the prototype gives an outlined pill.
+ * The border is drawn with an inset box-shadow rather than a real border, so the box width does not change and the selected row stays aligned with the rest.
  */
 :global(body[data-dsh-whale-wave] [class*='_sessionRow'][class*='_selected']) {
   background: var(--dsw-specific-sidebar-nav-item-active);
@@ -219,11 +219,11 @@
 }
 
 /*
- * 右侧详情栏的卡片语言：白卡 + 14px 圆角 + 淡蓝描边（原型 `.card`）。
+ * The details rail's card language: a white card with a 14px radius and a pale blue border (the prototype's `.card`).
  *
- * ⚠️ 先说清楚**没做什么**：原型右栏是「Current Session / Harness Systems / Theme Mode」三张卡，
- * 其中 `Harness Systems` 那五行 ONLINE 是纯装饰，harness 没有对应的心跳投影，不伪造；
- * `Theme Mode` 三行是写死的主题说明，也不做。真实状态由本皮肤自己那根状态台承担（见 StatusDock），
+ * ⚠️ First, what is **not** done: the prototype's right column has three cards — Current Session / Harness Systems / Theme Mode.
+ * The five ONLINE rows under `Harness Systems` are pure decoration with no matching heartbeat projection in the harness, so they are not faked;
+ * the three `Theme Mode` rows are a hardcoded theme description and are not built either. Real state is carried by this skin's own status dock (see StatusDock),
  * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.
  */
 :global(body[data-dsh-whale-wave] [data-slot='details'] [class*='_section']) {

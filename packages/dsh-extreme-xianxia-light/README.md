@@ -3,7 +3,7 @@
 
 DeepSeek Harness（dsh）的皮肤：纸白雾白打底、墨灰做文字、淡金做边与按钮、玉青只给运行中，新会话页是一整幅天机在握主视觉
 
-![新会话页](preview/light.webp)
+![New session page](preview/light.webp)
 
 ## What it changes
 

@@ -1,7 +1,7 @@
 {
   "name": "dsh-whale-wave-banner",
   "version": "0.1.0",
-  "description": "鲸跃横幅 —— DeepSeek Harness 的浅色皮肤：DeepSeek 蓝 + 白 + 极浅灰蓝，新会话页是一张横幅封面，输入区独立在封面下方",
+  "description": "Whale Wave Banner — a light skin for DeepSeek Harness: DeepSeek blue, white and a very pale grey-blue, with a banner cover on the new-session page and the composer separately below it",
   "keywords": [
     "dsh",
     "deepseek-harness",
