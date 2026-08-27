@@ -4,6 +4,7 @@
   "nameEn": "Rose Dream",
   "author": "Science Roam Limited",
   "tagline": "粉白打底、玫瑰褐做正文、玫瑰粉做主操作、薄荷绿只给成功",
+  "taglineEn": "Pink-white ground, rose brown for body text, rose pink for the primary action, mint green only for success",
   "description": "一套浅色皮肤（colorScheme: light）。原型的 :root 只有五个色，全是这张照片里的。\n\n底是粉白 #fff4f7——不是纯白，它带一点点粉，是那片纱幔透过来的光。正文用玫瑰褐 #6b4451：这张照片里最深的地方是发丝，而发丝在粉光里偏褐；黑字压在粉底上会显得脏且硬，灰字又立不住。玫瑰粉（#e78fa7）做主操作与「正在跑」，就是画里那些花的颜色；浅玫瑰做描边。\n\n薄荷绿（#73c995）是全场唯一的非粉色——正因为唯一，它承担「跟粉色系无关的那类消息」：成功与在线。\n\n新会话页整幅玫瑰横幅，进入对话与轨迹页后收起。文案人格化：思考中「正在梦里翻花……」，失败「花瓣落错地方了，请再试一次。」。\n\n封面几乎整幅都是近似同色的浅粉渐变，是最容易压出色带的那类图，而浅底上的色带比暗底显眼得多——所以按 q95 原生分辨率内联。",
   "tags": [
     "浅色",

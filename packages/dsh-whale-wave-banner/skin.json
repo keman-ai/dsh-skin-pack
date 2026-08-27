@@ -4,6 +4,7 @@
   "nameEn": "Whale Wave Banner",
   "author": "Science Roam Limited",
   "tagline": "DeepSeek 蓝 + 白，新会话页是一张横幅封面，输入区独立在下方",
+  "taglineEn": "DeepSeek blue and white; a banner cover on the new-session page with the composer separately below",
   "description": "把 DeepSeek Harness 收拾得又轻又干净：底色是极浅灰蓝（#eef4ff），面板是白，描边全部是带蓝的 1px 淡线，圆角比常规更大一档（卡片 14–16px、封面 20px）。\n\n配色刻意克制——原型稿的实现建议第 4 条写着「色彩尽量控制在 DeepSeek 蓝 + 白 + 极浅灰蓝，保持轻、干净、品牌化」，所以这套皮肤里几乎没有第五种颜色：绿只在「在线 / 成功」出现，连「正在运行」都用品牌蓝的亮一档，而不是另起一个强调色。\n\n新会话页的做法跟其它几套相反：横幅**只占上半屏**，输入区独立放在它下方，两者不重叠，封面上不叠任何文案——这是原型稿写死的两条（`hero.copy = none`、`composer = below cover`），为的是不破坏主视觉。进入对话与轨迹页后横幅收起，回到真实的工作态。\n\n对话页右侧常驻一根状态台：缩小版横幅 + 等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源，不伪造任何状态；原型右栏那五行「Harness Systems ONLINE」没有对应投影，就不做。也不占用官方的工具详情栏，两者并存。\n\n配色走 harness 的 --dsw-alias-* 语义层，装饰只挂在自有的 body 属性上，品牌位用 slot 影子化（皮肤停用即刻还原官方标），不钩任何 harness 内部类名 —— 所以宿主改版时这套皮肤不会碎。",
   "tags": [
     "浅色",

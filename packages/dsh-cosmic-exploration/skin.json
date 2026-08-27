@@ -4,12 +4,24 @@
   "nameEn": "Cosmic Exploration",
   "author": "Science Roam Limited",
   "tagline": "深蓝太空底 + 冷蓝与星云紫，新会话页是一整幅宇宙探索封面",
+  "taglineEn": "A deep blue space ground with cool blue and nebula violet; a full cosmic-exploration cover on the new-session page",
   "description": "把 DeepSeek Harness 变成一座探索甲板：底是深蓝太空（#050814），面板走三级蓝黑，描边分两路——大面积的分层用冷蓝（rgba(130,170,255,.12)），需要强调的边用星云紫。全局还铺了一层 14% 的星点，没有它界面只是一片深蓝。\n\n配色分工是原型稿 Theme rules 写死的：「以深蓝太空为主底，冷蓝与紫色星云做视觉高潮，**少量暖色只用于重要状态与任务按钮**」。所以主操作是星云紫实心（原型 hero 上那颗 START EXPLORATION），暖色只留给需要你注意的状态——铺开就不再是提醒了。「正在运行」用 Glow 冷蓝 #61d0ff，它在这片深蓝里最亮，又不跟紫的主操作抢。\n\n新会话页是一整幅全屏封面（两团星云光晕 + 左右与自下而上的压幕），输入框贴底压在画面上；进入对话与轨迹页后封面收起，回到低干扰的工作态——这也是原型稿的原话。身份化文案取了它 Agent copy 里能落地的两条：思考中 → Charting the unknown…，失败 → Navigation anomaly detected.\n\n对话页右侧常驻一根状态台：等你拿主意、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。原型右栏的「Ship Systems」五行 ONLINE/STANDBY、Telemetry 里的 97.2% 与 Route score 82、以及那张快捷键速查表，都是写死的装饰，harness 没有对应投影，一律不做。",
-  "tags": ["暗色", "太空", "星云", "科技感", "封面"],
+  "tags": [
+    "暗色",
+    "太空",
+    "星云",
+    "科技感",
+    "封面"
+  ],
   "accent": "#8c74ff",
   "bodyAttr": "data-dsh-cosmic",
   "package": "dsh-cosmic-exploration",
-  "wiring": { "id": "cosmic", "bundleWired": true },
-  "preview": { "dark": "preview/dark.webp" },
+  "wiring": {
+    "id": "cosmic",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
   "colorScheme": "dark"
 }

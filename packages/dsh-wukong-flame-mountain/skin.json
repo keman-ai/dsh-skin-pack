@@ -4,6 +4,7 @@
   "nameEn": "Black Myth Wukong · Flame Mountain",
   "author": "Science Roam Limited",
   "tagline": "黑墨、古金与余烬橙，新会话页是一整幅焚山主视觉",
+  "taglineEn": "Black ink, antique gold and ember orange; a burning-mountain hero on the new-session page",
   "description": "把 DeepSeek Harness 压进一片黑墨：底色是 Void（#080706）与暗褐 Surface 的三级层次，描边是带金倾向的 1px 低对比线，全局铺一层 170px 的经纬细纹，像拓片而不是纯黑。\n\n配比是设计稿写死的：72% 黑墨 / 14% 暗褐 / 8% 古金 / 3% 青铜 / 2% 余烬橙 / 1% 危险红。所以古金只给主操作与品牌位，余烬橙**只留给运行态**——它出现得越少，「在跑」这个信号越有效；连「＋ 新建会话」都是金字描边而不是金色实心，真正的金色实心只属于发送。\n\n新建会话时中间是一整幅焰发悟空的横版主视觉，输入框贴底压在图上；进入对话与轨迹页后主视觉收起，回到克制、清晰、可读的工作态——强角色视觉只出现在空屏，这也是设计稿的原话。身份化文案同样克制（正在思考…… / 执行失败，请重试。），设计稿明确要求避免过度仙侠化。\n\n对话页右侧常驻一根状态台：缩小版主视觉 + 等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源，不伪造任何状态；也不占用官方的工具详情栏，两者并存。\n\n配色走 harness 的 --dsw-alias-* 语义层，装饰只挂在自有的 body 属性上，品牌位用 slot 影子化（皮肤停用即刻还原官方标），不钩任何 harness 内部类名 —— 所以宿主改版时这套皮肤不会碎。",
   "tags": [
     "暗色",

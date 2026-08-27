@@ -4,6 +4,7 @@
   "nameEn": "Whale Girl Deep Sea",
   "author": "Science Roam Limited",
   "tagline": "深海蓝打底、冷青做描边与状态、DeepSeek 蓝做主操作，新会话页是一整幅深海主视觉",
+  "taglineEn": "Deep-ocean blue ground, cool cyan for borders and state, DeepSeek blue for the primary action; a deep-sea hero on the new-session page",
   "description": "一条蓝的深浅，不是彩色拼盘。底是接近黑的深海蓝 #03101f，三级面板依次抬升；全场两条带冷青的暗描边（rgba(118,204,255,.13)）撑起分层——海底那种发光线，而不是靠提亮底色。\n\n冷青（#5ed7ff）是「描边与状态」的语言：强调、正在跑，都归它；主操作按钮走 DeepSeek 蓝（#4e7ff2），品牌色本身。金（#e8ba72）是全场唯一的暖色，原型只把它用在角色的蝴蝶结上，这里也只给一个位置：上下文占用条的末端。铺开就不再是「一点暖」了。\n\n原型稿的 Theme rules 写死了分寸：角色视觉集中在 New Dive / Empty State，Chat、Dive Path、Details 回归真实 Harness 工作态；鲸鱼娘元素只作为品牌人格化，不覆盖工具和代码信息。所以整幅封面只画在新会话页，进入对话与轨迹页后收起，三栏布局与信息密度一处不动。\n\n文案照稿子人格化：思考中是「正在潜入上下文……」，失败是「好像撞到暗礁了，请重试。」，需要你确认时前缀一句「大肥鲸鱼娘需要你的确认后才能继续」——原文照旧留着，那才是你做判断的依据。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。\n\n原型右栏的「Ocean Systems」五行 ONLINE、「Companion」那句「Status: following · Mood: happy」、静态快捷键表，以及侧栏底部的「Ocean compute · 82%」都没做：harness 没有对应投影，不伪造。",
   "tags": [
     "暗色",

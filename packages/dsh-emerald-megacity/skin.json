@@ -4,6 +4,7 @@
   "nameEn": "Emerald Megacity",
   "author": "Science Roam Limited",
   "tagline": "墨绿打底、翡翠做主操作、玉青只给运行中、暖金只做描边与强调",
+  "taglineEn": "Ink-green ground, emerald for the primary action, jade green only for running, warm gold only for borders and emphasis",
   "description": "用色是三样东西：翡翠绿的城、暖金的灯、雾青的空气。\n\n底是接近黑的墨绿 #071512，面板两级往上抬；全场一条带暖金的暗描边 rgba(235,214,164,.14)，正是那片万家灯火的余光，分层全靠它。翡翠（#2f7e66）做主操作，玉青（#7db99f）做「正在跑」——深的按，浅的亮。暖金只做描边与强调，不做实心块：一旦铺开，整座城的冷雾感就没了。次要文字用带绿的雾青，跟这座城是同一口空气，放中性灰会脱开。\n\n新会话页整张巨城横幅：尖塔、吊桥与悬空的楼群，16px 圆角配暖金描边和很深的投影；输入区独立在下方。进入对话与轨迹页后横幅收起，三栏骨架一处不动。\n\n对话页右侧常驻状态台，工具调用、上下文注入与用量全部取自 harness 自己的投影。",
   "tags": [
     "暗色",

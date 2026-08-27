@@ -1,9 +1,9 @@
 /**
- * 全仓一致性校验。合并成 monorepo 之后，28 个包靠人工核对不现实，
- * 这些闸必须自动跑 —— 每一条都对应一类装上了却不生效、或者干脆装不上的故障。
+ * Repo-wide consistency checks. Once merged into a monorepo, checking dozens of packages by hand is not realistic,
+ * so these gates must run automatically — each one corresponds to a class of failure where the skin installs but does nothing, or will not install at all.
  *
- * 用法：node scripts/verify.mjs
- * 退出码非 0 表示有包不合格，CI 据此拦下发布。
+ * Usage: node scripts/verify.mjs
+ * A non-zero exit code means some package failed, and CI blocks the release on it.
  */
 
 import { readdirSync, readFileSync, existsSync } from 'node:fs'
@@ -12,18 +12,18 @@ import { join } from 'node:path'
 const PACKAGES = 'packages'
 const problems = []
 
-/** 皮肤靠这三处 id 对齐；对不上会出现「装上了但切不过去」这类难查的问题。 */
+/** A skin is aligned by these three ids; a mismatch produces the hard-to-diagnose case where it installs but will not switch on. */
 function checkIds(dir, name, skin) {
   const patchPath = join(dir, 'cordis.patch.yml')
   if (!existsSync(patchPath)) {
-    problems.push(`${name}: 缺 cordis.patch.yml —— 没有它插件永远不会被加载`)
+    problems.push(`${name}: missing cordis.patch.yml — without it the plugin is never loaded`)
     return
   }
   const patch = readFileSync(patchPath, 'utf8')
-  // patch 里的 `- id: <值>`，取第一个 insert 项
+  // The `- id: <value>` in the patch; the first insert item is used
   const patchId = /^\s*-?\s*id:\s*(\S+)/m.exec(patch)?.[1]
   if (patchId !== skin.id) {
-    problems.push(`${name}: cordis.patch.yml 的 id=${patchId} ≠ skin.json 的 id=${skin.id}`)
+    problems.push(`${name}: cordis.patch.yml id=${patchId} ≠ skin.json id=${skin.id}`)
   }
 
   for (const rel of ['src/index.ts', 'src/client/index.ts']) {
@@ -31,48 +31,48 @@ function checkIds(dir, name, skin) {
     if (!existsSync(file)) continue
     const themeId = /export const THEME_ID\s*=\s*['"]([^'"]+)['"]/.exec(readFileSync(file, 'utf8'))?.[1]
     if (themeId !== undefined && themeId !== skin.id) {
-      problems.push(`${name}: ${rel} 的 THEME_ID=${themeId} ≠ skin.json 的 id=${skin.id}`)
+      problems.push(`${name}: THEME_ID=${themeId} in ${rel} ≠ skin.json id=${skin.id}`)
     }
   }
 }
 
 /**
- * 集市安装期会验包声明的入口是否真的存在，缺了就自动卸回去 ——
- * 因为缺入口的包写进配置后，Loader 下次启动会 ERR_MODULE_NOT_FOUND，整个 dsh 起不来。
- * 这里只能验 files 覆盖了入口，实际产物由 CI 构建后再验一次。
+ * On install the market checks that the entry a package declares really exists, and uninstalls it again if not —
+ * because once a package with a missing entry is written into the config, the Loader hits ERR_MODULE_NOT_FOUND on the next start and dsh will not boot at all.
+ * All that can be checked here is that files covers the entry; the actual output is checked again after CI builds it.
  */
 function checkPackaging(name, pkg) {
   if (pkg.dsh?.bundle?.patch === undefined) {
-    problems.push(`${name}: package.json 没声明 dsh.bundle.patch —— 集市会判 NOT_A_BUNDLE`)
+    problems.push(`${name}: package.json declares no dsh.bundle.patch — the market will judge it NOT_A_BUNDLE`)
   }
   const files = pkg.files ?? []
   for (const required of ['lib', 'cordis.patch.yml', 'skin.json']) {
     if (!files.includes(required)) {
-      problems.push(`${name}: files 里缺 ${required}，它不会被打进 tarball`)
+      problems.push(`${name}: files is missing ${required}, so it will not be packed into the tarball`)
     }
   }
   const entries = [pkg.main, ...Object.values(pkg.exports ?? {})].filter((v) => typeof v === 'string')
   for (const entry of entries) {
     if (!entry.startsWith('./lib/') && !entry.startsWith('lib/') && !entry.endsWith('package.json')) {
-      problems.push(`${name}: 入口 ${entry} 不在 lib/ 下，tarball 里会找不到`)
+      problems.push(`${name}: the entry ${entry} is not under lib/, so it will be missing from the tarball`)
     }
   }
 }
 
 /**
- * 目录名必须与包名逐字相同。
+ * The directory name must match the package name character for character.
  *
- * 这一条把全链路上的名字钉成同一个：目录 `packages/dsh-niulai`、包名 `dsh-niulai`、
- * Release tag `dsh-niulai-v0.1.0`、tarball `dsh-niulai-0.1.0.tgz`、集市里显示的标识。
- * 早先目录不带前缀（`packages/niulai`），于是 tag 与文件名的前缀对不上，
- * 每个读到它的人都要先在脑子里做一次映射。
+ * This pins one name across the whole chain: the directory `packages/dsh-niulai`, the package `dsh-niulai`,
+ * the Release tag `dsh-niulai-v0.1.0`, the tarball `dsh-niulai-0.1.0.tgz` and the identifier shown in the market.
+ * Directories used to lack the prefix (`packages/niulai`), so tag and filename prefixes disagreed
+ * and every reader had to do the mapping in their head first.
  */
 function checkNaming(name, pkg) {
   if (pkg.name !== name) {
-    problems.push(`${name}: 包名 ${pkg.name} 与目录名不一致`)
+    problems.push(`${name}: package name ${pkg.name} does not match the directory name`)
   }
   if (!name.startsWith('dsh-')) {
-    problems.push(`${name}: 目录名要以 dsh- 开头`)
+    problems.push(`${name}: the directory name must start with dsh-`)
   }
 }
 
@@ -87,7 +87,7 @@ for (const name of dirs) {
   const pkg = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8'))
   const skinPath = join(dir, 'skin.json')
   if (!existsSync(skinPath)) {
-    problems.push(`${name}: 缺 skin.json`)
+    problems.push(`${name}: missing skin.json`)
     continue
   }
   const skin = JSON.parse(readFileSync(skinPath, 'utf8'))
@@ -97,22 +97,22 @@ for (const name of dirs) {
   checkPackaging(name, pkg)
 
   if (skin.package !== undefined && skin.package !== pkg.name) {
-    problems.push(`${name}: skin.json 的 package=${skin.package} ≠ 包名 ${pkg.name}`)
+    problems.push(`${name}: skin.json package=${skin.package} ≠ package name ${pkg.name}`)
   }
 
-  // 主题 id 在同一个 profile 里是全局的：两个皮肤用同一个 id，装在一起会互相顶掉
+  // A theme id is global within a profile: two skins sharing one id will displace each other when installed together
   const prev = ids.get(skin.id)
   if (prev !== undefined) {
-    problems.push(`id 冲突: ${prev} 与 ${name} 都用 id=${skin.id}，同时装会互相顶掉`)
+    problems.push(`id conflict: ${prev} and ${name} both use id=${skin.id}; installed together they displace each other`)
   }
   ids.set(skin.id, name)
 }
 
-console.log(`检查了 ${dirs.length} 个皮肤`)
+console.log(`Checked ${dirs.length} skins`)
 if (problems.length === 0) {
-  console.log('✓ 全部通过')
+  console.log('✓ All checks passed')
 } else {
-  console.log(`✗ ${problems.length} 个问题：`)
+  console.log(`✗ ${problems.length} problem(s):`)
   for (const p of problems) console.log('  -', p)
   process.exit(1)
 }

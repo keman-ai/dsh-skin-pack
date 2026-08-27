@@ -4,6 +4,7 @@
   "nameEn": "Forest Companion",
   "author": "Science Roam Limited",
   "tagline": "深森林绿 + 柔和米色 + 一点粉，新会话页是一整幅森林陪伴封面",
+  "taglineEn": "Deep forest green, soft cream and a touch of pink; a forest companion cover on the new-session page",
   "description": "一套安静的皮肤。底色是接近黑的林绿（#071713），面板、描边、主操作都收在绿里，描边带一点草绿（rgba(151,220,190,.15)）——暗底上的分层全靠这条细线。\n\n配色是原型稿自己定的三个词：深森林绿、柔和米色、一点粉色人物呼应。所以米色（#e9e0c5）只出现在能量条末端与品牌标的芯上，像穿过树冠的那束光；粉（#d96f95）全场只有两处，而且都极淡——封面上那团 5% 的光晕，和危险操作的悬停。「一点」就是它的定义，铺开就不再是呼应画里那个人物了。\n\n新会话页保留整张封面（16px 圆角、草绿描边、很深的投影），输入区独立放在下方，两者不重叠；封面左上角留一枚身份角标。进入对话与轨迹页后封面收起，回到干净的工作态。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。\n\n原型右栏的「Harness Systems」五行 ONLINE、「Companion Modes」四张模式卡、「Forest Energy」那个 83%，以及封面右上角那枚「☘ GROVE ONLINE」，都是写死的装饰——harness 没有对应投影，一律不做：装饰可以，假状态不行。",
   "tags": [
     "暗色",

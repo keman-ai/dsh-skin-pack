@@ -1,18 +1,18 @@
 /**
- * 把一个独立皮肤仓改造成 monorepo 里的一个包。
+ * Convert a standalone skin repository into a package inside the monorepo.
  *
- * 幂等：改造过的包再跑一次不会出错，方便分批搬。
+ * Idempotent: running it again on an already-converted package is harmless, which makes migrating in batches easy.
  *
- * 做四件事：
- *  1. devDependencies 收到 root —— 构建工具链 28 个包完全一样，留在各包意味着升级要改 28 处
- *  2. tsconfig 改成 extends 根部 base —— 严格度必须全仓一致，不能让某个包偷偷放松
- *  3. repository / homepage / bugs 指向 monorepo 的子目录 —— npm 的 repository.directory
- *     就是为这个场景设计的，集市的 repo_url 也用同一形态（RepoKey 认子路径）
- *  4. lib/ 不再进 git —— 独立仓时代它必须提交，因为皮肤靠 github:owner/repo 安装、
- *     而 pnpm 默认不跑 git 源的构建脚本。monorepo 装不了 git 子目录，分发改走 Release
- *     tarball（npm pack 时 lib/ 已构建并按 files 打进包），提交它只会让仓库白白变大
+ * It does four things:
+ *  1. Hoists devDependencies to the root — the build toolchain is identical across every package, and leaving it in each one means editing dozens of files to upgrade
+ *  2. Points tsconfig at the root base — strictness has to be uniform across the repo, with no package quietly relaxing it
+ *  3. Points repository / homepage / bugs at the monorepo subdirectory — npm's repository.directory
+ *     exists for exactly this case, and the market's repo_url uses the same shape (RepoKey understands subpaths)
+ *  4. Keeps lib/ out of git — as a standalone repository it had to be committed, since skins installed via github:owner/repo
+ *     and pnpm does not run build scripts for git sources by default. A monorepo subdirectory cannot be installed from git, so distribution moved to Release
+ *     tarballs (lib/ is already built at npm pack time and packed per files), and committing it would only bloat the repository
  *
- * 用法：node scripts/adopt.mjs <包目录名>...   （目录名 = 包名，如 dsh-niulai）
+ * Usage: node scripts/adopt.mjs <package directory>...   (the directory name is the package name, e.g. dsh-niulai)
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
@@ -20,7 +20,7 @@ import { join } from 'node:path'
 
 const REPO = 'keman-ai/dsh-skin-pack'
 
-/** 构建工具链，与 root package.json 的 devDependencies 一致。 */
+/** The build toolchain, matching the root package.json's devDependencies. */
 const SHARED_DEV_DEPS = new Set([
   '@types/node', '@types/react', '@types/react-dom',
   'lightningcss', 'react', 'react-dom', 'tsdown', 'typescript',
@@ -28,14 +28,14 @@ const SHARED_DEV_DEPS = new Set([
 
 const targets = process.argv.slice(2)
 if (targets.length === 0) {
-  console.error('用法: node scripts/adopt.mjs <包目录名>...')
+  console.error('Usage: node scripts/adopt.mjs <package directory>...')
   process.exit(1)
 }
 
 for (const name of targets) {
   const dir = join('packages', name)
   if (!existsSync(dir)) {
-    console.error(`✗ ${name}: 目录不存在`)
+    console.error(`✗ ${name}: directory does not exist`)
     process.exitCode = 1
     continue
   }
@@ -45,7 +45,7 @@ for (const name of targets) {
   const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
 
   if (pkg.devDependencies) {
-    // 只删共享的那几个；某个皮肤将来真有自己独有的构建依赖，留在它自己这
+    // Only the shared ones are removed; if a skin ever gains a build dependency of its own, it stays with that skin
     const own = Object.fromEntries(
       Object.entries(pkg.devDependencies).filter(([d]) => !SHARED_DEV_DEPS.has(d)),
     )
@@ -73,7 +73,7 @@ for (const name of targets) {
   writeFileSync(tsPath, JSON.stringify({ extends: '../../tsconfig.base.json', include }, null, 2) + '\n')
 
   // ── .gitignore ──────────────────────────────────────────────────────────
-  // 独立仓时代 lib/ 必须提交，这里反过来：它由 CI 构建，只进 tarball 不进 git
+  // As a standalone repository lib/ had to be committed; here it is the opposite — CI builds it, and it goes into the tarball rather than git
   writeFileSync(join(dir, '.gitignore'), 'node_modules\nlib\n*.tgz\n')
 
   console.log(`✓ ${name}  (${pkg.name})`)

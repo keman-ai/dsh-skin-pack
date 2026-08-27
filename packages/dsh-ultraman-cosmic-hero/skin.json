@@ -4,6 +4,7 @@
   "nameEn": "Cosmic Hero",
   "author": "Science Roam Limited",
   "tagline": "深空蓝黑配彩色计时器三色，新会话页是一整幅宇宙英雄主视觉",
+  "taglineEn": "Deep-space blue-black with the three colour-timer colours; a cosmic-hero visual on the new-session page",
   "description": "把 DeepSeek Harness 换成一间深空指挥舱：底色是近黑的深空蓝（#030810），面板走两级蓝黑渐变，所有描边都是带青色倾向的 1px 细线——那条线是整套皮肤科技感的来源。\n\n配色分工是从原型稿里读出来的：蓝是主操作（唯一的实心大按钮），青是描边、图标与「正在运行」，绿是就绪与成功，琥珀是需要你确认的操作，而红是稀缺色——原型里它只出现在徽标外圈上，所以这里只留给错误态，一出现就有分量。\n\n右侧状态台里那颗能量核心是这套皮肤的私货：原型稿画的是一颗写死 STABLE 的装饰圆，这里让它跟着**真实的上下文占用**变色，青 → 琥珀 → 红，跟彩色计时器是同一套隐喻；占用条用的也是这三色。没有数据时它是灰蓝的 idle，不假装稳定。\n\n新建会话时中间是一整幅宇宙英雄主视觉（15px 圆角卡片、青描边、大投影，照原型稿的 hero 卡做），输入框贴在卡片下沿；进入对话与轨迹页后主视觉收起，回到干净的工作态。\n\n状态台的其余数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源，不伪造任何状态；原型右栏那五行「Harness Systems ONLINE」与两张模式卡没有对应投影，就不做。也不占用官方的工具详情栏，两者并存。",
   "tags": [
     "暗色",

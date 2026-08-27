@@ -4,6 +4,7 @@
   "nameEn": "Night Forest Companion",
   "author": "Science Roam Limited",
   "tagline": "月夜蓝打底、月光青做描边与状态、主操作走蓝，新会话页是一整幅夜林横幅",
+  "taglineEn": "Moonlit night blue ground, moonlight cyan for borders and state, blue for the primary action; a night-forest banner on the new-session page",
   "description": "这套的性格是安静。配色规则是原型稿自己写的：已将主题整体收束到月夜蓝、森林深色与柔和冷光；handoff 里写着 theme = night blue / moon cyan / soft glow、mode = calm companion。\n\n底是接近黑的月夜蓝 #071423，面板是森林深色 #0b1c2e；全场一条带月光青的暗描边 rgba(150,205,255,.16)，夜里的分层全靠它。月光青（#7bdcff）是描边、强调与「正在跑」——画里那圈月光；主操作走蓝（#467fff），不用青：青在这套里是「描边与状态」的语言，铺成大块实心会把夜的安静打破。\n\n⚠️ 这套皮肤一个暖色都没有，是有意的：calm companion 的意思就是不要有任何东西跳出来喊你。原型只画了正常流程、没给警告与错误色，所以这里把警告压在低饱和的柔黄、错误压在低饱和的粉红上，绝不用橙红。\n\n新会话页整张横幅：树枝上的一大两小、夜空与那弯月，16px 圆角配月光青描边和很深的投影；输入区独立放在下方，两者不重叠；封面左上角留一枚身份角标。进入对话与轨迹页后横幅收起，回到干净的工作态。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。\n\n原型右栏的「Harness Systems」五行 ONLINE、「Companion Modes」四张模式卡、「Moonlight Energy」那个 82%，以及封面右上角的「☾ MOONLIGHT READY」，都是写死的装饰——harness 没有对应投影，一律不做。这套稿子也没给 Agent copy 规范，所以宿主文案一句都不替换。",
   "tags": [
     "暗色",

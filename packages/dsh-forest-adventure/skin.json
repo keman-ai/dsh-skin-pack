@@ -4,6 +4,7 @@
   "nameEn": "Forest Adventure",
   "author": "Science Roam Limited",
   "tagline": "森林深绿打底、苔藓绿做主操作、溪水青只给运行中、日光黄只做点缀，新会话页是一整幅林间主视觉",
+  "taglineEn": "Forest green ground, moss green for the primary action, stream teal only for running, daylight yellow as accent; a forest hero on the new-session page",
   "description": "配色的职责是原型稿自己写死的一句话：以森林深绿为底，溪水青与苔藓绿作为状态色，日光黄只做温暖点缀。\n\n底是接近黑的林绿 #08150f，三级面板往上是苔藓色；全场两条描边——草绿的 rgba(187,212,180,.14) 与溪水青的 rgba(94,183,199,.12)，暗底上的分层全靠它们，而不是靠提亮底色。\n\n两个状态色分工明确：苔藓绿（#6fa36d）是主操作与「做完了」，溪水青（#5eb7c7）是「正在跑」。做成同色系会让人分不清这两件事。日光黄（#d7c77e）只有两个位置：警告态和上下文占用条的末端——「只做点缀」就是它的定义。\n\n稿子里还有一个紫（#9a7fbb，画里那串紫藤），全场只在装饰上出现过、没有任何语义，所以这套皮肤一处都不用：给它一个语义等于替设计师瞎定规矩。\n\n另一句同样写死在稿子里：New Session 可以使用完整场景，Chat / Trajectory 回归安静的工作界面。所以整幅封面只画在新会话页——木筏上的一大一小、吊桥、紫藤与溪水；进入对话与轨迹页后封面收起，三栏布局与信息密度一处不动。\n\n文案照稿子人格化：思考中是「正在穿过森林寻找答案……」，需要你确认时前缀一句「需要你的确认后才能继续」——原文照旧留着，那才是你做判断的依据。\n\n对话页右侧常驻一根状态台：等你拿主意（待授权的工具、待回答的问题）、会话状态与实时计时、上下文占用与构成、权限模式、用量、待办进度。数字全部取自 harness 自己的 token-meter / session-stats / permissions / todos 投影，与输入框下方那行同源。\n\n原型右栏那三个写死的 Workspace files、静态快捷键表、侧栏底部的「Credits 68,250 / 108,000」以及封面角标「Forest mode ready」都没做：harness 没有对应投影，不伪造。",
   "tags": [
     "暗色",
