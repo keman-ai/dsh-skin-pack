@@ -263,10 +263,6 @@ The fastest route is to copy any skin under `packages/` — they all share one s
 
 When it is ready, you are welcome to publish it on the [DSH skin market](https://dsh.a2hmarket.ai), where anyone can browse and install without logging in.
 
-## Star history
-
-[![Star History Chart](https://api.star-history.com/svg?repos=keman-ai/dsh-skin-pack&type=Date)](https://star-history.com/#keman-ai/dsh-skin-pack&Date)
-
 ## License
 
 [MIT](LICENSE) © Science Roam Limited

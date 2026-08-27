@@ -265,10 +265,6 @@ packages/<name>/     ← 包名固定是 dsh-<name>，脚本与集市数据都�
 
 做好了欢迎上架到 [DSH 皮肤集市](https://dsh.a2hmarket.ai)，免登录就能浏览安装。
 
-## Star 趋势
-
-[![Star History Chart](https://api.star-history.com/svg?repos=keman-ai/dsh-skin-pack&type=Date)](https://star-history.com/#keman-ai/dsh-skin-pack&Date)
-
 ## License
 
 [MIT](LICENSE) © Science Roam Limited
