@@ -6,10 +6,10 @@
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
  * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
- * 闪出来，看着像跳进了别的页面。
+ * flashing into view as if the app had jumped to a different page.
  *
- * 锚点优先用 harness 的语义 `data-*` 属性（对外契约，改版不会碎）；没有属性可用的地方才退到
- * `[class*='_xxx']` 前缀匹配 CSS Module 哈希类名——那些集中在文件末尾的「降级区」。
+ * Anchors prefer the harness's semantic `data-*` attributes (a public contract that survives redesigns); only
+ * where no attribute exists do they fall back to `[class*='_xxx']` prefix matches on hashed CSS Module names — all gathered in the degradation zone at the end of the file.
  */
 
 /* ==========================================================================
@@ -39,25 +39,25 @@
 }
 
 /* ==========================================================================
- * 新会话页主视觉。
+ * The new-session hero visual.
  *
  * 原型把主视觉放在 New Session，进入工作流后回到干净的浅色界面。所以整幅封面**只画在 hero**，
  * 对话页与轨迹页一点不铺，布局一处不动。
  *
- * `data-phase` 是三态 `settling / hero / active`，不是两态。`settling` 表示会话还在回放、
- * 落 hero 还是落对话页尚不可知，harness 这时把 composer 藏起来就是为了不猜；这里跟着取
- * 同样的态度：**不抢先画**（抢画会闪一下再消失）。
+ * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
+ * replaying and it is unknown whether it lands on hero or the conversation; the harness hides the composer then
+ * precisely so as not to guess, and this takes the same stance: **paint nothing early** (painting early flashes then vanishes).
  *
- * 背景图画在**内容容器自己身上**，不在 body 底下插元素——harness 的内容容器有自己的不透明
- * 底色，会把身下的一切盖死。
+ * The background is painted **on the content container itself** rather than inserted beneath body — the
+ * harness's content container has its own opaque ground and would bury anything below it.
  * ========================================================================== */
 
 /*
- * 🔴 先把 hero 变成定位祖先，再画主视觉。
+ * 🔴 Make hero a positioning ancestor first, then paint the visual.
  *
- * `[data-phase='hero']` 本身不是 positioned 元素，它的 `::before` 用 `position: absolute`
- * 会去找最近的定位祖先——一个都没有就落到初始包含块，也就是**整个视口**，把左边的会话侧栏
- * 一起盖掉。这个坑在上一套皮肤上实测踩过。
+ * `[data-phase='hero']` is not itself positioned, so its `::before` with `position: absolute` looks for the
+ * nearest positioned ancestor — finding none it falls to the initial containing block, i.e. **the whole
+ * viewport**, covering the session sidebar on the left too. We hit this on the previous skin.
  */
 :global(body[data-dsh-rose] [data-phase='hero']) {
   position: relative;
@@ -111,14 +111,14 @@
 }
 
 /*
- * 输入区贴底 —— 原型的 `.hero-product-dock` 就钉在 hero 底部居中。
+ * The composer sits at the bottom — the prototype's `.hero-product-dock` is pinned centre-bottom of the hero.
  *
  * 🔴 The centring is not the composer's own; it comes from an ancestor's `justify-content: center`
  * (`.root[data-phase='hero'] .scrollBody`) — changing the composer's own margin has no effect whatsoever.
  *
  * Why overflow / scrollbar-gutter are turned off: hero has nothing to scroll, and `overflow-y: auto` would
- * 因内容溢出冒出一条滚动条；`scrollbar-gutter: stable` 恒定预留一条滚动条宽度，在没有滚动条
- * 的 hero 里就变成把整列往一边推的偏移，看上去是"输入框没居中"。
+ * would raise a scrollbar on overflow, and `scrollbar-gutter: stable` permanently reserves a scrollbar's width,
+ * which in a hero with no scrollbar becomes an offset pushing the column aside — looking like an off-centre composer.
  */
 :global(body[data-dsh-rose] [data-phase='hero'] [data-conversation-scroll]) {
   justify-content: flex-end;
@@ -132,14 +132,14 @@
 }
 
 /*
- * hero 的输入框是压在图上的，得自带毛玻璃底才读得清（原型 `.hero-composer`：
+ * The hero composer sits over the image and needs its own frosted ground to stay legible (the prototype's `.hero-composer`:
  * 半透明暗底 + 18px 模糊 + 金描边）。对话页那份不动，它本来就坐在实底上。
  */
 :global(body[data-dsh-rose] [data-phase='hero'] [data-composer-seat] textarea) {
   color: var(--dsw-alias-label-primary);
 }
 
-/* 对话页：消息滚到输入框附近自然淡出，而不是被硬边切断（原型 `.composer-shell` 的渐变）。 */
+/* Conversation: messages fade out near the composer rather than being cut by a hard edge (the prototype's `.composer-shell` gradient). */
 :global(body[data-dsh-rose] [data-composer-seat]) {
   background: linear-gradient(180deg, rgba(255, 244, 247, 0) 0%, var(--dsw-alias-bg-base) 22%);
 }
@@ -151,8 +151,8 @@
  * 身份化文案；实际交互、信息架构和权限逻辑继续遵循 DeepSeek Harness」。所以这里是
  * 「正在思考……」而不是"大圣正在推演天机"——写飘了就违反设计稿本身。
  *
- * harness 不允许第三方覆盖内置文案（`locale.register` 同名直接抛错），所以走伪元素：
- * 零 MutationObserver、零运行时开销，改版最多样式失配，不会报错也不会白屏。
+ * The harness forbids third parties overriding built-in copy (`locale.register` throws on a duplicate name), hence a pseudo-element:
+ * No MutationObserver, no runtime cost; at worst a redesign makes a style stop matching, with no error and no blank screen.
  * ========================================================================== */
 
 /*
@@ -162,7 +162,7 @@
  * 这里做能找到锚点的三条（思考中、失败、权限确认）；Tool 那条 harness 没有可挂点
  *（工具行只有 ok / error 两态，没有 running），不硬凑。
  *
- * 只在 running 时换：思考完成后那行是可展开的历史记录，保留原文更好认。
+ * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
  */
 :global(body[data-dsh-rose] [data-variant='think'][data-state='running'] [class*='_title']) {
   font-size: 0;
@@ -179,7 +179,7 @@
 /*
  * Error → 花瓣落错地方了，请再试一次。
  *
- * 追加而不是替换：错误行原文带着具体原因，那是排障唯一的线索，不能盖掉。
+ * Appended rather than replaced: the original error line carries the specific reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-rose] [data-state='error'] [class*='_title'])::after {
   content: ' · 花瓣落错地方了，请再试一次。';
@@ -197,14 +197,14 @@
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
-/* 用户消息：11px 圆角（原型 `.user-msg`）。 */
+/* User messages: an 11px radius (the prototype's `.user-msg`). */
 :global(body[data-dsh-rose] [data-chat-flow-kind='user']) {
   border-radius: 11px;
 }
 
 /*
- * 上下文注入行：原型把它压成背景信息（小、淡、不抢眼）——它是每轮都出现的系统噪音，
- * 不是用户要读的内容。悬停时还原，需要时仍然读得到。
+ * Context injection rows: the prototype presses them into background information (small, faint, unobtrusive) —
+ * they are the system noise of every turn, not something the user reads. Hover restores them.
  */
 :global(body[data-dsh-rose] [data-chat-flow-kind='context']) {
   opacity: 0.6;
@@ -214,7 +214,7 @@
   opacity: 1;
 }
 
-/* 本轮失败：左侧一道危险红，长对话里比纯文字更容易扫到。 */
+/* A failed turn: a danger-red stripe on the left, easier to spot in a long conversation than text alone. */
 :global(body[data-dsh-rose] [data-chat-flow-kind='turn-error']) {
   box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
   border-radius: 8px;
@@ -225,9 +225,9 @@
  * 权限确认卡：原型 `.permission` 是暖米底 + 淡金描边的一块提示区
  *（「该操作会修改文件，请你确认。」）。
  *
- * ⚠️ 这条的锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里
- * 节点类型的 `kind === 'approval'`（由 ChatNodeSeat 渲染成 data-chat-flow-kind）。
- * 失配的话这一条不显示，不影响其余规则。
+ * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file.
+ * The value comes from `kind === 'approval'` in the harness source (rendered by ChatNodeSeat as data-chat-flow-kind).
+ * On a mismatch this rule simply does not apply, leaving the rest unaffected.
  */
 :global(body[data-dsh-rose] [data-chat-flow-kind='approval']) {
   background: #fdeef2;
@@ -250,12 +250,12 @@
 /* ==========================================================================
  * Degradation zone — the rules below have no semantic attribute to hang on and must prefix-match hashed
  * CSS Module class names (like `_1Onn0a_sidebarCol`). A harness redesign makes them silently stop matching: the look reverts to default,
- * 不报错、不影响其余部分。
+ * without an error and without affecting anything else.
  * ========================================================================== */
 
 /*
  * 侧栏：比主区更沉一档 + 一条金调分隔线（原型 sidebar 是近乎纯黑的竖向渐变）。
- * `--dsw-specific-sidebar-fill` 已经把单色兜住，这条失配也只是少一层渐变与收边。
+ * `--dsw-specific-sidebar-fill` already covers the solid colour, so a mismatch here costs only a gradient and an edge.
  */
 :global(body[data-dsh-rose] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #ffffff, #fdeef2);
@@ -288,14 +288,14 @@
   color: #5a3644;
 }
 
-/* 按钮内的图标跟着走：harness 图标用 currentColor，父级换色即可。 */
+/* Icons inside buttons follow along: harness icons use currentColor, so recolouring the parent is enough. */
 :global(body[data-dsh-rose] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
   color: inherit;
 }
 
 /*
  * 会话选中态：左侧一道金色竖条 + 一层横向渐变（原型 `.session.active`）。
- * 用 inset box-shadow 画竖条而不是 border-left —— 后者会改变盒宽，让选中行相对其它行错位。
+ * The stripe is an inset box-shadow rather than a border-left — the latter changes the box width and shifts the selected row against the others.
  */
 :global(body[data-dsh-rose] [class*='_sessionRow'][class*='_selected']) {
   background-image: linear-gradient(90deg, rgba(247, 214, 224, 0.75), rgba(247, 214, 224, 0.38));
@@ -305,7 +305,7 @@
 
 /*
  * Group headings (Today / Last 7 days): small caps, wide tracking, muted to the description colour.
- * 原型用这个把时间分组降成背景信息，不与会话标题争注意力。
+ * The prototype uses this to demote date groups to background information, so they do not compete with session titles.
  */
 :global(body[data-dsh-rose] [class*='_groupSection'] > :first-child) {
   text-transform: uppercase;
@@ -316,7 +316,7 @@
 }
 
 /*
- * 右侧详情栏的卡片语言。
+ * The card language of the right-hand details rail.
  *
  * ⚠️ 先说清楚**没做什么**：原型右栏是「Session setup / Workspace context / Keyboard /
  * Theme note」四张卡，而 harness 的详情栏是「某次工具调用的 Input / Output」——两者不是同一个

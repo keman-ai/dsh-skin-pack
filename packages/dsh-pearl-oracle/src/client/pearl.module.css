@@ -6,7 +6,7 @@
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
  * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
- * 闪出来，看着像跳进了别的页面。
+ * flashing into view as if the app had jumped to a different page.
  *
  * ⚠️ 这套原型稿**没有** Agent 文案规范，所以这里**不替换任何宿主文案**——没有依据的人格化
  * 文案是自己加戏。
@@ -22,17 +22,17 @@
  * 所以横幅吃掉输入区以上的全部高度，输入区在它下面，两者不重叠；封面上除了两枚角标之外
  * 不压任何文案。
  *
- * `data-phase` 是三态 `settling / hero / active`。`settling` 表示会话还在回放、落 hero 还是
- * 落对话页尚不可知，harness 这时把 composer 藏起来就是为了不猜；这里跟着取同样的态度：
+ * `data-phase` has three states, `settling / hero / active`. `settling` means the session is still replaying and
+ * it is unknown whether it lands on hero or the conversation; the harness hides the composer then precisely so as not to guess, and this takes the same stance:
  * **不抢先画**。对话页与轨迹页不铺横幅——主视觉只属于空屏。
  * ========================================================================== */
 
 /*
  * 🔴 先把 hero 变成定位祖先，再画横幅。
  *
- * `[data-phase='hero']` 本身不是 positioned 元素，它的 `::before` 用 `position: absolute` 会去找
- * 最近的定位祖先——一个都没有就落到初始包含块，也就是**整个视口**，把左边的会话侧栏一起盖掉。
- * 这个坑在前面的皮肤上实测踩过。
+ * `[data-phase='hero']` is not itself positioned, so its `::before` with `position: absolute` looks for the nearest
+ * positioned ancestor — finding none it falls to the initial containing block, i.e. **the whole viewport**, covering the session sidebar on the left too.
+ * We hit this on an earlier skin.
  */
 :global(body[data-dsh-pearl] [data-phase='hero']) {
   position: relative;
@@ -102,8 +102,8 @@
  * (`.root[data-phase='hero'] .scrollBody`) — changing the composer's own margin has no effect whatsoever.
  *
  * Why overflow / scrollbar-gutter are turned off: hero has nothing to scroll, and `overflow-y: auto` would
- * 因内容溢出冒出一条滚动条；`scrollbar-gutter: stable` 恒定预留一条滚动条宽度，在没有滚动条的
- * hero 里就变成把整列往一边推的偏移，看上去是"输入框没居中"。
+ * would raise a scrollbar on overflow, and `scrollbar-gutter: stable` permanently reserves a scrollbar's width, which in a
+ * hero with no scrollbar becomes an offset pushing the column aside — looking like an off-centre composer.
  */
 :global(body[data-dsh-pearl] [data-phase='hero'] [data-conversation-scroll]) {
   justify-content: flex-end;
@@ -122,13 +122,13 @@
   z-index: 1;
 }
 
-/* 对话页：消息滚到输入框附近自然淡出，而不是被硬边切断（原型 `.composer-shell` 的渐变）。 */
+/* Conversation: messages fade out near the composer rather than being cut by a hard edge (the prototype's `.composer-shell` gradient). */
 :global(body[data-dsh-pearl] [data-composer-seat]) {
   background: linear-gradient(180deg, rgba(17, 24, 26, 0) 0%, var(--dsw-alias-bg-base) 30%);
 }
 
 /* ==========================================================================
- * 组件语言 —— 原型的圆角比前几套都大：卡片 14–16px、封面 20px、主按钮 13px。
+ * Component language — this prototype's radii are larger than the previous skins': 14–16px cards, 20px covers, 13px primary buttons.
  * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
  * ========================================================================== */
 
@@ -138,8 +138,8 @@
 }
 
 /*
- * 上下文注入行：压成背景信息（小、淡、不抢眼）——它是每轮都出现的系统噪音，不是用户要读的
- * 内容。悬停时还原，需要时仍然读得到。
+ * Context injection rows: pressed down into background information (small, faint, unobtrusive) — they are the
+ * system noise of every turn, not something the user reads. Hover restores them, so they stay legible when needed.
  */
 :global(body[data-dsh-pearl] [data-chat-flow-kind='context']) {
   opacity: 0.62;
@@ -149,7 +149,7 @@
   opacity: 1;
 }
 
-/* 本轮失败：左侧一道低饱和红——这套皮肤最不该有刺眼的东西，红也压过。 */
+/* A failed turn: a desaturated red stripe — nothing in this skin should glare, so even the red is muted. */
 :global(body[data-dsh-pearl] [data-chat-flow-kind='turn-error']) {
   box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
   border-radius: 10px;
@@ -157,11 +157,11 @@
 }
 
 /*
- * 权限确认卡：淡琥珀。原型稿里没有这个态（它只画了正常流程），颜色是按"轻、干净"的基调推的，
- * 出现频率也低。
+ * The permission card: pale amber. The prototype has no such state (it drew only the happy path), and the colour is derived from its light, clean key,
+ * and it occurs rarely.
  *
- * ⚠️ 锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里节点类型的
- * `kind === 'approval'`（由 ChatNodeSeat 渲染成 data-chat-flow-kind）。失配的话这一条不显示。
+ * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file. The value comes from the node type in the harness source,
+ * `kind === 'approval'` (rendered by ChatNodeSeat as data-chat-flow-kind). On a mismatch this rule simply does not apply.
  */
 :global(body[data-dsh-pearl] [data-chat-flow-kind='approval']) {
   background: var(--dsw-alias-state-warn-tertiary);
@@ -170,7 +170,7 @@
   padding: 11px 12px;
 }
 
-/* 会话正在跑时侧边栏那颗指示点：跟着品牌蓝的亮一档走，这套皮肤不引入第五种颜色。 */
+/* The sidebar dot while a session runs: one step brighter than the brand blue, since this skin introduces no fifth colour. */
 :global(body[data-dsh-pearl] [data-state='ongoing']) {
   color: var(--dsw-alias-state-business-primary);
 }
@@ -178,7 +178,7 @@
 /* ==========================================================================
  * Degradation zone — the rules below have no semantic attribute to hang on and must prefix-match hashed
  * CSS Module class names (like `_1Onn0a_sidebarCol`). A harness redesign makes them silently stop matching: the look reverts to default,
- * 不报错、不影响其余部分。
+ * without an error and without affecting anything else.
  * ========================================================================== */
 
 /* 侧栏：竖向渐变 + 珍珠白分隔线（原型 `.left` 是 #091827 → #06111d）。 */
@@ -189,7 +189,7 @@
 
 /*
  * `＋ 新会话`：43px 高、10px 圆角、135° 夜蓝渐变（原型 `.new`）。
- * harness 默认给它次级样式，不改的话主操作没有视觉重量。
+ * The harness styles it as secondary by default, leaving the primary action without visual weight unless changed.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
@@ -212,7 +212,7 @@
   background: linear-gradient(135deg, #8dabd2, #5f7d9c);
 }
 
-/* 按钮内的图标跟着走：harness 图标用 currentColor，父级换色即可。 */
+/* Icons inside buttons follow along: harness icons use currentColor, so recolouring the parent is enough. */
 :global(body[data-dsh-pearl] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
   color: inherit;
 }
@@ -220,7 +220,7 @@
 /*
  * 会话选中态：横向渐变 + 左侧一道珍珠白竖条（原型 `.session.active` 的
  * `linear-gradient(90deg,#142f50,#0c2037)` + `box-shadow: inset 2px 0 var(--cyan)`）。
- * 用 inset 阴影而不是 border，避免改变盒宽让选中行相对其它行错位。
+ * An inset shadow rather than a border, so the box width is unchanged and the selected row does not shift against the others.
  */
 :global(body[data-dsh-pearl] [class*='_sessionRow'][class*='_selected']) {
   background-image: linear-gradient(90deg, #26333d, #171f22);
@@ -230,7 +230,7 @@
 
 /*
  * Group headings (Today / Last 7 days): small caps, wide tracking, muted to the description colour.
- * 原型 `.label` 用这个把分组降成背景信息，不与会话标题争注意力。
+ * The prototype's `.label` uses this to demote group headings to background information, so they do not compete with session titles.
  */
 :global(body[data-dsh-pearl] [class*='_groupSection'] > :first-child) {
   text-transform: uppercase;
@@ -244,8 +244,8 @@
  *
  * ⚠️ 先说清楚**没做什么**：原型右栏是「Current Session / Harness Systems / Ocean Modes /
  * Deep Energy」四张卡。后三张全是写死的装饰——几行 ONLINE、几张模式卡、一个固定的能量值，
- * harness 都没有对应投影，不伪造。真实状态由本皮肤自己那根状态台承担（见 StatusDock）；
- * 官方这根详情栏只做视觉语言对齐——它装的是工具调用的 Input / Output，是排障唯一线索。
+ * the harness has no matching projection, so nothing is fabricated. Real state is carried by this skin's own dock (see StatusDock);
+ * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.
  */
 :global(body[data-dsh-pearl] [data-slot='details'] [class*='_section']) {
   background-image: linear-gradient(180deg, #202c30, #1a2326);

@@ -1,8 +1,8 @@
 /**
  * 奥特小队·末日的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
+ * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 这套稿子**没有** Theme rules 那一节（不像同批的其它几套写死了配比），只给了一组
  * `:root` 变量。所以配比得从它**实际怎么用**这些变量里读出来：
@@ -20,7 +20,7 @@
  * 一片火，两个色再混在一起，界面会变成"哪里都在烧"，真出错时反而看不见。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const ULTRATEAM_PALETTE = {
   /** 烧焦的暗红黑。 */
   bg: '#120909',
@@ -47,9 +47,9 @@ export const ULTRATEAM_PALETTE = {
 const p = ULTRATEAM_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in dark base.
  */
 export const ULTRATEAM_TOKENS: Record<string, string> = {
   // ── Container layers ──
@@ -160,7 +160,7 @@ export const ULTRATEAM_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': p.panel2,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': p.bg2,
   '--dsw-specific-sidebar-nav-item-hover': p.panel,
   '--dsw-specific-sidebar-nav-item-active': '#331915',

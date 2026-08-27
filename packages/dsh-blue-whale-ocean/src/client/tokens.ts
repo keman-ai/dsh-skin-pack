@@ -1,8 +1,8 @@
 /**
  * 蓝鲸海洋的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
+ * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 这套的性格是**安静**：底色压到接近黑的深夜蓝，所有描边都带一点月光青
  *（`rgba(141,198,255,.16)`），亮度全压在低位——原型稿自己在对话里写的是
@@ -13,7 +13,7 @@
  * 所以这里也只给它一个位置：上下文占用条的末端。铺开就不再是"一点暖"了。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const BWHALE_PALETTE = {
   /** 深海底，接近黑的蓝。 */
   bg: '#051c33',
@@ -43,9 +43,9 @@ export const BWHALE_PALETTE = {
 const p = BWHALE_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in dark base.
  */
 export const BWHALE_TOKENS: Record<string, string> = {
   // ── Container layers ──
@@ -152,7 +152,7 @@ export const BWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': p.panel2,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': p.panelDeep,
   '--dsw-specific-sidebar-nav-item-hover': '#0c2034',
   '--dsw-specific-sidebar-nav-item-active': '#123452',

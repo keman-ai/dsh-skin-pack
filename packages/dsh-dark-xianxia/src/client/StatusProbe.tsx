@@ -126,7 +126,7 @@ interface ConversationSnapshotLike {
  *
  * 🔴 Each of the three kinds has its own use:
  *   - `assistant` → `provenance.model`, the model that actually served the latest reply;
- *   - `tool-result` → 工具名 + 真实耗时 + 成败，喂「神通调用」那张卡；
+ *   - `tool-result` → tool name, real duration and outcome, feeding the tool-call card;
  *   - `context` → the injection's source and form, feeding the context-injection card;
  *   - `compaction` → how much of the session was folded away, feeding the compaction row.
  */

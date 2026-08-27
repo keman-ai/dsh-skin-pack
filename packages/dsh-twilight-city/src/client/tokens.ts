@@ -1,8 +1,8 @@
 /**
  * 黄昏城市的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
+ * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 原型稿的 Theme rules 写死了每种颜色的职责：
  * 「以**深蓝夜空**为底，**晚霞橙和紫粉云层**作为情绪重点，**暖黄色只负责点亮窗口与按钮**。」
@@ -18,7 +18,7 @@
  * 又没被分配情绪职责的颜色，正好留给状态：冷色跟这一整片暖调拉得开，一眼能认出来。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const TWILIGHT_PALETTE = {
   /** 夜空底。 */
   bg: '#0a1020',
@@ -48,9 +48,9 @@ export const TWILIGHT_PALETTE = {
 const p = TWILIGHT_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in dark base.
  */
 export const TWILIGHT_TOKENS: Record<string, string> = {
   // ── Container layers ──
@@ -162,7 +162,7 @@ export const TWILIGHT_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': p.bg2,
   '--dsw-specific-sidebar-nav-item-hover': p.surface,
   '--dsw-specific-sidebar-nav-item-active': p.surface3,

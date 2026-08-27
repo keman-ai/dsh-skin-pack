@@ -1,8 +1,8 @@
 /**
  * 灰白仙境的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
+ * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 这是一套**浅色**皮肤（`colorScheme: 'light'`）。原型稿的 Theme rules 把配比写成了
  * 一句数字，这是这套皮肤最硬的约束：
@@ -19,7 +19,7 @@
  * surface，**工作态不满屏铺图**」。所以封面只画在 hero。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const MIST_PALETTE = {
   /** 纸白，最亮的一级。 */
   paper: '#f4f3f0',
@@ -49,7 +49,7 @@ export const MIST_PALETTE = {
 const p = MIST_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
  * 只写**要改的**：没列出的继承 harness 内置**浅色**基座（`colorScheme: 'light'`）。
  * 覆盖集不完整是有意的：列全反而会把将来新增的内置 token 挡在外面。
@@ -166,7 +166,7 @@ export const MIST_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': '#3a3c39',
   '--dsw-alias-tooltip-bg': '#3a3c39',
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': '#faf9f6',
   '--dsw-specific-sidebar-nav-item-hover': '#efece4',
   '--dsw-specific-sidebar-nav-item-active': p.paper3,

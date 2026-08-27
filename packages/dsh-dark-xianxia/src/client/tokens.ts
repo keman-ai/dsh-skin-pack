@@ -1,8 +1,8 @@
 /**
  * 天机阁·修仙版的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
+ * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 原型稿的 Theme rules 把配比写成了一句数字，这是这套皮肤最硬的约束：
  * 「**70% 墨青黑 / 18% 暖灰黑 / 8% 古金 / 3% 玉青 / 1% 朱砂**」。
@@ -17,7 +17,7 @@
  * 回到克制的深色开发工具界面，这样才适合真实长期使用」。所以封面只画在 hero。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const XIAN_PALETTE = {
   /** 墨青黑，接近黑。 */
   bg: '#071012',
@@ -47,9 +47,9 @@ export const XIAN_PALETTE = {
 const p = XIAN_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in dark base.
  */
 export const XIAN_TOKENS: Record<string, string> = {
   // ── Container layers ──
@@ -160,7 +160,7 @@ export const XIAN_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': p.bg2,
   '--dsw-specific-sidebar-nav-item-hover': p.surface,
   '--dsw-specific-sidebar-nav-item-active': p.surface3,

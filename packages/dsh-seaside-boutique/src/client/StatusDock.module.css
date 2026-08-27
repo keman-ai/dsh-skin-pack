@@ -87,10 +87,10 @@
 }
 
 /*
- * 缩小版主视觉。
+ * The reduced hero visual.
  *
- * 这里用 `cover`（与 hero 一致）：图是"巨像居中、两侧雪山"，按侧栏宽度裁掉的正是两侧雪山，
- * 主体反而更突出。3/2 的比例跟原型稿的 hero 一致。
+ * `cover` is used here as on the hero: the image is a colossus centred between snow peaks, and cropping to the
+ * sidebar's width removes exactly those peaks, making the subject stand out more. The 3/2 ratio matches the prototype's hero.
  */
 .cover {
   aspect-ratio: 3 / 2;

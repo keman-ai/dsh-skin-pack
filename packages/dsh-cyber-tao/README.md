@@ -3,9 +3,9 @@
 
 DeepSeek Harness（dsh）的皮肤：黑曜石底、青铜描边、宣纸白文字，朱砂强调、玉石青状态，新会话页是一整幅山门主视觉
 
-![新会话页](preview/dark.webp)
+![New session](preview/dark.webp)
 
-## 它改了什么
+## What it changes
 
 - **整套语义 token**：底色黑曜石 `#0a0d10`，面板 `#13181d`，全场一条 `rgba(228,207,168,.12)` 的暗金描边，
   文字宣纸白 `#efe7d7`。约 80 个 `--dsw-alias-*` / `--dsw-specific-*` 一次性换掉，界面的每一层都跟着走。
@@ -15,9 +15,9 @@ DeepSeek Harness（dsh）的皮肤：黑曜石底、青铜描边、宣纸白文�
 - **品牌标接管**：侧栏与 hero 的标都换成一枚「道」字铜章，副标「赛博道观」。
 - **人格化文案**：思考中 → 「道童正在参悟天机……」；失败 → 「天机紊乱，请重新推演。」；
   需要你确认时前缀一句「此事涉及因果，请真人裁决」——**原文照旧留着**，那才是你做判断的依据。
-- **右侧状态台**：常驻一根，见下表。
+- **A right-hand status dock**: always present; see the table below.
 
-## 配色规则
+## Palette rules
 
 原型稿自己把规则写死成一句话：**黑曜石底色、青铜描边、宣纸白文字、朱砂强调、玉石青状态**。
 五个词对应五种用量，越界就不是这套皮肤了：
@@ -34,26 +34,26 @@ DeepSeek Harness（dsh）的皮肤：黑曜石底、青铜描边、宣纸白文�
 还有一句同样是原型稿写的：**道观气质要深，但产品可用性不能被吞掉**。
 所以三栏布局、信息密度、按钮与卡片层级一处不动，只在氛围、用词、材质上「修仙化」。
 
-### 右侧状态台显示什么
+### What the status dock shows
 
-| 卡片 | 字段 | 来源 |
+| Card | Fields | Source |
 |---|---|---|
-| 等你拿主意 | 待授权的工具名、待回答的问题数 | `ConversationSnapshot.pending`。**只在真有东西等你时出现** |
-| Current Session | 状态、本轮已跑、当前工具耗时、收件箱、模型 | `running` / `turnTimings` / `runningCalls` / `queue`；模型取最近一条助手消息的 `provenance.model` |
-| Context | 占用 % + Token 负载 + System / 工具 schema / 对话 构成条 | `contextPressure` + `contextBreakdown` 投影 |
-| Permission | 当前权限·沙箱模式 | `permissions` 投影 |
-| Usage | 输入 / 输出 / 缓存命中 / 耗时 / 轮次 | `tokenUsage` + `sessionStats` 投影 |
-| Plan | 待办进度 | `todos` 投影（没有清单时整张卡不出现） |
+| Waiting on you | Tools awaiting approval, questions awaiting an answer | `ConversationSnapshot.pending`. **Appears only when something is genuinely waiting** |
+| Current Session | State, elapsed turn time, current tool duration, inbox, model | `running` / `turnTimings` / `runningCalls` / `queue`; the model comes from the latest assistant message's `provenance.model` |
+| Context | Occupancy %, token load, and the System / tool-schema / conversation composition bar | The `contextPressure` and `contextBreakdown` projections |
+| Permission | The active permission and sandbox mode | The `permissions` projection |
+| Usage | Input / output / cache hits / time spent / turns | The `tokenUsage` and `sessionStats` projections |
+| Plan | Todo progress | The `todos` projection (the card is absent when there is no list) |
 | 神通调用 | 工具名 · 真实耗时 · 成败 | trajectory 的 `tool-result` 节点（耗时 = `time - callTime`）＋快照的 `runningCalls`。**只在有过调用时出现** |
 | 经卷注入 | 每条上下文注入的来源与形态 | trajectory 的 `context` 节点（`provenance.label` / `form`） |
-| 已折叠 | 压缩次数、折叠条目数与 token | trajectory 的 `compaction` 节点。**没压缩过就不出现** |
+| Folded away | Compaction count, items and tokens folded | Trajectory `compaction` nodes. **Absent when nothing was compacted** |
 
-⚠️ **工具耗时可能缺席**：只有配对的 `tool/call` 还在会话窗口内时才算得出来。窗口滚过去的老调用只报名字与成败——宁可空着，也不编一个好看的秒数。
+⚠️ **A tool duration may be absent**: it can only be computed while the matching `tool/call` is still inside the session window. Older calls that scrolled past report only name and outcome — better blank than an invented figure.
 
-⚠️ **构成不是总量**：`contextBreakdown` 三项用固定密度估算（对中文与 JSON schema 系统性低估），
-加起来**不等于** Token 负载（那个锚在供应商上报值）。界面上也写了这句。
+⚠️ **Composition is not a total**: the three `contextBreakdown` figures use fixed-density estimates (systematically low for Chinese and JSON schema)
+and **do not add up** to the token load, which is anchored to the provider's reported value. The UI says so too.
 
-## 刻意没做的
+## Deliberately not done
 
 原型稿右栏那条 `Goal · 72% · 5 / 7 checkpoints`、三个写死的 `Context files`
 （`ui-theme/src/client/index.ts` 8.1 KB 之类）、以及封面上的「今日修行 · 76 心神值」，
@@ -65,11 +65,11 @@ DeepSeek Harness（dsh）的皮肤：黑曜石底、青铜描边、宣纸白文�
 原型 Agent copy 里的 `Tool run → 正在调用神通……` 与 `Context → 正在翻阅经卷……` 也没做：
 harness 的工具行只有 ok / error 两态，没有 running 可挂点，硬凑会做成一个永远亮着的假状态。
 
-## 安装
+## Install
 
-**皮肤集市**（推荐）：在集市里搜到它并安装，装完**重启 dsh**。
+**Skin market** (recommended): find it in the market and install, then **restart dsh**.
 
-手工装（开发期）：
+Manual install (during development):
 
 ```bash
 npm install && npm run build
@@ -78,36 +78,36 @@ mkdir -p "$DST" && cp -R lib cordis.patch.yml skin.json package.json README.md "
 # 再把 dsh-cyber-tao 加进 profile 的 package.json 的 dependencies 与 dsh.profile.bundles
 ```
 
-改完**必须重启 dsh**：profile 树要重新组装，不重启界面还是旧的。
+After changing it you **must restart dsh**: the profile tree has to be recomposed, and without a restart the UI stays as it was.
 
-## 🔴 autoApply 的副作用
+## 🔴 The side effect of autoApply
 
-装上默认就切到本皮肤（`autoApply`，默认 `true`）。原因是 harness **不持久化第三方主题 id**，
-而且**内置的「设置 → 外观」只有 浅色 / 深色 / 跟随系统 三个格子**，第三方主题不在那里——
-要手动切换得用皮肤集市自己的面板（**设置 → 皮肤市场**）。
+Installing switches to this skin by default (`autoApply`, default `true`). The reason is that the harness **does not persist third-party theme ids**,
+and the **built-in Settings → Appearance has only three cells: light / dark / follow system**, with no third-party themes —
+switching manually requires the skin market's own panel (**Settings → Skin Market**).
 
-代价：**每次刷新都会重新应用**，你切走只对当次有效。想永久换走把 `autoApply` 设成 `false`，
-或者卸载本插件。实现上是启动后 8 秒的窗口（要盖过 Host 偏好快照的覆盖），窗口一过彻底松手。
+The cost: **it reapplies on every refresh**, so switching away lasts only for that session. To change permanently, set `autoApply` to `false`
+or uninstall the plugin. It is implemented as an 8-second window after startup (long enough to outlast the Host preference snapshot), after which it lets go entirely.
 
-## 版本要求
+## Version requirements
 
-需要 **dsh 0.1.1-rc.2 或更新**。品牌位的接管依赖 slot 的 `priority` 影子化（同一 priority 才算
-占用冲突，不同 priority 是影子化、数字小的渲染）；更老的版本上这三处注册会抛错并被吞掉，
-**只是退回官方品牌标**，配色与封面照常工作。
+Requires **dsh 0.1.1-rc.2 or newer**. The brand-slot takeover relies on slot `priority` shadowing (only equal
+priorities count as a conflict; different priorities shadow, and the lower number renders). On older versions these three registrations throw and are swallowed,
+**merely falling back to the official brand mark**, while the palette and cover keep working.
 
-## 素材
+## Assets
 
 封面来自原型稿的整屏设计图，裁去了稿子里的假侧栏、假面板与标题按钮，只留画面（652x500 webp，内联成 data URI）。
 
-## 开发
+## Development
 
 ```bash
 npm run check   # tsc --noEmit
-npm run build   # 产出 lib/index.js（host 半）与 lib/client.js（浏览器半）
+npm run build   # produces lib/index.js (host half) and lib/client.js (browser half)
 ```
 
-`lib/` **要提交进仓库**：皮肤靠 `github:owner/repo` 安装，装的是仓库里的构建产物；
-源码更新了产物没更新，别人装到的还是旧版（集市还会因为入口文件缺失直接把包卸回去）。
+`lib/` **must be committed**: skins install via `github:owner/repo`, which installs the build output from the repository;
+if the source moves and the output does not, people install the old version (and the market uninstalls the package outright over the missing entry file).
 
 ## License
 

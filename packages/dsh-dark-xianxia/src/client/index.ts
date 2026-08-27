@@ -1,17 +1,17 @@
 /**
  * 天机阁·修仙版 · 浏览器半。
  *
- * 做四件事，稳定性依次递减，所以分开写：
+ * It does four things, in decreasing order of robustness, hence kept separate:
  *
  * 1. **Register the theme** — the palette goes to `ctx.theme`, and the presenter paints it as inline variables on body.
  *    It depends on semantic tokens only, and harness redesigns do not change what a token means, so this layer lasts.
  * 2. **挂主视觉** —— 往 body 打一个自有属性、把封面以 CSS 变量交给样式表。只用自己的属性和
- *    自己的变量，不钩 harness 的类名或结构。
- * 3. **接管品牌位** —— 用 `priority: -1` 影子化官方的标与站名（见 Brand.tsx）。这一件跟皮肤的
- *    激活状态绑定：皮肤停用就撤销注册，界面自动回到官方标。
- * 4. **右侧状态台** —— 自建 fixed 栏 + 一个零渲染的采集器（见 StatusDock / StatusProbe）。
+ *    our own variables; no hooks into harness class names or structure.
+ * 3. **Take over the brand slots** — shadow the official mark and wordmark with `priority: -1` (see Brand.tsx).
+ *    This one is bound to the active state: deactivating deregisters it and the official mark returns.
+ * 4. **The right-hand dock** — our own fixed column plus a zero-render probe (see StatusDock / StatusProbe).
  *
- * 全部走 `ctx.effect` / disposer，卸载时属性摘掉、变量清掉、主题注销、注册撤销，界面回到原样。
+ * All go through `ctx.effect` / disposers, so unloading removes attributes, clears variables, unregisters the theme and revokes registrations, restoring the UI.
  */
 
 import { createElement } from 'react'
@@ -32,7 +32,7 @@ export const THEME_ID = 'xian'
 /** Body marker: the single hook for the decorative CSS, and a convenient handle for user overrides. */
 export const BODY_ATTRIBUTE = 'data-dsh-xian'
 
-/** 主视觉变量名：CSS 里读它，值在这里注入，图片资源不进样式表（否则样式表被撑爆且不好清）。 */
+/** The hero variable: read by the CSS, injected here, keeping the image out of the stylesheet (which would otherwise bloat and be hard to clean up). */
 const COVER_VARIABLE = '--xian-cover'
 
 /**
@@ -49,9 +49,9 @@ const DOCK_STORAGE_KEY = 'xian'
 /**
  * 封面地址。由 host 半在 `/skin-cover/xian.webp` 上提供（见 src/index.ts 的 COVER_ROUTE）。
  *
- * 🔴 不再内联 data URI：多套皮肤同时装载时，每套几百 KB 的 base64 会把浏览器主线程压死
- *（实测 21 套同装时首屏 90 秒渲染不出来）。现在浏览器只在皮肤**真的激活**、CSS 用到这个
- * 变量时才去取图。
+ * 🔴 No more inline data URIs: with several skins loaded, a few hundred KB of base64 each crushes the browser's
+ * main thread (measured: with 21 installed the first paint did not arrive in 90 seconds). The browser now fetches
+ * the image only once the skin is **actually active** and the CSS uses this variable.
  */
 const COVER_URL = '/skin-cover/xian.webp'
 
@@ -59,8 +59,8 @@ const COVER_URL = '/skin-cover/xian.webp'
 /**
  * The startup window for auto-apply.
  *
- * 要盖过的是 ui-theme 的 `adopt()` —— Host 偏好快照到达时把主题覆盖回内置值。实测它在 300ms
- * 上下到达，冷启动更慢，取 8 秒留足余量；窗口一过插件彻底松手。
+ * What must be outlasted is ui-theme's `adopt()`, which overrides the theme back to a built-in value when the Host preference snapshot arrives. Measured at roughly 300ms,
+ * slower on a cold start, so 8 seconds leaves ample room; after the window the plugin lets go entirely.
  */
 const AUTO_APPLY_WINDOW_MS = 8_000
 
@@ -82,12 +82,12 @@ export const inject = ['theme', 'slots']
 /** Browser-half config, with the same field names as the host half. */
 export interface Config {
   /**
-   * 装上就切到本皮肤，默认开。
+   * Switch to this skin on install; on by default.
    *
-   * 为什么需要这个开关：harness 的第三方主题 id **不进内置 settings schema**，选择只在进程内
-   * 活着，不写进 `$DSH_HOME/settings.yaml`；而内置的「设置 → 外观」那一行**只列
-   * 浅色 / 深色 / 跟随系统**三个内置偏好，第三方主题压根不在其中。不自动应用的话，用户每次
-   * 启动 dsh 都得去皮肤集市的面板里重选一遍——装了皮肤却看不到皮肤，是这套机制下的默认结果。
+   * Why the switch exists: the harness's third-party theme ids **never enter the built-in settings schema**, so the
+   * choice lives only in the process and is never written to `$DSH_HOME/settings.yaml`; and the built-in
+   * Settings → Appearance row **lists only light / dark / follow system**, with third-party themes simply absent.
+   * Without auto-apply the user would reselect in the skin market panel on every start — installing a skin and not seeing it is the default outcome of this mechanism.
    *
    * Turning it off returns to "installing only makes it available; pick it in the skin market".
    */
@@ -126,7 +126,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   }, XianStatusProbe)), 'xian: status probe')
 
   /*
-   * 侧栏底部的能量槽（原型稿那条写死的能量值的真数据版）。
+   * The sidebar energy gauge — the real-data version of the prototype's hardcoded energy value.
    *
    * `sidebar.footer.action` is `{ kind: 'list' }`, right beside the Settings row, and appending displaces nobody.
    * Its scope is `root` and it receives no session projection, so this component reads no props and subscribes to
@@ -215,8 +215,8 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
 /**
  * Open and close the decorations and brand slots with the active state, and hold the theme during the startup window.
  *
- * 装饰**只在本皮肤激活时存在**：用户切回内置主题而主视觉还铺着、印章还挂着，配色已经不是这套了，
- * 那是纯粹的视觉污染。
+ * The decorations **exist only while this skin is active**: with the user back on a built-in theme while the hero
+ * is still spread and the seal still hangs, the palette is no longer this skin's — pure visual pollution.
  *
  * @param ctx - Plugin context.
  * @param autoApply - Whether to switch to this skin automatically.
@@ -227,7 +227,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
   let attached = false
   /** Disposers for the brand-slot registrations, existing only while the skin is active. */
   let brandDisposers: (() => void)[] = []
-  /** 推迟接管品牌位的定时器（见下面 sync 里的说明）。 */
+  /** Timer deferring the brand-slot takeover (see the note in sync below). */
   let brandTimer: ReturnType<typeof setTimeout> | undefined
 
   /**
@@ -235,9 +235,9 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
    *
    * 🔴 It cannot be "stop after one successful switch": ui-theme's `setTheme` persists built-in preferences only
    *（`isThemePreference('xian')` 是 false，第三方 id 根本不进持久化），而 Host 快照到达时
-   * `adopt()` 会拿盘上存的内置值**覆盖**当前偏好。顺序一旦是「插件先切好 → 快照后到」，皮肤就被
-   * 悄悄换回内置主题，**且没有任何报错**；此时插件已经放手，就再也切不回来——表现是
-   * "装了皮肤，刷新几次又变回默认"。两者谁先谁后是竞态，所以时好时坏。
+   * `adopt()` **overrides** the current preference with the built-in value from disk. Once the order is
+   * plugin-switches-then-snapshot-arrives, the skin is quietly swapped back **with no error at all**, and the plugin
+   * has already let go so it never returns — the symptom being "installed a skin, refreshed a few times, back to default". The order is a race, hence the intermittency.
    *
    * The cost of the window: it reapplies on every refresh, so switching away in settings lasts only for that
    * session. To change permanently, set `autoApply` to false or uninstall the plugin — this is documented in the README.
@@ -278,14 +278,14 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
       body.setAttribute(BODY_ATTRIBUTE, '')
       restoreDockOpen(body)
       /*
-       * 🔴 接管品牌位要**推迟一拍**。
+       * 🔴 The brand-slot takeover must be **deferred by one tick**.
        *
-       * 从别的皮肤切过来时，新旧两套响应的是**同一个** `theme/change`，谁先跑取决于插件
-       * 注册顺序。若新皮肤先跑，它去注册 `conversation.hero.brand.mark`（single slot，
-       * priority -1）时旧皮肤还没注销——撞车、被 attachBrand 吞掉，结果是**切过去了但
-       * 品牌位还是官方标**。实测切 4 次能撞上 2 次，且完全静默。
+       * Switching from another skin, both respond to the **same** `theme/change`, and which runs first depends on
+       * plugin registration order. If the new skin runs first, it registers `conversation.hero.brand.mark` (a single
+       * slot at priority -1) while the old skin has not deregistered — they collide, attachBrand swallows it, and the
+       * result is **a switched skin still showing the official mark**. Measured: two collisions in four switches, entirely silent.
        *
-       * setTimeout(0) 把接管排到本轮所有 theme/change 回调之后。
+       * setTimeout(0) queues the takeover after every theme/change callback of this round.
        */
       clearTimeout(brandTimer)
       brandTimer = setTimeout(() => { brandDisposers = attachBrand(ctx) }, 0)

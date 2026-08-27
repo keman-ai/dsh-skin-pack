@@ -48,7 +48,7 @@ export const NIULAI_PALETTE = {
 const p = NIULAI_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
  * 只写**要改的**：没列出的 token 继承 harness 内置暗色基座。这是有意的——
  * 覆盖集不完整是允许的（README 明说没有完整性校验），列全反而会把将来新增的
@@ -169,7 +169,7 @@ export const NIULAI_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.surface3,
   '--dsw-alias-tooltip-bg': p.surface3,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   // 侧栏比主区更沉一档（设计稿的 --bg-2），让对话区显得往前浮。
   '--dsw-specific-sidebar-fill': p.bg2,
   '--dsw-specific-sidebar-nav-item-hover': p.surface,

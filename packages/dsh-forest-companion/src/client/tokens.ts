@@ -1,8 +1,8 @@
 /**
  * 森林同行的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
+ * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 原型稿自己在对话里把配色规则写清楚了：
  * 「已把整套主题收束到**深森林绿、柔和米色与一点粉色人物呼应**」，
@@ -15,7 +15,7 @@
  *     和「当前模式」卡的描边。**"一点"是它的定义**，铺开就不再是呼应画里那个人物了。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const FOREST_PALETTE = {
   /** 林底，接近黑的深绿。 */
   bg: '#071713',
@@ -45,9 +45,9 @@ export const FOREST_PALETTE = {
 const p = FOREST_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in dark base.
  */
 export const FOREST_TOKENS: Record<string, string> = {
   // ── Container layers ──
@@ -157,7 +157,7 @@ export const FOREST_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': p.panel2,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': '#091812',
   '--dsw-specific-sidebar-nav-item-hover': '#0c241b',
   '--dsw-specific-sidebar-nav-item-active': '#163a2e',

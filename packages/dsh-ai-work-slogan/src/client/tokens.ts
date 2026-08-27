@@ -17,7 +17,7 @@
  * 拿蓝做主按钮会淹没在背景里。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const WORK_PALETTE = {
   /** 渐变顶端：深海蓝。也是唯一需要实色的那一档。 */
   bg: '#071936',
@@ -42,9 +42,9 @@ export const WORK_PALETTE = {
 const p = WORK_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in dark base.
  */
 export const WORK_TOKENS: Record<string, string> = {
   // ── 容器层次：玻璃 ──
@@ -157,7 +157,7 @@ export const WORK_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': '#0d2247',
   '--dsw-alias-tooltip-bg': '#0d2247',
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': 'rgba(5, 15, 34, 0.42)',
   '--dsw-specific-sidebar-nav-item-hover': 'rgba(255, 255, 255, 0.06)',
   '--dsw-specific-sidebar-nav-item-active': 'rgba(255, 255, 255, 0.1)',

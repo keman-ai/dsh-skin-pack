@@ -1,10 +1,10 @@
 /**
  * 右侧状态台：缩小版的深海封面 + 这场会话的真实状态。
  *
- * 原型稿的右栏是「Current Flight / Harness Systems / Flight Modes / Moonlight Energy」四张卡。
- * 这里做**能对上真实数据的那些**：等你拿主意、状态与计时、模型、上下文占用与构成、权限模式、
- * 用量、待办进度。`Harness Systems` 那四行 ONLINE、`Flight Modes` 四张模式卡、
- * `Moonlight Energy` 那个 85% 都是纯装饰（写死的数字），harness 没有对应投影，不伪造。
+ * The prototype's right column has four cards: Current Flight / Harness Systems / Flight Modes / Moonlight Energy.
+ * Only **those matching real data** are built: waiting on you, state and timing, model, context occupancy and
+ * composition, permission mode, usage, todo progress. The four ONLINE rows of `Harness Systems`, the four
+ * `Flight Modes` cards and the 85% of `Moonlight Energy` are pure decoration with hardcoded numbers; the harness has no such projection, and nothing is fabricated.
  *
  * Why build our own rail instead of taking over the harness's details slot:
  * it **can** be taken over (a `{ kind: 'single' }` conflict only arises at equal priority, and registering at -1
@@ -144,7 +144,7 @@ export function FishStatusDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="会话状态台">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Session status dock">
       <button
         type="button"
         className={css.handle}
@@ -159,7 +159,7 @@ export function FishStatusDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              缩小版横幅。用的是同一张内联图（不额外增加体积），`contain` 整幅呈现——
+              A reduced banner. It uses the same inline image (adding no size) and presents it whole with `contain` —
               封面是整身角色居中的构图，缩到侧栏宽度按 1.55:1 裁一条，角色完整保留。
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--fish-cover)' }}>
@@ -309,7 +309,7 @@ export function FishStatusDock() {
 
             {status.compactedCount !== undefined && (
               <section className={css.card}>
-                <div className={css.cardTitle}>已折叠</div>
+                <div className={css.cardTitle}>Folded away</div>
                 <Line label="Compactions">{`${status.compactedCount}`}</Line>
                 {status.compactedItems !== undefined && (
                   <Line label="Items folded">{`${status.compactedItems}`}</Line>

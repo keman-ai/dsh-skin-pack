@@ -87,7 +87,7 @@
 }
 
 /*
- * 缩小版封面。
+ * The reduced cover.
  *
  * 封面是 1.39:1 的竖构图，缩到侧栏宽度按 1.55:1 裁一条——裁的是上下的水面与礁石，
  * 角色那一段完整保留。
@@ -341,7 +341,7 @@
   }
 }
 /* ==========================================================================
- * 流水列表 —— 神通调用与经卷注入两张卡共用。
+ * The feed list — shared by the tool-call and context-injection cards.
  *
  * Each row is a name plus a short piece of metadata on the right, with long names ellipsised: the column is only
  * 300px wide, and wrapping tool names would turn this card into a wall.

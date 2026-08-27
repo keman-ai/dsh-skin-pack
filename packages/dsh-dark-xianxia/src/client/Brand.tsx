@@ -6,17 +6,17 @@
  * `sidebar.brand.mark`、`sidebar.brand.name`，新会话页的大标还有一个
  * `conversation.hero.brand.mark`。
  *
- * 🔴 这三个都是 `{ kind: 'single' }`。以前的结论是"single 已被官方占用，第三方注册直接抛错"，
- * **那条已经过时**：dsh 0.1.1-rc.2 的 `SlotCore.register` 只在**同一个 priority** 上判占用，
- * 不同 priority 是影子化（`entriesOfSlot` 取每个 cell 里 priority 最小的那个 live entry）。
+ * 🔴 All three are `{ kind: 'single' }`. The old conclusion — that an occupied single makes third-party registration throw —
+ * **is out of date**: `SlotCore.register` in dsh 0.1.1-rc.2 detects occupancy only **at the same priority**,
+ * and different priorities shadow (`entriesOfSlot` takes the live entry with the lowest priority in each cell).
  * 官方 `ui-brand-official` 注册在默认 0，所以我们注册 `priority: -1` 就能接管，且它那份只是
  * 被影子化、没被卸载——皮肤一停用就自动回到官方标。
  *
- * 接管 = 承接对方的 owner props 契约，所以这两个组件严格按契约取参：
- *   SidebarBrandMarkOwnerProps { size }            —— 侧栏要 24px
- *   HeroBrandMarkOwnerProps    { size, className } —— 新会话页要 34px，还会塞一个类名进来
- *     保留默认的悬停动效，原样透传即可
- *   SidebarBrandNameOwnerProps {}                  —— 名字位自己决定内容与宽度
+ * Taking over means honouring the other side's owner-props contract, so both components follow it strictly:
+ *   SidebarBrandMarkOwnerProps { size }            — the sidebar wants 24px
+ *   HeroBrandMarkOwnerProps    { size, className } — the new-session page wants 34px and passes a class name
+ *     keeps the default hover animation, so it is passed through verbatim
+ *   SidebarBrandNameOwnerProps {}                  — the name slot decides its own content and width
  *
  * 印章用「字 + 圆环」而不是画一只猴子：小到 24px 时任何角色轮廓都会糊成一团色块，
  * 而汉字在这个尺寸下仍然认得出——原型稿本身也是这么处理的。
@@ -95,7 +95,7 @@ export function XianMark({ size, className }: BrandMarkProps) {
 /**
  * 站名：主名 + 副标，对应原型稿的「DeepSeek Harness / 黑神话悟空 · 焚山版」。
  *
- * 主名保留 DeepSeek Harness —— 皮肤换的是外观，不冒充另一个产品；副标才是这套皮肤的身份。
+ * The primary name stays DeepSeek Harness — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
  *
  * @returns The two-line wordmark.
  */

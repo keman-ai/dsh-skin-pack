@@ -222,7 +222,7 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 </table>
 <!-- SKINS:END -->
 
-## 开发
+## Development
 
 ```sh
 pnpm install

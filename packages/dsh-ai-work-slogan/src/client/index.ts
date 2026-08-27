@@ -1,17 +1,17 @@
 /**
  * AI Work Mode · 浏览器半。
  *
- * 做四件事，稳定性依次递减，所以分开写：
+ * It does four things, in decreasing order of robustness, hence kept separate:
  *
  * 1. **Register the theme** — the palette goes to `ctx.theme`, and the presenter paints it as inline variables on body.
  *    It depends on semantic tokens only, and harness redesigns do not change what a token means, so this layer lasts.
  * 2. **打 body 标记** —— 装饰 CSS 全挂在这个自有属性下。这套没有主视觉图要注入，
  *    空屏的口号与白色方标分别由样式表和品牌位组件负责。
- * 3. **接管品牌位** —— 用 `priority: -1` 影子化官方的标与站名（见 Brand.tsx）。这一件跟皮肤的
- *    激活状态绑定：皮肤停用就撤销注册，界面自动回到官方标。
- * 4. **右侧状态台** —— 自建 fixed 栏 + 一个零渲染的采集器（见 StatusDock / StatusProbe）。
+ * 3. **Take over the brand slots** — shadow the official mark and wordmark with `priority: -1` (see Brand.tsx).
+ *    This one is bound to the active state: deactivating deregisters it and the official mark returns.
+ * 4. **The right-hand dock** — our own fixed column plus a zero-render probe (see StatusDock / StatusProbe).
  *
- * 全部走 `ctx.effect` / disposer，卸载时属性摘掉、变量清掉、主题注销、注册撤销，界面回到原样。
+ * All go through `ctx.effect` / disposers, so unloading removes attributes, clears variables, unregisters the theme and revokes registrations, restoring the UI.
  */
 
 import { createElement } from 'react'
@@ -55,8 +55,8 @@ const DOCK_STORAGE_KEY = 'ai-work.dock.open'
 /**
  * The startup window for auto-apply.
  *
- * 要盖过的是 ui-theme 的 `adopt()` —— Host 偏好快照到达时把主题覆盖回内置值。实测它在 300ms
- * 上下到达，冷启动更慢，取 8 秒留足余量；窗口一过插件彻底松手。
+ * What must be outlasted is ui-theme's `adopt()`, which overrides the theme back to a built-in value when the Host preference snapshot arrives. Measured at roughly 300ms,
+ * slower on a cold start, so 8 seconds leaves ample room; after the window the plugin lets go entirely.
  */
 const AUTO_APPLY_WINDOW_MS = 8_000
 
@@ -78,12 +78,12 @@ export const inject = ['theme', 'slots']
 /** Browser-half config, with the same field names as the host half. */
 export interface Config {
   /**
-   * 装上就切到本皮肤，默认开。
+   * Switch to this skin on install; on by default.
    *
-   * 为什么需要这个开关：harness 的第三方主题 id **不进内置 settings schema**，选择只在进程内
-   * 活着，不写进 `$DSH_HOME/settings.yaml`；而内置的「设置 → 外观」那一行**只列
-   * 浅色 / 深色 / 跟随系统**三个内置偏好，第三方主题压根不在其中。不自动应用的话，用户每次
-   * 启动 dsh 都得去皮肤集市的面板里重选一遍——装了皮肤却看不到皮肤，是这套机制下的默认结果。
+   * Why the switch exists: the harness's third-party theme ids **never enter the built-in settings schema**, so the
+   * choice lives only in the process and is never written to `$DSH_HOME/settings.yaml`; and the built-in
+   * Settings → Appearance row **lists only light / dark / follow system**, with third-party themes simply absent.
+   * Without auto-apply the user would reselect in the skin market panel on every start — installing a skin and not seeing it is the default outcome of this mechanism.
    *
    * Turning it off returns to "installing only makes it available; pick it in the skin market".
    */
@@ -122,7 +122,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   }, WorkStatusProbe)), 'ai-work: status probe')
 
   /*
-   * 侧栏底部的能量槽（原型稿那条写死的能量值的真数据版）。
+   * The sidebar energy gauge — the real-data version of the prototype's hardcoded energy value.
    *
    * `sidebar.footer.action` is `{ kind: 'list' }`, right beside the Settings row, and appending displaces nobody.
    * Its scope is `root` and it receives no session projection, so this component reads no props and subscribes to
@@ -211,8 +211,8 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
 /**
  * Open and close the decorations and brand slots with the active state, and hold the theme during the startup window.
  *
- * 装饰**只在本皮肤激活时存在**：用户切回内置主题而主视觉还铺着、印章还挂着，配色已经不是这套了，
- * 那是纯粹的视觉污染。
+ * The decorations **exist only while this skin is active**: with the user back on a built-in theme while the hero
+ * is still spread and the seal still hangs, the palette is no longer this skin's — pure visual pollution.
  *
  * @param ctx - Plugin context.
  * @param autoApply - Whether to switch to this skin automatically.
@@ -231,9 +231,9 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
    *
    * 🔴 It cannot be "stop after one successful switch": ui-theme's `setTheme` persists built-in preferences only
    *（`isThemePreference('ai-work')` 是 false，第三方 id 根本不进持久化），而 Host 快照到达时
-   * `adopt()` 会拿盘上存的内置值**覆盖**当前偏好。顺序一旦是「插件先切好 → 快照后到」，皮肤就被
-   * 悄悄换回内置主题，**且没有任何报错**；此时插件已经放手，就再也切不回来——表现是
-   * "装了皮肤，刷新几次又变回默认"。两者谁先谁后是竞态，所以时好时坏。
+   * `adopt()` **overrides** the current preference with the built-in value from disk. Once the order is
+   * plugin-switches-then-snapshot-arrives, the skin is quietly swapped back **with no error at all**, and the plugin
+   * has already let go so it never returns — the symptom being "installed a skin, refreshed a few times, back to default". The order is a race, hence the intermittency.
    *
    * The cost of the window: it reapplies on every refresh, so switching away in settings lasts only for that
    * session. To change permanently, set `autoApply` to false or uninstall the plugin — this is documented in the README.

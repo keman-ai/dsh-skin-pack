@@ -1,7 +1,7 @@
 /**
  * 鲸跃横幅的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。harness 改版会动
  * class 名和布局，但不会动语义 token 的含义，所以这层能长期活着。
  *
@@ -47,7 +47,7 @@ export const WAVE_PALETTE = {
 const p = WAVE_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
  * 只写**要改的**：没列出的继承 harness 内置浅色基座。
  */
@@ -162,7 +162,7 @@ export const WAVE_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.panel2,
   '--dsw-alias-tooltip-bg': '#27418a',
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   // 原型的侧栏是 #f8fbff → #f0f5fd 的竖向渐变，token 只能给单色，取中间值；渐变在样式表里补。
   '--dsw-specific-sidebar-fill': '#f4f8ff',
   '--dsw-specific-sidebar-nav-item-hover': '#edf2ff',

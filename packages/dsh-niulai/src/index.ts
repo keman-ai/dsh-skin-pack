@@ -41,8 +41,8 @@ export interface Config {
   /**
    * 装上就切到牛来，默认开。关掉则只注册、不应用，等用户自己去「设置 → 外观」选。
    *
-   * 默认开是因为 harness 的第三方主题 id 不进内置 settings schema，选择不持久化：
-   * 不自动应用的话，每次启动 dsh 都得重选一遍。
+   * On by default because the harness's third-party theme ids never enter the built-in settings schema, so the
+   * choice is not persisted: without auto-apply, every dsh start would need reselecting.
    */
   autoApply?: boolean
 }
@@ -62,6 +62,6 @@ export function apply(ctx: Context, config: Config = {}): void {
     },
   }), `niulai: ${COVER_ROUTE}`)
 
-  const mode = config.autoApply === false ? '需在「设置 → 外观」里手动选' : '已自动应用'
+  const mode = config.autoApply === false ? 'select it manually under Settings → Appearance' : 'applied automatically'
   ctx.logger.info('[niulai] 牛来原野已挂载（%s）', mode)
 }

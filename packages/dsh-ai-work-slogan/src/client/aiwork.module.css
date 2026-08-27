@@ -206,7 +206,7 @@
 /*
  * 权限确认卡：琥珀玻璃。
  *
- * ⚠️ 锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里节点类型的
+ * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file. The value comes from the node type in the harness source,
  * `kind === 'approval'`。失配的话这一条不显示，不影响其余规则。
  */
 :global(body[data-dsh-ai-work] [data-chat-flow-kind='approval']) {

@@ -6,32 +6,32 @@
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
  * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
- * 闪出来，看着像跳进了别的页面。
+ * flashing into view as if the app had jumped to a different page.
  *
- * 锚点优先用 harness 的语义 `data-*` 属性（对外契约，改版不会碎）；没有属性可用的地方才退到
- * `[class*='_xxx']` 前缀匹配 CSS Module 哈希类名——那些集中在文件末尾的「降级区」。
+ * Anchors prefer the harness's semantic `data-*` attributes (a public contract that survives redesigns); only
+ * where no attribute exists do they fall back to `[class*='_xxx']` prefix matches on hashed CSS Module names — all gathered in the degradation zone at the end of the file.
  *
  * ⚠️ 这套原型稿**没有** Agent 文案规范（它只画了 New Session 一屏），所以这里**不替换任何宿主
  * 文案**：没有依据的人格化文案是自己加戏。前两套皮肤替换文案是因为设计稿明确列了对照表。
  */
 
 /* ==========================================================================
- * 新会话页主视觉。
+ * The new-session hero visual.
  *
  * 原型稿的 hero 是**一张卡片**：外层 `.hero-wrap` 给 14px 内边距，卡片本身 15px 圆角、
  * 火光橙描边、大投影，图 `object-fit: cover` 铺满。这里照做。
  *
- * `data-phase` 是三态 `settling / hero / active`。`settling` 表示会话还在回放、落 hero 还是
- * 落对话页尚不可知，harness 这时把 composer 藏起来就是为了不猜；这里跟着取同样的态度：
+ * `data-phase` has three states, `settling / hero / active`. `settling` means the session is still replaying and
+ * it is unknown whether it lands on hero or the conversation; the harness hides the composer then precisely so as not to guess, and this takes the same stance:
  * **不抢先画**（抢画会闪一下再消失）。对话页与轨迹页一点不铺——主视觉只属于空屏。
  * ========================================================================== */
 
 /*
- * 🔴 先把 hero 变成定位祖先，再画主视觉。
+ * 🔴 Make hero a positioning ancestor first, then paint the visual.
  *
- * `[data-phase='hero']` 本身不是 positioned 元素，它的 `::before` 用 `position: absolute` 会去找
- * 最近的定位祖先——一个都没有就落到初始包含块，也就是**整个视口**，把左边的会话侧栏一起盖掉。
- * 这个坑在前面的皮肤上实测踩过。
+ * `[data-phase='hero']` is not itself positioned, so its `::before` with `position: absolute` looks for the nearest
+ * positioned ancestor — finding none it falls to the initial containing block, i.e. **the whole viewport**, covering the session sidebar on the left too.
+ * We hit this on an earlier skin.
  */
 :global(body[data-dsh-ultrateam] [data-phase='hero']) {
   position: relative;
@@ -88,8 +88,8 @@
  * (`.root[data-phase='hero'] .scrollBody`) — changing the composer's own margin has no effect whatsoever.
  *
  * Why overflow / scrollbar-gutter are turned off: hero has nothing to scroll, and `overflow-y: auto` would
- * 因内容溢出冒出一条滚动条；`scrollbar-gutter: stable` 恒定预留一条滚动条宽度，在没有滚动条的
- * hero 里就变成把整列往一边推的偏移，看上去是"输入框没居中"。
+ * would raise a scrollbar on overflow, and `scrollbar-gutter: stable` permanently reserves a scrollbar's width, which in a
+ * hero with no scrollbar becomes an offset pushing the column aside — looking like an off-centre composer.
  */
 :global(body[data-dsh-ultrateam] [data-phase='hero'] [data-conversation-scroll]) {
   justify-content: flex-end;
@@ -120,8 +120,8 @@
 }
 
 /*
- * 上下文注入行：压成背景信息（小、淡、不抢眼）——它是每轮都出现的系统噪音，不是用户要读的
- * 内容。悬停时还原，需要时仍然读得到。
+ * Context injection rows: pressed down into background information (small, faint, unobtrusive) — they are the
+ * system noise of every turn, not something the user reads. Hover restores them, so they stay legible when needed.
  */
 :global(body[data-dsh-ultrateam] [data-chat-flow-kind='context']) {
   opacity: 0.6;
@@ -143,7 +143,7 @@
  *
  * ⚠️ 这条的锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里节点
  * 类型的 `kind === 'approval'`（由 ChatNodeSeat 渲染成 data-chat-flow-kind）。
- * 失配的话这一条不显示，不影响其余规则。
+ * On a mismatch this rule simply does not apply, leaving the rest unaffected.
  */
 :global(body[data-dsh-ultrateam] [data-chat-flow-kind='approval']) {
   background: var(--dsw-alias-state-warn-tertiary);
@@ -160,12 +160,12 @@
 /* ==========================================================================
  * Degradation zone — the rules below have no semantic attribute to hang on and must prefix-match hashed
  * CSS Module class names (like `_1Onn0a_sidebarCol`). A harness redesign makes them silently stop matching: the look reverts to default,
- * 不报错、不影响其余部分。
+ * without an error and without affecting anything else.
  * ========================================================================== */
 
 /*
  * 侧栏：竖向渐变 + 橙调分隔线（原型 `.sidebar` 底是 #1a0c0b → #120909）。
- * `--dsw-specific-sidebar-fill` 已经把单色兜住，这条失配也只是少一层渐变与收边。
+ * `--dsw-specific-sidebar-fill` already covers the solid colour, so a mismatch here costs only a gradient and an edge.
  */
 :global(body[data-dsh-ultrateam] [class*='_sidebarCol']) {
   background-image: linear-gradient(180deg, #1a0c0b, #120909);
@@ -175,7 +175,7 @@
 /*
  * `＋ 新会话`：42px 高、10px 圆角、135° 橙红渐变（原型 `.new` 的
  * `linear-gradient(135deg,#f0522d,#bb251f)`）。
- * harness 默认给它次级样式，不改的话主操作没有视觉重量。
+ * The harness styles it as secondary by default, leaving the primary action without visual weight unless changed.
  */
 /*
  * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
@@ -198,14 +198,14 @@
   background: linear-gradient(135deg, #f9673f, #cf3226);
 }
 
-/* 按钮内的图标跟着走：harness 图标用 currentColor，父级换色即可。 */
+/* Icons inside buttons follow along: harness icons use currentColor, so recolouring the parent is enough. */
 :global(body[data-dsh-ultrateam] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
   color: inherit;
 }
 
 /*
  * 会话选中态：左侧一道火光橙竖条 + 一层横向渐变（原型 `.session.active`）。
- * 用 inset box-shadow 画竖条而不是 border-left —— 后者会改变盒宽，让选中行相对其它行错位。
+ * The stripe is an inset box-shadow rather than a border-left — the latter changes the box width and shifts the selected row against the others.
  */
 :global(body[data-dsh-ultrateam] [class*='_sessionRow'][class*='_selected']) {
   background-image: linear-gradient(90deg, #3d1e19, #1f100e);
@@ -215,7 +215,7 @@
 
 /*
  * Group headings (Today / Last 7 days): small caps, wide tracking, muted to the description colour.
- * 原型 `.label` 用这个把分组降成背景信息，不与会话标题争注意力。
+ * The prototype's `.label` uses this to demote group headings to background information, so they do not compete with session titles.
  */
 :global(body[data-dsh-ultrateam] [class*='_groupSection'] > :first-child) {
   text-transform: uppercase;

@@ -1,6 +1,6 @@
 /**
- * 品牌标与站名。尺寸取自原型稿的 `.brand-mark` / `.brand-main` / `.brand-sub`
- * （34px 方标配 12px 圆角与淡蓝投影；13px 主名、9px 副标）。
+ * The brand mark and wordmark. Sizes come from the prototype's `.brand-mark` / `.brand-main` / `.brand-sub`
+ * (a 34px square with a 12px radius and a pale blue shadow; a 13px primary name and a 9px subtitle).
  */
 
 .mark {

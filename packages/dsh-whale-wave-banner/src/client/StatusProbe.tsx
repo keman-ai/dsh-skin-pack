@@ -126,7 +126,7 @@ interface ConversationSnapshotLike {
  *
  * 🔴 Each of the three kinds has its own use:
  *   - `assistant` → `provenance.model`, the model that actually served the latest reply;
- *   - `tool-result` → 工具名 + 真实耗时 + 成败，喂「神通调用」那张卡；
+ *   - `tool-result` → tool name, real duration and outcome, feeding the tool-call card;
  *   - `context` → the injection's source and form, feeding the context-injection card;
  *   - `compaction` → how much of the session was folded away, feeding the compaction row.
  */
@@ -157,7 +157,7 @@ interface ConversationNodeLike {
 /** 「工具调用」卡最多列几条。再多就只报总数——右栏是状态台，不是日志。 */
 const TOOL_LOG_LIMIT = 6
 
-/** 「上下文注入」卡最多列几条。 */
+/** How many entries the context-injection card lists at most. */
 const CONTEXT_LOG_LIMIT = 5
 
 export interface StatusProbeProps {

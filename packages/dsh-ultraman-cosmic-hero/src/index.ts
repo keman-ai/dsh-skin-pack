@@ -1,10 +1,10 @@
 /**
  * Cosmic Hero皮肤 · host 半。
  *
- * 皮肤的全部行为都在浏览器里（注册主题、铺主视觉、接管品牌位、挂状态台），host 这半只是
- * Loader 的挂载点：`cordis.patch.yml` 把这个包插进树，Loader import 本文件，浏览器半再由
- * `package.json` 的 `dsh.client` 声明加载。留空插件比不留更明确——没有它，Loader 那一行就
- * 指向一个没有入口的包（集市的安装期校验会直接判 `BUILD_SCRIPT_BLOCKED` 卸回去）。
+ * All of the skin's behaviour lives in the browser (registering the theme, spreading the hero, taking over the
+ * brand slots, mounting the dock); this host half is only the Loader's mount point. `cordis.patch.yml` inserts
+ * this package into the tree, the Loader imports this file, and the browser half is loaded from `package.json`'s
+ * `dsh.client` declaration. An empty plugin is clearer than none — without it that row points at a package with no entry.
  *
  * @module dsh-ultraman-cosmic-hero
  */
@@ -23,19 +23,19 @@ export const inject = ['webServer']
  * 🔴 The cover is served over an HTTP route and no longer inlined into the browser half.
  *
  * The cause was measured: with 21 skins installed into one profile the UI **would not open**. Each skin's
- * 都是 `<script>` 同步引入的，而封面以 data URI 直接编进了 bundle——单套 150–860 KB，
- * 合计 9.4 MB 全部要先下完、解析完，主线程直接被压死（实测 90 秒渲染不出首屏，
+ * client bundle is loaded by a synchronous `<script>`, and the cover was compiled into it as a data URI —
+ * 150–860 KB each, 9.4 MB in total, all of which had to download and parse first, crushing the main thread
  * and the console showed no errors at all — it simply hung.
  *
  * So the image moved to the host half: on the Node side base64 is decoded once at startup, and the browser half keeps only a URL
- * 字符串。bundle 掉到几十 KB，图片则由浏览器在**皮肤真的激活时**才去取，还能吃 HTTP 缓存。
+ * string. Bundles drop to tens of KB, and the browser fetches the image only once the skin is **actually active**, with HTTP caching on top.
  *
- * ⚠️ 路径必须全局唯一：`webServer.register` 对同一路径重复注册会直接抛错
- *（路由表是组合层约定，冲突即配置错误）。这里用主题 id 兜底。
+ * ⚠️ The path must be globally unique: `webServer.register` throws outright on a duplicate path
+ * (the route table is a bundle-level convention, so a conflict is a config error). The theme id guarantees it here.
  */
 export const COVER_ROUTE = '/skin-cover/cosmic-hero.webp'
 
-/** 封面字节。data URI 只在这一侧解一次，之后常驻内存（几百 KB，Node 侧无所谓）。 */
+/** Cover bytes. The data URI is decoded once on this side and kept in memory (a few hundred KB, immaterial on the Node side). */
 const COVER_BYTES = Buffer.from(COSMIC_COVER.slice(COSMIC_COVER.indexOf(',') + 1), 'base64')
 
 /** Theme id, matching the browser half; host-side scripts can import it to tell whether the skin is in use. */
@@ -46,14 +46,14 @@ export interface Config {
   /**
    * 装上就切到宇宙英雄，默认开。关掉则只注册、不应用，等用户自己去皮肤集市里选。
    *
-   * 默认开是因为 harness 的第三方主题 id 不进内置 settings schema，选择不持久化，
-   * 而内置的「设置 → 外观」只列 浅色 / 深色 / 跟随系统：不自动应用的话，每次启动都得重选。
+   * On by default because third-party theme ids never enter the built-in settings schema and the choice is not
+   * persisted, while Settings → Appearance lists only light / dark / follow system: without auto-apply, every start would need reselecting.
    */
   autoApply?: boolean
 }
 
 export function apply(ctx: Context, config: Config = {}): void {
-  /* 封面路由。内容不变，所以给一年的不可变缓存——皮肤切来切去不会重复下载。 */
+  /* The cover route. Its content never changes, so a one-year immutable cache — switching skins re-downloads nothing. */
   ctx.effect(() => ctx.webServer.register({
     kind: 'exact',
     path: COVER_ROUTE,
@@ -67,6 +67,6 @@ export function apply(ctx: Context, config: Config = {}): void {
     },
   }), `cosmic-hero: ${COVER_ROUTE}`)
 
-  const mode = config.autoApply === false ? '需在「设置 → 皮肤市场」里手动选' : '已自动应用'
+  const mode = config.autoApply === false ? 'select it manually under Settings → Skin Market' : 'applied automatically'
   ctx.logger.info('[cosmic-hero] Cosmic Hero已挂载（%s）', mode)
 }

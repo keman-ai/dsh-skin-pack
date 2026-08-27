@@ -5,13 +5,13 @@
  * slot：`sidebar.brand.mark`、`sidebar.brand.name`，新会话页的大标还有一个
  * `conversation.hero.brand.mark`。
  *
- * 🔴 这三个都是 `{ kind: 'single' }`。以前的结论是"single 已被官方占用，第三方注册直接抛错"，
- * **那条已经过时**：dsh 0.1.1-rc.2 的 `SlotCore.register` 只在**同一个 priority** 上判占用，
- * 不同 priority 是影子化（`entriesOfSlot` 取每个 cell 里 priority 最小的那个 live entry）。
+ * 🔴 All three are `{ kind: 'single' }`. The old conclusion — that an occupied single makes third-party registration throw —
+ * **is out of date**: `SlotCore.register` in dsh 0.1.1-rc.2 detects occupancy only **at the same priority**,
+ * and different priorities shadow (`entriesOfSlot` takes the live entry with the lowest priority in each cell).
  * 官方 `ui-brand-official` 注册在默认 0，所以我们注册 `priority: -1` 就能接管，且它那份
  * 只是被影子化、没被卸载——皮肤一停用就自动回到官方标。
  *
- * 接管 = 承接对方的 owner props 契约，所以这两个组件严格按契约取参：
+ * Taking over means honouring the other side's owner-props contract, so both components follow it strictly:
  *   SidebarBrandMarkOwnerProps { size }        —— 侧栏要 24px
  *   HeroBrandMarkOwnerProps    { size, className } —— 新会话页要 34px，还会塞一个类名
  *     进来保留默认的悬停动效，原样透传即可

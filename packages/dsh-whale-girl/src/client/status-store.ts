@@ -8,8 +8,8 @@
  * Hence the split in two: a zero-render probe mounted on `conversation.composer.dock` (a list slot third
  * parties may append to, and where the official StatsLine also lives) writes what it reads into here, and the dock subscribes with `useSyncExternalStore`.
  *
- * 🔴 数据一律来自官方投影/快照，**不解析 DOM、不伪造**。原型稿右栏那五个
- * “Assistant Systems 在线”是纯装饰，harness 没有对应的心跳投影，所以本皮肤不做那张卡。
+ * 🔴 All data comes from official projections and snapshots — **no DOM parsing, nothing fabricated**. The five
+ * "Assistant Systems online" rows in the prototype's right column are pure decoration; the harness has no such heartbeat projection, so this skin does not build that card.
  */
 
 /** One reading. Every field may be absent — the projection is empty until the provider reports usage. */

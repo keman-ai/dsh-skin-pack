@@ -19,7 +19,7 @@ import type { CSSProperties } from 'react'
 import { DEEPSEEK_ICON } from './icon.generated.ts'
 import css from './Brand.module.css'
 
-/** 侧栏 / 新会话页共用的标契约。 */
+/** The mark contract shared by the sidebar and the new-session page. */
 interface BrandMarkProps {
   /** The square size the host requires, in px. */
   size: number

@@ -87,7 +87,7 @@
 }
 
 /*
- * 缩小版封面。
+ * The reduced cover.
  *
  * `contain` 配白底：横幅本身就是 2.5:1 的完整构图，缩到侧栏宽度正好整幅呈现，不需要裁——
  * 跟 hero 那张是同一张图、同一个比例。
@@ -340,7 +340,7 @@
   }
 }
 /* ==========================================================================
- * 流水列表 —— 神通调用与经卷注入两张卡共用。
+ * The feed list — shared by the tool-call and context-injection cards.
  *
  * Each row is a name plus a short piece of metadata on the right, with long names ellipsised: the column is only
  * 300px wide, and wrapping tool names would turn this card into a wall.

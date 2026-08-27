@@ -1,7 +1,7 @@
 /**
  * 焚山悟空的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。harness 改版
  * 会动 class 名和布局，但不会动语义 token 的含义，所以这层能长期活着。
  *
@@ -17,7 +17,7 @@
  * 与色块本身对不上——以能看见的色块为准。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const WUKONG_PALETTE = {
   /** Void：最底的黑墨，占七成。 */
   bg: '#080706',
@@ -48,7 +48,7 @@ export const WUKONG_PALETTE = {
 const p = WUKONG_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
  * 只写**要改的**：没列出的继承 harness 内置暗色基座。覆盖集不完整是有意的——列全反而会把
  * 将来新增的内置 token 挡在外面。
@@ -168,7 +168,7 @@ export const WUKONG_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.surface3,
   '--dsw-alias-tooltip-bg': p.surface3,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   // 侧栏比主区更沉一档（原型 sidebar 是 rgba(8,7,6,.98)，main 略亮），让对话区往前浮。
   '--dsw-specific-sidebar-fill': '#0a0908',
   '--dsw-specific-sidebar-nav-item-hover': p.surface2,

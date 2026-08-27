@@ -203,7 +203,7 @@ export function UltrateamStatusDock() {
               <div className={css.cardTitle}>Current Session</div>
               <Line label="State">
                 <span className={busy ? css.busy : css.ok}>
-                  {busy ? '● 正在运行' : '● 就绪 READY'}
+                  {busy ? '● RUNNING' : '● READY'}
                 </span>
               </Line>
               {status.turnStartedAt !== undefined && (
@@ -263,13 +263,13 @@ export function UltrateamStatusDock() {
             )}
 
             {/*
-              上下文注入 —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              Context injections — what is actually pushed into the context each turn (AGENTS.md, skill directories, system prompts…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}
             {contextEntries.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>上下文注入</div>
+                <div className={css.cardTitle}>Context injections</div>
                 <ul className={css.log}>
                   {contextEntries.map((entry, index) => (
                     <li key={`${entry.label}-${index}`} className={css.logRow} data-role={entry.role}>
@@ -278,7 +278,7 @@ export function UltrateamStatusDock() {
                     </li>
                   ))}
                 </ul>
-                {moreContext > 0 && <p className={css.hint}>{`另有 ${moreContext} 条更早的注入`}</p>}
+                {moreContext > 0 && <p className={css.hint}>{`${moreContext} earlier injection(s) not shown`}</p>}
               </section>
             )}
 
@@ -334,7 +334,7 @@ export function UltrateamStatusDock() {
 
             {status.compactedCount !== undefined && (
               <section className={css.card}>
-                <div className={css.cardTitle}>已折叠</div>
+                <div className={css.cardTitle}>Folded away</div>
                 <Line label="Compactions">{`${status.compactedCount}`}</Line>
                 {status.compactedItems !== undefined && (
                   <Line label="Items folded">{`${status.compactedItems}`}</Line>

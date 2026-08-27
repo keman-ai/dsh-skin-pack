@@ -126,7 +126,7 @@
   z-index: 2;
 }
 
-/* 对话页：消息滚到输入框附近自然淡出，而不是被硬边切断（原型 `.composer-shell` 的渐变）。 */
+/* Conversation: messages fade out near the composer rather than being cut by a hard edge (the prototype's `.composer-shell` gradient). */
 :global(body[data-dsh-whale-girl] [data-composer-seat]) {
   background: linear-gradient(180deg, rgba(234, 242, 255, 0) 0%, var(--dsw-alias-bg-base) 22%);
 }
@@ -143,8 +143,8 @@
 }
 
 /*
- * 上下文注入行：原型把它压成背景信息（小、淡、不抢眼）——它是每轮都出现的系统噪音，
- * 不是用户要读的内容。悬停时还原，需要时仍然读得到。
+ * Context injection rows: the prototype presses them into background information (small, faint, unobtrusive) —
+ * they are the system noise of every turn, not something the user reads. Hover restores them.
  */
 :global(body[data-dsh-whale-girl] [data-chat-flow-kind='context']) {
   opacity: 0.62;
@@ -165,9 +165,9 @@
  * 权限确认卡：原型 `.permission` 是琥珀底 + 琥珀描边的一块提示区
  *（“这个操作会修改文件。需要你的确认后才能继续。”）。
  *
- * ⚠️ 这条的锚点未经实测：触发权限确认要一次会改本地文件的操作。取值来自 harness 源码里
- * 节点类型的 `kind === 'approval'`（由 ChatNodeSeat 渲染成 data-chat-flow-kind）。
- * 失配的话这一条不显示，不影响其余规则。
+ * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file.
+ * The value comes from `kind === 'approval'` in the harness source (rendered by ChatNodeSeat as data-chat-flow-kind).
+ * On a mismatch this rule simply does not apply, leaving the rest unaffected.
  */
 :global(body[data-dsh-whale-girl] [data-chat-flow-kind='approval']) {
   background: var(--dsw-alias-state-warn-tertiary);
@@ -179,9 +179,9 @@
 /*
  * 「正在深潜……」——把思考中的状态标签换成鲸鱼娘的说法。
  *
- * harness 不允许第三方覆盖内置文案（`locale.register` 同名直接抛错），所以走伪元素：
- * 零 MutationObserver、零运行时开销，改版最多样式失配，不会报错也不会白屏。
- * 只在 running 时换：思考完成后那行是可展开的历史记录，保留原文更好认。
+ * The harness forbids third parties overriding built-in copy (`locale.register` throws on a duplicate name), hence a pseudo-element:
+ * No MutationObserver, no runtime cost; at worst a redesign makes a style stop matching, with no error and no blank screen.
+ * Replaced only while running: once thinking finishes the row becomes expandable history, where the original text reads better.
  */
 :global(body[data-dsh-whale-girl] [data-variant='think'][data-state='running'] [class*='_title']) {
   font-size: 0;
@@ -247,7 +247,7 @@
 
 /*
  * Group headings (Today / Last 7 days): small caps, wide tracking, muted to the description colour.
- * 原型用这个把时间分组降成背景信息，不与会话标题争注意力。
+ * The prototype uses this to demote date groups to background information, so they do not compete with session titles.
  */
 :global(body[data-dsh-whale-girl] [class*='_groupSection'] > :first-child) {
   text-transform: uppercase;
@@ -257,7 +257,7 @@
 }
 
 /*
- * 右侧详情栏的卡片语言。
+ * The card language of the right-hand details rail.
  *
  * ⚠️ 先说清楚**没做什么**：原型右栏是「会话状态 / Assistant Systems / 鲸鱼少女模式」
  * 三张卡，而 harness 的详情栏是「某次工具调用的详情」，只有 Input / Output 两段——

@@ -143,7 +143,7 @@ export function WaveStatusDock() {
   const ctxTotal = ctx.reduce((sum, part) => sum + part.tokens, 0)
 
   return (
-    <aside className={css.dock} data-open={open || undefined} aria-label="会话状态台">
+    <aside className={css.dock} data-open={open || undefined} aria-label="Session status dock">
       <button
         type="button"
         className={css.handle}
@@ -158,8 +158,8 @@ export function WaveStatusDock() {
           <div className={css.header}>Session status</div>
           <div className={css.scroll}>
             {/*
-              缩小版横幅。用的是同一张内联图（不额外增加体积），`contain` 整幅呈现——
-              横幅是 2.5:1 的完整构图，缩到侧栏宽度不需要裁。
+              A reduced banner. It uses the same inline image (adding no size) and presents it whole with `contain` —
+              The banner is a complete 2.5:1 composition and needs no cropping at sidebar width.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--wave-banner)' }}>
               <span className={css.coverName}>Whale Wave Theme</span>
@@ -234,7 +234,7 @@ export function WaveStatusDock() {
                     </li>
                   ))}
                 </ul>
-                {moreTools > 0 && <p className={css.hint}>{`另有 ${moreTools} 次更早的调用`}</p>}
+                {moreTools > 0 && <p className={css.hint}>{`${moreTools} earlier call(s) not shown`}</p>}
                 {/*
                   🔴 This sentence must stay: a duration can only be computed while the matching tool/call is still inside the
                   session window, and older calls that scrolled past report only name and outcome. Better blank than an invented figure.
@@ -246,13 +246,13 @@ export function WaveStatusDock() {
             )}
 
             {/*
-              上下文注入 —— 每轮真正被塞进上下文的那些东西（AGENTS.md、skill 目录、系统提示…）。
+              Context injections — what is actually pushed into the context each turn (AGENTS.md, skill directories, system prompts…).
               ⚠️ The prototype puts a token count on every row, but the harness has **no projection pricing individual
               injections**, so only source and form are shown, with no invented numbers.
             */}
             {contextEntries.length > 0 && (
               <section className={css.card}>
-                <div className={css.cardTitle}>上下文注入</div>
+                <div className={css.cardTitle}>Context injections</div>
                 <ul className={css.log}>
                   {contextEntries.map((entry, index) => (
                     <li key={`${entry.label}-${index}`} className={css.logRow} data-role={entry.role}>
@@ -261,7 +261,7 @@ export function WaveStatusDock() {
                     </li>
                   ))}
                 </ul>
-                {moreContext > 0 && <p className={css.hint}>{`另有 ${moreContext} 条更早的注入`}</p>}
+                {moreContext > 0 && <p className={css.hint}>{`${moreContext} earlier injection(s) not shown`}</p>}
               </section>
             )}
 
@@ -308,7 +308,7 @@ export function WaveStatusDock() {
 
             {status.compactedCount !== undefined && (
               <section className={css.card}>
-                <div className={css.cardTitle}>已折叠</div>
+                <div className={css.cardTitle}>Folded away</div>
                 <Line label="Compactions">{`${status.compactedCount}`}</Line>
                 {status.compactedItems !== undefined && (
                   <Line label="Items folded">{`${status.compactedItems}`}</Line>

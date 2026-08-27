@@ -189,7 +189,7 @@
  *
  * harness 不允许第三方覆盖内置文案：`locale.register` 与 `slots.register` 对同名
  * 重复注册都是直接抛错（只给"新增"不给"替换"）。所以走 CSS 伪元素这条路：
- * 零 MutationObserver、零运行时开销，改版最多样式失配，不会报错也不会白屏。
+ * No MutationObserver, no runtime cost; at worst a redesign makes a style stop matching, with no error and no blank screen.
  *
  * 锚点是 playwright 跑真实对话抓出来的，不是猜的：
  *   [data-variant="think"][data-state="running"]  思考中

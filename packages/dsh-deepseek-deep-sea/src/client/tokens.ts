@@ -1,8 +1,8 @@
 /**
  * 鲸鱼娘 Deep Sea 的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
+ * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 原型稿的 Theme rules 写死了两条：
  * 「**主色保持 DeepSeek 蓝系**，鲸鱼娘元素只作为品牌人格化，**不覆盖工具和代码信息**」，
@@ -16,7 +16,7 @@
  *     这里也只给它一个位置：上下文占用条的末端。铺开就不再是"一点暖"了。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const FISH_PALETTE = {
   /** 深海底，接近黑的蓝。 */
   bg: '#03101f',
@@ -48,9 +48,9 @@ export const FISH_PALETTE = {
 const p = FISH_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in dark base.
  */
 export const FISH_TOKENS: Record<string, string> = {
   // ── Container layers ──
@@ -158,7 +158,7 @@ export const FISH_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': p.bg2,
   '--dsw-specific-sidebar-nav-item-hover': p.surface,
   '--dsw-specific-sidebar-nav-item-active': p.surface3,

@@ -8,8 +8,8 @@
  * Hence the split in two: a zero-render probe mounted on `conversation.composer.dock` (a list slot third
  * parties may append to, and where the official StatsLine also lives) writes what it reads into here, and the dock subscribes with `useSyncExternalStore`.
  *
- * 🔴 数据一律来自官方投影/快照，**不解析 DOM、不伪造**。原型稿右栏的 `Workspace context`
- *（哪些文件被索引了）harness 没有对应投影，所以本皮肤不做那张卡，也不拿假文件名凑数。
+ * 🔴 All data comes from official projections and snapshots — **no DOM parsing, nothing fabricated**. The
+ * prototype's `Workspace context` (which files are indexed) has no matching projection, so this skin does not build that card and does not pad it with invented file names.
  */
 
 /**

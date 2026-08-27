@@ -87,7 +87,7 @@
 }
 
 /*
- * 缩小版封面。
+ * The reduced cover.
  *
  * 封面是 1.85:1 的林景，按 2.4:1 裁一条正好——裁掉的是上下两端的树冠与草地，中间那段
  * （角色与林道）完整保留，所以这里居中裁即可，不像前一套要靠左。
@@ -340,7 +340,7 @@
   }
 }
 /* ==========================================================================
- * 流水列表 —— 神通调用与经卷注入两张卡共用。
+ * The feed list — shared by the tool-call and context-injection cards.
  *
  * Each row is a name plus a short piece of metadata on the right, with long names ellipsised: the column is only
  * 300px wide, and wrapping tool names would turn this card into a wall.

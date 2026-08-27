@@ -61,7 +61,7 @@ export const WHALE_PALETTE = {
 const p = WHALE_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
  * 只写**要改的**：没列出的继承 harness 内置浅色基座。
  */
@@ -187,7 +187,7 @@ export const WHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': '#ffffff',
   '--dsw-alias-tooltip-bg': '#26418f',
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   // 原型的侧栏是 #f7f9ff → #eef3ff 的竖向渐变，token 只能给单色，取中间值；
   // 渐变本身在 whale.module.css 里补。
   '--dsw-specific-sidebar-fill': '#f3f7ff',

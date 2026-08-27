@@ -1,8 +1,8 @@
 /**
  * 双胞胎鲸鱼娘的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
  *
- * 这一层是皮肤的地基，也是**唯一不依赖 harness DOM 结构**的部分：presenter 把这些值作为
- * inline 变量刷到 body 上，界面的底色、层次、描边、文字、状态色随之整体换掉。
+ * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
+ * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
  * 🔴 这套与「鲸鱼娘」共用同一张 `:root`（深海蓝 + 冷青 + DeepSeek 蓝），
  * 但**封面是亮底**的：白背景、蓝头发、满屏气泡。所以两者的分寸不同——
@@ -14,7 +14,7 @@
  * 金（#e8ba72）依旧是全场唯一的暖色，只给上下文占用条的末端。
  */
 
-/** 原型稿 `:root` 的原始色，改配色从这里改，下面全部由它派生。 */
+/** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const TWINWHALE_PALETTE = {
   /** 深海底，接近黑的蓝。 */
   bg: '#03101f',
@@ -46,9 +46,9 @@ export const TWINWHALE_PALETTE = {
 const p = TWINWHALE_PALETTE
 
 /**
- * 交给 `ctx.theme.register()` 的 token 表。
+ * The token table handed to `ctx.theme.register()`.
  *
- * 只写**要改的**：没列出的继承 harness 内置暗色基座。
+ * Only **what changes** is written; anything unlisted inherits the harness's built-in dark base.
  */
 export const TWINWHALE_TOKENS: Record<string, string> = {
   // ── Container layers ──
@@ -156,7 +156,7 @@ export const TWINWHALE_TOKENS: Record<string, string> = {
   '--dsw-alias-toast-bg': p.surface2,
   '--dsw-alias-tooltip-bg': p.surface2,
 
-  // ── specific 层：harness 给具体部件留的口子 ──
+  // ── The specific layer: hooks the harness leaves for individual parts ──
   '--dsw-specific-sidebar-fill': p.bg2,
   '--dsw-specific-sidebar-nav-item-hover': p.surface,
   '--dsw-specific-sidebar-nav-item-active': p.surface3,

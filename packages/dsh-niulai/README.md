@@ -6,7 +6,7 @@
 
 底色是带草绿倾向的暖黑 `#171911`（不是中性灰，这是它和内置暗色最直观的差别——内置那套偏蓝），主按钮换成牛的身体橙 `#ff7a14`，分隔线与滚动条走草绿到稻草的过渡。**只做暗色。**
 
-## 安装
+## Install
 
 **不发布到 npm**，从 GitHub 装：
 
@@ -38,7 +38,7 @@ dsh plugin --profile web remove -w dsh-niulai
 
 主题注销时偏好会自动退回默认，界面不会卡在一套已经不存在的配色上。
 
-## 它改了什么
+## What it changes
 
 | 层 | 内容 | 改版后会不会碎 |
 |---|---|---|
@@ -64,7 +64,7 @@ dsh plugin --profile web remove -w dsh-niulai
 
 映射不是逐条抄色号，是按语义对位：设计稿的 `--surface/-2/-3` 是三级容器，harness 的 `bg-layer-1/2/3` 也是三级容器。设计稿没给的（遮罩、骨架屏、工具条按钮）从已有色阶推导，规则写在 `tokens.ts` 各段注释里。
 
-## 开发
+## Development
 
 ```sh
 pnpm install
