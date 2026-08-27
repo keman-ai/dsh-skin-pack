@@ -52,7 +52,7 @@ const DOCK_STORAGE_KEY = 'tao.dock.open'
  * 🔴 No longer an inline data URI: with 21 skins loaded, a few hundred KB of base64 each crushes the browser's main
  * thread (measured: no first paint in 90 seconds). The browser now fetches the image only once the skin is **actually active** and the CSS uses this variable.
  */
-const COVER_URL = '/skin-cover/tao.webp'
+const COVER_URL = '/skin-cover/tao.webp?v=0.1.0'
 
 /**
  * The startup window for auto-apply.

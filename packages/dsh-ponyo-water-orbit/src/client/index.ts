@@ -53,7 +53,7 @@ const DOCK_STORAGE_KEY = 'ponyo'
  * main thread (measured: with 21 installed the first paint did not arrive in 90 seconds). The browser now fetches
  * the image only once the skin is **actually active** and the CSS uses this variable.
  */
-const COVER_URL = '/skin-cover/ponyo.webp'
+const COVER_URL = '/skin-cover/ponyo.webp?v=0.1.0'
 
 
 /**

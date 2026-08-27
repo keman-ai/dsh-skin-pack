@@ -47,7 +47,7 @@ const DOCK_STORAGE_KEY = 'niulai.dock.open'
  * The cover URL, served by the host half at `/skin-cover/niulai.webp` (see COVER_ROUTE in src/index.ts).
  * No longer an inline data URI: with several skins installed, all that base64 crushes the browser's main thread.
  */
-const COVER_URL = '/skin-cover/niulai.webp'
+const COVER_URL = '/skin-cover/niulai.webp?v=0.1.1'
 
 
 /**

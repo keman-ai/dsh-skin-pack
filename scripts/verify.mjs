@@ -76,6 +76,27 @@ function checkNaming(name, pkg) {
   }
 }
 
+/**
+ * The cover URL's `?v=` must equal the package version.
+ *
+ * The cover route is served `immutable` for a year, so the version in the query is the **only** thing that lets a
+ * changed cover reach a browser that already cached the old one. Nine covers once shipped corrupted, and a stale
+ * `?v=` would have made the fix invisible to exactly the people who saw the bug. It is a literal in the browser
+ * half, so nothing but a check keeps it in step with package.json.
+ */
+function checkCoverVersion(dir, name, pkg) {
+  const client = join(dir, 'src/client/index.ts')
+  if (!existsSync(client)) return
+  const match = /const COVER_URL = '([^']+)'/.exec(readFileSync(client, 'utf8'))
+  if (match === null) return
+  const query = /\?v=([^'&]+)$/.exec(match[1])
+  if (query === null) {
+    problems.push(`${name}: COVER_URL carries no ?v= — a fixed cover can never get past an immutable cache`)
+  } else if (query[1] !== pkg.version) {
+    problems.push(`${name}: COVER_URL ?v=${query[1]} ≠ package version ${pkg.version}`)
+  }
+}
+
 const dirs = readdirSync(PACKAGES, { withFileTypes: true })
   .filter((d) => d.isDirectory())
   .map((d) => d.name)
@@ -95,6 +116,7 @@ for (const name of dirs) {
   checkNaming(name, pkg)
   checkIds(dir, name, skin)
   checkPackaging(name, pkg)
+  checkCoverVersion(dir, name, pkg)
 
   if (skin.package !== undefined && skin.package !== pkg.name) {
     problems.push(`${name}: skin.json package=${skin.package} ≠ package name ${pkg.name}`)

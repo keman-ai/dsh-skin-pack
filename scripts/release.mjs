@@ -26,14 +26,32 @@ function sh(cmd, args, opts = {}) {
   return execFileSync(cmd, args, { encoding: 'utf8', ...opts }).trim()
 }
 
-/** Does the Release exist? gh exits non-zero for a missing tag, which is treated as "not published" rather than an error. */
+/**
+ * Does the Release exist?
+ *
+ * 🔴 "gh exited non-zero" is not the same as "not published". A network blip (measured: `TLS handshake timeout`
+ * against api.github.com) also exits non-zero, and treating that as unpublished makes the script try to create a
+ * Release for a tag that already has one — at best the job fails, at worst an existing Release is rewritten.
+ *
+ * So the two are separated: only gh's own "release not found" counts as unpublished; anything else is retried,
+ * and if it still fails the script stops rather than guessing. Publishing is not the place to be optimistic.
+ */
 function released(tag) {
-  try {
-    sh('gh', ['release', 'view', tag], { stdio: ['ignore', 'pipe', 'ignore'] })
-    return true
-  } catch {
-    return false
+  let last
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      sh('gh', ['release', 'view', tag], { stdio: ['ignore', 'pipe', 'pipe'] })
+      return true
+    } catch (error) {
+      last = error
+      const message = String(error.stderr ?? error.message ?? '')
+      if (/release not found|not found \(HTTP 404\)/i.test(message)) return false
+      execFileSync('sleep', ['3'])
+    }
   }
+  console.error(`✗ ${tag}: cannot tell whether the Release exists — ${String(last?.stderr ?? last?.message ?? last).trim()}`)
+  console.error('  Refusing to publish on a guess. Re-run once the network settles.')
+  process.exit(1)
 }
 
 const pending = []
