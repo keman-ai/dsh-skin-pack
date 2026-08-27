@@ -1,7 +1,7 @@
 /**
- * 夏日山坡的装饰层。
+ * The Summer Hillside decoration layer.
  *
- * 全部规则挂在 `body[data-dsh-hillside]` 下：属性由 client 半在主题激活时打上、切走时摘掉，
+ * Every rule hangs under `body[data-dsh-hillside]`: the client half stamps the attribute when the theme activates and removes it on switching away,
  * so deactivating the skin invalidates every rule at once, leaving no residue.
  *
  * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
@@ -13,10 +13,10 @@
  */
 
 /* ==========================================================================
- * 全局天光 —— 顶部一团极淡的天蓝，对应原型底色 `#eef8fb` 往上抬的那一点。
+ * Global skylight — a very faint sky-blue wash along the top, matching the slight lift above the prototype's `#eef8fb` ground.
  *
- * 🔴 浅色皮肤最容易做塌的地方就是这里：底若是一整块死板的浅色，界面看着像没上色的白模。
- * 这层极缓的光让"纸"有厚度，而强度低到不影响任何文字可读性。
+ * 🔴 This is where a light skin most easily collapses: with the ground one flat pale sheet, the interface looks like an uncoloured white model.
+ * This very gradual wash gives the paper thickness while staying faint enough not to affect the legibility of any text.
  * `pointer-events: none` guarantees it never intercepts a click.
  * ========================================================================== */
 :global(body[data-dsh-hillside])::before {
@@ -41,8 +41,8 @@
 /* ==========================================================================
  * The new-session hero visual.
  *
- * 原型把主视觉放在 New Session，进入工作流后回到干净的浅色界面。所以整幅封面**只画在 hero**，
- * 对话页与轨迹页一点不铺，布局一处不动。
+ * The prototype puts the hero visual on New Session and returns to a clean light interface once you enter the workflow. So the full cover is drawn **on the hero only**,
+ * with none of it on the chat or trajectory pages, and the layout left untouched.
  *
  * `data-phase` has three states, `settling / hero / active`, not two. `settling` means the session is still
  * replaying and it is unknown whether it lands on hero or the conversation; the harness hides the composer then
@@ -79,7 +79,7 @@
   background-repeat: no-repeat;
   background-color: #edf6f0;
   /*
-   * 浅色皮肤这里**不压暗**，反而要提一点亮：这张画本身就是明亮的夏天，压暗会让草地发灰，
+   * A light skin **does not darken** here but lifts slightly instead: the picture is already a bright summer, and darkening only turns the grass grey,
    * tearing a grey edge against the paper-white UI. Saturation drops only slightly, so the gold lines do not jump off the paper.
    */
   filter: saturate(0.95) contrast(1.01) brightness(1.02);
@@ -156,7 +156,7 @@
  * ========================================================================== */
 
 /*
- * Thinking → 正在望天……
+ * Thinking → looking up at the sky…
  *
  * The prototype's handoff plan calls for personified copy across Thinking / Tool / Permission / Error.
  * Three of them have anchors and are implemented (thinking, failure, permission); the Tool line has nothing to hang on in the harness
@@ -169,7 +169,7 @@
 }
 
 :global(body[data-dsh-hillside] [data-variant='think'][data-state='running'] [class*='_title'])::after {
-  content: '正在望天……';
+  content: 'Looking up at the sky…';
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
@@ -177,12 +177,12 @@
 }
 
 /*
- * Error → 风把它吹跑了，请再试一次。
+ * Error → the wind carried it off; please try again.
  *
  * Appended rather than replaced: the original error line carries the specific reason, the only lead there is when debugging, and must not be covered.
  */
 :global(body[data-dsh-hillside] [data-state='error'] [class*='_title'])::after {
-  content: ' · 风把它吹跑了，请再试一次。';
+  content: ' · The wind carried it off; please try again.';
   font-weight: 400;
   color: var(--dsw-alias-state-error-primary);
 }
@@ -242,7 +242,7 @@
  * A line is appended, never covering the original: the original names the file this operation will change, which is what you judge by.
  */
 :global(body[data-dsh-hillside] [data-chat-flow-kind='approval'])::before {
-  content: '这一步要你点头 · ';
+  content: 'This step needs your nod · ';
   font-weight: 600;
   color: var(--dsw-alias-brand-text);
 }

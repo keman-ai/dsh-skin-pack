@@ -1,30 +1,30 @@
 /**
- * 海边小铺的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Seaside Boutique's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 这是一套**浅色**皮肤（`colorScheme: 'light'`）。原型的 `:root` 只有五个色，全是海边的东西：
+ * 🔴 This is a **light** skin (`colorScheme: 'light'`). The prototype's `:root` holds only five colours, all things from the shore:
  *
- *   - **海雾白**（#eef8fb）与**纯白**：底与面板。底不是纯白——它带一点点青，
- *     是被海反射上来的天光；纯白留给卡片，这一点点差别就是整套的层次来源；
- *   - **灰蓝**（#24465d）：正文。不用黑：这张照片里最深的地方也只是灰蓝，
- *     用黑字会比画面本身还重；
- *   - **天空蓝**（#5fb4df / #82cde8）：主操作与"正在跑"，那面墙和那片海的蓝；
- *   - **蜜桃粉**（#efb39d）：点缀。画里只有门框、窗框与几个花盆是这个色，
- *     所以这里也只给警告一处；
- *   - **海草绿**（#77bfa5）：成功。
+ *   - **sea-mist white** (#eef8fb) and **pure white**: ground and panels. The ground is not pure white — it carries a trace of cyan,
+ *     the daylight reflected off the sea. Pure white is kept for cards, and that small difference is the whole source of hierarchy;
+ *   - **slate blue** (#24465d): body text. Not black: even the deepest point in the photograph is only slate blue,
+ *     and black text would weigh more than the picture itself;
+ *   - **sky blue** (#5fb4df / #82cde8): the primary action and running — the blue of that wall and that sea;
+ *   - **peach pink** (#efb39d): an accent. In the picture only the door frame, the window frames and a few flowerpots carry it,
+ *     so here it is given one place only: warnings;
+ *   - **seagrass green** (#77bfa5): success.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const SEASIDE_PALETTE = {
-  /** 海雾白，带一点青的天光。 */
+  /** Sea-mist white: daylight with a trace of cyan. */
   paper: '#eef8fb',
   paper2: '#e4f2f7',
-  /** 更深一档的分隔带。 */
+  /** One step deeper, for dividers. */
   paper3: '#d8e8ef',
 
-  /** 灰蓝正文。这套里没有黑。 */
+  /** Slate-blue body text. This skin contains no black. */
   ink: '#24465d',
   ink2: '#4a6a80',
   ink3: '#7892a3',
@@ -32,14 +32,14 @@ export const SEASIDE_PALETTE = {
   line: '#d8e8ef',
   line2: '#c3dbe5',
 
-  /** 天空蓝：主操作与"正在跑"。 */
+  /** Sky blue: the primary action and running. */
   gold: '#5fb4df',
   gold2: '#82cde8',
   gold3: '#3f93bd',
-  /** 海草绿：成功。 */
+  /** Seagrass green: success. */
   jade: '#77bfa5',
   jade2: '#5aa78c',
-  /** 蜜桃粉：点缀，只给警告一处。 */
+  /** Peach pink: an accent, given one place only — warnings. */
   red: '#efb39d',
 } as const
 

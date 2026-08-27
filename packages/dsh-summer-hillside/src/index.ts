@@ -1,5 +1,5 @@
 /**
- * 夏日山坡皮肤 · host 半。
+ * The Summer Hillside skin · host half.
  *
  * All of the skin's behaviour lives in the browser (registering the theme, spreading the hero, taking over the
  * brand slots, mounting the dock); this host half is only the Loader's mount point. `cordis.patch.yml` inserts
@@ -44,7 +44,7 @@ export const THEME_ID = 'hillside'
 /** Configured in cordis.yml; the Loader passes it to the browser half along with this row. */
 export interface Config {
   /**
-   * 装上就切到夏日山坡，默认开。关掉则只注册、不应用，等用户自己去皮肤集市里选。
+   * Switch to Summer Hillside on install; on by default. Turned off, it only registers without applying, leaving the user to pick it in the skin market.
    *
    * On by default because third-party theme ids never enter the built-in settings schema and the choice is not
    * persisted, while Settings → Appearance lists only light / dark / follow system: without auto-apply, every start would need reselecting.
@@ -68,5 +68,5 @@ export function apply(ctx: Context, config: Config = {}): void {
   }), `hillside: ${COVER_ROUTE}`)
 
   const mode = config.autoApply === false ? 'select it manually under Settings → Skin Market' : 'applied automatically'
-  ctx.logger.info('[hillside] 夏日山坡已挂载（%s）', mode)
+  ctx.logger.info('[hillside] Summer Hillside mounted (%s)', mode)
 }

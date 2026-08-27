@@ -1,9 +1,9 @@
 /**
- * 右侧状态台：缩小版的山坡封面 + 这场会话的真实状态。
+ * The right-hand dock: a reduced hillside cover plus this session's real state.
  *
- * 原型稿的右栏是「当前会话 / 工具调用 / 快捷操作」三张卡。这里做**能对上真实数据的那些**：
+ * The prototype's right column has three cards — current session / tool calls / quick actions. What is built here is **whatever maps to real data**:
  * waiting on you, state and timing, model, context occupancy and composition, permission mode, usage, todo progress.
- * 「工具调用」那四行（天机推演阵 已完成 2.1s、上下文注入 运行中 8.4s……）是稿子里写死的演示数据，
+ * the four rows under tool calls (one done in 2.1s, an injection running at 8.4s…) are hardcoded demo data in the draft,
  * The sidebar's energy figure is the same — the harness has no matching projection, and nothing is fabricated.
  *
  * Why build our own rail instead of taking over the harness's details slot:
@@ -163,7 +163,7 @@ export function HillsideStatusDock() {
               The image is a wide shot of a figure and a dragon, and cropping the sides leaves the subject intact.
             */}
             <div className={css.cover} style={{ backgroundImage: 'var(--hillside-cover)' }}>
-              <span className={css.coverName}>夏日山坡</span>
+              <span className={css.coverName}>Summer Hillside</span>
             </div>
 
             {/*

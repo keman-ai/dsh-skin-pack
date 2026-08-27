@@ -1,28 +1,28 @@
 /**
- * 玫瑰梦境的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Rose Dream's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 这是一套**浅色**皮肤（`colorScheme: 'light'`）。原型的 `:root` 只有五个色，全是这张照片里的：
+ * 🔴 This is a **light** skin (`colorScheme: 'light'`). The prototype's `:root` holds only five colours, all taken from the photograph:
  *
- *   - **粉白**（#fff4f7）与纯白：底与面板。底不是纯白——它带一点点粉，是那片纱幔透过来的光；
- *   - **玫瑰褐**（#6b4451）：正文。⚠️ 不用黑也不用灰：这张照片里最深的地方是发丝，
- *     而发丝在粉光里偏褐。黑字压在粉底上会显得脏且硬；
- *   - **玫瑰粉**（#e78fa7）：主操作与"正在跑"，画里那些花的颜色；
- *   - **浅玫瑰**（#f3b7c8）：描边与次要强调；
- *   - **薄荷绿**（#73c995）：成功。⚠️ 这是全场唯一的非粉色，正因为唯一，
- *     它承担"跟粉色系无关的那类消息"——成功与在线。
+ *   - **pink white** (#fff4f7) and pure white: ground and panels. The ground is not pure white — it carries a trace of pink, the light coming through the gauze;
+ *   - **rose brown** (#6b4451): body text. ⚠️ Neither black nor grey: the deepest thing in the photograph is hair,
+ *     and hair reads brown in pink light. Black on a pink ground looks dirty and hard;
+ *   - **rose pink** (#e78fa7): the primary action and running — the colour of the flowers in the picture;
+ *   - **pale rose** (#f3b7c8): borders and secondary emphasis;
+ *   - **mint green** (#73c995): success. ⚠️ It is the only non-pink anywhere, and precisely because it is unique
+ *     it carries the kind of message unrelated to the pinks — success and online.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const ROSE_PALETTE = {
-  /** 粉白，带一点粉的天光。 */
+  /** Pink white: daylight with a trace of pink. */
   paper: '#fff4f7',
   paper2: '#fdeaf0',
   paper3: '#f0d9df',
 
-  /** 玫瑰褐正文。这套里没有黑也没有灰。 */
+  /** Rose-brown body text. This skin contains neither black nor grey. */
   ink: '#6b4451',
   ink2: '#8d6472',
   ink3: '#a78691',
@@ -30,14 +30,14 @@ export const ROSE_PALETTE = {
   line: '#f0d9df',
   line2: '#e6c3cd',
 
-  /** 玫瑰粉：主操作与"正在跑"。 */
+  /** Rose pink: the primary action and running. */
   gold: '#e78fa7',
   gold2: '#f3b7c8',
   gold3: '#d0708a',
-  /** 薄荷绿：成功。全场唯一的非粉色。 */
+  /** Mint green: success. The only non-pink anywhere. */
   jade: '#73c995',
   jade2: '#5aab7b',
-  /** 深玫瑰：警告与危险。 */
+  /** Deep rose: warnings and danger. */
   red: '#d0708a',
 } as const
 

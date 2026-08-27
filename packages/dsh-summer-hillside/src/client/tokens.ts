@@ -1,26 +1,26 @@
 /**
- * 夏日山坡的配色：原型稿的设计变量 → harness 的 `--dsw-alias-*` / `--dsw-specific-*` 语义层。
+ * Summer Hillside's palette: the prototype's design variables → the harness's `--dsw-alias-*` / `--dsw-specific-*` semantic layer.
  *
  * This layer is the skin's foundation and the **only part not depending on the harness DOM**: the presenter
  * paints these values onto body as inline variables, replacing the UI's ground, layers, borders, text and status colours wholesale.
  *
- * 🔴 这是一套**浅色**皮肤（`colorScheme: 'light'`）。原型的 `:root` 全是这幅画里的东西：
+ * 🔴 This is a **light** skin (`colorScheme: 'light'`). Every colour in the prototype's `:root` comes from the picture:
  *
- *   - **草白**（#edf6f0）与**纯白**：底与面板。底带一点绿——是草地反上来的光；
- *   - **深草绿**（#284b3e）：正文。不用黑：画里最深的地方是草的暗部，也只是深绿；
- *   - **草绿**（#4a9a66 / #6fbe85）：主操作与"正在跑"，那面山坡的绿；
- *   - **天蓝**（#14759a）：强调。画里那片天只占上面一条，所以这里也只做描边与链接；
- *   - **穗粉**（#e8a3b4）：点缀。画里只有那几支狗尾草是粉的，所以只给警告一处。
+ *   - **grass white** (#edf6f0) and **pure white**: ground and panels. The ground carries a trace of green, the light bouncing off the grass;
+ *   - **deep grass green** (#284b3e): body text. Not black: the deepest point in the picture is the shadow in the grass, and that is only a deep green;
+ *   - **grass green** (#4a9a66 / #6fbe85): the primary action and running — the green of that hillside;
+ *   - **sky blue** (#14759a): emphasis. The sky occupies only a strip at the top of the picture, so here it does borders and links alone;
+ *   - **seedhead pink** (#e8a3b4): an accent. Only a few foxtails in the picture are pink, so it is given one place only: warnings.
  */
 
 /** The raw colours from the prototype's `:root`. Recolour here; everything below derives from these. */
 export const HILLSIDE_PALETTE = {
-  /** 草白，带一点绿的天光。 */
+  /** Grass white: daylight with a trace of green. */
   paper: '#edf6f0',
   paper2: '#e3f0e8',
   paper3: '#d7e6dc',
 
-  /** 深草绿正文。这套里没有黑。 */
+  /** Deep grass-green body text. This skin contains no black. */
   ink: '#284b3e',
   ink2: '#4d7060',
   ink3: '#7c9589',
@@ -28,14 +28,14 @@ export const HILLSIDE_PALETTE = {
   line: '#d7e6dc',
   line2: '#c2d8ca',
 
-  /** 草绿：主操作与"正在跑"。 */
+  /** Grass green: the primary action and running. */
   gold: '#4a9a66',
   gold2: '#6fbe85',
   gold3: '#3a7d52',
-  /** 天蓝：强调。 */
+  /** Sky blue: emphasis. */
   jade: '#14759a',
   jade2: '#2b8cb2',
-  /** 穗粉：点缀，只给警告一处。 */
+  /** Seedhead pink: an accent, given one place only — warnings. */
   red: '#e8a3b4',
 } as const
 
