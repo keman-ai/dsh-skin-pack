@@ -13,7 +13,7 @@
 <p align="center">
   <a href="https://github.com/keman-ai/dsh-skin-pack"><img src="https://img.shields.io/github/stars/keman-ai/dsh-skin-pack?style=flat&label=Star&color=4D6BFE" alt="Stars"></a>
   <a href="https://github.com/keman-ai/dsh-skin-pack/releases"><img src="https://img.shields.io/github/v/release/keman-ai/dsh-skin-pack?style=flat&label=release&color=08C" alt="Latest release"></a>
-  <img src="https://img.shields.io/badge/skins-30-4D6BFE?style=flat" alt="30 skins">
+  <img src="https://img.shields.io/badge/skins-31-4D6BFE?style=flat" alt="31 skins">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2EA44F?style=flat" alt="MIT License"></a>
 </p>
 
@@ -50,7 +50,7 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 ## 皮肤一览
 
 <!-- SKINS:BEGIN -->
-<sub>共 30 套皮肤，本段由 `scripts/readme.mjs` 生成，请勿手改。</sub>
+<sub>共 31 套皮肤，本段由 `scripts/readme.mjs` 生成，请勿手改。</sub>
 
 <table>
 <tr>
@@ -167,12 +167,17 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 <sub><code>packages/dsh-qitian-cosmic-monkey</code></sub>
 </td>
 <td width="33%" valign="top">
+<a href="packages/dsh-red-plane-adventure"><img src="packages/dsh-red-plane-adventure/preview/dark.webp" alt="红翼云端" width="100%"></a><br><b>红翼云端</b> <sub>暗色</sub><br>
+<sub>深海军蓝打底、飞行红做主操作、奶油色只做点缀、青蓝只给运行中，新会话页是一整幅红色飞机横幅</sub><br>
+<sub><code>packages/dsh-red-plane-adventure</code></sub>
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
 <a href="packages/dsh-rose-dream"><img src="packages/dsh-rose-dream/preview/light.webp" alt="玫瑰梦境" width="100%"></a><br><b>玫瑰梦境</b> <sub>浅色</sub><br>
 <sub>粉白打底、玫瑰褐做正文、玫瑰粉做主操作、薄荷绿只给成功</sub><br>
 <sub><code>packages/dsh-rose-dream</code></sub>
 </td>
-</tr>
-<tr>
 <td width="33%" valign="top">
 <a href="packages/dsh-seaside-boutique"><img src="packages/dsh-seaside-boutique/preview/light.webp" alt="海边小铺" width="100%"></a><br><b>海边小铺</b> <sub>浅色</sub><br>
 <sub>海雾白打底、灰蓝做正文、天空蓝做主操作、蜜桃粉只做点缀</sub><br>
@@ -183,13 +188,13 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 <sub>草白打底、深草绿做正文、草绿做主操作、天蓝做强调、穗粉只做点缀</sub><br>
 <sub><code>packages/dsh-summer-hillside</code></sub>
 </td>
+</tr>
+<tr>
 <td width="33%" valign="top">
 <a href="packages/dsh-sunset-catbus"><img src="packages/dsh-sunset-catbus/preview/dark.webp" alt="夕阳猫巴士" width="100%"></a><br><b>夕阳猫巴士</b> <sub>暗色</sub><br>
 <sub>深棕打底、夕阳橙做主操作、麦田金做描边与强调、冷蓝只给运行中，新会话页是一整幅黄昏横幅</sub><br>
 <sub><code>packages/dsh-sunset-catbus</code></sub>
 </td>
-</tr>
-<tr>
 <td width="33%" valign="top">
 <a href="packages/dsh-twilight-city"><img src="packages/dsh-twilight-city/preview/dark.webp" alt="黄昏城市" width="100%"></a><br><b>黄昏城市</b> <sub>暗色</sub><br>
 <sub>深蓝夜空打底、晚霞橙紫粉做氛围、暖黄只点亮按钮、天空蓝只给运行中，新会话页是一整幅黄昏城市主视觉</sub><br>
@@ -200,13 +205,13 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 <sub>焦黑暗红打底、火光橙做主操作、战斗红只给失败、能量青只给运行中，新会话页是一整幅末日小队主视觉</sub><br>
 <sub><code>packages/dsh-ultra-team-apocalypse</code></sub>
 </td>
+</tr>
+<tr>
 <td width="33%" valign="top">
 <a href="packages/dsh-ultraman-cosmic-hero"><img src="packages/dsh-ultraman-cosmic-hero/preview/dark.webp" alt="宇宙英雄" width="100%"></a><br><b>宇宙英雄</b> <sub>暗色</sub><br>
 <sub>深空蓝黑配彩色计时器三色，新会话页是一整幅宇宙英雄主视觉</sub><br>
 <sub><code>packages/dsh-ultraman-cosmic-hero</code></sub>
 </td>
-</tr>
-<tr>
 <td width="33%" valign="top">
 <a href="packages/dsh-whale-girl"><img src="packages/dsh-whale-girl/preview/light.webp" alt="鲸鱼娘海岸休息室" width="100%"></a><br><b>鲸鱼娘海岸休息室</b> <sub>浅色</sub><br>
 <sub>浅蓝、珍珠白与深海蓝的三级配色，新会话页是一整幅鲸鱼娘封面</sub><br>
@@ -217,6 +222,8 @@ dsh plugin --profile web add -w https://github.com/keman-ai/dsh-skin-pack/releas
 <sub>DeepSeek 蓝 + 白，新会话页是一张横幅封面，输入区独立在下方</sub><br>
 <sub><code>packages/dsh-whale-wave-banner</code></sub>
 </td>
+</tr>
+<tr>
 <td width="33%" valign="top">
 <a href="packages/dsh-wukong-flame-mountain"><img src="packages/dsh-wukong-flame-mountain/preview/dark.webp" alt="黑神话悟空 · 焚山版" width="100%"></a><br><b>黑神话悟空 · 焚山版</b> <sub>暗色</sub><br>
 <sub>黑墨、古金与余烬橙，新会话页是一整幅焚山主视觉</sub><br>

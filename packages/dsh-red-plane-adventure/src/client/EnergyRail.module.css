@@ -1,0 +1,60 @@
+/**
+ * Styles for the energy gauge, mounted at the bottom of the sidebar in wide and narrow states.
+ *
+ * 🔴 The same rule as the dock: nothing shows while the skin is inactive. This component registers on the
+ * official `sidebar.footer.action`, and the slot entry is only revoked after deactivation — the frame in between must not show.
+ */
+
+.rail {
+  display: none;
+}
+
+:global(body[data-dsh-redplane]) .rail {
+  display: block;
+  padding: 6px 10px 8px;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--dsw-alias-label-caption);
+}
+
+.value {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+/* The track: a 2px sliver. It is all that remains when the sidebar narrows, and its width follows the column. */
+.track {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--dsw-alias-bg-layer-3);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--dsw-alias-brand-primary);
+  transition: width 320ms ease-out, background 320ms ease-out;
+}
+
+/* Low and critical change colour rather than animate — something blinking at the bottom of the sidebar keeps catching the eye. */
+.rail[data-level='warn'] .fill {
+  background: var(--dsw-alias-state-warn-primary);
+}
+
+.rail[data-level='critical'] .fill {
+  background: var(--dsw-alias-state-error-primary);
+}

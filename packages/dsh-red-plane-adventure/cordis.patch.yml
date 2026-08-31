@@ -1,0 +1,11 @@
+# The config layer this package contributes: it inserts the skin into the Loader tree.
+# Applied automatically when a profile lists this package (see apps/cli/reference: dsh.profile.bundles).
+#
+# Without this layer, `dsh plugin add` installs the package as a plain dependency and the plugin is never loaded
+# — dsh warns on the spot: "declares no dsh.bundle … not a profile layer",
+# and the skin market reports NOT_A_BUNDLE and uninstalls the package again.
+#
+# The id must match skin.json's id and the client half's THEME_ID, all three; name must be the package name.
+- insert:
+    - id: redplane
+      name: dsh-red-plane-adventure

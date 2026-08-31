@@ -142,7 +142,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   // Registration and mounting share one effect, in order: mountStage calls setTheme,
   // And setTheme throws outright on an unregistered id.
   ctx.effect(() => {
-    const unregister = ctx.theme.register({ id: THEME_ID, colorScheme: 'light', tokens: PONYO_TOKENS })
+    const unregister = ctx.theme.register({ id: THEME_ID, colorScheme: 'dark', tokens: PONYO_TOKENS })
     const unmount = mountStage(ctx, shouldAutoApply(ctx, config.autoApply !== false), userPicked())
     return () => {
       unmount()

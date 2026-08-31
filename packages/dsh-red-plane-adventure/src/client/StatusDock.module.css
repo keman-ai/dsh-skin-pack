@@ -1,0 +1,428 @@
+/**
+ * The right-hand status dock. Its width is the prototype's `--details: 300px`.
+ *
+ * 🔴 Hidden by default; it appears only once the skin is actually active.
+ *
+ * Writing it the other way round (visible by default, hidden by skin rules) leaves a gap: the plugin's JS only
+ * stamps `data-dsh-redplane` onto body, and the harness UI is already rendered before that. During that window the dock
+ * stamps the marker once its bundle has run, and until then the dock shows and the main area yields, leaving
+ * the harness's native palette with a rail beside it — for a random length of time, so refreshing flips between two UIs.
+ *
+ * Hence the rule kept here: skin not active means this plugin does not exist in the UI.
+ */
+
+.dock {
+  display: none;
+}
+
+:global(body[data-dsh-redplane]) .dock {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: stretch;
+  /* Collapsed, it occupies only the handle's width and blocks nothing. */
+  width: auto;
+  pointer-events: none;
+}
+
+.dock > * {
+  pointer-events: auto;
+}
+
+/* The handle: the only visible part when collapsed — reachable without drawing attention. */
+.handle {
+  align-self: center;
+  width: 18px;
+  height: 56px;
+  margin-right: -1px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 140ms ease-out, color 140ms ease-out;
+}
+
+.handle:hover {
+  background: var(--dsw-alias-interactive-bg-hover-solid);
+  color: var(--dsw-alias-label-primary);
+}
+
+/* The prototype's details is a vertical column; an instant toggle looks like a crash rather than a collapse, so it gets a transition. */
+.body {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  background: var(--dsw-alias-bg-layer-1);
+  border-left: 1px solid var(--dsw-alias-border-l2);
+  animation: redplane-dock-in 180ms ease-out;
+}
+
+.header {
+  flex: none;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--dsw-alias-label-primary);
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}
+
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+}
+
+/*
+ * The reduced cover.
+ *
+ * The banner is 1.92:1, close enough to the 2.4:1 strip that `cover` scales by **width** and trims only top and
+ * bottom — the sky above and a little sea haze below. That is the whole reason the crop can stay centred here.
+ */
+.cover {
+  aspect-ratio: 2.4 / 1;
+  border-radius: 12px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  background-color: #030910;
+  background-size: cover;
+  /*
+   * 🔴 Centred, and this one must not crop horizontally.
+   *
+   * The aircraft spans the **entire** frame — the propeller runs off the right edge and the lower wing off the
+   * left — so any horizontal crop clips a wingtip or the nose. Sibling skins crop `left center` because their
+   * subject sits in one third of the image; here the subject is the image, and the ratios happen to allow it.
+   */
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.coverName {
+  position: absolute;
+  left: 8px;
+  bottom: 7px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(5, 14, 24, 0.66);
+  color: #c8ebff;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+
+/* The prototype's card language: 12px radius, a 1px low-contrast border, almost no shadow. */
+.card {
+  background: var(--dsw-alias-bg-layer-2);
+  border: 1px solid var(--dsw-alias-border-l2);
+  background-image: linear-gradient(180deg, #0c2034, #091725);
+  border-radius: 11px;
+  padding: 12px;
+  margin-bottom: 9px;
+}
+
+.cardTitle {
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-tertiary);
+  margin-bottom: 8px;
+}
+
+.line {
+  display: flex;
+  min-height: 26px;
+  align-items: center;
+  gap: 8px;
+}
+
+.key {
+  width: 76px;
+  flex: none;
+  font-size: 10px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.value {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  color: var(--dsw-alias-label-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px;
+}
+
+/* Green is reserved for online / success in this skin, and ready is exactly that. */
+.ok {
+  color: var(--dsw-alias-state-success-primary);
+}
+
+/* Running uses the business (active) semantic colour, the same one as the official spinner. */
+.busy {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/* The context occupancy bar, matching the ocean gradient of the progress bar in the prototype's profile card. */
+.progress {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--dsw-alias-bg-base);
+  margin: 6px 0 2px;
+  overflow: hidden;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #5c88d8, #84d8ff, #ded0ae);
+}
+
+/*
+ * "Waiting on you" uses an amber card: in this skin amber is reserved for actions needing your confirmation
+ * (the prototype's permission card is this colour), distinct from green for online and ocean for running, so a glance tells you which it is.
+ */
+.alert {
+  background: var(--dsw-alias-state-warn-tertiary);
+  border-color: rgba(234, 171, 66, 0.34);
+}
+
+.alert .cardTitle {
+  color: var(--dsw-alias-state-warn-label);
+}
+
+/* Context composition: a three-segment stacked bar, coloured to match the legend text below. */
+.stack {
+  display: flex;
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--dsw-alias-bg-base);
+  margin: 8px 0 6px;
+}
+
+.stack span {
+  display: block;
+  height: 100%;
+}
+
+.stack span[data-part='system'] {
+  background: #5c88d8;
+}
+
+.stack span[data-part='tools'] {
+  background: #84d8ff;
+}
+
+.stack span[data-part='message'] {
+  background: #ded0ae;
+}
+
+/*
+ * Legend: a small square plus text. The square uses `::before` rather than a background on the whole
+ * row — a background would turn the row into a colour band competing with the stacked bar above; here it is just an index.
+ */
+.legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--dsw-alias-label-primary);
+}
+
+.legend::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.legend[data-part='system']::before {
+  background: #5c88d8;
+}
+
+.legend[data-part='tools']::before {
+  background: #84d8ff;
+}
+
+.legend[data-part='message']::before {
+  background: #ded0ae;
+}
+
+.hint {
+  margin: 6px 0 0;
+  font-size: 9.5px;
+  line-height: 1.55;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.todo {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--dsw-alias-label-secondary);
+}
+
+.footnote {
+  margin: 2px 2px 8px;
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--dsw-alias-label-caption);
+}
+
+/*
+ * When expanded, the main area yields an equal width.
+ *
+ * Squeeze the harness's root container rather than padding body: body carries fixed-position overlays (modals,
+ * menus) that padding would not move, misaligning them against the content. Only the layer that actually carries the layout is pushed.
+ *
+ * This too must carry `[data-dsh-redplane]`: without it, the main area yields 300px during the window before the skin activates,
+ * leaving a strip on the right while the content keeps its native palette.
+ */
+:global(body[data-dsh-redplane][data-redplane-dock-open] > div:first-of-type) {
+  padding-right: 300px;
+  box-sizing: border-box;
+}
+
+@keyframes redplane-dock-in {
+  from { width: 0; opacity: 0; }
+  to { width: 300px; opacity: 1; }
+}
+
+/*
+ * Collapse the dock on the new-session page.
+ *
+ * The hero is already a full-bleed cover visual, and a shrunken copy beside it is redundant — besides, a new
+ * session has no state to show yet (no model, no usage, no todos).
+ *
+ * 🔴 `settling` must collapse too. The harness has **three** phases, `settling / hero / active`, and settling
+ * means the session is still replaying and it is unknown whether it lands on hero or the conversation. Matching
+ * only hero made the dock appear and the main area yield 300px during the settling window after a refresh, looking like the conversation page, then snapping back to hero.
+ * Follow the harness and stay neutral: assert nothing while it is unknown.
+ *
+ * A comma group cannot go inside `:global()` (lightningcss errors at the comma), so each phase gets its own rule.
+ */
+:global(body[data-dsh-redplane]:has([data-phase='hero'])) [data-redplane-dock] {
+  display: none;
+}
+
+:global(body[data-dsh-redplane][data-redplane-dock-open]:has([data-phase='hero']) > div:first-of-type) {
+  padding-right: 0;
+}
+
+:global(body[data-dsh-redplane]:has([data-phase='settling'])) [data-redplane-dock] {
+  display: none;
+}
+
+:global(body[data-dsh-redplane][data-redplane-dock-open]:has([data-phase='settling']) > div:first-of-type) {
+  padding-right: 0;
+}
+
+/* A narrow screen has no 300px to spare: collapse the whole rail rather than squeeze the conversation into a slit. */
+@media (max-width: 1180px) {
+  :global(body[data-dsh-redplane]) [data-redplane-dock] {
+    display: none;
+  }
+
+  :global(body[data-dsh-redplane][data-redplane-dock-open] > div:first-of-type) {
+    padding-right: 0;
+  }
+}
+/* ==========================================================================
+ * The feed list — shared by the tool-call and context-injection cards.
+ *
+ * Each row is a name plus a short piece of metadata on the right, with long names ellipsised: the column is only
+ * 300px wide, and wrapping tool names would turn this card into a wall.
+ * ========================================================================== */
+
+.log {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.logRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 16px;
+  /* A 2px status stripe on the left: it takes no width, changes no line height, and shows at a glance which run failed. */
+  padding-left: 8px;
+  border-left: 2px solid var(--dsw-alias-border-l2);
+}
+
+.logRow[data-state='running'] {
+  border-left-color: var(--dsw-alias-state-business-primary);
+}
+
+.logRow[data-state='error'] {
+  border-left-color: var(--dsw-alias-state-error-primary);
+}
+
+.logRow[data-state='ok'] {
+  border-left-color: var(--dsw-alias-state-success-primary);
+}
+
+/* Context recalled from another session (role=recall) is marked separately: it did not originate here. */
+.logRow[data-role='recall'] {
+  border-left-color: var(--dsw-alias-state-warn-primary);
+}
+
+.logName {
+  flex: 1;
+  min-width: 0;
+  color: var(--dsw-alias-label-primary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logMeta {
+  flex: none;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.logRow[data-state='running'] .logMeta {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+.logRow[data-state='error'] .logMeta {
+  color: var(--dsw-alias-state-error-primary);
+}
+
+/* The form badge (instructions / catalog / snapshot…): small, faint, and never competing with the source name. */
+.logTag {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  color: var(--dsw-alias-label-caption);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}

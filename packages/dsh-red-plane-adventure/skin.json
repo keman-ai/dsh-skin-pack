@@ -1,0 +1,27 @@
+{
+  "id": "redplane",
+  "name": "红翼云端",
+  "nameEn": "Red Plane Adventure",
+  "author": "Science Roam Limited",
+  "tagline": "深海军蓝打底、飞行红做主操作、奶油色只做点缀、青蓝只给运行中，新会话页是一整幅红色飞机横幅",
+  "taglineEn": "Deep navy ground, flight red for the primary action, cream as accent alone and cyan only for running; a red-plane banner on the new-session page",
+  "description": "配色是原型稿自己写死的一行：theme = deep navy / flight red / cream / cyan。四个词对应四种用量。\n\n深海军蓝（#071522 → #132b3e）是底与面板，也是飞机所在的那片天，吃掉绝大部分界面。飞行红（#e6502e / #ff7b52）是主操作与强调——⚠️ 跟本系列几套克制的皮肤相反，这套的「＋ 新会话」和发送**就是红色实心**：原型的 .new 与 .send 用的都是同一条 linear-gradient(135deg,#f16a45,#d9482b)。那架飞机是画面里最响的东西，主操作也该是界面里最响的那一下。\n\n奶油色（#ffd0bd / #ffb079）只做小面积暖点缀：会话图标、角标文字、能量条中段——它是云上的光，不是一块面。青蓝（#72cce8）是全场唯一的冷色，落在能量条末端，因此也拿来做「正在跑」。\n\n🔴 绿（#69d49b）不在那四个词里，但原型只把它用在一件事上：● SKY READY、五行 ONLINE、工具头上的 ✓。所以绿是「做完了 / 在线」，青蓝是「正在跑」，两者分开，才能一眼看出任务是落地了还是还在飞。\n\n描边全场只有一条中性白 rgba(255,255,255,.12)，不带色：封面已经是这里最响的东西，描边带了色就会跟它抢，而不是给它做框。\n\n新会话页整张横幅，18px 圆角配中性描边与很深的投影；输入区独立在下方，两者不重叠，封面上除左上角那枚身份角标外不放任何文案。进入对话与轨迹页后横幅收起。\n\n原型右栏「Harness Systems」五行 ONLINE、「Flight Modes」四张模式卡、「Flight Energy」那个 90%，以及封面右上角的「✈ ADVENTURE MODE」，harness 都没有对应投影，一律不做——装饰可以，假状态不行。真实状态由本皮肤自己那根状态台承担。",
+  "tags": [
+    "暗色",
+    "飞机",
+    "吉卜力",
+    "冒险",
+    "封面"
+  ],
+  "accent": "#e6502e",
+  "bodyAttr": "data-dsh-redplane",
+  "package": "dsh-red-plane-adventure",
+  "wiring": {
+    "id": "redplane",
+    "bundleWired": true
+  },
+  "preview": {
+    "dark": "preview/dark.webp"
+  },
+  "colorScheme": "dark"
+}

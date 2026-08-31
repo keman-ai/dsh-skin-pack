@@ -1,0 +1,61 @@
+/**
+ * The brand mark and wordmark. Sizes come from the prototype's `.mark` / `.brand b` / `.brand small`
+ * (a 36px square with an 11px radius; a 13px primary name and a 9px subtitle).
+ */
+
+.mark {
+  display: block;
+  flex: none;
+  position: relative;
+  /* The prototype's `.mark`: the aircraft's own red, lit from the top left. */
+  background: linear-gradient(145deg, #ff7b52, #ad331f);
+  /* The prototype has no glow here; a faint red one keeps the mark from sitting flat on the sidebar's navy. */
+  box-shadow: 0 0 20px rgba(230, 80, 46, 0.22);
+}
+
+/*
+ * The wing.
+ *
+ * The prototype draws one white bar across the mark, rotated -12deg — a 36px square carrying a 20x5 bar at
+ * left 8 / top 16. Every number here is that ratio times `--mark-size`, so the sidebar's 24px and the hero's 34px
+ * are the same drawing at two scales rather than two hand-tuned shapes.
+ */
+.mark::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--mark-size) * 0.222);
+  top: calc(var(--mark-size) * 0.444);
+  width: calc(var(--mark-size) * 0.556);
+  height: calc(var(--mark-size) * 0.139);
+  border-radius: calc(var(--mark-size) * 0.167);
+  background: #fff;
+  transform: rotate(-12deg);
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--dsw-alias-label-primary);
+  /* When the sidebar narrows, ellipsise rather than push the subtitle out. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--dsw-alias-label-caption);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

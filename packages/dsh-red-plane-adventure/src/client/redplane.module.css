@@ -1,0 +1,289 @@
+/**
+ * The Red Plane Adventure decoration layer.
+ *
+ * Every rule hangs under `body[data-dsh-redplane]`: the client half stamps the attribute when the theme activates and removes it on switching away,
+ * so deactivating the skin invalidates every rule at once, leaving no residue.
+ *
+ * 🔴 The rule is "not active means the plugin does not exist", never "visible by default, hidden by skin rules".
+ * The plugin's JS can only stamp body once its bundle has run, while the harness UI is already rendered, so anything visible by default shows during that window.
+ * flashing into view as if the app had jumped to a different page.
+ *
+ * ⚠️ This prototype has **no** agent-copy specification, so **no host copy is replaced** — unfounded personified
+ * copy would be embellishment of our own.
+ */
+
+/* ==========================================================================
+ * Global sky glow — one cool wash high on the right, matching the radial on the prototype's `.app`:
+ * `radial-gradient(circle at 60% -12%, rgba(46,122,165,.18), transparent 34%)`.
+ *
+ * Without it the navy is one flat field; with it the top of the page reads as sky rather than as a dark panel.
+ * Its intensity is low enough not to affect any text, and `pointer-events: none` guarantees it never intercepts a click.
+ * ========================================================================== */
+:global(body[data-dsh-redplane])::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 60% -12%, rgba(46, 122, 165, 0.18), transparent 34%);
+}
+
+/* ==========================================================================
+ * The new-session banner.
+ *
+ * 🔴 The prototype states the rule plainly in its own notes:
+ *   New Session puts the banner at the top and **lays no block of explanatory copy over the cover**, with **the composer separately below** so the hero visual stays intact.
+ * its `#home` is likewise `flex-direction: column` plus `.hero { flex: 1 }` with a separate `.composer` below.
+ *
+ * So the banner takes all the height above the composer, which sits below it without overlap; apart from the two corner badges the cover
+ * and covers no copy.
+ *
+ * `data-phase` has three states, `settling / hero / active`. `settling` means the session is still replaying and
+ * it is unknown whether it lands on hero or the conversation; the harness hides the composer then precisely so as not to guess, and this takes the same stance:
+ * **paint nothing early**. The banner is absent from the conversation and trajectory pages — the hero visual belongs to the empty screen alone.
+ * ========================================================================== */
+
+/*
+ * 🔴 Make hero a positioning ancestor first, then paint the banner.
+ *
+ * `[data-phase='hero']` is not itself positioned, so its `::before` with `position: absolute` looks for the nearest
+ * positioned ancestor — finding none it falls to the initial containing block, i.e. **the whole viewport**, covering the session sidebar on the left too.
+ * We hit this on an earlier skin.
+ */
+:global(body[data-dsh-redplane] [data-phase='hero']) {
+  position: relative;
+}
+
+:global(body[data-dsh-redplane] [data-phase='hero'])::before {
+  content: '';
+  position: absolute;
+  /* Only the upper half: flush with the top of the hero, full width, with the banner's own ratio setting the height. */
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  /*
+   * Height = the hero's height minus the composer block.
+   *
+   * 288px was measured: `[data-composer-seat]` together with the heading line above it and the workspace and mode chips
+   * totalling 258px (measured with playwright at 1600×950), plus 14px of margin and a little breathing room.
+   *
+   * ⚠️ The first attempt was `aspect-ratio: 2.5/1`, letting the banner keep the source ratio — but it came out shorter than the space available,
+   * leaving a wide gap between cover and composer that looks like a half-loaded page. The prototype's `.home` is
+   * `grid-template-rows: minmax(0,1fr) auto`: the cover **takes all remaining height** and the image uses `object-fit: cover`,
+   * cropping the excess. So this fills the area with `background-size: cover` too, matching the prototype.
+   */
+  height: calc(100% - 288px);
+  /* A floor for very short windows, so the cover never shrinks to a line. */
+  min-height: 150px;
+  z-index: 0;
+  pointer-events: none;
+  /* The prototype's `.hero`: an 18px radius, the neutral white border and a very deep shadow — all the contrast on this navy comes from it. */
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+  background-image: var(--redplane-cover);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #02070b;
+}
+
+/*
+ * The identity badge in the cover's top-left corner (the prototype's `.badge.left`: a frosted pill reading "DeepSeek Harness / Red Plane Adventure").
+ *
+ * ⚠️ The "✈ ADVENTURE MODE" badge in the top-right corner is **not implemented**: it hardcodes a mode the harness
+ * has nothing to read against — real state lives in the right-hand dock, where every number has a source. Decoration is fine; fake state is not.
+ */
+:global(body[data-dsh-redplane] [data-phase='hero'])::after {
+  content: 'DeepSeek Harness / Red Plane Adventure';
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  z-index: 1;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(5, 14, 22, 0.62);
+  backdrop-filter: blur(12px);
+  font-size: 8.5px;
+  letter-spacing: 0.02em;
+  color: #dbeaf5;
+  pointer-events: none;
+}
+
+/*
+ * The composer sits below the banner.
+ *
+ * 🔴 The centring is not the composer's own; it comes from an ancestor's `justify-content: center`
+ * (`.root[data-phase='hero'] .scrollBody`) — changing the composer's own margin has no effect whatsoever.
+ *
+ * Why overflow / scrollbar-gutter are turned off: hero has nothing to scroll, and `overflow-y: auto` would
+ * would raise a scrollbar on overflow, and `scrollbar-gutter: stable` permanently reserves a scrollbar's width, which in a
+ * hero with no scrollbar becomes an offset pushing the column aside — looking like an off-centre composer.
+ */
+:global(body[data-dsh-redplane] [data-phase='hero'] [data-conversation-scroll]) {
+  justify-content: flex-end;
+  overflow: hidden;
+  scrollbar-gutter: auto;
+}
+
+:global(body[data-dsh-redplane] [data-phase='hero'] [data-composer-seat]) {
+  align-items: center;
+  z-index: 2;
+  padding-bottom: 14px;
+}
+
+:global(body[data-dsh-redplane] [data-phase='hero']) > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Conversation: messages fade out near the composer rather than being cut by a hard edge (the prototype's `.composer-shell` gradient). */
+:global(body[data-dsh-redplane] [data-composer-seat]) {
+  background: linear-gradient(180deg, rgba(7, 21, 34, 0) 0%, var(--dsw-alias-bg-base) 30%);
+}
+
+/* ==========================================================================
+ * Component language — the prototype's cards and bubbles: a 12px radius on user messages, 11–12px on rail cards, 11px on the composer's pills.
+ * Anchored on the harness's data-chat-flow-kind (the conversation node type, a public attribute we verified).
+ * ========================================================================== */
+
+/* User messages: a navy card with the neutral border and a 12px radius (the prototype's `.userbox`, ground #0f2333). */
+:global(body[data-dsh-redplane] [data-chat-flow-kind='user']) {
+  border-radius: 12px;
+}
+
+/*
+ * Context injection rows: pressed down into background information (small, faint, unobtrusive) — they are the
+ * system noise of every turn, not something the user reads. Hover restores them, so they stay legible when needed.
+ */
+:global(body[data-dsh-redplane] [data-chat-flow-kind='context']) {
+  opacity: 0.62;
+}
+
+:global(body[data-dsh-redplane] [data-chat-flow-kind='context']:hover) {
+  opacity: 1;
+}
+
+/* A failed turn: a desaturated red stripe — nothing in this skin should glare, so even the red is muted. */
+:global(body[data-dsh-redplane] [data-chat-flow-kind='turn-error']) {
+  box-shadow: inset 3px 0 0 0 var(--dsw-alias-state-error-primary);
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+/*
+ * The permission card: pale amber. The prototype has no such state (it drew only the happy path), and the colour is derived from its light, clean key,
+ * and it occurs rarely.
+ *
+ * ⚠️ This anchor is unverified: triggering a permission prompt requires an operation that modifies a local file. The value comes from the node type in the harness source,
+ * `kind === 'approval'` (rendered by ChatNodeSeat as data-chat-flow-kind). On a mismatch this rule simply does not apply.
+ */
+:global(body[data-dsh-redplane] [data-chat-flow-kind='approval']) {
+  background: var(--dsw-alias-state-warn-tertiary);
+  border: 1px solid rgba(224, 166, 62, 0.24);
+  border-radius: 12px;
+  padding: 11px 12px;
+}
+
+/* The sidebar dot while a session runs: one step brighter than the brand blue, since this skin introduces no fifth colour. */
+:global(body[data-dsh-redplane] [data-state='ongoing']) {
+  color: var(--dsw-alias-state-business-primary);
+}
+
+/* ==========================================================================
+ * Degradation zone — the rules below have no semantic attribute to hang on and must prefix-match hashed
+ * CSS Module class names (like `_1Onn0a_sidebarCol`). A harness redesign makes them silently stop matching: the look reverts to default,
+ * without an error and without affecting anything else.
+ * ========================================================================== */
+
+/* Sidebar: a vertical gradient with the neutral divider (the prototype's `.left` runs #0b1e2c → #071522). */
+:global(body[data-dsh-redplane] [class*='_sidebarCol']) {
+  background-image: linear-gradient(180deg, #0b1e2c 0%, #071522 100%);
+  border-right: 1px solid var(--dsw-alias-border-l2);
+}
+
+/*
+ * `+ New session`: 43px tall, an 11px radius, the 135° flight-red gradient (the prototype's `.new`).
+
+ * 🔴 Unlike this pack's quieter skins the large button here really is solid red. The prototype paints `.new` and
+ * `.send` with the same `linear-gradient(135deg,#f16a45,#d9482b)` — the aircraft is the loudest thing in the
+ * picture, and the primary action is meant to be the loudest thing in the interface.
+ * The harness styles it as secondary by default, leaving the primary action without visual weight unless changed.
+ */
+/*
+ * 🔴 `:not([class*='_newSessionLabel'])` is not optional.
+ *
+ * The prefix match `[class*='_newSession']` hits **both the button and the text node inside it**
+ * (the harness class names are `_newSession` and `_newSessionLabel`), so the gradient and border are painted
+ * twice and a small box appears around the text. On dark skins the two layers are close enough to hide it; on light skins it is obviously a bug.
+ * We fell into the same trap once on `_headline` / `_headlineText`.
+ */
+:global(body[data-dsh-redplane] [class*='_newSession']:not([class*='_newSessionLabel'])) {
+  background: linear-gradient(135deg, #f16a45, #d9482b);
+  border-color: transparent;
+  border-radius: 11px;
+  color: var(--dsw-alias-label-primary-foreground);
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(230, 80, 46, 0.24);
+}
+
+:global(body[data-dsh-redplane] [class*='_newSession']:not([class*='_newSessionLabel']):hover) {
+  background: linear-gradient(135deg, #ff7b52, #e0532f);
+}
+
+/* Icons inside buttons follow along: harness icons use currentColor, so recolouring the parent is enough. */
+:global(body[data-dsh-redplane] [class*='_newSession']:not([class*='_newSessionLabel']) svg) {
+  color: inherit;
+}
+
+/*
+ * Selected session: a horizontal gradient with a flight-red stripe on the left (the prototype's `.session.active`:
+ * `linear-gradient(90deg,#20384a,#162b3c)` + `box-shadow: inset 2px 0 var(--red2)`).
+ * An inset shadow rather than a border, so the box width is unchanged and the selected row does not shift against the others.
+ */
+:global(body[data-dsh-redplane] [class*='_sessionRow'][class*='_selected']) {
+  background-image: linear-gradient(90deg, #20384a, #162b3c);
+  box-shadow: inset 2px 0 0 0 #ff7b52;
+  border-radius: 9px;
+}
+
+/*
+ * Group headings (Today / Last 7 days): small caps, wide tracking, muted to the description colour.
+ * The prototype's `.label` uses this to demote group headings to background information, so they do not compete with session titles.
+ */
+:global(body[data-dsh-redplane] [class*='_groupSection'] > :first-child) {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+  color: var(--dsw-alias-label-caption);
+}
+
+/*
+ * The details rail's card language: a vertical gradient card with a 12px radius and the neutral border (the prototype's `.card`,
+ * `linear-gradient(180deg,#102638,#0b1a27)`).
+ *
+ * ⚠️ First, what is **not** done: the prototype's right column has four cards — Current Session / Harness Systems / Flight Modes /
+ * Flight Energy. The last three are hardcoded decoration — five ONLINE rows, four mode cards, a 90% energy value —
+ * the harness has no matching projection, so nothing is fabricated. Real state is carried by this skin's own dock (see StatusDock);
+ * The official details rail is only aligned visually — it holds a tool call's Input / Output, the only lead there is when debugging.
+ */
+:global(body[data-dsh-redplane] [data-slot='details'] [class*='_section']) {
+  background-image: linear-gradient(180deg, #132b46, #0d1f35);
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 11px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+:global(body[data-dsh-redplane] [data-slot='details'] [class*='_sectionLabel']) {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-caption);
+  margin-bottom: 8px;
+}
+
+:global(body[data-dsh-redplane] [data-slot='details'] [class*='_header']) {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}

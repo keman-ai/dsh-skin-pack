@@ -1,5 +1,5 @@
 /**
- * Pearl Oracle · browser half.
+ * Red Plane Adventure · browser half.
  *
  * It does three things, in decreasing order of robustness, hence kept separate:
  *
@@ -17,23 +17,23 @@
 import { createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import type { Context } from '@deepseek-ai/cordis'
-import { PearlMark, PearlName } from './Brand.tsx'
-import { PearlStatusDock } from './StatusDock.tsx'
-import { NforestEnergyRail } from './EnergyRail.tsx'
-import { PearlStatusProbe } from './StatusProbe.tsx'
-import { PEARL_TOKENS } from './tokens.ts'
-import './pearl.module.css'
+import { RedPlaneMark, RedPlaneName } from './Brand.tsx'
+import { RedPlaneStatusDock } from './StatusDock.tsx'
+import { RedPlaneEnergyRail } from './EnergyRail.tsx'
+import { RedPlaneStatusProbe } from './StatusProbe.tsx'
+import { REDPLANE_TOKENS } from './tokens.ts'
+import './redplane.module.css'
 
-export { PEARL_PALETTE, PEARL_TOKENS } from './tokens.ts'
+export { REDPLANE_PALETTE, REDPLANE_TOKENS } from './tokens.ts'
 
 /** Theme id, and the argument to `setTheme`. Three ids must agree: this constant, skin.json and cordis.patch.yml. */
-export const THEME_ID = 'pearl'
+export const THEME_ID = 'redplane'
 
 /** Body marker: the single hook for the decorative CSS, and a convenient handle for user overrides. */
-export const BODY_ATTRIBUTE = 'data-dsh-pearl'
+export const BODY_ATTRIBUTE = 'data-dsh-redplane'
 
 /** The cover variable: read by the CSS, injected here, keeping the image out of the stylesheet (which would otherwise bloat and be hard to clean up). */
-const COVER_VARIABLE = '--pearl-cover'
+const COVER_VARIABLE = '--redplane-cover'
 
 /**
  * The dock's expanded marker and storage key, matching the same-named constants in StatusDock.
@@ -43,17 +43,17 @@ const COVER_VARIABLE = '--pearl-cover'
  * body carries 21 `data-*-dock-open` attributes — the CSS is all prefixed with `body[data-dsh-*]` so styles never
  * cross, but the pile-up is residue that looks like a leak when debugging. So it is removed on deactivation and restored from storage on reactivation.
  */
-const DOCK_OPEN_ATTRIBUTE = 'data-pearl-dock-open'
-const DOCK_STORAGE_KEY = 'pearl'
+const DOCK_OPEN_ATTRIBUTE = 'data-redplane-dock-open'
+const DOCK_STORAGE_KEY = 'redplane'
 
 /**
- * The cover URL, served by the host half at `/skin-cover/pearl.webp` (see COVER_ROUTE in src/index.ts).
+ * The cover URL, served by the host half at `/skin-cover/redplane.webp` (see COVER_ROUTE in src/index.ts).
  *
  * 🔴 No more inline data URIs: with several skins loaded, a few hundred KB of base64 each crushes the browser's
  * main thread (measured: with 21 installed the first paint did not arrive in 90 seconds). The browser now fetches
  * the image only once the skin is **actually active** and the CSS uses this variable.
  */
-const COVER_URL = '/skin-cover/pearl.webp?v=0.1.1'
+const COVER_URL = '/skin-cover/redplane.webp?v=0.1.0'
 
 
 /**
@@ -71,9 +71,9 @@ const AUTO_APPLY_WINDOW_MS = 8_000
  * **lower number renders**, so -1 shadows the official one (it is not unloaded — the moment we deregister, it returns).
  */
 const BRAND_SLOTS = [
-  { name: 'sidebar.brand.mark', component: PearlMark },
-  { name: 'sidebar.brand.name', component: PearlName },
-  { name: 'conversation.hero.brand.mark', component: PearlMark },
+  { name: 'sidebar.brand.mark', component: RedPlaneMark },
+  { name: 'sidebar.brand.name', component: RedPlaneName },
+  { name: 'conversation.hero.brand.mark', component: RedPlaneMark },
 ] as const
 
 /** The theme service and slot registry; `inject` guarantees they are ready first. */
@@ -82,7 +82,7 @@ export const inject = ['theme', 'slots']
 /** Browser-half config, with the same field names as the host half. */
 export interface Config {
   /**
-   * Switch to Pearl Oracle on install; on by default.
+   * Switch to Red Plane Adventure on install; on by default.
    *
    * Why the switch exists: the harness's third-party theme ids **never enter the built-in settings schema**, so
    * the choice lives only in the process and is never written to `$DSH_HOME/settings.yaml`; and the built-in
@@ -103,10 +103,10 @@ export function apply(ctx: Context, config: Config = {}): void {
    * priority), but that rail holds "click a tool call to see its Input / Output", the only lead there is when
    * debugging, so replacing it with a dock is a net loss. Both coexist without interfering.
    *
-   * Mounting does not depend on whether the skin is active; visibility is left to CSS (display only under `body[data-dsh-pearl]`) —
+   * Mounting does not depend on whether the skin is active; visibility is left to CSS (display only under `body[data-dsh-redplane]`) —
    * The rule is "not active means not present", so no half-built UI shows during the window before the skin takes effect.
    */
-  ctx.effect(() => mountDock(), 'pearl: status dock')
+  ctx.effect(() => mountDock(), 'redplane: status dock')
 
   /*
    * The status probe.
@@ -121,10 +121,10 @@ export function apply(ctx: Context, config: Config = {}): void {
    */
   ctx.effect(() => ctx.slots.inject('conversation.composer.dock', () => ctx.slots.register({
     name: 'conversation.composer.dock',
-    id: 'pearl-status',
+    id: 'redplane-status',
     // Ordered after the official stats (order 0); it draws nothing anyway and simply avoids disturbing the existing order.
     order: 100,
-  }, PearlStatusProbe)), 'pearl: status probe')
+  }, RedPlaneStatusProbe)), 'redplane: status probe')
 
   /*
    * The sidebar energy gauge — the real-data version of the prototype's hardcoded energy value.
@@ -135,20 +135,20 @@ export function apply(ctx: Context, config: Config = {}): void {
    */
   ctx.effect(() => ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({
     name: 'sidebar.footer.action',
-    id: 'pearl-energy',
+    id: 'redplane-energy',
     order: 100,
-  }, NforestEnergyRail)), 'pearl: energy rail')
+  }, RedPlaneEnergyRail)), 'redplane: energy rail')
 
   // Registration and mounting share one effect, in order: mountStage calls setTheme,
   // And setTheme throws outright on an unregistered id.
   ctx.effect(() => {
-    const unregister = ctx.theme.register({ id: THEME_ID, colorScheme: 'dark', tokens: PEARL_TOKENS })
+    const unregister = ctx.theme.register({ id: THEME_ID, colorScheme: 'dark', tokens: REDPLANE_TOKENS })
     const unmount = mountStage(ctx, shouldAutoApply(ctx, config.autoApply !== false), userPicked())
     return () => {
       unmount()
       unregister()
     }
-  }, 'pearl: theme + cover + brand')
+  }, 'redplane: theme + cover + brand')
 }
 
 /** The key the skin market remembers the user's choice under (see appearance.ts in dsh-skin-market). */
@@ -206,7 +206,7 @@ function shouldAutoApply(ctx: Context, configured: boolean): boolean {
     return false
   }
   if (scope[CLAIM_KEY] !== undefined) {
-    ctx.logger.info('[pearl] another skin already claimed the auto-apply slot (%s); this one waits to be picked', String(scope[CLAIM_KEY]))
+    ctx.logger.info('[redplane] another skin already claimed the auto-apply slot (%s); this one waits to be picked', String(scope[CLAIM_KEY]))
     return false
   }
   scope[CLAIM_KEY] = THEME_ID
@@ -235,7 +235,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
    * Whether the startup window has passed. Inside it the theme is held; after it, nothing is touched.
    *
    * 🔴 It cannot be "stop after one successful switch": ui-theme's `setTheme` persists built-in preferences only
-   * (`isThemePreference('pearl')` is false and third-party ids never reach persistence), and when the Host snapshot
+   * (`isThemePreference('redplane')` is false and third-party ids never reach persistence), and when the Host snapshot
    * On arrival, `adopt()` **overrides** the current preference with the built-in value from disk. Once the order is
    * plugin-switches-then-snapshot-arrives, the skin is quietly swapped back to a built-in theme **with no error at
    * all**, and the plugin has already let go so it never switches back — the symptom being "installed a skin, refreshed a few times, back to default". The order is a race, hence the intermittency.
@@ -266,7 +266,7 @@ function mountStage(ctx: Context, autoApply: boolean, picked: boolean): () => vo
         // 🔴 Do not say "pick it under Settings → Appearance": measured, that row holds only the three built-in
         // preferences light / dark / follow system (CUBES in ui-theme's AppearanceRow is hardcoded to three), and third-party themes are simply not there.
         // The place to switch manually is the skin market's own panel (Settings → Skin Market).
-        ctx.logger.warn('[pearl] auto-apply failed; you can switch manually under Settings → Skin Market', error)
+        ctx.logger.warn('[redplane] auto-apply failed; you can switch manually under Settings → Skin Market', error)
       }
       return
     }
@@ -404,15 +404,15 @@ const REGISTRY_SETTLE_MS = 1_500
 function mountDock(): () => void {
   const host = document.createElement('div')
   // The stylesheet collapses the whole rail by this attribute (hero / settling / narrow screens), so its name must not change.
-  host.setAttribute('data-pearl-dock', '')
+  host.setAttribute('data-redplane-dock', '')
   document.body.append(host)
   const root = createRoot(host)
-  root.render(createElement(PearlStatusDock))
+  root.render(createElement(RedPlaneStatusDock))
   return () => {
     // Unmount asynchronously: React forbids a synchronous unmount inside its own render cycle.
     queueMicrotask(() => { root.unmount() })
     host.remove()
-    document.body.removeAttribute('data-pearl-dock-open')
+    document.body.removeAttribute('data-redplane-dock-open')
   }
 }
 
@@ -437,7 +437,7 @@ function attachBrand(ctx: Context): (() => void)[] {
           priority: -1,
         }, slot.component)
       } catch (error) {
-        ctx.logger.warn('[pearl] brand slot %s takeover failed; keeping the official mark', slot.name, error)
+        ctx.logger.warn('[redplane] brand slot %s takeover failed; keeping the official mark', slot.name, error)
         return () => {}
       }
     }))

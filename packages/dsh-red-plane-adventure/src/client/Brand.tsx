@@ -1,0 +1,71 @@
+/**
+ * The winged mark and wordmark for the brand slots.
+ *
+ * The prototype's sidebar has a 36px square in the top left with an 11px radius, filled with the aircraft's red
+ * (`linear-gradient(145deg,#ff7b52,#ad331f)`) and crossed by one white wing bar rotated -12deg, beside two lines
+ * reading "DeepSeek Harness / Red Plane Adventure Skin".
+ *
+ * 🔴 The sidebar mark, the wordmark and the new-session mark are all `{ kind: 'single' }` slots. The old conclusion,
+ * "a single slot occupied by the official component makes third-party registration throw" is **out of date**:
+ * `SlotCore.register` in dsh 0.1.1-rc.2 detects occupancy only **at the same priority**, and different
+ * priorities shadow instead (`entriesOfSlot` takes the live entry with the lowest priority in each cell). The
+ * official entry registers at the default 0, so registering at `priority: -1` takes over while its entry is only
+ * shadowed, not unloaded — the official mark returns automatically the moment the skin is deactivated.
+ *
+ * Taking over means honouring the other side's owner-props contract, so the parameters follow it strictly:
+ *   SidebarBrandMarkOwnerProps { size }            — the sidebar wants 24px
+ *   HeroBrandMarkOwnerProps    { size, className } — the new-session page wants 34px and passes a class name
+ *   SidebarBrandNameOwnerProps {}                  — the name slot decides its own content and width
+ */
+
+import css from './Brand.module.css'
+
+/** The mark contract shared by the sidebar and the new-session page. */
+interface BrandMarkProps {
+  /** The square size the host requires, in px. */
+  size: number
+  /** The class the host provides, present only on the new-session page; passed through verbatim to keep the default animation. */
+  className?: string | undefined
+}
+
+/**
+ * The winged mark.
+ *
+ * It is drawn in CSS rather than cropped from the cover: the cover is a whole aircraft across a 1.92:1 frame, and a
+ * small square crop of it lands on a wing panel — a red rectangle that reads as nothing. The radius follows the
+ * prototype's ratio (an 11px radius on a 36px square, about 0.31x), and `--mark-size` carries the size down to the
+ * stylesheet so the wing bar scales with it instead of being tuned per slot.
+ *
+ * @param props - Size and class name from the host.
+ * @returns The square winged mark.
+ */
+export function RedPlaneMark({ size, className }: BrandMarkProps) {
+  return (
+    <span
+      className={[css.mark, className].filter(Boolean).join(' ')}
+      aria-hidden="true"
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        borderRadius: `${Math.round(size * 0.31)}px`,
+        ['--mark-size' as string]: `${size}px`,
+      }}
+    />
+  )
+}
+
+/**
+ * The wordmark: a primary name plus a subtitle, matching the prototype's "DeepSeek Harness / Red Plane Adventure Skin".
+ *
+ * The primary name stays DeepSeek Harness — a skin changes the look, it does not impersonate another product; the subtitle carries the skin's identity.
+ *
+ * @returns The two-line wordmark.
+ */
+export function RedPlaneName() {
+  return (
+    <span className={css.name}>
+      <strong className={css.title}>DeepSeek Harness</strong>
+      <small className={css.subtitle}>Red Plane Adventure Skin</small>
+    </span>
+  )
+}

@@ -97,6 +97,26 @@ function checkCoverVersion(dir, name, pkg) {
   }
 }
 
+/**
+ * The registered `colorScheme` must equal skin.json's.
+ *
+ * ui-theme picks the base palette from this field — "the presenter switches `body[data-ds-dark-theme]` from this
+ * field, never from the id". A skin overrides 89 of the harness's alias tokens; everything it does not override
+ * falls back to that base. Declaring `light` on a dark skin therefore leaves the fallbacks light: measured on
+ * dsh 0.1.2-alpha.2, the thinking-block gradients came out white on a dark ground, plus seven harness rules keyed
+ * on the attribute. Fourteen skins carried the mismatch, inherited by copying one template, which is exactly the
+ * kind of drift a gate exists to stop.
+ */
+function checkColorScheme(dir, name, skin) {
+  const client = join(dir, 'src/client/index.ts')
+  if (!existsSync(client)) return
+  const match = /theme\.register\(\{[^}]*colorScheme:\s*'(\w+)'/s.exec(readFileSync(client, 'utf8'))
+  if (match === null) return
+  if (match[1] !== skin.colorScheme) {
+    problems.push(`${name}: registered colorScheme=${match[1]} ≠ skin.json colorScheme=${skin.colorScheme}`)
+  }
+}
+
 const dirs = readdirSync(PACKAGES, { withFileTypes: true })
   .filter((d) => d.isDirectory())
   .map((d) => d.name)
@@ -117,6 +137,7 @@ for (const name of dirs) {
   checkIds(dir, name, skin)
   checkPackaging(name, pkg)
   checkCoverVersion(dir, name, pkg)
+  checkColorScheme(dir, name, skin)
 
   if (skin.package !== undefined && skin.package !== pkg.name) {
     problems.push(`${name}: skin.json package=${skin.package} ≠ package name ${pkg.name}`)
